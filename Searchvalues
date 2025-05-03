@@ -19,7 +19,8 @@ JOIN
     sys.types ty ON c.user_type_id = ty.user_type_id
 WHERE 
     s.name = @SchemaName
-    AND ty.name IN ('varchar', 'nvarchar', 'text') -- only text-like columns
+    AND ty.name IN ('varchar', 'nvarchar', 'text')  -- Only text-based columns
+    AND t.name NOT LIKE 'sys%'  -- Avoid system-like tables
 
 OPEN column_cursor;
 FETCH NEXT FROM column_cursor INTO @TableName, @ColumnName;
@@ -27,16 +28,17 @@ FETCH NEXT FROM column_cursor INTO @TableName, @ColumnName;
 WHILE @@FETCH_STATUS = 0
 BEGIN
     SET @SQL += '
-    IF EXISTS (SELECT 1 FROM [' + @SchemaName + '].[' + @TableName + '] 
-               WHERE [' + @ColumnName + '] LIKE ''%' + @SearchValue + '%'')
+    IF EXISTS (
+        SELECT 1 FROM [' + @SchemaName + '].[' + @TableName + '] 
+        WHERE [' + @ColumnName + '] LIKE ''%' + @SearchValue + '%''
+    )
     BEGIN
-        SELECT ''' + @SchemaName + '.' + @TableName + ''' AS TableName, 
+        SELECT TOP 5 ''' + @SchemaName + '.' + @TableName + ''' AS TableName, 
                ''' + @ColumnName + ''' AS ColumnName, 
                [' + @ColumnName + '] AS ValueFound
         FROM [' + @SchemaName + '].[' + @TableName + ']
-        WHERE [' + @ColumnName + '] LIKE ''%' + @SearchValue + '%'' 
-        --LIMIT rows for safety
-        OPTION (MAXDOP 1); -- limit parallelism
+        WHERE [' + @ColumnName + '] LIKE ''%' + @SearchValue + '%''
+        OPTION (MAXDOP 1);
     END
     ';
 
@@ -46,5 +48,5 @@ END
 CLOSE column_cursor;
 DEALLOCATE column_cursor;
 
--- Execute the dynamically built SQL
+-- Execute the dynamic SQL
 EXEC sp_executesql @SQL;
