@@ -1,15 +1,8 @@
-DECLARE @SearchValue NVARCHAR(100) = 'PDU A11';
-DECLARE @TableName NVARCHAR(100) = 'PowerUnits';  -- change your table name
-DECLARE @SchemaName NVARCHAR(100) = 'App';
-DECLARE @SQL NVARCHAR(MAX) = '';
+We have now applied a temporary workaround by manually populating the data through scripts. This has resolved the issue for the time being, and the update functionality should now be working as expected.
 
-SELECT @SQL += '
-SELECT TOP 5 ''' + COLUMN_NAME + ''' AS ColumnName, [' + COLUMN_NAME + '] AS ValueFound
-FROM [' + @SchemaName + '].[' + @TableName + ']
-WHERE [' + COLUMN_NAME + '] LIKE ''%' + @SearchValue + '%'';'
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_SCHEMA = @SchemaName
-  AND TABLE_NAME = @TableName
-  AND DATA_TYPE IN ('varchar', 'nvarchar', 'text');
+Please go ahead and validate from your end. Do let us know if you observe any further issues.
 
-PRINT @SQL;  -- or EXEC(@SQL) if confident to run
+We will keep you informed about the permanent fix, which is currently planned for promotion on 05/15, if required.
+
+Thanks,
+Naveen Prasad
