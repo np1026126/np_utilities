@@ -1,12 +1,17 @@
-Real Estate Details Editing Issue
+Summary:
+We have delivered a feature enhancement that modifies the screen design to support multiple Asset IDs for a single IP address. Previously, the screen allowed only one Asset ID to be mapped per IP, which limited operational flexibility. With this change, users can now associate n number of Asset IDs to a single IP address, improving tracking and configuration accuracy. The associated polled values and polled answers for each Asset ID continue to appear in the Asset OID section at the bottom of the screen, ensuring data consistency.
 
-Summary: Fixed an issue where users were unable to edit or update real estate details in the ELS page, even after clearing cache.
+Additionally, two key issues were addressed:
 
-Benefit: All users can now view and update real estate details seamlessly in the ELS interface.
+1. Admin Access Restriction – Previously, the admin user was unable to edit any asset details. This restriction has been lifted temporarily to allow all users to edit asset data, with a planned fix to re-enable proper admin-based access control.
 
 
-2. Requester Name Not Displayed
+2. Status Field Edit Issue – The status field was non-editable, which was a functional gap. This has now been identified and will be corrected in the same release, allowing users to update the status field as required.
 
-Summary: Resolved a defect where only the VGAD (vzid) was shown instead of the full requester name on Uno screens.
 
-Benefit: Planners, managers, and engineers can now easily identify the requester who created the PAC, improving traceability and communication.
+
+Benefits:
+
+Enhanced flexibility to manage multiple assets per IP address.
+
+Improved user control and accessibility in editing asset data.
