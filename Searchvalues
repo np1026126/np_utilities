@@ -1,8 +1,12 @@
-We have now applied a temporary workaround by manually populating the data through scripts. This has resolved the issue for the time being, and the update functionality should now be working as expected.
+Real Estate Details Editing Issue
 
-Please go ahead and validate from your end. Do let us know if you observe any further issues.
+Summary: Fixed an issue where users were unable to edit or update real estate details in the ELS page, even after clearing cache.
 
-We will keep you informed about the permanent fix, which is currently planned for promotion on 05/15, if required.
+Benefit: All users can now view and update real estate details seamlessly in the ELS interface.
 
-Thanks,
-Naveen Prasad
+
+2. Requester Name Not Displayed
+
+Summary: Resolved a defect where only the VGAD (vzid) was shown instead of the full requester name on Uno screens.
+
+Benefit: Planners, managers, and engineers can now easily identify the requester who created the PAC, improving traceability and communication.
