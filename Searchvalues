@@ -1,17 +1,14 @@
-Summary:
-We have delivered a feature enhancement that modifies the screen design to support multiple Asset IDs for a single IP address. Previously, the screen allowed only one Asset ID to be mapped per IP, which limited operational flexibility. With this change, users can now associate n number of Asset IDs to a single IP address, improving tracking and configuration accuracy. The associated polled values and polled answers for each Asset ID continue to appear in the Asset OID section at the bottom of the screen, ensuring data consistency.
+Subject: Urgent: Fix Required for Status Field Edit Functionality in New Screen
 
-Additionally, two key issues were addressed:
+Hi [Vendor Team / Team Name],
 
-1. Admin Access Restriction – Previously, the admin user was unable to edit any asset details. This restriction has been lifted temporarily to allow all users to edit asset data, with a planned fix to re-enable proper admin-based access control.
+As part of the recent screen enhancements delivered to production, we have identified a critical issue where the "Status" field is no longer editable. This was an existing functionality in the previous version of the screen, and it appears to have been unintentionally broken during the conversion to the new screen model.
 
+From a user perspective, the ability to edit the status field is essential for day-to-day operations, and this regression is impacting their workflow.
 
-2. Status Field Edit Issue – The status field was non-editable, which was a functional gap. This has now been identified and will be corrected in the same release, allowing users to update the status field as required.
+We request the vendor team to please treat this as a high-priority item and ensure that the fix is included in the upcoming production release.
 
+Please confirm once the work has been taken up and let us know the estimated timeline for the fix.
 
-
-Benefits:
-
-Enhanced flexibility to manage multiple assets per IP address.
-
-Improved user control and accessibility in editing asset data.
+Thanks,
+[Your Name]
