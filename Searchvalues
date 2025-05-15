@@ -1,14 +1,7 @@
-Subject: Urgent: Fix Required for Status Field Edit Functionality in New Screen
+This is to bring to your attention that the two tickets assigned to your team last Friday have not yet been completed. As of today, we have not received any resolution or update, and unfortunately, the tickets have not even progressed to the SIT phase.
 
-Hi [Vendor Team / Team Name],
+Please note that our production release is scheduled for tomorrow, and due to this delay, the release is now at risk. This is a critical concern, and we expected the assigned work to be completed well within the timeline to avoid such jeopardy.
 
-As part of the recent screen enhancements delivered to production, we have identified a critical issue where the "Status" field is no longer editable. This was an existing functionality in the previous version of the screen, and it appears to have been unintentionally broken during the conversion to the new screen model.
+We request your team to take immediate action and provide a clear update on the current status of both tickets, along with the earliest possible resolution timeline.
 
-From a user perspective, the ability to edit the status field is essential for day-to-day operations, and this regression is impacting their workflow.
-
-We request the vendor team to please treat this as a high-priority item and ensure that the fix is included in the upcoming production release.
-
-Please confirm once the work has been taken up and let us know the estimated timeline for the fix.
-
-Thanks,
-[Your Name]
+Looking forward to your prompt response and necessary action.
