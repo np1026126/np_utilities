@@ -1,7 +1,9 @@
-We would like to highlight our concern regarding the delivery status of the two defects assigned to your team last Friday. Despite providing ample time, we have observed that only one of the two defects has been pushed for further validation. The second defect still remains pending and has not been moved forward, which is disappointing at this critical stage.
+We are planning a production hotfix deployment which includes only four defect fixes. As this is a minor and targeted release, there is no performance testing required for this deployment.
 
-With the production release scheduled for tomorrow, this kind of partial delivery puts the release at serious risk and is not acceptable. We had expected both items to be completed and handed off well within the agreed timeline to ensure smooth deployment.
+As per the communication received from the N21 team, who typically handles performance test execution, they have also confirmed that this release does not warrant running the performance test suite.
 
-We request your immediate attention to this matter. Going forward, we expect better ownership and timely delivery from your team to avoid such situations and maintain the integrity of the release schedule.
+Additionally, our end-to-end team will continue to run performance tests as part of the regular cadence, ensuring overall system integrity.
 
-Please provide an urgent update on the pending item and a clear timeline for its resolution.
+Kindly confirm your approval for proceeding without performance testing for this hotfix. Once approved, we will proceed with a conditional go for the production release.
+
+Please let us know if you need any further information.
