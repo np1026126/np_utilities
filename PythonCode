@@ -1,18 +1,59 @@
-I have two Excel files:
-1. `cpng_column_sample_summary.xlsx` – This contains column names and sample values from legacy CPNG database. It has a single sheet with all tables listed by name.
-2. `dctrac_asset_templates.xlsx` – This contains DC-TRAC asset structure. Each sheet represents one type of asset (e.g., DC Plant, UPS, PDU, etc.) with column names and sample values.
+I have three main CSV files:
 
-I want you to map the columns from CPNG to the most appropriate DC-TRAC asset and column. The logic can use:
-- Sample value similarity
-- Column name meaning
-- Table name to asset relevance (e.g., TBL_DC_PLANT maps to DC Plant sheet)
+1. `cpng_column_sample_summary.csv`  
+   – Contains column names and sample values from the legacy CPNG database.  
+   – It has one sheet with all tables and columns listed by name, with one sample value per column.
 
-Please output the final mapping in this format:
-- CPNG Table Name
-- CPNG Column Name
-- Mapped DC-TRAC Asset Sheet
-- Mapped DC-TRAC Column Name
+2. `dctrack_asset_templates.csv`  
+   – Contains DC-TRACK asset structure.  
+   – Each sheet represents a single asset type (e.g., DC Plant, UPS, PDU, etc.) with column names and sample values.
 
-You can also reference the relationships present in the original schema if needed (like UPS to RPP, or PDU to Breaker).
-You can also refer to this file: `cpng_relationship_notes.txt` for relationships between tables.
-Please start with the most obvious mappings for DC Plant, PDU, and UPS.
+3. `cpng_full_dump.csv`  
+   – Contains legacy CPNG data for all tables.  
+   – Only 2–3 rows per table (sample data for MSC location: LAHSER).  
+   – This was used to generate `cpng_column_sample_summary.csv`.
+
+4. Reference file: `cpng_relationship_notes.txt`  
+   – Contains relationship understanding across CPNG tables, based on our manual ERD analysis.
+
+---
+
+### OBJECTIVE:
+
+Map each **CPNG column** to the most appropriate **DC-TRACK asset column**.
+
+Use logic based on:
+- Sample value similarity (`cpng_full_dump.csv` vs `dctrack_asset_templates.csv`)
+- Column name and semantic meaning
+- Table name relevance (e.g., TBL_DC_PLANT from CPNG maps to “DC Plant” asset sheet in DC-TRACK)
+
+---
+
+### OUTPUT FORMAT:
+
+**One output sheet per DC-TRACK asset**, with the following structure:
+
+| DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No) | Matching CPNG Column (if any) |
+
+Notes:
+- DC-TRACK columns should be the primary reference.
+- If multiple CPNG columns are potential matches, list the best one (or top 2) in `Matching CPNG Column`.
+- Highlight unmapped DC-TRACK columns clearly.
+- Use a different color or flag (like “?” or “TBD”) for uncertain mappings.
+
+---
+
+### Additional References:
+- Use the last sheet of `cpng_full_dump.csv` (ER diagram data).
+- Use `cpng_relationship_msc_lahser.sql` for a working query example for one MSC site.
+
+---
+
+### STARTING POINT:
+
+Start with the most obvious asset types first:  
+**DC Plant, BDFB, PDU, UPS**
+
+Once these mappings are clear, proceed to other assets.
+
+Goal is to help automate the column-level mapping for migration.
