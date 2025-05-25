@@ -1,29 +1,18 @@
-import pandas as pd
+I have two Excel files:
+1. `cpng_column_sample_summary.xlsx` – This contains column names and sample values from legacy CPNG database. It has a single sheet with all tables listed by name.
+2. `dctrac_asset_templates.xlsx` – This contains DC-TRAC asset structure. Each sheet represents one type of asset (e.g., DC Plant, UPS, PDU, etc.) with column names and sample values.
 
-# Path to the Excel file (relative to your project structure)
-input_file = "excel/cpng_full_dump.xlsx"  # Your file is inside the 'excel' folder
+I want you to map the columns from CPNG to the most appropriate DC-TRAC asset and column. The logic can use:
+- Sample value similarity
+- Column name meaning
+- Table name to asset relevance (e.g., TBL_DC_PLANT maps to DC Plant sheet)
 
-# Load the workbook
-xls = pd.ExcelFile(input_file)
+Please output the final mapping in this format:
+- CPNG Table Name
+- CPNG Column Name
+- Mapped DC-TRAC Asset Sheet
+- Mapped DC-TRAC Column Name
 
-summary_rows = []
-
-# Loop through all sheets and extract first-row data
-for sheet_name in xls.sheet_names:
-    df = xls.parse(sheet_name)
-    if df.empty:
-        continue
-    for col in df.columns:
-        sample_val = df[col].iloc[0] if not df[col].empty else ""
-        summary_rows.append({
-            "Table Name": sheet_name,
-            "Column Name": col,
-            "Sample Value": sample_val
-        })
-
-# Save to a new Excel file
-output_file = "excel/cpng_column_sample_summary.xlsx"
-summary_df = pd.DataFrame(summary_rows)
-summary_df.to_excel(output_file, index=False)
-
-print(f"Summary file saved at: {output_file}")
+You can also reference the relationships present in the original schema if needed (like UPS to RPP, or PDU to Breaker).
+You can also refer to this file: `cpng_relationship_notes.txt` for relationships between tables.
+Please start with the most obvious mappings for DC Plant, PDU, and UPS.
