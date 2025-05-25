@@ -1,16 +1,18 @@
 import pandas as pd
 
-# Path to your Excel file with all 18 sheets
-input_file = "cpng_full_dump.xlsx"  # Replace with your actual filename
+# Path to the Excel file (relative to your project structure)
+input_file = "excel/cpng_full_dump.xlsx"  # Your file is inside the 'excel' folder
+
+# Load the workbook
 xls = pd.ExcelFile(input_file)
 
 summary_rows = []
 
+# Loop through all sheets and extract first-row data
 for sheet_name in xls.sheet_names:
     df = xls.parse(sheet_name)
     if df.empty:
         continue
-
     for col in df.columns:
         sample_val = df[col].iloc[0] if not df[col].empty else ""
         summary_rows.append({
@@ -19,11 +21,9 @@ for sheet_name in xls.sheet_names:
             "Sample Value": sample_val
         })
 
-# Convert to DataFrame
+# Save to a new Excel file
+output_file = "excel/cpng_column_sample_summary.xlsx"
 summary_df = pd.DataFrame(summary_rows)
-
-# Save the result to a new Excel file
-output_file = "cpng_column_sample_summary.xlsx"
 summary_df.to_excel(output_file, index=False)
 
-print(f"Summary saved to: {output_file}")
+print(f"Summary file saved at: {output_file}")
