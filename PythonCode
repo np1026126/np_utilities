@@ -1,59 +1,27 @@
-I have three main CSV files:
+import pandas as pd
 
-1. `cpng_column_sample_summary.csv`  
-   – Contains column names and sample values from the legacy CPNG database.  
-   – It has one sheet with all tables and columns listed by name, with one sample value per column.
+# Path to your Excel file
+excel_file = 'excel/your_excel_file.xlsx'  # Change this to your actual file
 
-2. `dctrack_asset_templates.csv`  
-   – Contains DC-TRACK asset structure.  
-   – Each sheet represents a single asset type (e.g., DC Plant, UPS, PDU, etc.) with column names and sample values.
+# Output CSV file path
+output_csv = 'excel/combined_output.csv'
 
-3. `cpng_full_dump.csv`  
-   – Contains legacy CPNG data for all tables.  
-   – Only 2–3 rows per table (sample data for MSC location: LAHSER).  
-   – This was used to generate `cpng_column_sample_summary.csv`.
+# Read the Excel file
+xls = pd.ExcelFile(excel_file)
 
-4. Reference file: `cpng_relationship_notes.txt`  
-   – Contains relationship understanding across CPNG tables, based on our manual ERD analysis.
+# Create a list to collect all DataFrames
+combined_data = []
 
----
+# Loop through each sheet and add a column for sheet name
+for sheet_name in xls.sheet_names:
+    df = xls.parse(sheet_name)
+    df.insert(0, 'SheetName', sheet_name)
+    combined_data.append(df)
 
-### OBJECTIVE:
+# Concatenate all sheets into one DataFrame
+final_df = pd.concat(combined_data, ignore_index=True)
 
-Map each **CPNG column** to the most appropriate **DC-TRACK asset column**.
+# Save the combined data to a single CSV file
+final_df.to_csv(output_csv, index=False)
 
-Use logic based on:
-- Sample value similarity (`cpng_full_dump.csv` vs `dctrack_asset_templates.csv`)
-- Column name and semantic meaning
-- Table name relevance (e.g., TBL_DC_PLANT from CPNG maps to “DC Plant” asset sheet in DC-TRACK)
-
----
-
-### OUTPUT FORMAT:
-
-**One output sheet per DC-TRACK asset**, with the following structure:
-
-| DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No) | Matching CPNG Column (if any) |
-
-Notes:
-- DC-TRACK columns should be the primary reference.
-- If multiple CPNG columns are potential matches, list the best one (or top 2) in `Matching CPNG Column`.
-- Highlight unmapped DC-TRACK columns clearly.
-- Use a different color or flag (like “?” or “TBD”) for uncertain mappings.
-
----
-
-### Additional References:
-- Use the last sheet of `cpng_full_dump.csv` (ER diagram data).
-- Use `cpng_relationship_msc_lahser.sql` for a working query example for one MSC site.
-
----
-
-### STARTING POINT:
-
-Start with the most obvious asset types first:  
-**DC Plant, BDFB, PDU, UPS**
-
-Once these mappings are clear, proceed to other assets.
-
-Goal is to help automate the column-level mapping for migration.
+print(f"All sheets from '{excel_file}' combined into '{output_csv}'")
