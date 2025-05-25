@@ -1,9 +1,46 @@
-We are planning a production hotfix deployment which includes only four defect fixes. As this is a minor and targeted release, there is no performance testing required for this deployment.
+# Primary relationships between CPNG tables
 
-As per the communication received from the N21 team, who typically handles performance test execution, they have also confirmed that this release does not warrant running the performance test suite.
+# Location Info
+# MSC ID is the key to identify a location and is used across all modules
+TBL_MSC_INFO.MODULEID = master location ID
 
-Additionally, our end-to-end team will continue to run performance tests as part of the regular cadence, ensuring overall system integrity.
+# DC Plant Relationships
+TBL_DC_PLANT.DP_MSC = TBL_MSC_INFO.MODULEID
+TBL_DC_PLANT.DP_MAN = TBL_MANU.M_NUM_ID
+TBL_PUE_DC_DAILY.PDD_PDP_NUMBER = TBL_DC_PLANT.DP_NUM
+TBL_PUE_DC_DAILY.PDD_MSC_NUMBER = TBL_DC_PLANT.DP_MSC
 
-Kindly confirm your approval for proceeding without performance testing for this hotfix. Once approved, we will proceed with a conditional go for the production release.
+# AC Plant Relationships
+TBL_AC_PLANT.AP_MSC = TBL_MSC_INFO.MODULEID
+TBL_AC_PLANT.AP_MAN = TBL_METER_MANU.TBL_METER_MANU_ID
+TBL_PUE_AC_DAILY.PAD_PAP_NUMBER = TBL_AC_PLANT.AP_NUM
+TBL_PUE_AC_DAILY.PAD_MSC_NUMBER = TBL_AC_PLANT.AP_MSC
 
-Please let us know if you need any further information.
+# UPS and PDU
+TBL_AC_UPS.MSC_ID = TBL_MSC_INFO.MODULEID
+TBL_AC_UPS.PDU_TYPE = TBL_AC_PDU_TYPE.ID
+
+# RPP and RPP Type
+TBL_AC_UPS_RPP.RPP_TYPE = TBL_AC_RPP_TYPE.ID
+TBL_AC_UPS_RPP.RPP_SRC_PDU_ID = TBL_AC_UPS.ID
+
+# RPP Readings
+TBL_AC_RPP_DATA_COLLECT.AC_UPS_RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
+
+# Breakers
+TBL_AC_BRKR_DATA_COLLECT.RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
+TBL_AC_UPS_RPP_BRKR_ASSIGN.RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
+TBL_AC_UPS_RPP_BRKR_ASSIGN.BRKR_NUM = TBL_AC_BRKR_DATA_COLLECT.BRKR_NUM
+
+# BDFB (DC Bay) and BDFB Data
+TBL_BDFB.MSCID = TBL_MSC_INFO.MODULEID
+TBL_BDFB.BDFBIP = TBL_BDFB_DATA.BDFBIP
+TBL_BDFB.BDFBNUM = TBL_BDFB_DATA.BDFBNUM
+TBL_BDFB_DATA.MSCID = TBL_BDFB.MSCID
+
+# DC Plant to BDFB
+TBL_DC_PLANT.DP_PLANT_NUM = TBL_BDFB.BDPLNUM
+TBL_DC_PLANT.DP_MSC = TBL_BDFB.MSCID
+
+# Location Building Info
+TBL_BLDG_INFO.NAME (use LIKE '%location_name%') to match general site info
