@@ -1,46 +1,39 @@
-# Primary relationships between CPNG tables
+Here is the revised email content including all the updated information you provided:
 
-# Location Info
-# MSC ID is the key to identify a location and is used across all modules
-TBL_MSC_INFO.MODULEID = master location ID
 
-# DC Plant Relationships
-TBL_DC_PLANT.DP_MSC = TBL_MSC_INFO.MODULEID
-TBL_DC_PLANT.DP_MAN = TBL_MANU.M_NUM_ID
-TBL_PUE_DC_DAILY.PDD_PDP_NUMBER = TBL_DC_PLANT.DP_NUM
-TBL_PUE_DC_DAILY.PDD_MSC_NUMBER = TBL_DC_PLANT.DP_MSC
+---
 
-# AC Plant Relationships
-TBL_AC_PLANT.AP_MSC = TBL_MSC_INFO.MODULEID
-TBL_AC_PLANT.AP_MAN = TBL_METER_MANU.TBL_METER_MANU_ID
-TBL_PUE_AC_DAILY.PAD_PAP_NUMBER = TBL_AC_PLANT.AP_NUM
-TBL_PUE_AC_DAILY.PAD_MSC_NUMBER = TBL_AC_PLANT.AP_MSC
+Subject: AOS Production Escalated Tickets – Summary and Current Status
 
-# UPS and PDU
-TBL_AC_UPS.MSC_ID = TBL_MSC_INFO.MODULEID
-TBL_AC_UPS.PDU_TYPE = TBL_AC_PDU_TYPE.ID
+Hi Team,
 
-# RPP and RPP Type
-TBL_AC_UPS_RPP.RPP_TYPE = TBL_AC_RPP_TYPE.ID
-TBL_AC_UPS_RPP.RPP_SRC_PDU_ID = TBL_AC_UPS.ID
+Please find below the summary of the escalated and auto-escalated AOS Production tickets, along with their current status and ownership details:
 
-# RPP Readings
-TBL_AC_RPP_DATA_COLLECT.AC_UPS_RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
+1. INC014190128 – Escalated 21 days ago (Urgent ticket issued on 3/21/2025)
+Issue: PSC workgroups need to be removed for the listed users.
+Status: This ticket is currently with the NPP team and is planned to be delivered as part of the next production release (not the coming Friday, but the following one).
 
-# Breakers
-TBL_AC_BRKR_DATA_COLLECT.RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
-TBL_AC_UPS_RPP_BRKR_ASSIGN.RPP_ID = TBL_AC_UPS_RPP.TBL_AC_UPS_RPP_ID
-TBL_AC_UPS_RPP_BRKR_ASSIGN.BRKR_NUM = TBL_AC_BRKR_DATA_COLLECT.BRKR_NUM
 
-# BDFB (DC Bay) and BDFB Data
-TBL_BDFB.MSCID = TBL_MSC_INFO.MODULEID
-TBL_BDFB.BDFBIP = TBL_BDFB_DATA.BDFBIP
-TBL_BDFB.BDFBNUM = TBL_BDFB_DATA.BDFBNUM
-TBL_BDFB_DATA.MSCID = TBL_BDFB.MSCID
+2. INC014058798 – Auto-escalated for 20 days
+Issue: Label change needed from PSC Capacity Manager to PSC Network Engineer in DC Track reports.
+Status: Meghana has created a ticket to DC Track for this, and we will be following up to ensure the fix is implemented.
 
-# DC Plant to BDFB
-TBL_DC_PLANT.DP_PLANT_NUM = TBL_BDFB.BDPLNUM
-TBL_DC_PLANT.DP_MSC = TBL_BDFB.MSCID
 
-# Location Building Info
-TBL_BLDG_INFO.NAME (use LIKE '%location_name%') to match general site info
+3. INC014250097 – Auto-escalated for 5 days
+Issue 1: Correction needed in the type value under Product Line data.
+Status: A script is being written to address this issue, and the fix is targeted for this Friday’s production release.
+Issue 2: Product line currently shows only 295 lines instead of 321.
+Clarification: This is not an issue. As per the defined logic, category, type, and size must form a unique combination for each product line. For the 26 records in question, this uniqueness was not maintained due to duplication, and hence they were excluded as expected.
+
+
+
+Let us know if the escalation report is auto-generated from AYS. If not, we may need to review the data source and logic behind the report.
+
+Thanks,
+[Your Name]
+[Your Designation]
+
+
+---
+
+Let me know if you’d like to include anyone in CC or if you need this formatted as a formal Outlook mail.
