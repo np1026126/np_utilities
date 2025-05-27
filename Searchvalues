@@ -1,39 +1,170 @@
-Here is the revised email content including all the updated information you provided:
+
+To populate the missing area and market values in ELS by extracting accurate data from CPNG and updating:
+
+The site_address table (holds actual values per location)
+
+The site_market table (holds static mappings of area → market combinations)
+
 
 
 ---
 
-Subject: AOS Production Escalated Tickets – Summary and Current Status
+Source System – CPNG
 
-Hi Team,
+Table: cpqTBL_MSO_INFO
+This table includes the following relevant columns:
 
-Please find below the summary of the escalated and auto-escalated AOS Production tickets, along with their current status and ownership details:
+SWITCHNAME – Location Name
 
-1. INC014190128 – Escalated 21 days ago (Urgent ticket issued on 3/21/2025)
-Issue: PSC workgroups need to be removed for the listed users.
-Status: This ticket is currently with the NPP team and is planned to be delivered as part of the next production release (not the coming Friday, but the following one).
+AREA – Area value
 
+REGION – Region information
 
-2. INC014058798 – Auto-escalated for 20 days
-Issue: Label change needed from PSC Capacity Manager to PSC Network Engineer in DC Track reports.
-Status: Meghana has created a ticket to DC Track for this, and we will be following up to ensure the fix is implemented.
+MARKET – Market value
 
 
-3. INC014250097 – Auto-escalated for 5 days
-Issue 1: Correction needed in the type value under Product Line data.
-Status: A script is being written to address this issue, and the fix is targeted for this Friday’s production release.
-Issue 2: Product line currently shows only 295 lines instead of 321.
-Clarification: This is not an issue. As per the defined logic, category, type, and size must form a unique combination for each product line. For the 26 records in question, this uniqueness was not maintained due to duplication, and hence they were excluded as expected.
+Sample Query to Extract Data:
 
-
-
-Let us know if the escalation report is auto-generated from AYS. If not, we may need to review the data source and logic behind the report.
-
-Thanks,
-[Your Name]
-[Your Designation]
+SELECT SWITCHNAME, AREA, REGION, MARKET
+FROM cpqTBL_MSO_INFO
+WHERE AREA IS NOT NULL AND MARKET IS NOT NULL;
 
 
 ---
 
-Let me know if you’d like to include anyone in CC or if you need this formatted as a formal Outlook mail.
+Target System – ELS
+
+1. site_market Table (Static Reference Table)
+
+Contains valid combinations of Area and Market used across locations.
+
+Needs to be updated with unique AREA–MARKET mappings fetched from CPNG.
+
+
+2. site_address Table
+
+Holds area and market per address.
+
+This table is linked to psc_site_code_info using the address_id → id.
+
+
+
+---
+
+Linking Logic
+
+psc_site_code_info → column: address_id
+
+site_address → column: id
+
+Update site_address.market and site_address.area using address-level mapping from CPNG data.
+
+
+
+---
+
+Approach
+
+Step 1: Data Extraction
+
+Extract required fields from cpqTBL_MSO_INFO in CPNG.
+
+Export the dataset to an Excel file with the columns: SWITCHNAME, AREA, MARKET, REGION.
+
+
+Step 2: Preprocessing
+
+Remove duplicates and blank records.
+
+Validate AREA and MARKET entries against current values in site_market table.
+
+Prepare a master list of unique area–market mappings to insert into site_market.
+
+
+Step 3: Populate site_market Table
+
+Use below script or SQL insertions to add missing combinations:
+
+
+INSERT INTO site_market (area, market)
+VALUES ('Midwest', 'Great Plains')
+ON CONFLICT DO NOTHING;
+
+Repeat for each unique pair.
+
+Step 4: Populate site_address Table
+
+Match SWITCHNAME with psc_site_code_info.site_name to find corresponding address_id.
+
+Then update site_address for that id with the right area and market.
+
+
+Sample SQL:
+
+UPDATE site_address sa
+SET area = cp.area,
+    market = cp.market
+FROM (
+    SELECT s.id AS address_id, c.area, c.market
+    FROM psc_site_code_info s
+    JOIN cpqTBL_MSO_INFO c ON s.site_name = c.SWITCHNAME
+) cp
+WHERE sa.id = cp.address_id;
+
+> Make sure to test this update in non-prod and back up affected records before proceeding.
+
+
+
+
+---
+
+Alternate Option (Without Direct DB Update)
+
+If DB write access is restricted:
+
+1. Prepare the final update dataset in Excel with three columns: address_id, area, market.
+
+
+2. Use ETL tool or backend script to:
+
+Iterate rows
+
+Execute update queries on site_address table.
+
+
+
+
+
+---
+
+Acceptance Criteria Alignment
+
+This process will ensure that:
+
+Valid market and area values are populated (AC-1)
+
+Invalid combinations are filtered out (AC-2)
+
+Null values are correctly replaced (AC-3)
+
+Reports can be generated for migrated vs skipped entries (AC-4, AC-6)
+
+All errors can be logged if integrated into a script (AC-5)
+
+
+
+---
+
+Next Steps
+
+Share final Excel dataset with address_id, area, and market mappings.
+
+Coordinate with DB/ETL team to run scripts in the lower environment.
+
+Validate updates by running spot-check queries post migration.
+
+
+
+---
+
+Let me know if you need this in a Word or PDF format, or if you want a sample Excel update script for bulk operations.
