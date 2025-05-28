@@ -1,20 +1,7 @@
-Here is a professional and concise Jira comment you can use to close the story and attach your Google document:
-
-
----
-
-Comment for Jira:
-
-Attaching the detailed analysis document for the story: Migration of Market and Area values from CPNG to ELS.
-The document outlines the current issue, source and target system details, schema relationships, data extraction logic, and proposed steps for updating both site_market and site_address tables in the ELS application.
-
-This analysis will serve as the reference for the implementation in the upcoming sprint. Please refer to the attached Google Doc for full details.
-
-Attachment: [Google Document – Market and Area Data Migration Analysis]
-
-Marking this story as Completed from the analysis perspective.
-
-
----
-
-Let me know if you'd like a more casual or more technical tone.
+SELECT tgname AS trigger_name,
+       event_object_table AS table_name,
+       action_timing AS trigger_time,
+       event_manipulation AS trigger_event,
+       action_statement
+FROM information_schema.triggers
+WHERE event_object_table = 'pse_request_page_temp';
