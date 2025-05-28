@@ -1,7 +1,15 @@
-SELECT tgname AS trigger_name,
-       event_object_table AS table_name,
-       action_timing AS trigger_time,
-       event_manipulation AS trigger_event,
-       action_statement
-FROM information_schema.triggers
-WHERE event_object_table = 'pse_request_page_temp';
+SELECT 
+    tg.tgname AS trigger_name,
+    rel.relname AS table_name,
+    proc.proname AS function_called
+FROM 
+    pg_trigger tg
+JOIN 
+    pg_class rel ON rel.oid = tg.tgrelid
+JOIN 
+    pg_proc proc ON proc.oid = tg.tgfoid
+JOIN 
+    pg_namespace nsp ON nsp.oid = rel.relnamespace
+WHERE 
+    rel.relname = 'pse_request_page_temp'
+    AND NOT tg.tgisinternal;
