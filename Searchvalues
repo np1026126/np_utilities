@@ -1,15 +1,20 @@
-SELECT 
-    tg.tgname AS trigger_name,
-    rel.relname AS table_name,
-    proc.proname AS function_called
-FROM 
-    pg_trigger tg
-JOIN 
-    pg_class rel ON rel.oid = tg.tgrelid
-JOIN 
-    pg_proc proc ON proc.oid = tg.tgfoid
-JOIN 
-    pg_namespace nsp ON nsp.oid = rel.relnamespace
-WHERE 
-    rel.relname = 'pse_request_page_temp'
-    AND NOT tg.tgisinternal;
+This is an escalation regarding the critical defects PEDS-995 and PEDS-937, which were assigned to your team over 13 days ago and are still pending resolution despite multiple follow-ups and clear communication about their urgency.
+
+As per our previous discussions and commitments from your team (refer to emails dated May 15 and May 16), both issues were supposed to be addressed immediately and moved to SIT to meet the production schedule. However, as of today, PEDS-995 remains unresolved, and PEDS-937 has not seen any progress or updates, which is completely unacceptable at this stage.
+
+These delays are now directly putting the production release at risk, and we are unable to proceed unless these defects are fixed and handed off for deployment. Despite having ample time and repeated reminders, we are seeing a pattern of missed timelines and lack of accountability, which is highly concerning.
+
+We request a clear explanation on:
+
+Why PEDS-995 is still not completed despite assurances.
+
+Why PEDS-937 has not been addressed at all.
+
+What immediate steps are being taken to ensure resolution without further delay.
+
+
+Going forward, such lapses are not acceptable, and we expect stronger ownership, more reliable delivery, and timely escalations from your side when risks arise.
+
+We need immediate action on both tickets and a written confirmation with a concrete ETA by EOD today, failing which we will be forced to escalate this further at leadership levels.
+
+Awaiting your urgent response and resolution.
