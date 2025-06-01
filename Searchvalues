@@ -1,27 +1,140 @@
-Sure! Here's the revised email including that the issue has been fixed and is working fine in SAT, and that you'll be sending it to the Test Station:
+Here's the exact prompt you can use in GitHub Copilot Chat or ChatGPT with code interpreter or document generation features enabled to generate a well-formatted, downloadable document (e.g., .docx or .md file) that you can directly share with your senior manager:
 
 
 ---
 
-Subject: Re: SIT Regression Tickets Review
+✅ Prompt to Generate Downloadable Setup Document
 
-Hi Shivanand / Dhiwakar,
+> I need a presentable and downloadable document (like a .docx or .md file) to share with my senior manager that outlines the complete setup steps for our application codebase.
 
-Thanks for highlighting the regression tickets.
+The document should include:
 
-Upon our review, we initially assumed the issue wasn’t related to VGA, as no one from our team had worked on the Cyrus modules. However, on further analysis, we identified that changes made during the Redis cache implementation on our side may have contributed to the issue.
+📁 Repositories & Modules
 
-This has now been fixed and is working fine in SAT. I’ll be sending it to the Test Station shortly.
+Organize the modules under 3 categories:
 
-To avoid such misses going forward, we will ensure a proper internal analysis is done from our end. If it's found not to be a VGA-related issue, we will reassign it to the appropriate team (e.g., TCS) accordingly.
+DRAFTX Modules (GitLab URL: https://gitlab.verizon.com/I85V_1PSC/draftx)
 
-Thanks for your understanding.
+Frontend: draftx-ui-gateway (shared frontend for DRAFTX and CYRUS)
 
-Best regards,
-[Your Name]
-VGA Team
+Backend:
+
+draftx-inv-space-service
+
+psc-common-service
+
+psc-location-service
+
+psc-pbl-service
+
+psc-nar-service
+
+
+
+CYRUS Modules (GitLab URL: https://gitlab.verizon.com/I85V_1PSC/cyrus)
+
+Backend:
+
+cyrus-inv-pc-service
+
+cyrus-psc-engg-service
+
+cyrus-real-time-power-svc
+
+
+
+UNO Modules (GitLab URL: https://gitlab.verizon.com/I85V_1PSC/uno-psc)
+
+Frontend: psrworkflowui
+
+Backend: pscservices
+
+
+
+⚙️ Prerequisites
+
+List the following tools that need to be downloaded from the internal portal (AYS):
+
+Apache Maven 3.9.3
+
+Git 2.43.0
+
+Node.js (LTS) 20.9.0
+
+Corretto JDKs: 11, 17, or 21
+
+Visual Studio Code
+
+Spring Tool Suite (STS)
+
+IntelliJ IDEA
+
+Postman
+
+
+🛠️ Steps
+
+Break down the setup instructions into the following:
+
+1. Cloning Repositories using Git
+
+
+2. Importing into IDEs
+
+For frontend (VS Code)
+
+For backend (STS or IntelliJ)
+
+
+
+3. Build and Run
+
+Frontend with npm install and npm start
+
+Backend with Maven commands: mvn clean install, mvn spring-boot:run
+
+
+
+4. Settings File Placement
+
+Mention that I will be providing a settings.xml file that needs to be placed inside .m2 folder
+
+Windows path: C:\Users\<username>\.m2\settings.xml
+
+Linux/macOS path: ~/.m2/settings.xml
+
+
+
+5. Helm Repositories (Configuration, optional)
+
+https://gitlab.verizon.com/i85v_dftx/draftx-sdlc
+
+https://gitlab.verizon.com/i85v_dftx/cyrus-sdlc
+
+https://gitlab.verizon.com/i85v_dftx/uno-psc-sdlc
+
+
+
+
+🎯 Output format
+
+Please give me this content in a clean, presentable document format (preferably .docx or .md) with proper headings, bullet points, and code blocks where needed.
+
+
 
 
 ---
 
-Let me know if you’d like to add specific ticket references or names.
+✅ Tip:
+
+Once Copilot or ChatGPT generates the content:
+
+Ask: "Can you export this as a downloadable .docx file?"
+
+If not supported, copy-paste the output into Microsoft Word or Google Docs, and download it from there.
+
+
+
+---
+
+Would you like me to generate this document for you right now and give you a .docx file download link directly?
