@@ -1,95 +1,79 @@
-Thanks for the detailed screenshot and context. Based on what you’re trying to do, here’s the ideal prompt to give Copilot (or any code assistant) in natural language to generate your PostgreSQL query dynamically using the mapping table:
+Here is your revised email with all the points clearly incorporated in a professional tone:
 
 
 ---
 
-✅ Suggested Prompt to Give Copilot:
+Subject: Status Update – Asset Data Migration to DC-TRACK
 
-> I have a mapping Excel (now in CSV) where:
+Dear All,
 
-Column A = DC_TRACK_COLUMN_NAME (the desired output field)
+Please find the latest update on the data migration activities related to IFP, CPNG, and FUZE systems into DC-TRACK.
 
-Column B = CPNG_TABLE_NAME (source table in legacy CPNG)
+🔹 Asset Mapping Summary:
 
-Column C = CPNG_COLUMN_NAME (source column in the table)
+IFP: 8 assets have been mapped to DC-TRACK.
 
-Column D = DEFAULT_VALUE (fallback value if CPNG column/table is N/A)
+CPNG: 7 assets have been mapped to DC-TRACK.
 
-
-Write a PostgreSQL query that builds a SELECT clause using this logic:
-
-1. For each DC-TRACK column:
-
-If CPNG table and column are specified (not N/A), pull the value using a join from that table and column.
-
-If either table or column is N/A, use the default value as a hardcoded fallback.
+FUZE: 5 assets have been identified for mapping into DC-TRACK.
 
 
+🔹 Progress Details:
 
-2. Alias the final output as the DC-TRACK column name (Column A).
+1. IFP Migration:
 
+Mapping between IFP assets and DC-TRACK mandatory columns has been completed.
 
-3. Join the necessary tables based on the mapping (assume joins can be made on DP_NUM, DP_MAN, or MODULEID, depending on context).
+Data extraction queries have been developed for all 8 IFP assets in the Holistic Template format, which includes required DC-TRACK fields and default values where applicable.
 
-
-4. Skip unmapped rows if all four fields are blank or unusable.
-
-
-5. The final output should be a single query (or a CTE-based query) selecting columns from CPNG and outputting the result in the DC-TRACK structure.
+The query has been shared with Suresh, who is currently working on extracting IFP data for 144 MSP locations in this format.
 
 
 
+2. CPNG Migration:
+
+Mapping for 7 CPNG assets to DC-TRACK columns has been finalized.
+
+I have refined and validated the extraction query for the BDFB asset to ensure accurate results (attached to this email).
+
+Suresh has shared responses for 6 of the assets. I will be validating and importing this data into DC-TRACK to identify any fallouts or format issues.
 
 
 
----
+3. FUZE Migration:
 
-🔧 Example Result Copilot Should Output (based on the screenshot):
+Although we do not have direct access to FUZE data due to data compliance restrictions offshore, 5 assets have been identified for mapping to DC-TRACK.
 
-Assume this output structure:
+I am actively collaborating with Suresh to obtain necessary table and column mappings and will be preparing the query in the Holistic Template format, with auto-populated default values to ensure readiness for import into DC-TRACK.
 
-SELECT 
-  dp.DP_NUM AS "Name",
-  dp.DP_MAN AS "Make",
-  m.M_NAME AS "Model",
-  mi.SWITCHNAME AS "Location",
-  'Planned' AS "Status",
-  1.75 AS "Discharge VPC",
-  '3Hrs' AS "Target Run Time(Hours)",
-  80 AS "Battery Recharge Factor (%)",
-  pdd.PDD_DC_TOTAL_AMPS AS "Custom Field Load (amps)",
-  0 AS "Custom Field Anticipated (A)",
-  pdd.PDD_FLOAT_VOLTS AS "Custom Field Float Voltage",
-  dp.QTY_RECT_BAYS AS "Custom Field Bay",
-  dp.CREATED_DATE AS "Installation Date",
-  pdd.PDD_TIMESTAMP AS "Custom Field Load Last updated",
-  '1/1/1900' AS "Custom Field Anticipated Last Updated",
-  dp.SHUNT_SIZE AS "Custom Field Engineered Capacity",
-  pdd.PDD_DC_TOTAL_AMPS AS "Custom Field Polled Amps",
-  pdd.PDD_TIMESTAMP AS "Custom Field Plant Last Polled",
-  99999 AS "Custom Field Plant Financial Project ID",
-  99999 AS "Custom Field Owner of this Record",
-  99999 AS "Custom Field Controller",
-  99999 AS "Custom Field Equipment Served",
-  dp.DP_IP AS "Custom Field IP-Address"
-FROM 
-  "TBL_DC_PLANT" dp
-LEFT JOIN "TBL_MANU" m ON dp.DP_MAN = m.M_NUM
-LEFT JOIN "TBL_MSC_INFO" mi ON dp.DP_NUM = mi.MODULEID
-LEFT JOIN "TBL_PUE_DC_DAILY" pdd ON pdd.PDD_PDP_NUMBER = dp.DP_NUM
+This FUZE query will be delivered by end of day.
+
+
+
+
+🔹 Next Steps:
+
+Once FUZE mapping is delivered, we will have Holistic Template-ready data for all three systems (IFP, CPNG, and FUZE) aligned to DC-TRACK’s structure.
+
+Suresh is also working to enhance the extracted IFP and CPNG data for all 144 MSP locations by:
+
+Applying color coding to differentiate between mandatory fields, user-mandatory fields for Wireline, and default values.
+
+
+In parallel, data for an additional 12 locations will be provided by Andrej.
+
+
+Please let me know if any further information is required.
+
+Best regards,
+[Your Name]
 
 
 ---
 
-✅ Tips for Copilot to make this easier:
+Let me know if you'd like this formatted as a table or PowerPoint for presentation as well.
+want to send a professional email to my manager, senior manager, onshore leads, and higher-level stakeholders updating them on the status of our data asset migration project.
 
-Let Copilot know if your CSV is preloaded into a Python script or if you want this dynamic query generation done in Python.
+Please refactor the following draft to make it clear, well-structured, and professional in tone. Make sure to clearly mention the asset counts for IFP (8 assets), CPNG (7 assets), and FUZE (5 assets), and include what Suresh and Andrej are working on:
 
-If you're using Python, you can also ask:
-
-> “Based on the CSV that contains the mapping of DC_TRACK to CPNG columns, generate a dynamic SELECT query string in Python using pandas, skipping NA and using default values when needed.”
-
-
-
-
-Would you like me to give you a working Python code snippet that reads this mapping CSV and generates the query automatically as a string?
+[Paste the full mail content here that ChatGPT gave above — from “Subject: Status Update...” till the signature.]
