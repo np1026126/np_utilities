@@ -1,79 +1,19 @@
-Here is your revised email with all the points clearly incorporated in a professional tone:
+Hi Shivanandhi,
+
+I have completed the cleanup for the DEV schema for most of the modules, including UNO Services and Raftex Services under Cyrus. However, a few tables are still pending cleanup in some schemas, as they were created by users other than the write user configured in Helm.
+
+As a result, I am unable to drop those tables due to lack of ownership permissions. Moving forward, we have two options:
+
+1. Recommended: Reach out to the DBA team and request cleanup of the remaining tables using their superuser privileges, and then rerun the Liquibase changelogs in the same schema.
 
 
----
-
-Subject: Status Update – Asset Data Migration to DC-TRACK
-
-Dear All,
-
-Please find the latest update on the data migration activities related to IFP, CPNG, and FUZE systems into DC-TRACK.
-
-🔹 Asset Mapping Summary:
-
-IFP: 8 assets have been mapped to DC-TRACK.
-
-CPNG: 7 assets have been mapped to DC-TRACK.
-
-FUZE: 5 assets have been identified for mapping into DC-TRACK.
-
-
-🔹 Progress Details:
-
-1. IFP Migration:
-
-Mapping between IFP assets and DC-TRACK mandatory columns has been completed.
-
-Data extraction queries have been developed for all 8 IFP assets in the Holistic Template format, which includes required DC-TRACK fields and default values where applicable.
-
-The query has been shared with Suresh, who is currently working on extracting IFP data for 144 MSP locations in this format.
+2. Alternative: Create a new schema and configure Liquibase to target it (by specifying the schema name in liquibase.properties or the changelog files). This will ensure a clean slate for all modules and avoid any permission issues.
 
 
 
-2. CPNG Migration:
+Please note: This activity must be fully owned and driven by your team. I’m happy to support wherever needed, but the responsibility of execution lies with the contractor team. If you need help from Rekha or others, please pull them into a working session and get it closed.
 
-Mapping for 7 CPNG assets to DC-TRACK columns has been finalized.
+Let me know which option you plan to proceed with so we can align accordingly.
 
-I have refined and validated the extraction query for the BDFB asset to ensure accurate results (attached to this email).
-
-Suresh has shared responses for 6 of the assets. I will be validating and importing this data into DC-TRACK to identify any fallouts or format issues.
-
-
-
-3. FUZE Migration:
-
-Although we do not have direct access to FUZE data due to data compliance restrictions offshore, 5 assets have been identified for mapping to DC-TRACK.
-
-I am actively collaborating with Suresh to obtain necessary table and column mappings and will be preparing the query in the Holistic Template format, with auto-populated default values to ensure readiness for import into DC-TRACK.
-
-This FUZE query will be delivered by end of day.
-
-
-
-
-🔹 Next Steps:
-
-Once FUZE mapping is delivered, we will have Holistic Template-ready data for all three systems (IFP, CPNG, and FUZE) aligned to DC-TRACK’s structure.
-
-Suresh is also working to enhance the extracted IFP and CPNG data for all 144 MSP locations by:
-
-Applying color coding to differentiate between mandatory fields, user-mandatory fields for Wireline, and default values.
-
-
-In parallel, data for an additional 12 locations will be provided by Andrej.
-
-
-Please let me know if any further information is required.
-
-Best regards,
-[Your Name]
-
-
----
-
-Let me know if you'd like this formatted as a table or PowerPoint for presentation as well.
-want to send a professional email to my manager, senior manager, onshore leads, and higher-level stakeholders updating them on the status of our data asset migration project.
-
-Please refactor the following draft to make it clear, well-structured, and professional in tone. Make sure to clearly mention the asset counts for IFP (8 assets), CPNG (7 assets), and FUZE (5 assets), and include what Suresh and Andrej are working on:
-
-[Paste the full mail content here that ChatGPT gave above — from “Subject: Status Update...” till the signature.]
+Thanks,
+Naveen
