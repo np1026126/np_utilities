@@ -1,38 +1,63 @@
-Certainly! Here's a clear and context-rich prompt you can provide to Copilot Agent to regenerate the Microsoft SQL Server versions of your updated Postgres SQLs for both PDU breakers and BDFB breakers, referencing its prior memory:
+Here is a clear and complete prompt you can use to ask Copilot Agent to generate a MySQL query for the BDFB asset migration, specifically handling the logic for row_label and position_in_row:
 
 
 ---
 
-✅ Prompt for Copilot Agent:
+✅ Prompt to Copilot Agent:
 
-> I had previously shared the Postgres SQL queries for PDU breakers and BDFB breakers, and you had already generated their corresponding Microsoft SQL Server versions.
+> I’m migrating BDFB assets from CPNG to DCTracker. I already provided you with table structures and column mappings in memory.
 
-Now, I have made some updates to the original Postgres SQLs for both assets. I am uploading the latest Postgres queries again.
+I need help generating a MySQL query that handles the logic for calculating the row_label and position_in_row based on the BDFB number field.
 
-Please generate the updated Microsoft SQL Server queries for both:
+Please apply the following logic:
 
-Updated PDU breakers query
+1. For standard BDFB names in the format like BDFB 101.01:
 
-Updated BDFB breakers query
+Extract 101 as the row_label
 
-
-Use the same format and logic that you followed earlier for converting them to Microsoft SQL Server. Refer to your memory of the previous converted versions to ensure consistency in style and syntax.
-
-Input:
-
-Updated Postgres SQL for PDU breakers:
+Extract 01 as the position_in_row
 
 
--- paste updated Postgres query for PDU breakers here
 
-Updated Postgres SQL for BDFB breakers:
+2. For non-standard names like:
+
+BDP 00, BDFP00, Inverter 300A, or any names where a row number is not extractable:
+
+Set row_label as 99
+
+Set initial position_in_row as 00, but ensure that for the same row_label, the position_in_row is incremented (i.e., each record gets a unique value under that row_label)
 
 
--- paste updated Postgres query for BDFB breakers here
+
+
+3. For special cases like:
+
+CSVS 11-6 (151.06) → Use the number in the brackets, i.e., extract 151 as the row_label, and 06 as the position_in_row.
+
+
+
+
+Please generate a MySQL query that:
+
+Extracts and assigns row_label and position_in_row accordingly
+
+Ensures position_in_row is unique within a row label group (incremented as needed for 99)
+
+Handles bracket values for custom asset names
+
+
+You can use string parsing functions like SUBSTRING_INDEX, LOCATE, SUBSTRING, etc., to extract numeric values.
+
+Input Reference (columns already in your memory):
+
+BDFBNUM (e.g., BDFB 101.01, BDP00, CSVS 11-6 (151.06), etc.)
+
+File: TBL_BDFB and related snapshots already uploaded
+
 
 Output:
 
-Updated Microsoft SQL Server versions of both queries
+A MySQL query that returns the BDFBNUM, extracted row_label, and position_in_row as part of a SELECT result.
 
 
 
@@ -40,4 +65,4 @@ Updated Microsoft SQL Server versions of both queries
 
 ---
 
-Let me know if you'd also like it to validate the syntax for MS SQL or break the output into stored procedure format.
+Let me know if you want Copilot to also include logic to store these values in a new staging table or use a stored procedure.
