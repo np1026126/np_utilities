@@ -1,19 +1,48 @@
-Hi Shivanandhi,
-
-I have completed the cleanup for the DEV schema for most of the modules, including UNO Services and Raftex Services under Cyrus. However, a few tables are still pending cleanup in some schemas, as they were created by users other than the write user configured in Helm.
-
-As a result, I am unable to drop those tables due to lack of ownership permissions. Moving forward, we have two options:
-
-1. Recommended: Reach out to the DBA team and request cleanup of the remaining tables using their superuser privileges, and then rerun the Liquibase changelogs in the same schema.
+Here is a clear and effective prompt you can give to Copilot Agent to regenerate the RPP query using the same structure as the PDU query:
 
 
-2. Alternative: Create a new schema and configure Liquibase to target it (by specifying the schema name in liquibase.properties or the changelog files). This will ensure a clean slate for all modules and avoid any permission issues.
+---
+
+✅ Prompt to Copilot Agent:
+
+> I have already created a MySQL query for the PDU asset, which maps CP&G columns to the required DC Track columns. Now, I want to recreate the query for the RPP asset using the exact same set of DC Track columns as used in the PDU query.
+
+Please use the PDU query as the reference for column mappings and structure. The only change should be in the source:
+
+For PDU, the source is UPS
+
+For RPP, the source is PDU
+
+
+For now, you can leave the source field empty in the RPP query output – it will be provided later by the user.
+
+Also note: The current RPP query was based on PowerPanel logic with different column names. Please ignore that and regenerate the RPP query using the PDU column structure instead.
+
+Input:
+
+PDU Query:
+
+
+-- paste the PDU query here
+
+Current RPP (PowerPanel) Query:
+
+
+-- paste the current RPP query here
+
+Expected Output:
+
+A new RPP query using the PDU’s column structure
+
+Same output fields and format as the PDU query
+
+Only difference: source would be empty or to be filled later by user
 
 
 
-Please note: This activity must be fully owned and driven by your team. I’m happy to support wherever needed, but the responsibility of execution lies with the contractor team. If you need help from Rekha or others, please pull them into a working session and get it closed.
 
-Let me know which option you plan to proceed with so we can align accordingly.
 
-Thanks,
-Naveen
+---
+
+Let me know if you also want to include a sample of the DC Track CSV column mappings in the prompt, or if you'd like me to refine this for a specific use case like bulk generation.
+
