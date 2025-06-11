@@ -1,48 +1,57 @@
-Here is a clear and effective prompt you can give to Copilot Agent to regenerate the RPP query using the same structure as the PDU query:
+Here's the precise and context-aware prompt you can use with Copilot Agent to generate the SQL for creating PowerPanel records from the RPP data:
 
 
 ---
 
-✅ Prompt to Copilot Agent:
+✅ Prompt for Copilot Agent:
 
-> I have already created a MySQL query for the PDU asset, which maps CP&G columns to the required DC Track columns. Now, I want to recreate the query for the RPP asset using the exact same set of DC Track columns as used in the PDU query.
+> I now want to generate the SQL for creating PowerPanel records using the data from the table tbl_ac_ups_r.
 
-Please use the PDU query as the reference for column mappings and structure. The only change should be in the source:
+The PowerPanel names are not directly present in CPNG. Instead, we can derive them based on breaker number and rpp_id as follows:
 
-For PDU, the source is UPS
+For each unique rpp_id in tbl_ac_ups_r, count how many breaker numbers are mapped.
 
-For RPP, the source is PDU
+Divide the total number of breaker numbers by 2 to get the number of poles per panel.
 
+For example, if 84 breakers are mapped to an rpp_id, create Panel 1 and Panel 2 with 42 poles each.
 
-For now, you can leave the source field empty in the RPP query output – it will be provided later by the user.
+Similarly, for 40 breakers → Panel 1 and Panel 2 with 20 poles each.
 
-Also note: The current RPP query was based on PowerPanel logic with different column names. Please ignore that and regenerate the RPP query using the PDU column structure instead.
-
-Input:
-
-PDU Query:
+The number of poles per panel should always be a multiple of 6, so please adjust accordingly.
 
 
--- paste the PDU query here
+Now, based on the previous query that generated records for RPP, and using the same set of DC Track columns that were used there:
 
-Current RPP (PowerPanel) Query:
+Create new SQL insert statements or query logic for PowerPanel assets.
+
+Use the derived panel names (Panel 1, Panel 2, etc.) for each rpp_id.
+
+Populate all columns just like in the RPP query, but replace RPP name with the derived PowerPanel name.
 
 
--- paste the current RPP query here
+Input already present in memory:
 
-Expected Output:
+Table: tbl_ac_ups_r with rpp_id, breaker_number
 
-A new RPP query using the PDU’s column structure
+Previous query for RPP asset creation (used DC Track mapping)
 
-Same output fields and format as the PDU query
+DC Track column mapping CSV
 
-Only difference: source would be empty or to be filled later by user
 
+Output:
+
+SQL to generate PowerPanel records for each rpp_id based on breaker counts and pole distribution
+
+Panel names should be derived and assigned as explained
+
+Column mappings should be the same as used for RPP
+
+
+Please provide the SQL logic accordingly.
 
 
 
 
 ---
 
-Let me know if you also want to include a sample of the DC Track CSV column mappings in the prompt, or if you'd like me to refine this for a specific use case like bulk generation.
-
+Let me know if you’d like to auto-populate the panel name in a specific format like "{RPP_Name} - Panel 1" or if you want to generate the output in CSV instead of SQL.
