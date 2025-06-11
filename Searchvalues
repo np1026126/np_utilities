@@ -1,57 +1,43 @@
-Here's the precise and context-aware prompt you can use with Copilot Agent to generate the SQL for creating PowerPanel records from the RPP data:
+Certainly! Here's a clear and context-rich prompt you can provide to Copilot Agent to regenerate the Microsoft SQL Server versions of your updated Postgres SQLs for both PDU breakers and BDFB breakers, referencing its prior memory:
 
 
 ---
 
 ✅ Prompt for Copilot Agent:
 
-> I now want to generate the SQL for creating PowerPanel records using the data from the table tbl_ac_ups_r.
+> I had previously shared the Postgres SQL queries for PDU breakers and BDFB breakers, and you had already generated their corresponding Microsoft SQL Server versions.
 
-The PowerPanel names are not directly present in CPNG. Instead, we can derive them based on breaker number and rpp_id as follows:
+Now, I have made some updates to the original Postgres SQLs for both assets. I am uploading the latest Postgres queries again.
 
-For each unique rpp_id in tbl_ac_ups_r, count how many breaker numbers are mapped.
+Please generate the updated Microsoft SQL Server queries for both:
 
-Divide the total number of breaker numbers by 2 to get the number of poles per panel.
+Updated PDU breakers query
 
-For example, if 84 breakers are mapped to an rpp_id, create Panel 1 and Panel 2 with 42 poles each.
-
-Similarly, for 40 breakers → Panel 1 and Panel 2 with 20 poles each.
-
-The number of poles per panel should always be a multiple of 6, so please adjust accordingly.
+Updated BDFB breakers query
 
 
-Now, based on the previous query that generated records for RPP, and using the same set of DC Track columns that were used there:
+Use the same format and logic that you followed earlier for converting them to Microsoft SQL Server. Refer to your memory of the previous converted versions to ensure consistency in style and syntax.
 
-Create new SQL insert statements or query logic for PowerPanel assets.
+Input:
 
-Use the derived panel names (Panel 1, Panel 2, etc.) for each rpp_id.
-
-Populate all columns just like in the RPP query, but replace RPP name with the derived PowerPanel name.
+Updated Postgres SQL for PDU breakers:
 
 
-Input already present in memory:
+-- paste updated Postgres query for PDU breakers here
 
-Table: tbl_ac_ups_r with rpp_id, breaker_number
+Updated Postgres SQL for BDFB breakers:
 
-Previous query for RPP asset creation (used DC Track mapping)
 
-DC Track column mapping CSV
-
+-- paste updated Postgres query for BDFB breakers here
 
 Output:
 
-SQL to generate PowerPanel records for each rpp_id based on breaker counts and pole distribution
+Updated Microsoft SQL Server versions of both queries
 
-Panel names should be derived and assigned as explained
-
-Column mappings should be the same as used for RPP
-
-
-Please provide the SQL logic accordingly.
 
 
 
 
 ---
 
-Let me know if you’d like to auto-populate the panel name in a specific format like "{RPP_Name} - Panel 1" or if you want to generate the output in CSV instead of SQL.
+Let me know if you'd also like it to validate the syntax for MS SQL or break the output into stored procedure format.
