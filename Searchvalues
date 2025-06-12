@@ -1,101 +1,36 @@
-Here’s how you can clearly ask Copilot Agent all your questions with one consolidated prompt, using your current Oracle SQL script:
+Here is a strongly worded and professional email you can send in reply, based on your manager’s mail and the situation described:
 
 
 ---
 
-✅ Prompt to Copilot Agent (Paste This):
+Subject: Immediate Attention Required: Incomplete & Non-Functional EOS Ticket Deliverables
 
-> I’m migrating Generator asset data from FUSE to GPTRACK. I’ve pasted below the existing Oracle SQL query used for the migration:
+Hi Kumar,
 
-SELECT  
-  'ADD' AS "# Operation *",
-  'GENERATOR' || gen.GENERATOR_ID AS "Name *",
-  gen.MANUFACTURER AS "Make *",
-  gen.MODEL AS "Model *",
-  'Planned' AS "Status",
-  si.SITE_NAME AS "Location Name",
-  TO_CHAR(gen.GEN_SIZE * 4) AS "Custom Field Capacity(Amps)",
-  'Network' AS "Custom Field Generator Support",
-  TO_CHAR(gen.GEN_SIZE) AS "Custom Field KW",
-  'Fixed Generator' AS "Custom Field Generator Type",
-  'TURBINE' AS "Custom Field Type Of Generator",
-  'DIESEL' AS "Custom Field Type of Fuel",
-  TO_CHAR(gen.GEN_SIZE * 0.8) AS "Custom Field Maximum Load",
-  '480' AS "Custom Field Rating Volts",
-  TO_CHAR(SYSDATE, 'MM/DD/YYYY') AS "Custom Field LoadDt (mm/dd/yyyy)",
-  TO_CHAR(TO_DATE(gen.INSTALL_DATE, 'DD/MON/YY'), 'MM/DD/YYYY') AS "Installation Date",
-  TO_CHAR(gen.GEN_SIZE * 1.25) AS "Rating (kVA)",
-  TO_CHAR(gen.GEN_SIZE * 4) AS "Rating (A)",
-  '3-Phase' AS "Output Wiring"
-FROM
-  FUZE.CMPL_GENERATOR@fuze_prod_read gen
-JOIN
-  FUZE.SITE_INFO@fuze_prod_read si ON gen.SITE_INFO_ID = si.SITE_INFO_ID
-WHERE
-  si.SITE_NAME LIKE '%Lahser%'
-ORDER BY
-  gen.GENERATOR_ID
+We are extremely disappointed with the way the committed EOS tickets have been handled by your team for this release.
 
-I need help with 4 things:
+Out of the four tickets committed, only two were delivered, and both were found non-functional during UAT. Initially, we believed that one of the two fixes was working, but further validation revealed that the implementation is only partially working — filters are working for some columns while failing for others. This clearly indicates that proper testing was not done, and the fix was rolled out without ensuring complete functionality.
 
-✅ 1. Rating (kVA) Field:
+This kind of delivery approach is unacceptable and seems to indicate a deliberate attempt to bypass proper validation. Your team’s actions have compromised the quality of the release and risked a pre-planned production deployment.
 
-This is currently calculated as GEN_SIZE * 1.25.
+We expect immediate action on the following:
 
-I want this to always return a rounded integer (no decimals).
+A detailed RCA on why non-working fixes were pushed for UAT.
 
-Update the query to enforce integer result.
+A commitment with timeline for fully functional fixes for all four tickets.
+
+Ensure proper validation and testing is done before any re-delivery.
 
 
-✅ 2. Installation Date Field:
+We need to escalate this and get this resolved at the earliest. Please be on the bridge below to discuss this further. This is now critical.
 
-If INSTALL_DATE is null or missing, I want the fallback to be '01/01/1990'.
+[Insert Webex link from the thread]
 
-Please confirm if the current logic is correct, and if not, rewrite it using COALESCE or NVL.
-
-
-✅ 3. Make and Model Fields:
-
-If MANUFACTURER or MODEL are missing/null, I want the query to return 'Generic Generator' as both Make and Model.
-
-Help me modify the query to handle this.
-
-
-✅ 4. Confirm the Multiplication Constants:
-
-Please validate if the following logic is accurate:
-
-Custom Field Capacity (Amps) = GEN_SIZE * 4
-
-Rating (A) = GEN_SIZE * 4
-
-Rating (kVA) = GEN_SIZE * 1.25
-
-Custom Field Maximum Load = GEN_SIZE * 0.8
-
-
-Let me know if these constants are typically valid in generator calculations, or if they should vary based on generator specs.
-
-
+Regards,
+Naveen
 
 
 ---
 
-Let me also answer your fourth point quickly, from an engineering perspective:
+Let me know if you want a lighter or even harsher tone — or if your manager’s name needs to be in the signature instead.
 
-
----
-
-✅ Multiplication Factors – Are They Correct?
-
-Field	Multiplier	Comments
-
-Custom Field Capacity (Amps)	x4	This is likely assuming 4 Amps per kW or kVA — may vary by voltage and phase
-Custom Field Maximum Load	x0.8	80% load is a typical safe operating load for generators
-Rating (kVA)	x1.25	125% of KW = KVA is valid if assuming PF = 0.8 (KVA = KW / PF)
-Rating (A)	x4	Again, assuming 4 Amps per KW at 3-phase 480V — reasonable approximation
-
-
-If needed, I can provide a formula-based rewrite of the query for all these constants too.
-
-Let me know if you'd also like to convert this to a SQL Server or MySQL version.
