@@ -1,51 +1,101 @@
-Here is the exact prompt you can use to ask Copilot Agent to fix the logic in your existing query for BDFB panel extraction, making sure it counts panels only if breaker sizes are present and avoids exploding the record count incorrectly:
+Here’s how you can clearly ask Copilot Agent all your questions with one consolidated prompt, using your current Oracle SQL script:
 
 
 ---
 
-✅ Prompt to Copilot Agent:
+✅ Prompt to Copilot Agent (Paste This):
 
-> I previously asked you to generate a query to identify BDFB panels from CPNG for migration to DC Track.
+> I’m migrating Generator asset data from FUSE to GPTRACK. I’ve pasted below the existing Oracle SQL query used for the migration:
 
-You're currently using two tables:
+SELECT  
+  'ADD' AS "# Operation *",
+  'GENERATOR' || gen.GENERATOR_ID AS "Name *",
+  gen.MANUFACTURER AS "Make *",
+  gen.MODEL AS "Model *",
+  'Planned' AS "Status",
+  si.SITE_NAME AS "Location Name",
+  TO_CHAR(gen.GEN_SIZE * 4) AS "Custom Field Capacity(Amps)",
+  'Network' AS "Custom Field Generator Support",
+  TO_CHAR(gen.GEN_SIZE) AS "Custom Field KW",
+  'Fixed Generator' AS "Custom Field Generator Type",
+  'TURBINE' AS "Custom Field Type Of Generator",
+  'DIESEL' AS "Custom Field Type of Fuel",
+  TO_CHAR(gen.GEN_SIZE * 0.8) AS "Custom Field Maximum Load",
+  '480' AS "Custom Field Rating Volts",
+  TO_CHAR(SYSDATE, 'MM/DD/YYYY') AS "Custom Field LoadDt (mm/dd/yyyy)",
+  TO_CHAR(TO_DATE(gen.INSTALL_DATE, 'DD/MON/YY'), 'MM/DD/YYYY') AS "Installation Date",
+  TO_CHAR(gen.GEN_SIZE * 1.25) AS "Rating (kVA)",
+  TO_CHAR(gen.GEN_SIZE * 4) AS "Rating (A)",
+  '3-Phase' AS "Output Wiring"
+FROM
+  FUZE.CMPL_GENERATOR@fuze_prod_read gen
+JOIN
+  FUZE.SITE_INFO@fuze_prod_read si ON gen.SITE_INFO_ID = si.SITE_INFO_ID
+WHERE
+  si.SITE_NAME LIKE '%Lahser%'
+ORDER BY
+  gen.GENERATOR_ID
 
-TBL_BDFB (which contains one row per BDFB, along with panel columns like PANEL_A, PANEL_B, etc.)
+I need help with 4 things:
 
-TBL_BDFB_DATA (which contains repeated rows for each BDFB and has over 1 lakh records)
+✅ 1. Rating (kVA) Field:
 
+This is currently calculated as GEN_SIZE * 1.25.
 
-⚠️ The current logic is incorrect and is resulting in 22,000+ panels, which is wrong.
+I want this to always return a rounded integer (no decimals).
 
-🔄 I want to revise the logic as follows:
-
-Use only TBL_BDFB to determine the number of panels per BDFB
-
-For each row in TBL_BDFB, check if columns like PANEL_A, PANEL_B, PANEL_C, etc. have breaker size values (i.e., are not null or not empty)
-
-Only consider those panels where breaker size is present (e.g., PANEL_A_BREAKER_SIZE is not null)
-
-For each valid panel, generate one record with:
-
-BDFB Number
-
-Panel Name (e.g., Panel A)
-
-Breaker Size
+Update the query to enforce integer result.
 
 
+✅ 2. Installation Date Field:
 
-Do not join or compare with TBL_BDFB_DATA, as it causes record duplication.
+If INSTALL_DATE is null or missing, I want the fallback to be '01/01/1990'.
 
-✅ Output:
+Please confirm if the current logic is correct, and if not, rewrite it using COALESCE or NVL.
 
-A corrected MySQL (or SQL Server if specified) query that produces 1 row per valid panel from TBL_BDFB
 
-The result should show: BDFB Number, Panel Name, Breaker Size
+✅ 3. Make and Model Fields:
 
+If MANUFACTURER or MODEL are missing/null, I want the query to return 'Generic Generator' as both Make and Model.
+
+Help me modify the query to handle this.
+
+
+✅ 4. Confirm the Multiplication Constants:
+
+Please validate if the following logic is accurate:
+
+Custom Field Capacity (Amps) = GEN_SIZE * 4
+
+Rating (A) = GEN_SIZE * 4
+
+Rating (kVA) = GEN_SIZE * 1.25
+
+Custom Field Maximum Load = GEN_SIZE * 0.8
+
+
+Let me know if these constants are typically valid in generator calculations, or if they should vary based on generator specs.
 
 
 
 
 ---
 
-Let me know if you want to include additional metadata like slot, IP, or mapping logic into DC Track asset format.
+Let me also answer your fourth point quickly, from an engineering perspective:
+
+
+---
+
+✅ Multiplication Factors – Are They Correct?
+
+Field	Multiplier	Comments
+
+Custom Field Capacity (Amps)	x4	This is likely assuming 4 Amps per kW or kVA — may vary by voltage and phase
+Custom Field Maximum Load	x0.8	80% load is a typical safe operating load for generators
+Rating (kVA)	x1.25	125% of KW = KVA is valid if assuming PF = 0.8 (KVA = KW / PF)
+Rating (A)	x4	Again, assuming 4 Amps per KW at 3-phase 480V — reasonable approximation
+
+
+If needed, I can provide a formula-based rewrite of the query for all these constants too.
+
+Let me know if you'd also like to convert this to a SQL Server or MySQL version.
