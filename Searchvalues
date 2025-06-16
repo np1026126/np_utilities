@@ -1,70 +1,52 @@
-Based on your screenshots and explanation, here's a Copilot Agent prompt that clearly guides it to compute the Rating (kVA), Rating (Vac), and Rating (A) for RPP assets—which are logically treated as PDUs in DC-Track.
+Thanks! Since you want the Position in Row to be unique within the same Row Label and Location, and not just per Plant, here's how you can rephrase the Copilot prompt accordingly:
 
 
 ---
 
-✅ Prompt to Copilot Agent:
+✅ Refined Copilot Prompt:
 
-> I am working on migrating Remote Power Panel (RPP) assets from CPNG into DC-Track.
-In DC-Track, RPPs should be treated as Floor PDUs, with only one distinction:
+> I’m working on generating a DC-Track format for PLANT-BAY assets. I have the following fields:
 
-PDU Source = UPS
+Plant
 
-RPP Source = PDU
+Location
 
+Row Label (always 99)
 
-I have 2 tables:
-
-TBL_AC_UPS_RPP contains the mapping between RPP and source PDU along with RPP_SRC_BRKR_SIZE, which gives breaker size.
-
-TBL_AC_RPP_DATA_COLLECT has live polled readings per RPP (KW_PH_1, KW_PH_2, KW_PH_3, PF_PH_1, PF_PH_2, PF_PH_3, etc.)
-Each RPP has around 24 readings (hourly).
+Position in Row
 
 
-Based on these, I want to calculate:
+✅ The goal is:
 
-1. Rating (kVA):
-If KW_PH_1, KW_PH_2, KW_PH_3 and PF values are available, use:
+The Position in Row must start from 1 and increment by 1 for each unique combination of Location and Row Label (not just by Plant).
 
-(KW_PH_1 + KW_PH_2 + KW_PH_3) / AVG(PF_PH_1, PF_PH_2, PF_PH_3) / 1000
-
-Use NULLIF and COALESCE to avoid divide-by-zero; fallback PF = 0.95
-
-If KW_PH_x values are NULL, default Rating (kVA) = '300'
-
-Pick latest timestamp per RPP ID
+This is because Row Label is the same (99) for all rows, and multiple plants can exist in the same location, so using Plant alone would cause duplicate Position in Row values for the same Location and Row Label.
 
 
+✅ So I need a SQL query that:
 
-2. Rating (Vac):
-This is fixed as 208 (or fallback to COALESCE(208))
+Uses the combination of Location and Row Label as the partition key.
+
+Orders by Name or any other suitable column.
+
+Outputs: Plant, Location, Row Label, and Position in Row with no duplicates for the same Location + Row Label.
 
 
 
 
+> Example:
 
-> 3. Rating (A):
-Use RPP_SRC_BRKR_SIZE from TBL_AC_UPS_RPP table.
-
-If not present, default to 500
-
-
-
-
-Provide a SQL query that:
-
-Joins TBL_AC_UPS_RPP and TBL_AC_RPP_DATA_COLLECT
-
-Picks latest available reading per RPP
-
-Outputs RPP_ID, Rating (kVA), Rating (Vac), Rating (A)
-
-Includes Power Fed From, Model, Make, and static Planned status too
-
+SELECT
+  plant,
+  location,
+  99 AS row_label,
+  ROW_NUMBER() OVER (PARTITION BY location, 99 ORDER BY name) AS position_in_row
+FROM plant_bay_table;
 
 
 
 
 ---
 
-Let me know if you want the result formatted for Excel output (CSV style) or need a similar prompt for PDU again.
+Let me know if you want to include any filters (like Status = 'Planned') or default values in the same query.
+
