@@ -1,1 +1,70 @@
 
+Thank you for the detailed context. Based on your two requirements — integrating the Panel Name and calculating Position Numbers from starting values and number of positions — here's a clear and well-structured prompt you can give to Copilot to generate the correct logic in SQL or Python:
+
+
+---
+
+✅ Prompt to Ask Copilot:
+
+> I have a response generated for RPP breakers based on the DCTrack breaker template.
+
+1. Panel Name Logic:
+
+I want to add a new column called Panel Name in the response.
+
+This Panel Name needs to be derived from a manually maintained mapping between RPPs and Power Panels (this mapping is present in a file or a lookup table called Power Panel SPL).
+
+Panel Name is not directly present in the CPNG or CPMG system.
+
+So, for each RPP Breaker, find the corresponding Panel Name from Power Panel SPL using either RPP ID or Location as the key (whichever is available in both datasets).
+
+
+✅ Please show how to:
+
+Add the Panel Name to the output using a join with the Power Panel SPL mapping.
+
+Ensure no null panel names are included in the final response.
+
+
+
+
+
+---
+
+> 2. Position Expansion Logic:
+
+I have two fields: Starting Position Number and Number of Positions.
+
+For each row, I want to calculate the actual occupied positions based on these values.
+
+
+Examples:
+
+If Starting Position Number = 1 and Number of Positions = 3, then it should result in Positions = [1, 2, 3].
+
+If Starting Position = 3 and Number of Positions = 1, then Position = [3].
+
+If needed, show this either as:
+
+A string column like '1,2,3'
+
+Or expand into multiple rows (one per position).
+
+
+
+✅ I need Copilot to give me:
+
+A SQL or Python logic to generate this calculated field.
+
+Handle edge cases like when Number of Positions = 0 or null.
+
+Optionally, a flag column like Position Count OK = TRUE if the derived position values match expected logic.
+
+
+
+
+
+---
+
+Let me know if you'd prefer this in Python (pandas) or SQL (Postgres/MySQL), and I’ll adapt it.
+
