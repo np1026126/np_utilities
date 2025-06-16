@@ -1,61 +1,58 @@
-Thank you for the detailed explanation and image. Based on your clarification, the issue is:
-
-> In the current logic, when the position in row (derived from the decimal part of BDFB number) is .00, it gets stored as 0, which is invalid in DC-TRACK.
-✅ Instead, it should start from 1 — so .00 should be considered position 1, not 0.
-
-
+Here’s a complete prompt you can give to Copilot to get the correct Rating (kVA) calculation from your TBL_PU_AC_DAILY table data, based on the 24 hourly readings per PDU:
 
 
 ---
 
 ✅ Prompt to Copilot Agent:
 
-> I previously asked you to generate a query to extract row_label and position_in_row from BDFB numbers during the migration from CPNG to DC-TRACK. The logic was:
+> I have a table called TBL_PU_AC_DAILY which logs hourly readings for each PDU. It contains 24 rows per PDU each day, one for each hour.
 
-row_label is taken from the integer part before the decimal
+I want to calculate the Rating (kVA) for each PDU using the following logic:
 
-position_in_row is taken from the number after the decimal
+Use the formula:
+
+\text{kVA} = \frac{\text{PAD_WATTS}}{\text{PAD_PF} \times 1000}  (or equivalently: PAD_WATTS / PAD_PF / 1000)
 
+PAD_WATTS is real power in Watts
 
-✅ But there's an issue now:
-If the value after the decimal is 00 (e.g., BDFB 116.00, BDFB 142.00), the position is evaluated as 0, which is invalid in DC-TRACK.
-DC-TRACK requires positions to start from 1, not 0.
+PAD_PF is the power factor
 
-🔄 I want you to update the logic such that:
-
-If the extracted position is 0, it should be stored as 1
-
-For all other cases, retain the original extracted value
+If PAD_PF = 0, skip or use default value 0.95 to avoid divide-by-zero
 
 
-🧪 Examples:
+✅ I want to calculate a single kVA value per PDU:
 
-BDFB 116.00 → row_label = 116, position_in_row = 1 ✅ (not 0)
+Either the maximum kVA value of the 24 readings, or
 
-BDFB 142.00 → row_label = 142, position_in_row = 1
-
-BDFB 105.15 → row_label = 105, position_in_row = 15
+The average kVA across the 24 readings
 
 
-Please modify the MySQL (or SQL Server/Oracle if you're targeting that) query to apply this fix to the position_in_row logic.
+If data is missing or invalid, default to '300' as the kVA.
+
+Please write a query that:
+
+1. Groups by PDU ID
+
+
+2. Computes either the MAX or AVG kVA per day
+
+
+3. Returns the PDU ID and the final Rating (kVA) column
+
+
+
+
+
+
+---
+
+📝 Optional Add-on:
+
+> Also, include a fallback using COALESCE() so that if all values are null or PF = 0, it returns '300' as the default Rating (kVA).
 
 
 
 
 ---
 
-✅ SQL Hint for Manual Fix:
-
-If you're writing the logic directly, this line can help:
-
-CASE 
-  WHEN CAST(SUBSTRING_INDEX(bdfb_num, '.', -1) AS UNSIGNED) = 0 THEN 1
-  ELSE CAST(SUBSTRING_INDEX(bdfb_num, '.', -1) AS UNSIGNED)
-END AS position_in_row
-
-This ensures .00 becomes 1.
-
-
----
-
-Let me know if you want the full updated query or CSV fix script too.
+This prompt will guide Copilot to build an accurate and production-ready query for your DC-Track mapping needs. Let me know if you want the result formatted as a CSV-ready output.
