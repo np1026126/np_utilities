@@ -1,17 +1,26 @@
-I’m working with data related to RPP (Remote Power Panels) which are classified under 'Floor PDU'. I’ve extracted data from multiple related tables using a SQL query. I’ve also provided the output CSV file and details of all the tables and their values used in the join.
+I have two tables: 
 
-The issue: The `Rating (kVA)` field is coming as 0 for all rows, which is incorrect.
+1. `CPMG Breaker Table` which contains the columns:
+   - Panel
+   - Floor PDU
+   - Location
+   - Starting Position No
+   - Number of Positions
+   - Rated Amp
+   - Breaker State
 
-I need your help to:
-1. Analyze the provided query and related tables.
-2. Calculate the correct `Rating (kVA)` using the available data (e.g., volts, amps, phase, or other electrical parameters).
-3. If the calculated value is **0**, then **replace it with a default value of 300**.
-4. Provide the updated logic/query or Python script that will generate the correct value for each asset.
-5. Ensure the final output updates the `Rating (kVA)` column in the format used in the CSV.
+2. `IFPE Breaker Table` which has similar columns, but correctly reflects the `Number of Positions` logic.
 
-**Attached data:**
-- SQL query used for the output
-- Related tables and sample values
-- Output CSV result (showing `Rating (kVA)` as 0)
+Issue:
+In CPMG output, the `Number of Positions` is always set to 1, which is wrong. I need logic that works like IFPE:
+- If `Number of Positions = 3` and `Starting Position = 1`, it means positions 1, 3, and 5 are taken.
+- These positions must be marked as occupied for that `Panel` + `Floor PDU` combination.
+- No overlapping or duplicate position usage should occur.
+- Future breakers should not reuse any position already taken by the span of `Starting Position` and `Number of Positions`.
 
-Make sure the fix works for assets like RPP-A121, RPP-A122, RPP-B121, and RPP-B122 shown in the result. Rating (kVA) must be calculated properly based on standard formulas or logic derived from the input data.
+What I want:
+✅ A query or logic that dynamically calculates the correct `Number of Positions` per breaker.
+✅ Ensures no overlapping positions for the same Panel + Floor PDU.
+✅ Follows the staggered logic as in IFPE.
+
+Please rewrite the query to generate the correct `Number of Positions` and `Starting Position` values by referencing existing occupied positions for each unique Panel + Floor PDU + Location group.
