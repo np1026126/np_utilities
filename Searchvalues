@@ -1,68 +1,38 @@
-Thank you for the detailed context. Based on your two requirements — integrating the Panel Name and calculating Position Numbers from starting values and number of positions — here's a clear and well-structured prompt you can give to Copilot to generate the correct logic in SQL or Python:
-
-
----
-
-✅ Prompt to Ask Copilot:
-
-> I have a response generated for RPP breakers based on the DCTrack breaker template.
-
-1. Panel Name Logic:
-
-I want to add a new column called Panel Name in the response.
-
-This Panel Name needs to be derived from a manually maintained mapping between RPPs and Power Panels (this mapping is present in a file or a lookup table called Power Panel SPL).
-
-Panel Name is not directly present in the CPNG or CPMG system.
-
-So, for each RPP Breaker, find the corresponding Panel Name from Power Panel SPL using either RPP ID or Location as the key (whichever is available in both datasets).
-
-
-✅ Please show how to:
-
-Add the Panel Name to the output using a join with the Power Panel SPL mapping.
-
-Ensure no null panel names are included in the final response.
-
+In the current logic, when the position in row (derived from the decimal part of BDFB number) is .00, it gets stored as 0, which is invalid in DC-TRACK.
+✅ Instead, it should start from 1 — so .00 should be considered position 1, not 0.
 
 
 
 
 ---
 
-> 2. Position Expansion Logic:
+✅ Prompt to Copilot Agent:
 
-I have two fields: Starting Position Number and Number of Positions.
+> I previously asked you to generate a query to extract row_label and position_in_row from BDFB numbers during the migration from CPNG to DC-TRACK. The logic was:
 
-For each row, I want to calculate the actual occupied positions based on these values.
+row_label is taken from the integer part before the decimal
 
-
-Examples:
-
-If Starting Position Number = 1 and Number of Positions = 3, then it should result in Positions = [1, 2, 3].
-
-If Starting Position = 3 and Number of Positions = 1, then Position = [3].
-
-If needed, show this either as:
-
-A string column like '1,2,3'
-
-Or expand into multiple rows (one per position).
+position_in_row is taken from the number after the decimal
 
 
+✅ But there's an issue now:
+If the value after the decimal is 00 (e.g., BDFB 116.00, BDFB 142.00), the position is evaluated as 0, which is invalid in DC-TRACK.
+DC-TRACK requires positions to start from 1, not 0.
 
-✅ I need Copilot to give me:
+🔄 I want you to update the logic such that:
 
-A SQL or Python logic to generate this calculated field.
+If the extracted position is 0, it should be stored as 1
 
-Handle edge cases like when Number of Positions = 0 or null.
-
-Optionally, a flag column like Position Count OK = TRUE if the derived position values match expected logic.
-
-
-
+For all other cases, retain the original extracted value
 
 
----
+🧪 Examples:
 
-Let me know if you'd prefer this in Python (pandas) or SQL (Postgres/MySQL), and I’ll adapt it.
+BDFB 116.00 → row_label = 116, position_in_row = 1 ✅ (not 0)
+
+BDFB 142.00 → row_label = 142, position_in_row = 1
+
+BDFB 105.15 → row_label = 105, position_in_row = 15
+
+
+Please modify the MySQL (or SQL Server/Oracle if you're targeting that) query to apply this fix to the position_in_row logic.
