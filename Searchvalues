@@ -1,1 +1,17 @@
-In this Excel sheet, check the "First Pole Number" column. The pole count for each row is 42. The first pole number must start from 1 for the first entry in a group and then increment by 42 for each subsequent row. Fix rows where the first pole number resets to 1 after already being 43. Ensure it continues the sequence (1, 43, 85, etc.) based on previous row's pole count.
+I’m working with data related to RPP (Remote Power Panels) which are classified under 'Floor PDU'. I’ve extracted data from multiple related tables using a SQL query. I’ve also provided the output CSV file and details of all the tables and their values used in the join.
+
+The issue: The `Rating (kVA)` field is coming as 0 for all rows, which is incorrect.
+
+I need your help to:
+1. Analyze the provided query and related tables.
+2. Calculate the correct `Rating (kVA)` using the available data (e.g., volts, amps, phase, or other electrical parameters).
+3. If the calculated value is **0**, then **replace it with a default value of 300**.
+4. Provide the updated logic/query or Python script that will generate the correct value for each asset.
+5. Ensure the final output updates the `Rating (kVA)` column in the format used in the CSV.
+
+**Attached data:**
+- SQL query used for the output
+- Related tables and sample values
+- Output CSV result (showing `Rating (kVA)` as 0)
+
+Make sure the fix works for assets like RPP-A121, RPP-A122, RPP-B121, and RPP-B122 shown in the result. Rating (kVA) must be calculated properly based on standard formulas or logic derived from the input data.
