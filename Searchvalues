@@ -1,26 +1,90 @@
-Based on your detailed explanation and the three issues observed in the RPP breaker dataset, here's how you should phrase the prompt to Copilot to generate a corrected query or logic in MySQL 5.2:
+Here is a comprehensive and structured prompt you can copy and paste into GitHub Copilot (or any AI assistant tool you're using) to generate the rule book for every asset from IFP, CPNG, and FUSE to DCTrack, based on the SQL queries and DCTrack column mappings:
 
 
 ---
 
-✅ Prompt to Copilot:
+✅ Prompt to Copilot (for Rule Book Generation):
 
-> I have a MySQL 5.2 database and I'm generating the RPP Breaker output in a format compatible with DCTrack templates. There are three issues that need to be corrected in the query:
+> I have completed all the SQL queries for migrating assets from IFP, CPNG, and FUSE systems into DCTrack.
+Now I want to generate a detailed rule book for each asset type in all 3 systems. This rule book should help users understand:
 
-1. Starting Position Logic
-If the # of Positions is 3 and the Starting Position No is 1, it means positions 1, 3, and 5 are occupied by that breaker. Therefore, no other record should reuse positions 3 or 5 for the same Panel and Floor PDU. This logic must be enforced to prevent overlaps.
+1. What each DCTrack column maps to from the source SQL query.
 
-2. Max Breakers Per Panel Rule
-A single Panel (e.g., Panel1) can have only up to 42 entries. If a single Floor PDU has more than 42 breakers, they must be split across new panels as Panel1, Panel2, etc., ensuring each panel has at most 42 entries.
 
-3. Generating Panel Name
-Introduce a new column called Panel Name. The value for Panel Name must be derived from a manually curated mapping table called PowerPanelSPL, which maps Floor PDU + Location to a final Panel Name. If the mapping is missing, fallback to a default like 'Unknown_Panel'.
+2. Which fields are mandatory in DCTrack (marked by a star * in the DCTrack column mapping sheet).
 
-Please write a MySQL 5.2-compatible query (or logic in steps) that handles all 3 issues, assuming the data is coming from a staging table with the structure already shown in the Excel sheets.
+
+3. Which default values are being assigned for those mandatory fields if the source system does not provide a value.
+
+
+4. Whether the default is a static value or calculated using a formula (if calculated, explain the formula used).
+
+
+5. Which fields require user input or manual intervention, especially:
+
+For fields like Location and Location Name, where the format must be:
+
+Location = "Location Name > Room Name"
+
+Location Name = "Room Name"
+
+
+In systems like FUSE and CPNG, room-level details are not available, so users need to manually enter room names for those fields.
+
+
+
+
+Please generate the rule book in the following format:
+
+Group the rule book asset-wise, under each of the three systems.
+
+For each asset, list out:
+
+The DCTrack Column
+
+Mapped Source Field (from SQL)
+
+Is Mandatory (Yes/No)
+
+Default Value (if used)
+
+Formula Used (if applicable)
+
+User Action Needed (Yes/No)
+
+Notes (e.g., “User must provide Room Name in Location”)
+
+
+
+You will be provided:
+
+The SQL queries used for each asset from IFP, CPNG, and FUSE systems
+
+A DCTrack column mapping document that lists all DCTrack columns and shows which are mandatory (with *)
+
+
+Based on this input, generate a clean and usable Rule Book document that can be shared with users, clearly indicating what values are filled automatically and what needs to be reviewed or manually updated by users.
 
 
 
 
 ---
 
-Let me know if you want the actual SQL logic or procedure written out for this — I can help structure the steps for implementation as well.
+📌 Additional Tips:
+
+You can tell Copilot to output it in table format (Markdown or CSV).
+
+If you're using VSCode, split it per asset into separate sections like:
+
+# Generator - IFP
+
+# Floor PDU - CPNG
+
+# Plant Bay - FUSE
+
+
+
+
+---
+
+Let me know if you also want a template structure in Excel or Google Sheet to manually maintain this rule book — I can generate that as well.
