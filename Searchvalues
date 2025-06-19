@@ -1,138 +1,91 @@
-Here's a detailed script you can use during the call, along with a CoPilot prompt at the end for generating similar content.
+Here is the exact prompt you should give to Copilot to generate the structured mapping format for all assets from FUSE, CPNG, and IFP — similar to the “FUSE BATTERIES” tab structure you've shown:
 
 
 ---
 
-✅ Call Presentation Script: P&C Asset Migration Overview
+✅ Copilot Prompt to generate asset-wise holistic mapping:
 
-Slide 1: Title Slide
+> I am providing you:
 
-> "Good [morning/afternoon], everyone. Today we’re going to walk through the migration strategy for P&C assets into the 1PSC DCTrack system. The source systems involved are IFP, CP&G, and FUZE Compliance. Our goal is to consolidate all the asset data from these systems into a unified, structured, and DCTrack-compliant format."
+1. A list of SQL queries for each asset from FUSE, CPNG, and IFP.
 
 
+2. A table of holistic column mappings from DCTrack templates with column names.
 
 
----
 
-Slide 2: Asset Sources and Types
+Based on these, generate an Excel-style mapping format for each asset, like the one shown below:
 
-> "Here you can see the asset types we’re handling from each system.
-From IFP, we have power panels, BDFBs, panel breakers, and plants.
-From CP&G, we additionally handle rectifiers, RPPs, and plant bays.
-FUZE contributes assets like generators, fuel tanks, HVACs, and batteries.
+Desired Columns:
 
+HOLISTIC TAB → Name of the tab in DCTrack Holistic Template (e.g., (DC3) Battery Inventory)
 
+HOLISTIC COLUMN → Column name in DCTrack Holistic template
 
-We have broken this out to ensure each asset has a defined path into the holistic template for DCTrack."
+SOURCE TABLE MAPPING → Table name from the query (for FUSE/CPNG/IFP)
 
+SOURCE COLUMN MAPPING → Column name from that table mapped to the holistic column
 
----
+ALL TABLES USED → All table names used in the SQL for that asset
 
-Slide 3: Reference Links and Mapping Resources
+ALL COLUMNS USED → List of columns from those tables (not just the ones mapped)
 
-> "To support this effort, we’ve created a structure of linked documentation:
 
 
 
-Raw data dumps from source systems
+> 💡 Rules to follow:
 
-Holistic templates used for import
+You must repeat the structure for each asset type.
 
-Default values provided by business where system values were missing
+Pull mappings based on the SELECT clause of the SQL.
 
-Mapping between CP&G/FUZE and DCTrack template
+Pull table and column names from the FROM and JOIN clauses.
 
-A fix sheet to identify areas where business input is still required.
+If a default value is hardcoded in the SQL for a column (e.g., COALESCE(..., 'Planned')), show that in the column mapping with a note like: Default: Planned.
 
+If the holistic column is not mapped in the SQL, leave it blank or write -- Not Mapped --.
 
-All links are organized in this table for quick reference."
+For location fields, if room data is missing, mention: "Room needs user input".
 
+Create a separate sheet for each asset (e.g., FUSE BATTERY, CPNG RECTIFIER, IFP FLOOR PDU), and maintain the same tabular structure.
 
----
 
-Slide 4: Summary of Assets Across Systems
 
-> "This summary shows:
 
-
-
-Which assets exist in which system
-
-Which ones we’ve successfully tested in DCTrack
-
-And the current count of records available for migration.
-
-
-This helps prioritize where user input or clarification is still needed."
-
-
----
-
-Slide 5: Key Challenges
-
-> "Some challenges we encountered:
-
-
-
-Room-level location data is often missing in CP&G and FUZE
-
-Panel relationships are unclear in CP&G
-
-Floor PDUs may be connected to UPS or another PDU, which is hard to trace
-
-UPS banks and Load Devices are missing in CP&G and FUZE and must be manually filled by users
-
-For some BDFB Panels, sources are not present in any of the three systems.
-
-
-These gaps are reflected in the fix template sheet."
-
-
----
-
-Slide 6: Next Steps
-
-> "Now the key actions:
-
-
-
-We need business users to review and finalize the holistic templates per site
-
-Once approved, IT will upload them into 1PSC's non-prod environment (PLE)
-
-Any fallouts or errors will be reported back and revalidated
-
-Once verified, we’ll move to production.
-
-
-It’s important that for any defaulted or missing values, especially location/room data, business teams provide the final input."
-
-
----
-
-Slide 7: Goal & Benefits
-
-> "The overall goal is simple: create one source of truth.
-Instead of relying on site visits, we’re consolidating all data into one sheet per site.
-This reduces time, increases accuracy, and makes validation easier.
-It supports faster onboarding and better planning for MSC rollouts."
+> Use the same layout as shown in the "FUSE BATTERIES" sheet image provided.
 
 
 
 
 ---
 
-🤖 CoPilot Prompt to Get Similar Content:
+✅ What to say in the call to your users (script):
 
-Generate a complete presentation script to explain a P&C asset migration strategy from IFP, CP&G, and FUZE Compliance systems into DCTrack. 
-Use the following structure:
-- Explain asset types from each system
-- Describe supporting documents (data dumps, holistic template, default mappings, fix sheets)
-- Provide a summary of available assets and migration status
-- Call out key challenges like missing room/location info or unclear source mappings
-- List next steps for business review and finalization
-- End with the business goal and benefits (time reduction, single source of truth)
+If you are presenting this to users in a meeting, here’s your speaking content:
 
-Make the tone business-professional but clear for a non-technical audience.
 
-Let me know if you'd like this content as a downloadable doc or formatted notes.
+---
+
+> “As part of the Power & Cooling asset migration to DCTrack, we’ve extracted data from three systems — IFP, CP&G, and FUZE. For each asset type, we’ve mapped the source system fields to the corresponding columns in the DCTrack holistic template.
+
+We’ve created a structured mapping file per asset, showing:
+
+What fields are expected by DCTrack
+
+Where the data comes from in the source system (table and column)
+
+What default values are used if data is missing
+
+And which values need your input, like room information, which is not available in CPNG and FUZE.
+
+
+This acts as a rule book or a reference guide to verify data before it is loaded into DCTrack.
+
+We’ll share this with you for review, and wherever the values are missing or defaulted, we’ll need your feedback or updated input. That will ensure a smooth and accurate migration.”
+
+
+
+
+---
+
+Let me know once you’re ready with the SQLs and DCTrack mappings — I can help verify the format structure again if needed.
