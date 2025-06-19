@@ -1,90 +1,138 @@
-Here is a comprehensive and structured prompt you can copy and paste into GitHub Copilot (or any AI assistant tool you're using) to generate the rule book for every asset from IFP, CPNG, and FUSE to DCTrack, based on the SQL queries and DCTrack column mappings:
+Here's a detailed script you can use during the call, along with a CoPilot prompt at the end for generating similar content.
 
 
 ---
 
-✅ Prompt to Copilot (for Rule Book Generation):
+✅ Call Presentation Script: P&C Asset Migration Overview
 
-> I have completed all the SQL queries for migrating assets from IFP, CPNG, and FUSE systems into DCTrack.
-Now I want to generate a detailed rule book for each asset type in all 3 systems. This rule book should help users understand:
+Slide 1: Title Slide
 
-1. What each DCTrack column maps to from the source SQL query.
-
-
-2. Which fields are mandatory in DCTrack (marked by a star * in the DCTrack column mapping sheet).
-
-
-3. Which default values are being assigned for those mandatory fields if the source system does not provide a value.
-
-
-4. Whether the default is a static value or calculated using a formula (if calculated, explain the formula used).
-
-
-5. Which fields require user input or manual intervention, especially:
-
-For fields like Location and Location Name, where the format must be:
-
-Location = "Location Name > Room Name"
-
-Location Name = "Room Name"
-
-
-In systems like FUSE and CPNG, room-level details are not available, so users need to manually enter room names for those fields.
-
-
-
-
-Please generate the rule book in the following format:
-
-Group the rule book asset-wise, under each of the three systems.
-
-For each asset, list out:
-
-The DCTrack Column
-
-Mapped Source Field (from SQL)
-
-Is Mandatory (Yes/No)
-
-Default Value (if used)
-
-Formula Used (if applicable)
-
-User Action Needed (Yes/No)
-
-Notes (e.g., “User must provide Room Name in Location”)
-
-
-
-You will be provided:
-
-The SQL queries used for each asset from IFP, CPNG, and FUSE systems
-
-A DCTrack column mapping document that lists all DCTrack columns and shows which are mandatory (with *)
-
-
-Based on this input, generate a clean and usable Rule Book document that can be shared with users, clearly indicating what values are filled automatically and what needs to be reviewed or manually updated by users.
+> "Good [morning/afternoon], everyone. Today we’re going to walk through the migration strategy for P&C assets into the 1PSC DCTrack system. The source systems involved are IFP, CP&G, and FUZE Compliance. Our goal is to consolidate all the asset data from these systems into a unified, structured, and DCTrack-compliant format."
 
 
 
 
 ---
 
-📌 Additional Tips:
+Slide 2: Asset Sources and Types
 
-You can tell Copilot to output it in table format (Markdown or CSV).
+> "Here you can see the asset types we’re handling from each system.
+From IFP, we have power panels, BDFBs, panel breakers, and plants.
+From CP&G, we additionally handle rectifiers, RPPs, and plant bays.
+FUZE contributes assets like generators, fuel tanks, HVACs, and batteries.
 
-If you're using VSCode, split it per asset into separate sections like:
 
-# Generator - IFP
 
-# Floor PDU - CPNG
+We have broken this out to ensure each asset has a defined path into the holistic template for DCTrack."
 
-# Plant Bay - FUSE
+
+---
+
+Slide 3: Reference Links and Mapping Resources
+
+> "To support this effort, we’ve created a structure of linked documentation:
+
+
+
+Raw data dumps from source systems
+
+Holistic templates used for import
+
+Default values provided by business where system values were missing
+
+Mapping between CP&G/FUZE and DCTrack template
+
+A fix sheet to identify areas where business input is still required.
+
+
+All links are organized in this table for quick reference."
+
+
+---
+
+Slide 4: Summary of Assets Across Systems
+
+> "This summary shows:
+
+
+
+Which assets exist in which system
+
+Which ones we’ve successfully tested in DCTrack
+
+And the current count of records available for migration.
+
+
+This helps prioritize where user input or clarification is still needed."
+
+
+---
+
+Slide 5: Key Challenges
+
+> "Some challenges we encountered:
+
+
+
+Room-level location data is often missing in CP&G and FUZE
+
+Panel relationships are unclear in CP&G
+
+Floor PDUs may be connected to UPS or another PDU, which is hard to trace
+
+UPS banks and Load Devices are missing in CP&G and FUZE and must be manually filled by users
+
+For some BDFB Panels, sources are not present in any of the three systems.
+
+
+These gaps are reflected in the fix template sheet."
+
+
+---
+
+Slide 6: Next Steps
+
+> "Now the key actions:
+
+
+
+We need business users to review and finalize the holistic templates per site
+
+Once approved, IT will upload them into 1PSC's non-prod environment (PLE)
+
+Any fallouts or errors will be reported back and revalidated
+
+Once verified, we’ll move to production.
+
+
+It’s important that for any defaulted or missing values, especially location/room data, business teams provide the final input."
+
+
+---
+
+Slide 7: Goal & Benefits
+
+> "The overall goal is simple: create one source of truth.
+Instead of relying on site visits, we’re consolidating all data into one sheet per site.
+This reduces time, increases accuracy, and makes validation easier.
+It supports faster onboarding and better planning for MSC rollouts."
 
 
 
 
 ---
 
-Let me know if you also want a template structure in Excel or Google Sheet to manually maintain this rule book — I can generate that as well.
+🤖 CoPilot Prompt to Get Similar Content:
+
+Generate a complete presentation script to explain a P&C asset migration strategy from IFP, CP&G, and FUZE Compliance systems into DCTrack. 
+Use the following structure:
+- Explain asset types from each system
+- Describe supporting documents (data dumps, holistic template, default mappings, fix sheets)
+- Provide a summary of available assets and migration status
+- Call out key challenges like missing room/location info or unclear source mappings
+- List next steps for business review and finalization
+- End with the business goal and benefits (time reduction, single source of truth)
+
+Make the tone business-professional but clear for a non-technical audience.
+
+Let me know if you'd like this content as a downloadable doc or formatted notes.
