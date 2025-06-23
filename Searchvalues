@@ -1,8 +1,14 @@
-It fails with the error:
+function listCSVFiles() {
+  var folder = DriveApp.getFolderById('YOUR_FOLDER_ID'); // Replace with folder ID
+  var files = folder.getFiles();
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  sheet.clear();
 
-Non-resolvable parent POM for com.verizon.psc.common-service:psc-common-service:0.0.9-SNAPSHOT
-
-Also showing:
-
-[ERROR] Non-resolvable parent POM for com.verizon.psc.common-service...
-[WARNING] Duplicate declaration of plugin org.apache.maven.plugins:maven-surefire-plugin
+  var row = 1;
+  while (files.hasNext()) {
+    var file = files.next();
+    if (file.getName().endsWith(".csv")) {
+      sheet.getRange(row++, 1).setValue(file.getName());
+    }
+  }
+}
