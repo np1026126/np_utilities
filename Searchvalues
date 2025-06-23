@@ -1,14 +1,36 @@
-function listCSVFiles() {
-  var folder = DriveApp.getFolderById('YOUR_FOLDER_ID'); // Replace with folder ID
-  var files = folder.getFiles();
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  sheet.clear();
+Here is a prompt you can give to Copilot or any AI assistant to get detailed and standardized notes for all your asset files (like Fuel Tank, HVAC, etc.), using the Generator sheet as a reference:
 
-  var row = 1;
-  while (files.hasNext()) {
-    var file = files.next();
-    if (file.getName().endsWith(".csv")) {
-      sheet.getRange(row++, 1).setValue(file.getName());
-    }
-  }
-}
+
+---
+
+✅ Prompt to give Copilot:
+
+> I am uploading multiple asset mapping sheets used for data migration into DCTrack from legacy systems like CP&G and IFP.
+Each sheet has these columns:
+Operation, DCTrack Column, Mapped Source Field, Default Value, Formula Used, User Action Needed, and Notes.
+
+
+
+> The "Generator" sheet contains a sample with detailed Notes for rows where User Action Needed = Yes. Use the same style and level of detail to expand the Notes section for all other asset files (Fuel Tank, HVAC, Battery, etc.).
+
+✅ Your task:
+
+Analyze each row in all uploaded sheets.
+
+If User Action Needed is Yes, expand the Notes field to clearly guide the user on what they need to provide (e.g., “Provide Location Name in format: CLLICODE > RoomName”).
+
+If you find that a row actually requires user input but User Action Needed is marked No, correct it to Yes and write a detailed note.
+
+Ensure consistency in terminology, clarity, and helpfulness across all asset types.
+
+
+Reference the detailed Notes style from the Generator sheet to maintain tone and completeness.
+
+At the end, give me back the updated asset files with improved Notes and corrected User Action Needed values.
+
+
+
+
+---
+
+Would you like me to also review the Generator sheet you uploaded and identify where other fields may need user input marked as Yes?
