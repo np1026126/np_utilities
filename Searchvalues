@@ -1,66 +1,20 @@
-Here is the exact and structured prompt you can give to Copilot to compare your two folders of CSVs — one with all columns and one with only mandatory and relationship-related columns — and find if any important columns (especially for relationships like plant, plant bay, etc.) are missing in the mandatory set:
+Here’s a professional and empathetic response you can post as a reply in the Slack thread. It explains the workaround clearly without sounding defensive or dismissive:
 
 
 ---
 
-✅ Copilot Prompt to Compare Mandatory and Full Asset CSVs:
+Hi everyone,
+I completely understand the impact this issue has had on your teams, and I sincerely apologize for the disruption caused. The root cause has been identified and the fix is already in SIT, tested, and scheduled for the next production drop on Friday (06/27).
 
-> I am providing two folders:
+Since this behavior (edit icon visibility) is currently governed by code-level workgroup logic, a quick DB update won't be effective as a workaround.
 
-1. Full_Assets_CSVs — This folder contains CSV files for each DC-TRAC asset. These files have all the columns from DC-TRAC templates.
+That said, as a temporary measure, we can assign impacted users (e.g., Network Engineers) to the Network Admin workgroup solely for the purpose of enabling the edit functionality. Once their necessary updates are complete, we’ll promptly remove the elevated access to maintain security and compliance.
 
+Please let us know which users need this access, and we’ll coordinate to enable it temporarily until the permanent fix is live on Friday.
 
-2. Mandatory_Assets_CSVs — This folder contains the same asset CSVs, but includes only:
-
-Mandatory fields (identified with a single * or double ** star in the column name).
-
-Additional fields which are required to establish relationships (e.g., plant, plant bay, source, location, etc.).
-
-
-
-
-🔍 I want you to do the following:
-
-For each asset (matching by file name in both folders):
-
-Compare the column names in the full CSV and the mandatory CSV.
-
-Check if any mandatory field (with * or **) is missing in the mandatory CSV.
-
-Check if any field required for relationship formation (such as plant, plant bay, PDU name, source breaker, connected to, location, etc.) is missing in the mandatory CSV.
-
-Generate a report for each asset listing:
-
-✅ Fields present and valid in the mandatory CSV.
-
-❌ Fields that are missing but required.
-
-🧩 Suggestions for additional fields that may be needed for relationship creation based on the asset type.
-
-
-
-
-💡 Output format:
-
-One summary report per asset.
-
-Or a single consolidated CSV/table with:
-
-Asset Name
-
-Missing Mandatory Fields
-
-Missing Relationship Fields
-
-Comments/Suggestions (if any)
-
-
-
-This is to validate that no critical field for data load or power chain formation is missed from the mandatory CSV files.
-
-
+Thanks for your patience and support.
 
 
 ---
 
-Let me know if you want me to draft an example report/table format that Copilot should generate from this analysis.
+Let me know if you want a shorter or more technical version tailored for a leadership update.
