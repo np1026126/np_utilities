@@ -1,36 +1,66 @@
-Here is a prompt you can give to Copilot or any AI assistant to get detailed and standardized notes for all your asset files (like Fuel Tank, HVAC, etc.), using the Generator sheet as a reference:
+Here is the exact and structured prompt you can give to Copilot to compare your two folders of CSVs — one with all columns and one with only mandatory and relationship-related columns — and find if any important columns (especially for relationships like plant, plant bay, etc.) are missing in the mandatory set:
 
 
 ---
 
-✅ Prompt to give Copilot:
+✅ Copilot Prompt to Compare Mandatory and Full Asset CSVs:
 
-> I am uploading multiple asset mapping sheets used for data migration into DCTrack from legacy systems like CP&G and IFP.
-Each sheet has these columns:
-Operation, DCTrack Column, Mapped Source Field, Default Value, Formula Used, User Action Needed, and Notes.
+> I am providing two folders:
 
-
-
-> The "Generator" sheet contains a sample with detailed Notes for rows where User Action Needed = Yes. Use the same style and level of detail to expand the Notes section for all other asset files (Fuel Tank, HVAC, Battery, etc.).
-
-✅ Your task:
-
-Analyze each row in all uploaded sheets.
-
-If User Action Needed is Yes, expand the Notes field to clearly guide the user on what they need to provide (e.g., “Provide Location Name in format: CLLICODE > RoomName”).
-
-If you find that a row actually requires user input but User Action Needed is marked No, correct it to Yes and write a detailed note.
-
-Ensure consistency in terminology, clarity, and helpfulness across all asset types.
+1. Full_Assets_CSVs — This folder contains CSV files for each DC-TRAC asset. These files have all the columns from DC-TRAC templates.
 
 
-Reference the detailed Notes style from the Generator sheet to maintain tone and completeness.
+2. Mandatory_Assets_CSVs — This folder contains the same asset CSVs, but includes only:
 
-At the end, give me back the updated asset files with improved Notes and corrected User Action Needed values.
+Mandatory fields (identified with a single * or double ** star in the column name).
+
+Additional fields which are required to establish relationships (e.g., plant, plant bay, source, location, etc.).
+
+
+
+
+🔍 I want you to do the following:
+
+For each asset (matching by file name in both folders):
+
+Compare the column names in the full CSV and the mandatory CSV.
+
+Check if any mandatory field (with * or **) is missing in the mandatory CSV.
+
+Check if any field required for relationship formation (such as plant, plant bay, PDU name, source breaker, connected to, location, etc.) is missing in the mandatory CSV.
+
+Generate a report for each asset listing:
+
+✅ Fields present and valid in the mandatory CSV.
+
+❌ Fields that are missing but required.
+
+🧩 Suggestions for additional fields that may be needed for relationship creation based on the asset type.
+
+
+
+
+💡 Output format:
+
+One summary report per asset.
+
+Or a single consolidated CSV/table with:
+
+Asset Name
+
+Missing Mandatory Fields
+
+Missing Relationship Fields
+
+Comments/Suggestions (if any)
+
+
+
+This is to validate that no critical field for data load or power chain formation is missed from the mandatory CSV files.
 
 
 
 
 ---
 
-Would you like me to also review the Generator sheet you uploaded and identify where other fields may need user input marked as Yes?
+Let me know if you want me to draft an example report/table format that Copilot should generate from this analysis.
