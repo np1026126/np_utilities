@@ -1,29 +1,50 @@
-Here's a crisp, professional email you can send to the end-to-end QA manager:
+Here’s a refined version of your email, incorporating all your inputs professionally and clearly for the end-to-end QA manager:
 
 
 ---
 
-Subject: Request for QA Sign-Off – DC4.2 Friday Prod Release (No Regression Required)
+Subject: Request for QA Sign-Off – DC4.2 Hotfix Prod Release on 06/27 (No Regression Required)
 
-Dear [QA Manager's Name],
+Hi [QA Manager’s Name],
 
-As part of the upcoming DC4.2 production release scheduled for this Friday, I would like to highlight the following:
+As part of the upcoming DC4.2 Hotfix production release scheduled for this Friday (06/27/2025), please find below the summary of changes planned:
 
-The 4 feature changes planned for this release were already part of the last sprint's UAT deployment. Regression testing was completed during that cycle, and no additional changes have been made to those components since.
+✅ Features:
 
-For this release, we are only pushing 3 bug fixes, and corresponding changes are limited to just 3 modules. Relevant UAT images have been shared specifically for these fixes.
+These 4 features were already part of the last sprint’s UAT and were also included in the last week’s production push. However, they remained dormant as they were pending demo and sign-off from the Solution Architect. With the approval now obtained, these features can be opened up for users:
+
+F-15216: Update Data Model to Support Bulleted Equipment Details in 1PSC UNO Emails
+
+F-14615: Integrate 1PSC Workflow Summary with CND
+
+F-13393: My 1PSC Inbox for PSC Requestors
+
+F-15219: Enhance 1PSC UI with Re-Open Functionality and Admin Edit Capability
 
 
-Given that the core features are already validated and no regression-impacting changes are introduced, we request QA validation only for the 3 bug fixes. Full regression is not required for this release.
+🛠️ Bug Fixes:
 
-Kindly confirm your agreement on proceeding with bug-level validation only.
+The following 3 bug fixes are newly included in this hotfix release. Relevant module-level UAT images have been shared:
+
+NTSWSF-6461: Space details are not editable other than by network admin workgroup
+
+PEDS-1733 (INC014461659): Filtering on .5 or 1 in Anticipated Loads calculator not working
+
+PEDS-1060 (INC013721181, INC014556718): Space Details section of the PSCs is not populating
+
+
+For this release, since the 4 features were already validated and are only being activated post-approval, and only 3 new bug fixes are being pushed (with isolated module changes), we request QA sign-off for bug-level testing only. No regression is required.
+
+Kindly confirm your agreement to proceed accordingly.
 
 Best regards,
 [Your Name]
 [Your Designation]
-[Project/Team Name]
+[Team/Project Name]
 
 
 ---
 
-Let me know if you'd like this in a more casual tone or if the QA manager’s name should be added.
+Let me know if you'd like to CC someone, attach screenshots, or tailor it further for a specific team culture.
+
+
