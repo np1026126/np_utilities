@@ -1,50 +1,65 @@
-Here’s a refined version of your email, incorporating all your inputs professionally and clearly for the end-to-end QA manager:
+Here’s a professional and assertive email you can send to the vendor’s team:
 
 
 ---
 
-Subject: Request for QA Sign-Off – DC4.2 Hotfix Prod Release on 06/27 (No Regression Required)
+Subject: Immediate Action Required – Dedicated Support Needed for UNO UI Performance Fix
 
-Hi [QA Manager’s Name],
+Hi [Vendor Team / Specific Names],
 
-As part of the upcoming DC4.2 Hotfix production release scheduled for this Friday (06/27/2025), please find below the summary of changes planned:
+As discussed, the production deployment scheduled for today could not proceed due to the pending UNO UI performance issues. This has put the production status in Jeopardy once again, despite our prior commitment to the Performance team that all performance-related issues would be addressed in this release.
 
-✅ Features:
+While the UNO API performance issue has been resolved, the UNO UI performance issue is still pending. Given the criticality, we need dedicated focus on this item today itself.
 
-These 4 features were already part of the last sprint’s UAT and were also included in the last week’s production push. However, they remained dormant as they were pending demo and sign-off from the Solution Architect. With the approval now obtained, these features can be opened up for users:
+Request: Please assign one or two dedicated resources immediately to work solely on resolving the UNO UI performance issue. We must ensure this is fixed by end of day today (Friday), as we are targeting a production deployment on Monday morning without fail.
 
-F-15216: Update Data Model to Support Bulleted Equipment Details in 1PSC UNO Emails
+Appreciate your immediate attention and confirmation of the assigned team members working on this.
 
-F-14615: Integrate 1PSC Workflow Summary with CND
-
-F-13393: My 1PSC Inbox for PSC Requestors
-
-F-15219: Enhance 1PSC UI with Re-Open Functionality and Admin Edit Capability
-
-
-🛠️ Bug Fixes:
-
-The following 3 bug fixes are newly included in this hotfix release. Relevant module-level UAT images have been shared:
-
-NTSWSF-6461: Space details are not editable other than by network admin workgroup
-
-PEDS-1733 (INC014461659): Filtering on .5 or 1 in Anticipated Loads calculator not working
-
-PEDS-1060 (INC013721181, INC014556718): Space Details section of the PSCs is not populating
-
-
-For this release, since the 4 features were already validated and are only being activated post-approval, and only 3 new bug fixes are being pushed (with isolated module changes), we request QA sign-off for bug-level testing only. No regression is required.
-
-Kindly confirm your agreement to proceed accordingly.
-
-Best regards,
+Thanks & Regards,
 [Your Name]
 [Your Designation]
-[Team/Project Name]
+[Your Contact Info]
 
 
 ---
 
-Let me know if you'd like to CC someone, attach screenshots, or tailor it further for a specific team culture.
+Let me know if you'd like a slightly firmer or more polite version depending on your relationship with the vendor.
+_----------
+
+Certainly! Here's a revised and complete version of your email incorporating both the performance urgency and the regression issue from the last release:
+
+
+---
+
+Subject: Urgent: Immediate Attention Needed for UNO UI Performance & Critical Regression Fix
+
+Hi [Vendor Team / Specific Names],
+
+As discussed, the production deployment planned for today could not go live due to the pending UNO UI performance issues. This has again put the production status in Jeopardy, despite the commitment made during the last release that all performance issues would be addressed in this release.
+
+While the UNO API performance issue has been resolved, the UNO UI performance degradation is still open and must be addressed with top priority.
+
+Action Required:
+
+Please assign one or two dedicated resources immediately to focus entirely on resolving the UNO UI performance issue. This must be fixed by end of day today (Friday), as we are planning to move to production on Monday morning without fail.
+
+Additional Critical Fix – Regression in Last Release:
+
+During the last production release, an existing behavior was unintentionally broken, resulting in users being completely blocked from proceeding. As a temporary workaround, we have assigned all network engineers as network engineer managers to allow users to continue.
+
+However, this is not a long-term solution. This regression must also be fixed as part of this production cycle without fail.
+
+We request immediate confirmation of the dedicated team members who will work on both these items, along with regular updates on the progress.
+
+Thanks & Regards,
+[Your Name]
+[Your Designation]
+[Your Contact Info]
+
+
+---
+
+Let me know if you’d like this drafted in a slightly more assertive or diplomatic tone depending on your audience.
+
 
 
