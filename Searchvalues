@@ -1,38 +1,26 @@
-Thank you for sharing the content. Based on your draft, here is a more detailed and professional version of your contributions for the first goal (Delivery Excellence) section of your self-review:
+Here’s a well-articulated and professional version for the second goal (Effectiveness) based on your input:
 
 
 ---
 
 Description:
 
-Led and delivered multiple key migration and integration activities as part of the Power & Cooling (P&C) and MSC inventory transition into DCTrack, with a focus on delivery excellence and business continuity:
+Level of Communication:
 
-Executed migration of P&C inventory templates from IFP to DCTrack, ensuring data integrity and alignment with the DCTrack holistic model.
+Maintained strong and effective communication across peers, team leads, and partner teams by proactively providing clarity and support:
 
-Carried out detailed mapping and migration of P&C assets from IFP into DCTrack with full traceability.
+Provided continuous guidance to Manasa, especially in understanding the Prairiega stories, ensuring she was confident in handling her assigned tasks.
 
-Supported the migration of MSC Lahser assets into lower environments, facilitating early-stage validations.
+Closely supported Subiksha by walking her through the stories assigned to her, identifying the required code changes, and helping her meet deadlines by breaking down the logic and flows.
 
-Enabled asset mapping from IFP floor plans into Draftx Space Service, enhancing spatial alignment and visualization.
+Collaborated actively with PSC partner teams, where I clearly explained critical flows related to ELL, real-time, and UNO stories, along with migration components, enabling them to execute their tasks independently and efficiently.
 
-Drove the SiteVu location mapping to 1PSC, including sublocation structure creation to enable floor/room-level navigation.
-
-Delivered design solutions for room naming standards across various structures within the same location.
-
-Performed site creation validation for CND to ELS transitions, eliminating configuration errors.
-
-Created mapping logic to align CP&G assets to DCTrack holistic templates, standardizing data formats.
-
-Authored Microsoft SQL Server scripts to fetch and validate P&C data across all 144 MSC sites.
-
-Developed FUZE asset mapping logic into DCTrack’s holistic structure for full lifecycle representation.
-
-Built Oracle scripts for retrieving and validating MSC data, enabling seamless integration across systems.
+My communication approach has always been structured, hands-on, and focused on helping others understand not just what to do, but also why it needs to be done a certain way.
 
 
-These efforts significantly contributed to data readiness, performance improvements, and template standardization across environments — driving towards delivery metrics of >95% on-time delivery, 100% data accuracy, and zero major post-deployment defects.
+This has resulted in positive feedback from peers, better cross-functional collaboration, and successful story delivery even under tight timelines. I strive to keep my communication clear, actionable, and well-received by both internal team members and external stakeholders.
 
 
 ---
 
-Let me know your inputs for the second and third goals and I’ll parallelly write them in the same tone.
+Let me know what to include in the third goal (Expense Reduction) — once you share your contributions or focus areas, I’ll draft it similarly.
