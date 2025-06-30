@@ -1,42 +1,18 @@
-Certainly! Here's the updated version of your first goal (Delivery Excellence) with the two additional deliverables included:
+Sure! Here's the exact prompt you can give to GitHub Copilot (or Copilot Workspace/Chat) assuming it already has access to all your asset CSVs, SQL files, and holistic templates:
 
 
 ---
 
-Description:
+> Prompt to Copilot:
 
-Led and delivered multiple key migration and integration activities as part of the Power & Cooling (P&C) and MSC inventory transition into DCTrack, with a focus on delivery excellence and business continuity:
+"I’ve uploaded a CSV file that lists the asset names under the column 'TAB HEADERS' from our DC-TRAC migration. You already have access to all the holistic templates, SQL queries, and asset data from IFP, CP&G, FUSE, and DC-TRAC.
 
-Executed migration of P&C inventory templates from IFP to DCTrack, ensuring data integrity and alignment with the DCTrack holistic model.
-
-Carried out detailed mapping and migration of P&C assets from IFP into DCTrack with full traceability.
-
-Supported the migration of MSC Lahser assets into lower environments, facilitating early-stage validations.
-
-Enabled asset mapping from IFP floor plans into Draftx Space Service, enhancing spatial alignment and visualization.
-
-Drove the SiteVu location mapping to 1PSC, including sublocation structure creation to enable floor/room-level navigation.
-
-Delivered design solutions for room naming standards across various structures within the same location.
-
-Performed site creation validation for CND to ELS transitions, eliminating configuration errors.
-
-Created mapping logic to align CP&G assets to DCTrack holistic templates, standardizing data formats.
-
-Developed Microsoft SQL Server scripts to fetch and validate P&C data across all 144 MSC sites.
-
-Developed FUZE asset mapping logic into DCTrack’s holistic structure for full lifecycle representation.
-
-Built Oracle scripts for retrieving and validating MSC data, enabling seamless integration across systems.
-
-Successfully migrated IFP active users into OnePSE, ensuring a smooth transition and access continuity.
-
-Completed user-to-workgroup mapping, aligning user roles and responsibilities accurately within OnePSE.
+Using all this context, generate a clear, user-friendly one-liner description for each asset listed in the CSV.
+The description should help non-technical users quickly understand what each asset represents in the data center, avoiding technical terms unless absolutely necessary."
 
 
-These efforts significantly contributed to data readiness, performance improvements, and template standardization across environments — driving towards delivery metrics of >95% on-time delivery, 100% data accuracy, and zero major post-deployment defects.
 
 
 ---
 
-Let me know if you'd like all the goal write-ups combined in a single document!
+This is concise and tuned specifically for your use case. Let me know if you want a version for ChatGPT Copilot Labs as well.
