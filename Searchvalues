@@ -1,18 +1,45 @@
-Sure! Here's the exact prompt you can give to GitHub Copilot (or Copilot Workspace/Chat) assuming it already has access to all your asset CSVs, SQL files, and holistic templates:
+Here’s the exact prompt you can give to GitHub Copilot (or Copilot Chat) to generate the query you need:
 
 
 ---
 
-> Prompt to Copilot:
+✅ Prompt to Ask Copilot:
 
-"I’ve uploaded a CSV file that lists the asset names under the column 'TAB HEADERS' from our DC-TRAC migration. You already have access to all the holistic templates, SQL queries, and asset data from IFP, CP&G, FUSE, and DC-TRAC.
+> I have two PostgreSQL tables:
 
-Using all this context, generate a clear, user-friendly one-liner description for each asset listed in the CSV.
-The description should help non-technical users quickly understand what each asset represents in the data center, avoiding technical terms unless absolutely necessary."
+1. pc_common.location_mapping
+    – mapping_code_type (varchar)
+    – mapping_code (varchar)
+
+
+2. pc_common.psc_site_code_info
+    – location_code_type (varchar)
+    – location_code (varchar)
+
+
+
+I want a SQL query that checks for any duplicate combinations of (code_type, code_value) where:
+
+mapping_code_type + mapping_code in location_mapping
+
+and location_code_type + location_code in psc_site_code_info
+
+
+These pairs must be globally unique across both tables.
+The query should return any (code_type, code_value) combination that appears more than once across the union of both tables.
 
 
 
 
 ---
 
-This is concise and tuned specifically for your use case. Let me know if you want a version for ChatGPT Copilot Labs as well.
+If you want to include which table the duplicates are from, add:
+
+> Also include a column in the result to indicate whether the duplicate came from location_mapping, psc_site_code_info, or both.
+
+
+
+
+---
+
+Let me know if you want the SQL query directly written instead of generating it from Copilot.
