@@ -1,45 +1,60 @@
-Here’s the exact prompt you can give to GitHub Copilot (or Copilot Chat) to generate the query you need:
+To use Home Tasking Co-Pilot (likely GitHub Copilot or similar AI assistant) effectively for this task, here’s the exact prompt you can use to get it to compare the two files and append Area and Market Region from the CSV dump into the Excel sheet:
 
 
 ---
 
-✅ Prompt to Ask Copilot:
+✅ Suggested Prompt for Home Tasking Co-Pilot:
 
-> I have two PostgreSQL tables:
+> "I have two files:
 
-1. pc_common.location_mapping
-    – mapping_code_type (varchar)
-    – mapping_code (varchar)
+1. An Excel file (locations.xlsx) with a column Location UUID.
 
 
-2. pc_common.psc_site_code_info
-    – location_code_type (varchar)
-    – location_code (varchar)
+2. A CSV dump file (dump.csv) which contains Location UUID, Area, and Market Region.
 
 
 
-I want a SQL query that checks for any duplicate combinations of (code_type, code_value) where:
+Write a Python script using pandas that:
 
-mapping_code_type + mapping_code in location_mapping
+Loads both files.
 
-and location_code_type + location_code in psc_site_code_info
+Compares Location UUID in the Excel with the CSV.
 
+Appends the matching Area and Market Region from the CSV to the Excel data.
 
-These pairs must be globally unique across both tables.
-The query should return any (code_type, code_value) combination that appears more than once across the union of both tables.
+Outputs a new Excel file with the additional columns."**
+
 
 
 
 
 ---
 
-If you want to include which table the duplicates are from, add:
+🧠 If you're writing this yourself, here’s a sample Python code:
 
-> Also include a column in the result to indicate whether the duplicate came from location_mapping, psc_site_code_info, or both.
+import pandas as pd
 
+# Load the Excel file with location UUIDs
+excel_df = pd.read_excel("locations.xlsx")
 
+# Load the CSV dump with UUIDs, Area, and Market Region
+csv_df = pd.read_csv("dump.csv")
+
+# Merge both on Location UUID
+merged_df = pd.merge(excel_df, csv_df[['Location UUID', 'Area', 'Market Region']], 
+                     on='Location UUID', how='left')
+
+# Save the result to a new Excel file
+merged_df.to_excel("locations_with_area_market.xlsx", index=False)
 
 
 ---
 
-Let me know if you want the SQL query directly written instead of generating it from Copilot.
+Let me know if:
+
+You want this in another language like Java or SQL.
+
+You’d like the final output to be merged back into the original Excel file.
+
+Or if you want help running this locally.
+
