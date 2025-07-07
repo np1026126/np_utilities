@@ -1,28 +1,48 @@
-To use Home Tasking Co-Pilot (likely GitHub Copilot or similar AI assistant) effectively for this task, here’s the exact prompt you can use to get it to compare the two files and append Area and Market Region from the CSV dump into the Excel sheet:
+Thank you for the clarification! Here's the exact prompt you can copy and paste into Copilot or any AI assistant that works with your Excel or CSV files:
 
 
 ---
 
-✅ Suggested Prompt for Home Tasking Co-Pilot:
+✅ Copilot Prompt (Final Version):
 
-> "I have two files:
+> I have two Excel sheets:
 
-1. An Excel file (locations.xlsx) with a column Location UUID.
+First sheet: "Rooms in Site List from IFP"
+Columns: SITE ID, SITE NAME, CLLI, ROOM NAME, and Location format Expected in Holistic template.
+
+Second sheet: "Production Migration 1PSC Production VZW Site Sheet"
+Columns: SITE ID, Site Name, CLLI, Room Name, Add, Delete, New Site Name(Edit), and others.
 
 
-2. A CSV dump file (dump.csv) which contains Location UUID, Area, and Market Region.
+I want you to compare these two sheets based on the combination of CLLI and Room Name. Based on the comparison, modify the first sheet by doing the following:
+
+1. If a room exists in the second sheet but not in the first, append it to the first sheet.
+
+
+2. Add three new columns in the first sheet:
+
+New Room Name → the room name from the second sheet (if newly added or renamed)
+
+Status → values should be:
+
+Add if it's a new room
+
+Update if the room name is changed for the same CLLI
+
+Delete if it exists in the first but not in the second
+
+Unchanged if it exists in both without change
+
+
+CLLI > Room Name → create this by joining CLLI and Room Name using > as separator.
 
 
 
-Write a Python script using pandas that:
+3. Keep all original columns in the first sheet as-is.
 
-Loads both files.
 
-Compares Location UUID in the Excel with the CSV.
+4. Generate the final result as a downloadable Excel file.
 
-Appends the matching Area and Market Region from the CSV to the Excel data.
-
-Outputs a new Excel file with the additional columns."**
 
 
 
@@ -30,31 +50,4 @@ Outputs a new Excel file with the additional columns."**
 
 ---
 
-🧠 If you're writing this yourself, here’s a sample Python code:
-
-import pandas as pd
-
-# Load the Excel file with location UUIDs
-excel_df = pd.read_excel("locations.xlsx")
-
-# Load the CSV dump with UUIDs, Area, and Market Region
-csv_df = pd.read_csv("dump.csv")
-
-# Merge both on Location UUID
-merged_df = pd.merge(excel_df, csv_df[['Location UUID', 'Area', 'Market Region']], 
-                     on='Location UUID', how='left')
-
-# Save the result to a new Excel file
-merged_df.to_excel("locations_with_area_market.xlsx", index=False)
-
-
----
-
-Let me know if:
-
-You want this in another language like Java or SQL.
-
-You’d like the final output to be merged back into the original Excel file.
-
-Or if you want help running this locally.
-
+Let me know if you’d like the Python code for this too!
