@@ -1,47 +1,64 @@
-Thank you for the clarification! Here's the exact prompt you can copy and paste into Copilot or any AI assistant that works with your Excel or CSV files:
+Thanks for the detailed clarification. Based on everything you said, here is the precise and updated prompt you can give to Copilot:
 
 
 ---
 
-✅ Copilot Prompt (Final Version):
+✅ Final Copilot Prompt:
 
-> I have two Excel sheets:
+> I have two Excel/CSV files:
 
-First sheet: "Rooms in Site List from IFP"
-Columns: SITE ID, SITE NAME, CLLI, ROOM NAME, and Location format Expected in Holistic template.
+First sheet: “Rooms in Site List from IFP”
+Columns: SITE_ID, SITE_NAME, CLLI, ROOM_NAME, and Location format accepted in Holistic Template.
 
-Second sheet: "Production Migration 1PSC Production VZW Site Sheet"
-Columns: SITE ID, Site Name, CLLI, Room Name, Add, Delete, New Site Name(Edit), and others.
+Second sheet: “Production Migration 1PSC Production VZW Site Sheet”
+Columns are the same, but it includes two additional columns:
+
+Add_Delete_Update → shows Add, Update, or Unchanged.
+
+New Site Name → the new room name (if updated).
 
 
-I want you to compare these two sheets based on the combination of CLLI and Room Name. Based on the comparison, modify the first sheet by doing the following:
 
-1. If a room exists in the second sheet but not in the first, append it to the first sheet.
+✅ I want to compare both sheets by CLLI and ROOM_NAME, and update the first sheet in the following way:
 
+1. Add three new columns to the first sheet:
 
-2. Add three new columns in the first sheet:
+New Room Name
 
-New Room Name → the room name from the second sheet (if newly added or renamed)
+CLLI > Room Name → combine CLLI and ROOM_NAME with > as separator
 
 Status → values should be:
 
-Add if it's a new room
+Add → If it's a new room in second sheet (not present in first)
 
-Update if the room name is changed for the same CLLI
+Update → If the room name has changed for same CLLI
 
-Delete if it exists in the first but not in the second
-
-Unchanged if it exists in both without change
-
-
-CLLI > Room Name → create this by joining CLLI and Room Name using > as separator.
+Unchanged → If room name and CLLI are same in both sheets
 
 
 
-3. Keep all original columns in the first sheet as-is.
+
+2. If a new room is present in the second sheet (with Add in Add_Delete_Update), insert a new row into the first sheet with:
+
+Existing SITE_ID, SITE_NAME, CLLI
+
+Leave ROOM_NAME and Location format accepted in Holistic Template empty
+
+Fill New Room Name from second sheet
+
+Mark Status as Add
 
 
-4. Generate the final result as a downloadable Excel file.
+
+3. If Update is present in the second sheet, find the matching CLLI and ROOM_NAME from the first sheet, and:
+
+Add the updated name in New Room Name
+
+Mark Status as Update
+
+
+
+4. Leave other rows untouched, and export the modified result as a new downloadable Excel/CSV file using the format of the first sheet.
 
 
 
@@ -50,4 +67,6 @@ CLLI > Room Name → create this by joining CLLI and Room Name using > as separa
 
 ---
 
-Let me know if you’d like the Python code for this too!
+This prompt tells Copilot exactly what to compare, how to enrich the first sheet, and when to insert new rows. Let me know if you'd also like a working Python script or Excel formula/VBA to do the same.
+
+
