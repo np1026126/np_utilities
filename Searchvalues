@@ -1,131 +1,29 @@
-Thanks, that clarification helps a lot. Based on your input and the actual UI behavior from the screenshots, the existing description and ACs are too generic. You want them to accurately reflect the data behavior, conditional field population, and calculations when selecting UPS (AC power type).
+Great question! For your AC Power Calculation feature, non-functional requirements (NFRs) are just as important as functional ones because they define quality attributes such as performance, usability, scalability, and reliability.
+
+Below are tailored non-functional requirements specifically for the AC power calculation feature within your 1PSC planning system:
 
 
 ---
 
-Here's a completely revised version of the Description and Acceptance Criteria (AC) including:
+✅ Non-Functional Requirements (NFRs) for AC Power Calculation
 
-UPS-specific fields
+1. Performance
 
-PDU/RPP load calculation
+NFR-1: The system shall load and display the UPS-related fields and associated PDU/RPP data in the pop-up window within 2 seconds after selecting the plant type.
 
-Formulas
+NFR-2: Load calculations in the Analysis section shall complete and render within 1 second after all dependencies (UPS/PDU/RPP values) are populated.
 
-Dynamic UI behavior
+NFR-3: The dashboard must handle at least 100 concurrent users without impacting the calculation accuracy or UI responsiveness.
 
-Analysis section logic
 
+2. Accuracy & Calculation Integrity
 
+NFR-4: All load calculations (UPS, PDU, RPP, AC Load, Generator Load) shall be accurate to at least 2 decimal places and reflect real-time updates on field changes.
 
----
+NFR-5: The system shall validate and prevent data mismatch (e.g., AC load exceeding UPS capacity, or invalid amps/kW conversions) before saving.
 
-🔄 Updated Description
 
-This feature enables the AC Power calculation feasibility within the 1PSC Power Planning UI, specifically when the plant type is selected as UPS (indicating AC power flow). The implementation must ensure that:
+3. Usability
 
-The pop-up dynamically renders UPS-specific fields, such as:
+NFR-6: UI
 
-UPS kW Rating
-
-Anticipated Output Load
-
-AC Switchboard Capacity (Amps)
-
-Generator Capacity
-
-PUE (Power Usage Effectiveness)
-
-
-Based on the selected UPS, the corresponding PDUs and RPPs should be auto-populated.
-
-Load and capacity values for PDU and RPP must be computed and displayed using appropriate formulas.
-
-The Analysis section must reflect total load calculations like:
-
-Total UPS Load = Sum of PDU Loads
-
-AC Load = Total Equipment Watts / PUE
-
-Total Generator Load = UPS Load × Load Factor (if applicable)
-
-Future Load = Existing Load + Forecasted Growth (if available)
-
-
-The interface should prevent errors by showing only valid fields relevant to UPS and hiding or disabling fields that apply only to DC plant types.
-
-
-
----
-
-✅ Updated Acceptance Criteria
-
-UPS Selection Behavior
-
-AC-1: When the user selects UPS as the Plant Type in the pop-up, then the following UPS-related fields must be displayed:
-
-UPS kW Rating
-
-Anticipated Output Load (kW)
-
-AC Switchboard Capacity (amps)
-
-Generator Capacity
-
-PUE
-
-
-All other DC-related fields (like Battery or Rectifier) must be hidden or disabled.
-
-
----
-
-PDU & RPP Auto-Population and Load Calculation
-
-AC-2: When a UPS is selected, the corresponding PDUs and RPPs associated with that UPS must be auto-populated in their respective sections, if records exist.
-
-AC-3: The following formulas must be applied:
-
-PDU Load = Sum of load from connected equipment
-
-PDU Max Load = Max permissible load for the PDU
-
-RPP Load = Sum of load from PDUs under that RPP
-
-RPP Max Load = Max permissible load for the RPP
-
-
-AC-4: If no PDUs or RPPs are found, display "No records found" with an option to associate or refresh connections.
-
-
----
-
-Analysis Section Calculations
-
-AC-5: In the Analysis section, the following values must be computed:
-
-Total UPS Load = Sum of all connected PDU Loads
-
-AC Load = Total Equipment Heat / PUE
-
-Total Generator Load = Total UPS Load (if generator is assigned)
-
-Future Load = Total Load + Forecasted Load (if values are given)
-
-
-AC-6: All percentage utilization values must be calculated correctly and shown as:
-
-Final % Utilization = (Existing + New Load) / Max Capacity × 100
-
-
----
-
-Validation and UI Consistency
-
-AC-7: Switching between plant types (UPS vs DC) must clear or disable irrelevant fields and ensure the correct fields and calculations are shown.
-
-AC-8: The dashboard should handle invalid or missing input values gracefully with user-friendly error messages.
-
-
----
-
-Would you like me to create a table view summarizing all formulas and field mappings, or should I help you draft a sample Jira story or feature document with these points?
