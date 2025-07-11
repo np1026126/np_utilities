@@ -1,72 +1,131 @@
-Thanks for the detailed clarification. Based on everything you said, here is the precise and updated prompt you can give to Copilot:
+Thanks, that clarification helps a lot. Based on your input and the actual UI behavior from the screenshots, the existing description and ACs are too generic. You want them to accurately reflect the data behavior, conditional field population, and calculations when selecting UPS (AC power type).
 
 
 ---
 
-✅ Final Copilot Prompt:
+Here's a completely revised version of the Description and Acceptance Criteria (AC) including:
 
-> I have two Excel/CSV files:
+UPS-specific fields
 
-First sheet: “Rooms in Site List from IFP”
-Columns: SITE_ID, SITE_NAME, CLLI, ROOM_NAME, and Location format accepted in Holistic Template.
+PDU/RPP load calculation
 
-Second sheet: “Production Migration 1PSC Production VZW Site Sheet”
-Columns are the same, but it includes two additional columns:
+Formulas
 
-Add_Delete_Update → shows Add, Update, or Unchanged.
+Dynamic UI behavior
 
-New Site Name → the new room name (if updated).
-
-
-
-✅ I want to compare both sheets by CLLI and ROOM_NAME, and update the first sheet in the following way:
-
-1. Add three new columns to the first sheet:
-
-New Room Name
-
-CLLI > Room Name → combine CLLI and ROOM_NAME with > as separator
-
-Status → values should be:
-
-Add → If it's a new room in second sheet (not present in first)
-
-Update → If the room name has changed for same CLLI
-
-Unchanged → If room name and CLLI are same in both sheets
-
-
-
-
-2. If a new room is present in the second sheet (with Add in Add_Delete_Update), insert a new row into the first sheet with:
-
-Existing SITE_ID, SITE_NAME, CLLI
-
-Leave ROOM_NAME and Location format accepted in Holistic Template empty
-
-Fill New Room Name from second sheet
-
-Mark Status as Add
-
-
-
-3. If Update is present in the second sheet, find the matching CLLI and ROOM_NAME from the first sheet, and:
-
-Add the updated name in New Room Name
-
-Mark Status as Update
-
-
-
-4. Leave other rows untouched, and export the modified result as a new downloadable Excel/CSV file using the format of the first sheet.
-
-
-
+Analysis section logic
 
 
 
 ---
 
-This prompt tells Copilot exactly what to compare, how to enrich the first sheet, and when to insert new rows. Let me know if you'd also like a working Python script or Excel formula/VBA to do the same.
+🔄 Updated Description
+
+This feature enables the AC Power calculation feasibility within the 1PSC Power Planning UI, specifically when the plant type is selected as UPS (indicating AC power flow). The implementation must ensure that:
+
+The pop-up dynamically renders UPS-specific fields, such as:
+
+UPS kW Rating
+
+Anticipated Output Load
+
+AC Switchboard Capacity (Amps)
+
+Generator Capacity
+
+PUE (Power Usage Effectiveness)
 
 
+Based on the selected UPS, the corresponding PDUs and RPPs should be auto-populated.
+
+Load and capacity values for PDU and RPP must be computed and displayed using appropriate formulas.
+
+The Analysis section must reflect total load calculations like:
+
+Total UPS Load = Sum of PDU Loads
+
+AC Load = Total Equipment Watts / PUE
+
+Total Generator Load = UPS Load × Load Factor (if applicable)
+
+Future Load = Existing Load + Forecasted Growth (if available)
+
+
+The interface should prevent errors by showing only valid fields relevant to UPS and hiding or disabling fields that apply only to DC plant types.
+
+
+
+---
+
+✅ Updated Acceptance Criteria
+
+UPS Selection Behavior
+
+AC-1: When the user selects UPS as the Plant Type in the pop-up, then the following UPS-related fields must be displayed:
+
+UPS kW Rating
+
+Anticipated Output Load (kW)
+
+AC Switchboard Capacity (amps)
+
+Generator Capacity
+
+PUE
+
+
+All other DC-related fields (like Battery or Rectifier) must be hidden or disabled.
+
+
+---
+
+PDU & RPP Auto-Population and Load Calculation
+
+AC-2: When a UPS is selected, the corresponding PDUs and RPPs associated with that UPS must be auto-populated in their respective sections, if records exist.
+
+AC-3: The following formulas must be applied:
+
+PDU Load = Sum of load from connected equipment
+
+PDU Max Load = Max permissible load for the PDU
+
+RPP Load = Sum of load from PDUs under that RPP
+
+RPP Max Load = Max permissible load for the RPP
+
+
+AC-4: If no PDUs or RPPs are found, display "No records found" with an option to associate or refresh connections.
+
+
+---
+
+Analysis Section Calculations
+
+AC-5: In the Analysis section, the following values must be computed:
+
+Total UPS Load = Sum of all connected PDU Loads
+
+AC Load = Total Equipment Heat / PUE
+
+Total Generator Load = Total UPS Load (if generator is assigned)
+
+Future Load = Total Load + Forecasted Load (if values are given)
+
+
+AC-6: All percentage utilization values must be calculated correctly and shown as:
+
+Final % Utilization = (Existing + New Load) / Max Capacity × 100
+
+
+---
+
+Validation and UI Consistency
+
+AC-7: Switching between plant types (UPS vs DC) must clear or disable irrelevant fields and ensure the correct fields and calculations are shown.
+
+AC-8: The dashboard should handle invalid or missing input values gracefully with user-friendly error messages.
+
+
+---
+
+Would you like me to create a table view summarizing all formulas and field mappings, or should I help you draft a sample Jira story or feature document with these points?
