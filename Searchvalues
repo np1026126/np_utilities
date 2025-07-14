@@ -1,23 +1,26 @@
-You can frame your question in a clear, professional, and technically accurate way like this:
+Here’s a professionally rephrased and polished version of your message that clearly conveys the technical issue while maintaining clarity and a collaborative tone:
 
 
 ---
 
-Message to ask in Slack or email:
+Subject: Clarification Needed on RPP to Floor PDU Mapping for Sites without PDU
 
-> Hi Pete,
+Hi [Name or Team],
 
-As part of our IFP to DC-Track migration, we are reviewing the AC power flow: from UPS to Floor PDU → Floor PDU to RPP → RPP to panels/breakers. However, we’ve noticed that in certain IFP sites, Floor PDU data is missing, while RPPs are present and mapped to downstream panels.
+In certain IFP sites like Lahser, we have both Floor PDUs and RPPs present, so mapping the downstream panels from RPPs is straightforward. However, for some sites like Birmingham, Floor PDUs are missing, and only RPPs are available and mapped to downstream panels.
 
-In such cases, to maintain the required hierarchy and successfully migrate RPPs to DC-Track (where a Floor PDU is mandatory), we’re considering treating the RPP itself as a Floor PDU (i.e., a local Floor PDU), and mapping its downstream panels accordingly.
+As per DC-Track requirements, when migrating an RPP (considered as a panel), it is mandatory to specify the Floor PDU it is connected to. Without this information, we won’t be able to proceed with RPP migration.
 
-Could you please confirm if this approach is acceptable from an architecture perspective? Or is there a recommended alternative for handling RPPs in sites without Floor PDUs?
+Based on our Friday discussion, as per Kailash’s explanation, DC-Track is treating PDUs and RPPs as separate assets, where RPPs are modeled as remote power panels (power panels in DC-Track). In such cases where no Floor PDU is available in the source data, what is the recommended approach?
 
-Appreciate your input on this.
+Are there any architectural drawings, site surveys, or other references we can use to identify the missing Floor PDUs? Or is there any approved workaround in such scenarios to proceed with the RPP migration?
 
+Looking forward to your inputs.
 
+Best regards,
+[Your Name]
 
 
 ---
 
-Would you like a version with less technical jargon, or is this the level you're comfortable with for management and tech discussions?
+Let me know if you'd like to shorten it for chat (e.g., Slack or MS Teams) format.
