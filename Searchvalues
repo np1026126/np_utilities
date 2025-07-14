@@ -1,29 +1,23 @@
-Great question! For your AC Power Calculation feature, non-functional requirements (NFRs) are just as important as functional ones because they define quality attributes such as performance, usability, scalability, and reliability.
-
-Below are tailored non-functional requirements specifically for the AC power calculation feature within your 1PSC planning system:
+You can frame your question in a clear, professional, and technically accurate way like this:
 
 
 ---
 
-✅ Non-Functional Requirements (NFRs) for AC Power Calculation
+Message to ask in Slack or email:
 
-1. Performance
+> Hi Pete,
 
-NFR-1: The system shall load and display the UPS-related fields and associated PDU/RPP data in the pop-up window within 2 seconds after selecting the plant type.
+As part of our IFP to DC-Track migration, we are reviewing the AC power flow: from UPS to Floor PDU → Floor PDU to RPP → RPP to panels/breakers. However, we’ve noticed that in certain IFP sites, Floor PDU data is missing, while RPPs are present and mapped to downstream panels.
 
-NFR-2: Load calculations in the Analysis section shall complete and render within 1 second after all dependencies (UPS/PDU/RPP values) are populated.
+In such cases, to maintain the required hierarchy and successfully migrate RPPs to DC-Track (where a Floor PDU is mandatory), we’re considering treating the RPP itself as a Floor PDU (i.e., a local Floor PDU), and mapping its downstream panels accordingly.
 
-NFR-3: The dashboard must handle at least 100 concurrent users without impacting the calculation accuracy or UI responsiveness.
+Could you please confirm if this approach is acceptable from an architecture perspective? Or is there a recommended alternative for handling RPPs in sites without Floor PDUs?
 
-
-2. Accuracy & Calculation Integrity
-
-NFR-4: All load calculations (UPS, PDU, RPP, AC Load, Generator Load) shall be accurate to at least 2 decimal places and reflect real-time updates on field changes.
-
-NFR-5: The system shall validate and prevent data mismatch (e.g., AC load exceeding UPS capacity, or invalid amps/kW conversions) before saving.
+Appreciate your input on this.
 
 
-3. Usability
 
-NFR-6: UI
 
+---
+
+Would you like a version with less technical jargon, or is this the level you're comfortable with for management and tech discussions?
