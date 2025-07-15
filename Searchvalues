@@ -1,26 +1,111 @@
-Here’s a professionally rephrased and polished version of your message that clearly conveys the technical issue while maintaining clarity and a collaborative tone:
+Absolutely. Here's the story content for the second task – the Guideline Template Creation, followed by a prompt you can use in Google Gemini to generate or refine the story.
 
 
 ---
 
-Subject: Clarification Needed on RPP to Floor PDU Mapping for Sites without PDU
+🧾 User Story – Create Post-Migration Guideline Template for 1PSC ELS
 
-Hi [Name or Team],
-
-In certain IFP sites like Lahser, we have both Floor PDUs and RPPs present, so mapping the downstream panels from RPPs is straightforward. However, for some sites like Birmingham, Floor PDUs are missing, and only RPPs are available and mapped to downstream panels.
-
-As per DC-Track requirements, when migrating an RPP (considered as a panel), it is mandatory to specify the Floor PDU it is connected to. Without this information, we won’t be able to proceed with RPP migration.
-
-Based on our Friday discussion, as per Kailash’s explanation, DC-Track is treating PDUs and RPPs as separate assets, where RPPs are modeled as remote power panels (power panels in DC-Track). In such cases where no Floor PDU is available in the source data, what is the recommended approach?
-
-Are there any architectural drawings, site surveys, or other references we can use to identify the missing Floor PDUs? Or is there any approved workaround in such scenarios to proceed with the RPP migration?
-
-Looking forward to your inputs.
-
-Best regards,
-[Your Name]
+📌 Summary:
+Create a guideline template with screenshots and instructions to help users locate and verify migrated location, floor, and room details in 1PSC ELS after migration.
 
 
 ---
 
-Let me know if you'd like to shorten it for chat (e.g., Slack or MS Teams) format.
+📄 Description:
+As part of the 1PSC ELS migration process for 37 third-party data center sites, we need to document a guideline template for post-migration validation. This document will help users understand:
+
+Where and how to view the migrated location, floor, and room details in 1PSC ELS
+
+Which screens display this information
+
+How this data appears when mapped into a single PSE view
+
+
+Key Points:
+
+Include relevant screenshots from 1PSC ELS that show:
+
+Location name
+
+Floor details
+
+Room hierarchy under each site
+
+Mapping view when opening a PSE in 1PSC
+
+
+Clearly label each screenshot and annotate if necessary
+
+This template will serve as a user-facing reference document
+
+It can be used by QA, business users, or new team members during validation
+
+
+
+---
+
+📘 EAC (Effort and Complexity):
+
+Effort: Low to Medium
+
+Complexity: Low
+
+Estimated Hours: ~6–8 hours (including screenshots, annotation, formatting)
+
+
+
+---
+
+📂 State:
+
+Status: To Do
+
+Target Usage: Shared folder or internal Confluence for validation support
+
+
+
+---
+
+✅ Acceptance Criteria (AC):
+
+1. Guideline document is created with clear instructions and screenshots
+
+
+2. Covers all screens where migrated location/floor/room info can be viewed
+
+
+3. Includes how the data appears while opening a PSE in 1PSC
+
+
+4. Screenshots are labeled and annotated
+
+
+5. Document is reviewed and approved by the functional SME or migration lead
+
+
+6. Uploaded to a shared location accessible to QA/business users
+
+
+
+
+---
+
+🔍 Prompt for Google Gemini:
+
+> "Create a professional Agile story for documenting a post-migration guideline template. The story should include:
+
+Summary and detailed description of the task
+
+Effort and complexity (EAC)
+
+State (To Do, In Progress, etc.)
+
+Acceptance Criteria The guideline is meant to show users how to view migrated location, floor, and room details in 1PSC ELS using screenshots. The document should guide users on which screens show the data and how it appears when opening a PSE. Estimated effort is around 6–8 hours. Write it in a clear and organized user story format."
+
+
+
+
+
+---
+
+Let me know if you want me to create the sample guideline layout too (with headings for screenshots, notes, etc.)!
