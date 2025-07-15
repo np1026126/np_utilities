@@ -1,54 +1,166 @@
-Based on your requirement and the screenshot you shared, here is a step-by-step structured pre-migration and production plan tailored for your DC-TRAC migration work. I’ve also included the exact prompt you should ask in Google Gemini at the end.
+Perfect! Based on your requirement, here is the breakdown into three separate Agile stories, with proper title, summary, description, and acceptance criteria. After the stories, you'll also find the prompt to use in Google Gemini.
 
 
 ---
 
-✅ DC-TRAC Migration Plan – Pre-Migration to Production (Sample Timeline)
+🔷 User Story 1: Update 1PSC Application with Latest SNMP OID and IP Values
 
-Phase	Task	Owner	Start Date	End Date	Comments
+📌 Title:
+Update Application Database with Modified SNMP OID and IP Address for Asset
 
-PRE-MIGRATION (PLE)	Upload Make & Model into DC-TRAC PLE	DC-Track Admin	25-Jul	25-Jul	One-day activity
-	Import Asset Data (All 54 Sites)	Migration Team	26-Jul	29-Jul	Approx. 3–4 days for asset migration
-	Capture Fallouts & Load to DB	Dev Team	30-Jul	31-Jul	Prepare fallout summary and log in DB
-	Share Fallout with Users for Fix	Functional Team	1-Aug	4-Aug	Users correct and resend missing data
-	QE/QA Validation in PLE	QA Team	5-Aug	8-Aug	Validate relationships, power chain
-	User Validation & Feedback	Users	9-Aug	12-Aug	Users provide Go/No-Go feedback
+📝 Summary:
+When a user updates the SNMP OID and/or IP address for an asset in 1PSC, the application should store the latest values in the backend database.
 
+📄 Description:
+Users can update the SNMP OID and IP address of assets (e.g., DC plants) via the 1PSC frontend. These values are essential for UCS to pull correct asset telemetry like voltage and current. Upon modification:
 
-| PRODUCTION MIGRATION | Upload Make & Model into DC-TRAC PROD | DC-Track Admin | 15-Aug | 15-Aug | Mirror of PLE activity | |  | Import Asset Data into PROD | Migration Team | 16-Aug | 20-Aug | Mirror with minimal fallout expected | |  | Fallout Review with Users | QA + Users | 21-Aug | 22-Aug | Share any PROD-level fallout | |  | Final User Validation in PROD | Users + QA | 23-Aug | 25-Aug | Ensure complete flow validation | |  | SOFT LAUNCH (Target) | Confirm All Sites Active | Program Mgmt | 30-Sep | 30-Sep | If No-Go, initiate rollback plan |
+The updated values should be saved in the application DB
 
-
----
-
-🧠 Prompt for Google Gemini
-
-> I’m working on a DC-TRAC migration involving assets from IFP, CP&G, and FUSE. I need help drafting a structured pre-migration and production plan similar to the screenshot I’ve attached.
-
-Steps involved:
-
-First, upload Make & Model in PLE.
-
-Then, asset data is imported (takes 3–4 days).
-
-Fallouts are captured and logged in DB.
-
-Fallouts are shared with users for correction (1 week).
-
-QE and users validate the data.
-
-Based on that, assets are then imported into Production after Make & Model is loaded.
-
-Final fallout (if any) is resolved, users validate again.
-
-Soft Launch is planned for end of September.
+A flag or timestamp should be recorded to indicate that the data is ready to sync with UCS
 
 
-Please create a clear Gantt-style Excel plan or tabular breakdown with dates, owners, and comments like the format in my image. Assume first 54 sites data will come by July 25, rest by Aug 15.
+This story ensures that all changes made in the frontend are reliably persisted in the backend.
+
+✅ Acceptance Criteria:
+
+1. User modifies SNMP OID or IP address for a valid asset via frontend.
+
+
+2. The new values are stored in the database with a timestamp or update flag.
+
+
+3. Change history is recorded for audit (previous and new values).
+
+
+4. A sync-needed flag is marked for UCS integration (used in Story 2).
+
+
+5. Validation is in place for correct OID/IP formats.
 
 
 
 
 ---
 
-Let me know if you'd like me to generate an Excel file for this plan so you can directly use it.
+🔷 User Story 2: Call UCS API to Sync Updated OID/IP
+
+📌 Title:
+Integrate with UCS API to Push Updated OID and IP Address for Asset
+
+📝 Summary:
+When SNMP OID or IP values are updated for an asset, the 1PSC system should push the updated information to UCS via an API (once available).
+
+📄 Description:
+UCS requires updated OID/IP to start polling asset data accurately. Once the application DB is updated with new values, the system should attempt to:
+
+Call UCS API to send the updated SNMP OID/IP and asset metadata
+
+Mark sync status as successful or failed based on UCS API response
+
+
+This is a backend integration story dependent on UCS providing the API.
+
+✅ Acceptance Criteria:
+
+1. Once an asset’s SNMP/IP is updated, system prepares UCS-compatible payload.
+
+
+2. UCS API is called with asset ID, updated OID/IP, and timestamp.
+
+
+3. Successful UCS response updates sync status to "Synced".
+
+
+4. Failed API responses are logged and retried (or manual trigger enabled).
+
+
+5. Sync status is visible in the UI for the asset.
+
+
+6. Feature includes a fallback mechanism if API is temporarily unavailable.
+
+
+
+
+---
+
+🔷 User Story 3: Trigger Email Notification to Users and UCS Team
+
+📌 Title:
+Trigger Email Notification on Asset SNMP/OID Update to UCS Team and Users
+
+📝 Summary:
+Send an email to the user and UCS support team when SNMP OID or IP address is updated, notifying them that polling will resume within 10–15 days.
+
+📄 Description:
+After a user updates the SNMP OID or IP address for an asset, and a sync is attempted (or pending) with UCS, an email should be triggered automatically to:
+
+The user who made the change
+
+The UCS support team
+
+
+The email should include asset details, updated OID/IP, change time, and note that polling is expected to resume within 10–15 days.
+
+This helps ensure both the technical and monitoring teams are aligned about the changes and timeline.
+
+✅ Acceptance Criteria:
+
+1. Upon SNMP OID/IP update, system sends email to:
+
+The modifying user
+
+UCS support group
+
+
+
+2. Email includes: asset name, updated OID, IP address, timestamp, and sync ETA.
+
+
+3. Email should have a standard format/template.
+
+
+4. Email status should be logged (success/failure).
+
+
+5. Re-trigger option available in case of email failure.
+
+
+
+
+---
+
+✅ Prompt to Use in Google Gemini 2
+
+> Create three Agile user stories for the following use case:
+
+In a system called 1PSC, users can update the SNMP OID and IP address for a DC plant or similar asset. This information is used by a third-party system called UCS to pull telemetry data like voltage and current. The SNMP OID and IP update flows involve:
+
+1. First, updating the database with the new values.
+
+
+2. Then, calling UCS via API to push these updated values (API is expected from UCS).
+
+
+3. Sending an email notification to the user and UCS support team informing them of the change and stating that polling will resume in 10–15 days.
+
+
+
+Each story should include:
+
+A title
+
+A summary
+
+A detailed description
+
+Acceptance Criteria in bullet format
+
+
+
+
+
+---
+
+Let me know if you also want a sample email template, UCS API payload structure, or a status flow diagram for your presentation!
 
