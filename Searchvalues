@@ -1,76 +1,98 @@
-Certainly! Here's the exact prompt you can use in Google Gemini to generate the three new user stories based on your described continuation features.
+Perfect — you've shared two helpful screenshots:
+
+📄 First image: Your new task plan content (to be migrated)
+
+📊 Second image: A sample Excel format with structured columns (Seq #, Appl, Action, Object, Descriptor, Start Date, End Date, Comments)
 
 
----
+Now, here's your exact prompt to use in Ask Copilot so that it will:
 
-✅ Prompt for Google Gemini:
+Take your provided task list as input
 
-> Create three detailed Agile user stories for the following use case in a system called 1PSC:
+Use the sample headings and structure
 
-Context:
-Users can add or update SNMP OIDs and IP addresses for assets like DC plants. Based on this, UCS (a third-party system) pulls real-time data like current and voltage using the configured SNMP OID and IP address.
+Start dates from 15th August 2025
 
-The following new features need to be implemented:
+Populate durations and auto-fill dates
 
-
----
-
-Story 1: UI Validation and Sync Status Field
-
-In the 1PSC frontend, the UI must validate the entered SNMP OID and IP address formats before submission.
-
-A new field called “UCS Sync Status” should be added in the UI.
-
-The status can be: In Progress, Not Synced, or Synced.
-
-When a new OID or IP is added or changed, the status should be automatically set to “In Progress.”
+Provide a final downloadable Excel file
 
 
 
 ---
 
-Story 2: Backend API to Check UCS Pulling Activity
+✅ Prompt for Ask Copilot: Excel Task Plan Generation
 
-A backend API should be developed that checks whether UCS has started pulling data for the given SNMP OID and IP address.
+> I am providing a task plan list (copied as plain text or CSV) and a sample Excel format (which includes column headers and layout).
 
-It should compare from the date the new values were updated and look for any data received via Kafka (or UCS topic).
+📌 Task Plan Input:
 
-If data is found for the new OID/IP, it updates the sync status to “Synced.”
+The list I’m providing should be treated as the task steps for a migration. These are pre-migration activities to be performed in the PLE environment.
 
-If not, the status remains as “In Progress” or “Not Synced.”
+📋 Use the following column headers from the sample format:
+
+Seq #
+
+Appl
+
+Action
+
+Object
+
+Descriptor
+
+Start Date
+
+End Date
+
+Comments from Activity
+
+
+🗓️ Scheduling Logic:
+
+Assume that the plan starts on 15th August 2025
+
+Group the tasks as below:
+
+Pre-Migration Tasks (PLE) → Aug 15, 2025 (all to be completed in 1 day)
+
+Migration Phase → Aug 16–20 (5 days)
+
+User Validation → Aug 21–28 (1 week)
+
+Fallout Fixing → Aug 29–30 (2 days)
+
+E2E Testing → Aug 31–Sep 1 (2 days)
+
+Post-Migration in Production → Repeat same tasks starting Sep 2, 2025 onward (follow same structure)
+
+
+
+✉️ Additional Notes:
+
+Add entries like “Create AOS ticket”, “Turn OFF scheduler” under Action: "Create"
+
+For Object and Descriptor columns, fill based on the task content
+
+If not specified, leave "Comments from Activity" column empty
+
+
+🧾 Output Requirement:
+
+Final output should be a downloadable Excel file (.xlsx) with all columns populated and dates calculated from Aug 15, 2025
+
+The full plan should include both PLE phase and Production phase
+
+
 
 
 
 ---
 
-Story 3: Email Notification on First Pull Detection
-
-When the system detects that UCS has successfully started pulling data for a newly updated IP address or OID, it should send an email notification.
-
-The email should be sent to the user who made the update.
-
-The email should include: asset name, IP address, SNMP OID, location, and confirmation that polling has started.
-
-This serves as confirmation that the update has taken effect.
-
+Once you give this prompt along with your actual CSV (or copy-paste task list), Copilot will be able to structure and generate the migration plan exactly like your sample.
 
 
 ---
 
-For each story, provide:
+✅ Let me know if you'd like me to generate this Excel file for you right now — you can just upload your task list CSV or paste it here.
 
-A Title
-
-A Summary
-
-A detailed Description
-
-Acceptance Criteria in bullet format
-
-
-
-
-
----
-
-Let me know if you want me to go ahead and write out all three stories for you here, based on this prompt.
