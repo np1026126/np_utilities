@@ -1,66 +1,117 @@
-Certainly! Here's the revised explanation with the additional technical detail you requested, presented clearly and professionally:
+Here's a professional write-up summarizing the issues identified during the DC-Track data validation for the Windsor site. You can send this as an email or attach it in your project update:
 
 
 ---
 
-📢 Subject: Data Validation – UPS and PDU/RPP Rating Mismatch & Missing Power Flow Inputs
+📌 Subject: DC-Track Upload Issues for Windsor Site – Action Required
 
 Dear Team,
 
-During our validation of the power chain data for the Windsor site, we identified two critical issues that are preventing successful import and linking of assets in DCTrack:
+During the DC-Track data validation and pre-migration process for the Windsor site, the following issues were identified across multiple asset types. These need to be addressed in order to proceed with successful data import and ensure system integrity.
 
 
 ---
 
-⚠️ 1. Rating Mismatch Between UPS and PDU/RPP:
+🔧 General Observations:
 
-The provided UPS units have a maximum rating of approx. 55.6 kVA (51–57 kW).
+1. UPS and Floor PDU Mismatch
 
-However, the PDUs and RPPs intended to be linked have ratings of 225–300 kVA and 400–500 A.
+The UPS units provided have lower KW/KVA ratings compared to the connected Floor PDUs and RPPs.
 
-This presents a capacity mismatch where the UPS cannot support the load of the connected PDU or RPP based on current data.
+For instance, UPS-A1 with 54.8 KW and 55.6 KVA is connected to PDUs rated at 225 KVA, which is not technically feasible.
 
-As a result, we cannot link these assets in DCTrack, and importing both would cause validation failures due to incorrect power flow modeling.
+Action: Please verify the UPS capacity and ensure it aligns with the load requirements of all connected PDUs.
+
+
+
+2. Missing Power Chain Data
+
+For proper power chain flow and accurate asset linking, the following information is mandatory:
+
+UPS Bank association for each UPS.
+
+Load Device details associated with each UPS.
+
+Power-fed source for Floor PDUs, referencing the appropriate UPS/UPS Bank.
+
+
+Action: Please include the complete upstream and downstream power mapping (UPS → UPS Bank → Load Device → Floor PDU).
+
+
 
 
 
 ---
 
-⚠️ 2. Missing Required Inputs for Power Flow Calculation:
+⚠️ Asset-Specific Issues:
 
-For the power chain and calculations to work correctly in DCTrack:
+1. Battery
 
-The UPS must be linked to the PDU via accurate Power Fed From and Source (UPS Bank) fields.
+Belongs To field must reference either a valid UPS or Plant name.
 
-The UPS Bank and Load Device (e.g., Load PDU, panel, etc.) must also be provided so that the complete path of power flow is defined.
+The following fields are required for each battery:
 
-The PDU must have the correct UPS source information, without which the power spectrum cannot be calculated and relationships cannot be established.
+Capacity 1 Rate (Hours), Capacity 1 (Ah)
+
+Capacity 2 Rate (Hours), Capacity 2 (Ah)
 
 
-In short, UPS → UPS Bank → Load Device → PDU must all be present and accurately linked for power chain integrity and calculation logic to function properly.
+String Number and Index String must be clearly specified to establish plant-level connectivity.
+
+
+2. Plant
+
+Generic Plant Model is being rejected as it doesn't meet standard DC-Track requirements.
+
+Multiple custom fields like "Owner of this Record", "Last Polled", and "Anticipated Update" are incorrectly formatted or repeated.
+
+
+3. Plant Bay / Rectifier
+
+Location values must follow the format: <CLLI Code> <Space> <Room Name>
+
+Some rectifier locations are missing or incorrectly named.
+
+
+4. BDFB / BDFB Panel
+
+Row label issues exist where rack position (U position, Orientation) and Rails Used fields are either missing or repeated.
+
+Dummy entries like “99999” used in Power Fed From must be replaced with correct source references.
+
+Source and Source Location fields must conform to the acceptable DC-Track format.
+
+
+5. Generator
+
+Make field should start with a capital letter as per the naming conventions.
 
 
 
 ---
 
-✅ Next Steps:
+📅 Next Steps:
 
-Please review and:
+We request your assistance in:
 
-Correct the UPS or PDU/RPP ratings as per real site data.
+Verifying and correcting the UPS-PDU power mapping.
 
-Ensure the UPS Bank, Load Device, and Power Fed From fields are properly populated for each corresponding PDU.
+Providing complete power chain references (UPS → Bank → Load Device → PDU).
 
-Share the revised dataset for us to proceed with upload and validation.
+Rectifying the listed field errors and formatting issues for each asset type.
 
 
-Let us know if you need help in structuring the corrected template or have any questions.
+This will help us proceed smoothly with the UAT migration phase and ensure data is production-ready.
+
+Please let us know once the revised data is available for revalidation.
 
 Best regards,
-[Your Name]
-[Project/Team Name]
+Your Name
+Migration Team – DCTrack Integration
+Verizon Global Network Systems
 
 
 ---
 
-Let me know if you'd like a version tailored for messaging tools like Teams or Slack.
+Let me know if you'd like this as an Excel checklist format too, or if you want to add owner names or site codes.
+
