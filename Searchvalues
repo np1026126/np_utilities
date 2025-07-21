@@ -1,98 +1,66 @@
-Perfect — you've shared two helpful screenshots:
-
-📄 First image: Your new task plan content (to be migrated)
-
-📊 Second image: A sample Excel format with structured columns (Seq #, Appl, Action, Object, Descriptor, Start Date, End Date, Comments)
+Certainly! Here's the revised explanation with the additional technical detail you requested, presented clearly and professionally:
 
 
-Now, here's your exact prompt to use in Ask Copilot so that it will:
+---
 
-Take your provided task list as input
+📢 Subject: Data Validation – UPS and PDU/RPP Rating Mismatch & Missing Power Flow Inputs
 
-Use the sample headings and structure
+Dear Team,
 
-Start dates from 15th August 2025
+During our validation of the power chain data for the Windsor site, we identified two critical issues that are preventing successful import and linking of assets in DCTrack:
 
-Populate durations and auto-fill dates
 
-Provide a final downloadable Excel file
+---
+
+⚠️ 1. Rating Mismatch Between UPS and PDU/RPP:
+
+The provided UPS units have a maximum rating of approx. 55.6 kVA (51–57 kW).
+
+However, the PDUs and RPPs intended to be linked have ratings of 225–300 kVA and 400–500 A.
+
+This presents a capacity mismatch where the UPS cannot support the load of the connected PDU or RPP based on current data.
+
+As a result, we cannot link these assets in DCTrack, and importing both would cause validation failures due to incorrect power flow modeling.
 
 
 
 ---
 
-✅ Prompt for Ask Copilot: Excel Task Plan Generation
+⚠️ 2. Missing Required Inputs for Power Flow Calculation:
 
-> I am providing a task plan list (copied as plain text or CSV) and a sample Excel format (which includes column headers and layout).
+For the power chain and calculations to work correctly in DCTrack:
 
-📌 Task Plan Input:
+The UPS must be linked to the PDU via accurate Power Fed From and Source (UPS Bank) fields.
 
-The list I’m providing should be treated as the task steps for a migration. These are pre-migration activities to be performed in the PLE environment.
+The UPS Bank and Load Device (e.g., Load PDU, panel, etc.) must also be provided so that the complete path of power flow is defined.
 
-📋 Use the following column headers from the sample format:
-
-Seq #
-
-Appl
-
-Action
-
-Object
-
-Descriptor
-
-Start Date
-
-End Date
-
-Comments from Activity
+The PDU must have the correct UPS source information, without which the power spectrum cannot be calculated and relationships cannot be established.
 
 
-🗓️ Scheduling Logic:
-
-Assume that the plan starts on 15th August 2025
-
-Group the tasks as below:
-
-Pre-Migration Tasks (PLE) → Aug 15, 2025 (all to be completed in 1 day)
-
-Migration Phase → Aug 16–20 (5 days)
-
-User Validation → Aug 21–28 (1 week)
-
-Fallout Fixing → Aug 29–30 (2 days)
-
-E2E Testing → Aug 31–Sep 1 (2 days)
-
-Post-Migration in Production → Repeat same tasks starting Sep 2, 2025 onward (follow same structure)
-
-
-
-✉️ Additional Notes:
-
-Add entries like “Create AOS ticket”, “Turn OFF scheduler” under Action: "Create"
-
-For Object and Descriptor columns, fill based on the task content
-
-If not specified, leave "Comments from Activity" column empty
-
-
-🧾 Output Requirement:
-
-Final output should be a downloadable Excel file (.xlsx) with all columns populated and dates calculated from Aug 15, 2025
-
-The full plan should include both PLE phase and Production phase
-
-
+In short, UPS → UPS Bank → Load Device → PDU must all be present and accurately linked for power chain integrity and calculation logic to function properly.
 
 
 
 ---
 
-Once you give this prompt along with your actual CSV (or copy-paste task list), Copilot will be able to structure and generate the migration plan exactly like your sample.
+✅ Next Steps:
+
+Please review and:
+
+Correct the UPS or PDU/RPP ratings as per real site data.
+
+Ensure the UPS Bank, Load Device, and Power Fed From fields are properly populated for each corresponding PDU.
+
+Share the revised dataset for us to proceed with upload and validation.
+
+
+Let us know if you need help in structuring the corrected template or have any questions.
+
+Best regards,
+[Your Name]
+[Project/Team Name]
 
 
 ---
 
-✅ Let me know if you'd like me to generate this Excel file for you right now — you can just upload your task list CSV or paste it here.
-
+Let me know if you'd like a version tailored for messaging tools like Teams or Slack.
