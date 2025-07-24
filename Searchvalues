@@ -1,60 +1,43 @@
-Based on the screenshot and your explanation, here is a professional Sunbird ticket content for the second issue (bulk edit for room/location is not functioning as expected):
+Here is the ticket content for raising the third issue to Sunbird — about missing kW/kVA phase-wise readings at the PDU level, just like what's shown for RPP in your screenshot.
 
 
 ---
 
 ✅ Ticket Title / Summary:
 
-Bulk Edit for 'Location' Field Not Available for Floor PDU and RPP Classes
+Enable Real-Time Phase-Wise kW/kVA Readings at PDU Level
 
 
 ---
 
-📝 Detailed Description (to be used in the ticket body):
+📌 Description:
 
-We are currently facing an issue with the bulk edit functionality in DCTrack (Sunbird platform), specifically when attempting to update the 'Location' field for multiple assets of class type Floor PDU (and similarly for RPPs).
+Currently, in the dcTrack UI, the real-time power utilization readings — such as kW, kVA, and per-phase consumption (Phase A, B, and C) — are displayed only at the Remote Power Panel (RPP) level, as shown in the attached screenshot.
 
-While selecting multiple items and using the Bulk Edit > Up to 5 Fields option, the 'Location' field does not appear as an editable option. Only "Location Ref" is available under standard fields, which is not sufficient for our use case.
+However, these details are not available at the PDU (Power Distribution Unit) level. This limits our ability to analyze and manage PDU utilization, especially for accurate load balancing, capacity planning, and real-time monitoring.
 
-This limitation forces us to edit each item's location individually through the UI, significantly slowing down the data correction process — especially critical during ongoing large-scale migrations and room alignment corrections.
+To align with the electrical one-line diagram expectations and ensure proper visibility into power flows, we request that similar kW/kVA phase-wise metrics (actual vs budgeted values, utilization %, and phase-wise load) be made available at the PDU level as well.
 
+This enhancement is essential for:
 
----
+Accurate visualization of power consumption along AC flows
 
-🔧 Expected Functionality:
+Better decision-making for electrical planning
 
-We request the ability to:
-
-Bulk select multiple Floor PDUs or RPPs
-
-Edit their Location field in one action using Bulk Edit
-
-Ensure that the actual room location (not just location reference) is editable in this bulk mode
+Consistency with RPP views already available in dcTrack
 
 
 
 ---
 
-📸 Screenshot Reference:
+📎 Attachments:
 
-Attached screenshot shows the issue:
-➤ Bulk Edit > Field to Edit dropdown does not list 'Location', only 'Location Ref'
-➤ Assets selected belong to Floor PDU class, which require mass location updates
+Screenshot showing expected view (currently available only for RPP)
 
-
-
----
-
-📍 Business Impact:
-
-This is critical for efficient room mapping during data migration and correction.
-
-Manually updating location for hundreds of PDUs/RPPs is not scalable.
-
-This directly affects our ability to maintain data accuracy and meet project timelines.
+Reference to support email thread discussing this limitation
 
 
 
 ---
 
-Let me know if you'd also like a version of this formatted for internal Jira or ticketing system.
+Let me know if you'd also like a version for internal tracking or a shorter version for the ticket title field.
