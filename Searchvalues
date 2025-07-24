@@ -1,116 +1,22 @@
-Sure, here is a professional summary you can present to users based on both the screenshots and context provided. This write-up captures issues, assumptions, and clarification requests for each asset type covered:
+Based on your second and third screenshots (which detail the issues and assumptions per asset), here is the professional content you can enter into your slide under the "Asset" and "Data Migration Issues" columns:
 
 
 ---
 
-🔧 Summary of Observations, Issues & Assumptions – Windsor Site (Asset Imports from FUZE to DCTrack)
+S. No.	Asset	Data Migration Issues
 
-Dear Team,
-
-Below is a consolidated summary of the issues encountered and the assumptions made while processing the Windsor site asset data from FUZE to be uploaded into DCTrack. Your confirmation or clarification on the below points will help ensure accurate data loading and system functionality:
-
-
----
-
-🟧 1. Generator
-
-The following three values — Rating (kVA), Rating (kW), and Rating (A) — are currently being derived using formulas based on GEN_SIZE:
-
-kVA = ROUND(GEN_SIZE * 1.25)
-
-KW = GEN_SIZE
-
-Amps = ROUND(GEN_SIZE * 1.5)
-
-
-⚠️ Assumption: These formulas are correct representations of generator power rating logic.
-
-📌 Request: Please confirm if this method of deriving ratings from GEN_SIZE is valid, or if an alternate method is preferred.
-
-Additionally, a few generator values from FUZE appear to be incorrect or inconsistent with known capacity standards.
+1	UPS and Floor PDU	- UPS entries were created based on the PDU naming convention from CP&G.<br> - KW/KVA values were manually populated based on user-provided one-line diagrams.<br> - Inconsistencies found between UPS and Floor PDU values (e.g., UPS rated at 250kW vs. PDU at 225kW).<br> - Load Devices and UPS Banks were generated with assumed PF (0.9) due to missing source data.<br> - This may impact power flow accuracy in dcTrack.
+2	UPS Bank	- No source data available; assets created only in dcTrack.<br> - Created 2 UPS Banks assuming grouping based on PDU name prefix (e.g., A and B).<br> - Rating Amps derived assuming Power Factor = 0.9.
+3	Load Device	- Not available in any source system.<br> - Created in dcTrack to connect UPS to PDU.<br> - Amp values derived using same assumptions as UPS bank.
+4	RPP (as Floor PDU)	- RPPs are treated as PDUs for schema alignment.<br> - Still under discussion if this approach is acceptable or if RPP should be created with internal panels.<br> - Transformer connection logic impacted due to this schema mapping.
+5	DC Panel	- DC Panel not found in CP&G, IFP, or FUZE.<br> - Dummy panel created in dcTrack to allow BDFB import.<br> - Mapping made to allow logical BDFB flow continuation.
+6	Generator	- Rating (KW, KVA, Amps) derived using formulas from GEN_SIZE due to missing rated values.<br> - If assumptions are incorrect, it may lead to data integrity issues.
+7	Battery	- "Belongs To" field (UPS/Plant) often marked as 'None'.<br> - No association possible between battery and plant/UPS.<br> - Required fields such as String Index, String Number are missing in some entries.<br> - Mapping logic from FUZE broken due to incomplete hierarchy.
+8	HVAC	- Missing fields like Zone Load and TotalTonsNonEquipHeat from FUZE.<br> - Make/model details not available.<br> - Users advised not to load data until FUZE exports are corrected.
+9	Room Details	- Several assets (from CP&G and FUZE) have no room assigned.<br> - Temporarily assigned to "Roof" in dcTrack; users must validate and update room assignments post-migration.
 
 
 
 ---
 
-🟧 2. HVAC
-
-We are unable to locate zone load and TotalITNonEquipHeat values within the FUZE data dump.
-
-⚠️ These fields are critical for power/cooling calculations within DCTrack.
-
-📌 Request: Can these values be provided or extracted directly from FUZE?
-
-
-
----
-
-🟧 3. Battery
-
-The field “Belongs To” (UPS or Plant) is often marked as None, which breaks the association logic.
-
-🔺 Expected: Either a valid UPS name or Plant name must be provided to allow linkage and mapping.
-
-
-String Number / Index String: Missing for several entries. These are required to define battery groups or banks within plants.
-
-⚠️ Issue: Batteries in FUZE don’t always indicate which plant they’re connected to.
-
-📌 Request: Kindly confirm how we can reliably identify and link batteries to respective UPS or plant in absence of this data.
-
-
-
----
-
-🟧 4. UPS
-
-UPS entries are being created based on PDU naming convention from CP&G.
-
-For each site, we are taking the maximum load of one UPS and replicating it across other UPS units — ⚠️ a temporary assumption made due to lack of detailed per-unit data.
-
-⚙️ Amps calculation for UPS bank is being derived assuming Power Factor (PF) = 1.
-
-Load devices downstream (like PDUs) are also being calculated based on UPS-PDU count linkage and this PF factor.
-
-📌 Request: Please verify if using PF=1 and mirrored max load across UPS units is an acceptable approach.
-
-
-
----
-
-🟧 5. BDFB / Panel Breakers
-
-For Panel Breakers, the cabinet value is derived from the associated breaker message in IFP.
-
-However, ⚠️ most breaker records do not contain cabinet details, making them unmappable to actual panel layout.
-
-📌 Request: Can additional data or mapping logic be provided to align breaker positions within DCTrack cabinets?
-
-
-
----
-
-✅ Summary of Actions Needed:
-
-Asset	Action Requested
-
-Generator	Confirm formula usage for rating derivation
-HVAC	Provide zone load and TotalITNonEquipHeat
-Battery	Confirm logic to identify belonging (Plant/UPS), and String number
-UPS	Validate assumption: max load + PF=1
-Panel Breakers	Guidance on cabinet mapping when missing
-
-
-
----
-
-We await your confirmation or recommended adjustments before proceeding with final asset migration into DCTrack. This will ensure data integrity and operational consistency during and after the soft launch.
-
-Best regards,
-Your Name
-Migration T&D Team
-
-
----
-
-Let me know if you'd like this in email format or with tabular visuals for easier reporting.
+Let me know if you'd like me to fill in the Current Status or Total Assets columns based on additional data.
