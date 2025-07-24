@@ -1,22 +1,68 @@
-Based on your second and third screenshots (which detail the issues and assumptions per asset), here is the professional content you can enter into your slide under the "Asset" and "Data Migration Issues" columns:
+Based on everything you've provided — the chat history, your spoken notes, screenshots, and the Sunbird ticket-related email — here is a professionally written bullet-point summary that you can send to your manager as a daily update after the IFP migration call on 24th July 2025:
 
 
 ---
 
-S. No.	Asset	Data Migration Issues
+✅ IFP Migration Update – 24th July 2025
 
-1	UPS and Floor PDU	- UPS entries were created based on the PDU naming convention from CP&G.<br> - KW/KVA values were manually populated based on user-provided one-line diagrams.<br> - Inconsistencies found between UPS and Floor PDU values (e.g., UPS rated at 250kW vs. PDU at 225kW).<br> - Load Devices and UPS Banks were generated with assumed PF (0.9) due to missing source data.<br> - This may impact power flow accuracy in dcTrack.
-2	UPS Bank	- No source data available; assets created only in dcTrack.<br> - Created 2 UPS Banks assuming grouping based on PDU name prefix (e.g., A and B).<br> - Rating Amps derived assuming Power Factor = 0.9.
-3	Load Device	- Not available in any source system.<br> - Created in dcTrack to connect UPS to PDU.<br> - Amp values derived using same assumptions as UPS bank.
-4	RPP (as Floor PDU)	- RPPs are treated as PDUs for schema alignment.<br> - Still under discussion if this approach is acceptable or if RPP should be created with internal panels.<br> - Transformer connection logic impacted due to this schema mapping.
-5	DC Panel	- DC Panel not found in CP&G, IFP, or FUZE.<br> - Dummy panel created in dcTrack to allow BDFB import.<br> - Mapping made to allow logical BDFB flow continuation.
-6	Generator	- Rating (KW, KVA, Amps) derived using formulas from GEN_SIZE due to missing rated values.<br> - If assumptions are incorrect, it may lead to data integrity issues.
-7	Battery	- "Belongs To" field (UPS/Plant) often marked as 'None'.<br> - No association possible between battery and plant/UPS.<br> - Required fields such as String Index, String Number are missing in some entries.<br> - Mapping logic from FUZE broken due to incomplete hierarchy.
-8	HVAC	- Missing fields like Zone Load and TotalTonsNonEquipHeat from FUZE.<br> - Make/model details not available.<br> - Users advised not to load data until FUZE exports are corrected.
-9	Room Details	- Several assets (from CP&G and FUZE) have no room assigned.<br> - Temporarily assigned to "Roof" in dcTrack; users must validate and update room assignments post-migration.
+Users started with validation of AC flow structures. As UPS values were not present in CPNG, they provided a one-line diagram with KW/KVA ratings per UPS.
+
+Based on the values shared, we created the UPS, UPS Bank, Load Devices, Floor PDU, and RPP entries to simulate the correct power chain in DCTrack.
+
+Initially, we treated RPP as a Floor PDU (to align with IFP structure) and created a panel inside the RPP, fed from the Floor PDU. Scripts were developed accordingly.
+
+However, upon reviewing the one-line diagram in today’s call, users were not satisfied with the representation of RPP with panels inside a floor PDU.
+
+With support from Sunbird, we proposed a new structure:
+➤ Instead of having one RPP with two panels, we will now create two separate RPPs, each holding one panel.
+➤ This revised approach is more aligned with user expectations.
+
+The updated diagram based on this approach was accepted by the users.
+
+Users requested that for now, this updated logic should be implemented at least for Windsor, post which they’ll review how the data appears in DCTrack.
+
+Required changes to scripts were acknowledged, especially for the floor PDU and panel sections, and updates will be made accordingly.
 
 
 
 ---
 
-Let me know if you'd like me to fill in the Current Status or Total Assets columns based on additional data.
+🔧 Template & System Limitations Raised
+
+The following system limitations were discussed and are to be submitted as Sunbird support tickets:
+
+1. Room Mapping Limitation:
+➤ The current upload template does not allow mapping RPP to a different room than its associated PDU.
+➤ Manual intervention via DCTrack UI is needed after upload.
+➤ Requesting enhancement to support RPP and PDU room assignment independently during template upload.
+
+
+2. Bulk Room Editing:
+➤ DCTrack currently lacks the option to bulk edit items/room assignments post-upload.
+➤ Users requested this functionality to streamline location updates.
+
+
+3. Missing KVA/KW at PDU Level:
+➤ Real-time tracking of PDU KW/KVA (phase-wise) values is missing.
+➤ Users emphasized this is essential for managing PDU utilization.
+➤ Until then, this may be handled by defining custom fields.
+
+
+
+
+---
+
+📌 Additional Points
+
+For sites where UPS values are missing (not available in CPNG), users must provide the required KW/KVA inputs.
+
+In a few cases, PDU data is completely missing — users must provide this for us to complete the AC power flow mapping.
+
+These inputs are mandatory for proceeding with the AC power flow implementation across other locations.
+
+
+
+---
+
+Let me know if you’d like the same content drafted into an email body format or PowerPoint update format.
+
