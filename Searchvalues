@@ -1,76 +1,60 @@
-Certainly! Here's the updated and final professional summary with your additional point included — you can use this directly for your manager or email reporting.
+Based on the screenshot and your explanation, here is a professional Sunbird ticket content for the second issue (bulk edit for room/location is not functioning as expected):
 
 
 ---
 
-✅ IFP Migration Update – 24th July 2025
+✅ Ticket Title / Summary:
 
-Users started with validation of AC flow structures. As UPS values were not present in CPNG, they provided a one-line diagram with KW/KVA ratings for each UPS.
-
-Based on the shared details, we created the UPS, UPS Bank, Load Devices, Floor PDU, and RPP entries to simulate the expected power chain in DCTrack.
-
-Initially, we treated RPP as a Floor PDU, with a panel inside and fed from the Floor PDU, as per the existing IFP structure. Corresponding scripts were created for this setup.
-
-However, after reviewing the one-line diagram during today's session, users were not satisfied with the visual representation (RPP inside a floor PDU).
-
-With Sunbird’s support, we proposed a revised solution:
-➤ Instead of a single RPP with two panels, we will create two RPPs, each holding one panel.
-➤ This approach better matches user expectations and has been approved by the users for Windsor.
-
-Required script changes have been acknowledged, particularly for the Floor PDU and panel creation logic.
-
+Bulk Edit for 'Location' Field Not Available for Floor PDU and RPP Classes
 
 
 ---
 
-🔧 Template & System Limitations Raised
+📝 Detailed Description (to be used in the ticket body):
 
-These limitations were acknowledged in the call and are to be submitted as tickets to Sunbird:
+We are currently facing an issue with the bulk edit functionality in DCTrack (Sunbird platform), specifically when attempting to update the 'Location' field for multiple assets of class type Floor PDU (and similarly for RPPs).
 
-1. RPP and PDU Room Mapping:
-➤ The upload template doesn't support RPPs being placed in a different room than PDUs.
-➤ Manual update in the DCTrack UI is required.
-➤ Requesting template enhancement to support separate room assignments during upload.
+While selecting multiple items and using the Bulk Edit > Up to 5 Fields option, the 'Location' field does not appear as an editable option. Only "Location Ref" is available under standard fields, which is not sufficient for our use case.
 
-
-2. Bulk Edit Room Assignment:
-➤ No current capability to bulk edit room/location post-upload.
-➤ This is needed for efficient mass updates when correcting or aligning room names.
+This limitation forces us to edit each item's location individually through the UI, significantly slowing down the data correction process — especially critical during ongoing large-scale migrations and room alignment corrections.
 
 
-3. Missing KW/KVA Inputs at PDU Level:
-➤ Real-time KW/KVA readings (phase-wise) at PDU level are not captured.
-➤ Users highlighted this is key for PDU utilization.
-➤ Until resolved, these may be handled temporarily via custom fields.
+---
 
+🔧 Expected Functionality:
+
+We request the ability to:
+
+Bulk select multiple Floor PDUs or RPPs
+
+Edit their Location field in one action using Bulk Edit
+
+Ensure that the actual room location (not just location reference) is editable in this bulk mode
 
 
 
 ---
 
-📌 Additional Notes & Action Items
+📸 Screenshot Reference:
 
-UPS values are still missing for many locations in CPNG.
-➤ Users must provide this data to enable AC flow modeling.
-
-In some locations, PDU entries are missing entirely.
-➤ This also needs to be provided to proceed with full AC power mapping.
-
-The above inputs are mandatory for implementing AC flows across all sites.
-
-As agreed in today’s call, we will:
-
-Update the AC flow structure for Windsor using the revised RPP logic.
-
-Modify the scripts accordingly to reflect the new approach.
-
-Share the updated Windsor data with users by Monday morning (July 28th, 2025).
-
-Prepare for the next review call already scheduled for Monday morning, where users will validate the Windsor data output.
-
+Attached screenshot shows the issue:
+➤ Bulk Edit > Field to Edit dropdown does not list 'Location', only 'Location Ref'
+➤ Assets selected belong to Floor PDU class, which require mass location updates
 
 
 
 ---
 
-Let me know if you'd like this formatted as an email body or slide deck note for reporting.
+📍 Business Impact:
+
+This is critical for efficient room mapping during data migration and correction.
+
+Manually updating location for hundreds of PDUs/RPPs is not scalable.
+
+This directly affects our ability to maintain data accuracy and meet project timelines.
+
+
+
+---
+
+Let me know if you'd also like a version of this formatted for internal Jira or ticketing system.
