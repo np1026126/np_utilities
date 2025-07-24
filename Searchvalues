@@ -1,43 +1,35 @@
-Here is the ticket content for raising the third issue to Sunbird — about missing kW/kVA phase-wise readings at the PDU level, just like what's shown for RPP in your screenshot.
+Here is a professional email draft you can send to your team and stakeholders to confirm that the three Sunbird support tickets have been successfully created:
 
 
 ---
 
-✅ Ticket Title / Summary:
+Subject: Sunbird Tickets Created for RPP/PDU Template and Feature Limitations
 
-Enable Real-Time Phase-Wise kW/kVA Readings at PDU Level
+Dear Team,
+
+As discussed in the earlier migration call and as per the summary shared by Pete, I have created three Sunbird support tickets to address the current limitations we are facing during RPP and PDU onboarding via the template.
+
+Below are the ticket details:
+
+1. Support for RPP and PDU Room Mapping in Template Upload
+Ticket Link: 71704
 
 
----
+2. Enable Bulk Edit of Location/Room Fields Post Upload
+Ticket Link: 71705
 
-📌 Description:
 
-Currently, in the dcTrack UI, the real-time power utilization readings — such as kW, kVA, and per-phase consumption (Phase A, B, and C) — are displayed only at the Remote Power Panel (RPP) level, as shown in the attached screenshot.
-
-However, these details are not available at the PDU (Power Distribution Unit) level. This limits our ability to analyze and manage PDU utilization, especially for accurate load balancing, capacity planning, and real-time monitoring.
-
-To align with the electrical one-line diagram expectations and ensure proper visibility into power flows, we request that similar kW/kVA phase-wise metrics (actual vs budgeted values, utilization %, and phase-wise load) be made available at the PDU level as well.
-
-This enhancement is essential for:
-
-Accurate visualization of power consumption along AC flows
-
-Better decision-making for electrical planning
-
-Consistency with RPP views already available in dcTrack
+3. Add Real-Time kW/kVA and Phase-Wise Readings at the PDU Level
+Ticket Link: 71706
 
 
 
----
+Please let me know if any additional information is needed for these tickets. Once we receive an update from Sunbird, I will coordinate with Andy and the team to proceed accordingly.
 
-📎 Attachments:
-
-Screenshot showing expected view (currently available only for RPP)
-
-Reference to support email thread discussing this limitation
-
+Thanks & Regards,
+Naveen
 
 
 ---
 
-Let me know if you'd also like a version for internal tracking or a shorter version for the ticket title field.
+Let me know if you'd like a shorter version or need to include your manager in CC.
