@@ -11,6 +11,7 @@ Hi Howard,
 
 Thanks for your response.
 
+In the CPNG environment, PowerIQ is not being used. Instead, the real-time power readings at the PDU level—such as kW, kVA, and per-phase (A, B, C) consumption—are collected via physical meters placed at each PDU
 To clarify, we are not expecting dcTrack to collect or calculate real-time PDU power readings directly. Instead, we have an internal application that will:
 
 1. Migrate the PDU assets from CPNG into dcTrack.
