@@ -1,35 +1,51 @@
-Here is a professional email draft you can send to your team and stakeholders to confirm that the three Sunbird support tickets have been successfully created:
+Thanks for the explanation — now it's completely clear.
+
+Here’s a professional reply you can send to Sunbird (Howard) based on your approach:
 
 
 ---
 
-Subject: Sunbird Tickets Created for RPP/PDU Template and Feature Limitations
+Subject: Response to Ticket #71706 – PDU-Level Real-Time Power Readings
 
-Dear Team,
+Hi Howard,
 
-As discussed in the earlier migration call and as per the summary shared by Pete, I have created three Sunbird support tickets to address the current limitations we are facing during RPP and PDU onboarding via the template.
+Thanks for your response.
 
-Below are the ticket details:
+To clarify, we are not expecting dcTrack to collect or calculate real-time PDU power readings directly. Instead, we have an internal application that will:
 
-1. Support for RPP and PDU Room Mapping in Template Upload
-Ticket Link: 71704
-
-
-2. Enable Bulk Edit of Location/Room Fields Post Upload
-Ticket Link: 71705
+1. Migrate the PDU assets from CPNG into dcTrack.
 
 
-3. Add Real-Time kW/kVA and Phase-Wise Readings at the PDU Level
-Ticket Link: 71706
+2. Continuously fetch real-time power utilization readings (kW, kVA, Phase A/B/C loads) from the CPNG source system.
+
+
+3. Update those readings into dcTrack for each corresponding PDU.
 
 
 
-Please let me know if any additional information is needed for these tickets. Once we receive an update from Sunbird, I will coordinate with Andy and the team to proceed accordingly.
+For this to work, dcTrack must have the required fields available at the PDU level to store and display these values. Specifically, we need fields for:
 
-Thanks & Regards,
-Naveen
+kW (Actual & Budgeted)
+
+kVA (Actual & Budgeted)
+
+Phase A load
+
+Phase B load
+
+Phase C load
+
+Utilization percentage
+
+
+At present, we observe these fields are only available at the RPP level, but not at the PDU level. We are requesting that similar data fields be made available at the PDU level to support our external integration.
+
+Please let us know if this enhancement can be supported or configured.
+
+Best regards,
+Naveen Prasad
 
 
 ---
 
-Let me know if you'd like a shorter version or need to include your manager in CC.
+Let me know if you'd like me to also help write a summary email to your internal team or leads about this.
