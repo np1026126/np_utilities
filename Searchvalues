@@ -1,52 +1,45 @@
-Thanks for the explanation — now it's completely clear.
-
-Here’s a professional reply you can send to Sunbird (Howard) based on your approach:
+Based on your screenshot and description, here is a clear and professional bullet-pointed list of items we need from users to proceed with migration, particularly for Windsor:
 
 
 ---
 
-Subject: Response to Ticket #71706 – PDU-Level Real-Time Power Readings
+✅ Inputs Required from Users for Migration (Windsor):
 
-Hi Howard,
+🔹 Correct RPP Names
 
-Thanks for your response.
+Ensure RPP names in the Holistic template exactly match the new one-line diagram.
 
-In the CPNG environment, PowerIQ is not being used. Instead, the real-time power readings at the PDU level—such as kW, kVA, and per-phase (A, B, C) consumption—are collected via physical meters placed at each PDU
-To clarify, we are not expecting dcTrack to collect or calculate real-time PDU power readings directly. Instead, we have an internal application that will:
-
-1. Migrate the PDU assets from CPNG into dcTrack.
+Mismatched names (e.g., RPP_A413, RPP_B212, RPP_A311) are causing relationship issues between IFP and CP&G systems.
 
 
-2. Continuously fetch real-time power utilization readings (kW, kVA, Phase A/B/C loads) from the CPNG source system.
+🔹 Correct Mapping of Floor PDU Connections
+
+Users must validate and provide the correct association of each RPP to its parent Floor PDU via a mandatory field, as per the revised logic.
+
+This structure should reflect the updated one-line diagram logic (RPPs as independent remote panels).
 
 
-3. Update those readings into dcTrack for each corresponding PDU.
+🔹 UPS kW/kVA Ratings
+
+UPS data is missing in CPNG.
+
+Users need to manually provide UPS power values (kW/kVA ratings) for all sites where applicable.
 
 
+🔹 HVAC Data
 
-For this to work, dcTrack must have the required fields available at the PDU level to store and display these values. Specifically, we need fields for:
-
-kW (Actual & Budgeted)
-
-kVA (Actual & Budgeted)
-
-Phase A load
-
-Phase B load
-
-Phase C load
-
-Utilization percentage
+Provide HVAC values (e.g., cooling capacity, system type, etc.) directly—not via the holistic template—to ensure completeness and accuracy.
 
 
-At present, we observe these fields are only available at the RPP level, but not at the PDU level. We are requesting that similar data fields be made available at the PDU level to support our external integration.
+🔹 Updated One-Line Diagram (for Windsor)
 
-Please let us know if this enhancement can be supported or configured.
+Users must validate and confirm the latest one-line diagram to support script generation and template restructuring.
 
-Best regards,
-Naveen Prasad
+This ensures that Floor PDU Panel and PDU Breaker structures are generated accurately.
+
+
 
 
 ---
 
-Let me know if you'd like me to also help write a summary email to your internal team or leads about this.
+Let me know if you'd like me to format this into an email or status update.
