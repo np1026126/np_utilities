@@ -1,45 +1,26 @@
-Based on your screenshot and description, here is a clear and professional bullet-pointed list of items we need from users to proceed with migration, particularly for Windsor:
+Here's a professionally worded email you can send to the contractor's manager:
 
 
 ---
 
-✅ Inputs Required from Users for Migration (Windsor):
+Subject: Request to Review and Monitor Progress on Site View Migration Feature
 
-🔹 Correct RPP Names
+Hi [Manager's Name],
 
-Ensure RPP names in the Holistic template exactly match the new one-line diagram.
+Hope you're doing well.
 
-Mismatched names (e.g., RPP_A413, RPP_B212, RPP_A311) are causing relationship issues between IFP and CP&G systems.
+I wanted to bring to your attention the current status of the Site View Migration feature. The progress so far hasn’t been on par with expectations, and there seems to be some ambiguity regarding ownership — whether it should be handled by the developer or the tester.
 
+Could you please look into this and help clarify the responsibilities within the team? It would also be great if we could ensure consistent progress going forward. I would appreciate it if you could keep a close eye on the development of this feature and help the team stay aligned.
 
-🔹 Correct Mapping of Floor PDU Connections
+Additionally, I’d like the team to provide regular and proper updates via email so we can track the momentum and address any blockers early on.
 
-Users must validate and provide the correct association of each RPP to its parent Floor PDU via a mandatory field, as per the revised logic.
+Thanks for your support on this. Let me know if you'd like to connect further on this.
 
-This structure should reflect the updated one-line diagram logic (RPPs as independent remote panels).
-
-
-🔹 UPS kW/kVA Ratings
-
-UPS data is missing in CPNG.
-
-Users need to manually provide UPS power values (kW/kVA ratings) for all sites where applicable.
-
-
-🔹 HVAC Data
-
-Provide HVAC values (e.g., cooling capacity, system type, etc.) directly—not via the holistic template—to ensure completeness and accuracy.
-
-
-🔹 Updated One-Line Diagram (for Windsor)
-
-Users must validate and confirm the latest one-line diagram to support script generation and template restructuring.
-
-This ensures that Floor PDU Panel and PDU Breaker structures are generated accurately.
-
-
+Best regards,
+[Your Name]
 
 
 ---
 
-Let me know if you'd like me to format this into an email or status update.
+Let me know if you'd like to make it stricter, softer, or more detailed.
