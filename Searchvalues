@@ -1,38 +1,122 @@
-Certainly! Here's the revised version of the email incorporating all the critical points:
+Here is your refined Co-Pilot prompt that directly follows your pointer:
 
 
 ---
 
-Subject: Urgent Attention Needed: Site View Migration Progress
-
-Hi [Manager's Name],
-
-Hope you're doing well.
-
-I’d like to bring to your attention the current status of the Site View Migration feature. The progress on this has not been as expected, and there appears to be some confusion around ownership — whether it should be handled by a developer or a tester.
-
-This is now becoming a blocker for the C&D team, preventing them from making progress on their dependent tasks. Moreover, this feature is critical for our upcoming soft launch at the end of August, and delays here could impact the overall timeline.
-
-We are migrating around 23 sites as part of this, so it’s important that this is treated as a priority. I request your support in:
-
-Clarifying and assigning clear ownership of the task.
-
-Ensuring continuous progress without further slippage.
-
-Having the team provide timely and clear updates via email.
-
-Closely monitoring that nothing is missed and the work is fully taken care of.
-
-
-Please help ensure the necessary focus is given, and let me know if you'd like to sync further on this.
-
-Thanks for your support.
-
-Best regards,
-[Your Name]
+✅ Co-Pilot Prompt – Replace Floor PDU & Location with Standardized RPP Naming
 
 
 ---
 
-Let me know if you’d like to add names or milestones to this.
+Prompt:
 
+> I am uploading a CSV file that has two columns of interest:
+
+Floor PDU (e.g., RPP A112, RPP-A112, RPP_A112)
+
+Location (e.g., Panel A, Panel B, Panel 1, Panel 2)
+
+
+I also have a mapping logic from another text file that looks like this:
+
+PDU-A11 → RPP-A111-SECTION1, RPP-A112-SECTION2  
+PDU-A21 → RPP-A211-SECTION1, RPP-A212-SECTION2  
+PDU-B11 → RPP-B111-SECTION1, RPP-B112-SECTION2  
+(and so on...)
+
+I want you to:
+
+1. Replace the values in the Floor PDU column with the corresponding PDU name (e.g., PDU-A11) based on the RPP name it maps to.
+
+For example, if the row has RPP-A112, then Floor PDU should be updated to PDU-A11.
+
+
+
+2. Replace the Location column to show the standardized RPP name, matching the correct section number:
+
+If original Floor PDU is RPP-A112 and Location is Panel A or Panel 1, update it to RPP-A112-SECTION1
+
+If it is Panel B or Panel 2, update to RPP-A112-SECTION2
+
+Ensure all variations like panel a, Panel A, Panel 1 are normalized
+
+
+
+3. Clean formatting in both columns:
+
+Remove unwanted spaces
+
+Convert underscores _ to hyphens -
+
+Capitalize section names consistently (SECTION1, SECTION2)
+
+
+
+4. Generate a new CSV file with updated values for Floor PDU and Location.
+
+
+
+Here's a clear and complete prompt you can use with Co-Pilot or any automation tool to clean and structure your data correctly based on your screenshots and naming convention logic:
+
+
+---
+
+✅ Co-Pilot Prompt – Normalize and Rename RPP Panel Names
+
+
+---
+
+Prompt:
+
+> Based on the screenshots and the data structure provided:
+
+1. Use the PDU–RPP mapping from the first screenshot (plant_fallout_changes.txt) to understand the parent-child structure between Floor PDUs and RPPs.
+
+Each PDU (like PDU-A11) maps to multiple RPPs (like RPP-A111-SECTION1, RPP-A112-SECTION2, RPP-A413-SECTION3).
+
+
+
+2. In the Panel Excel CSV screenshot (second image), under the Floor PDU and Location columns:
+
+The current names like RPP A112, RPP-A112, RPP_A112, Panel A, Panel 1, Panel B, etc., are inconsistent.
+
+Normalize all RPP names to the format:
+RPP-<PDU Code><Panel Number>-SECTION<Section Number>
+For example:
+
+RPP-A112 with Panel A → RPP-A112-SECTION1
+
+RPP-A112 with Panel B → RPP-A112-SECTION2
+
+RPP-A413 with Panel C → RPP-A413-SECTION3
+
+
+
+
+3. Fix spacing/hyphen/underscore inconsistencies in the Floor PDU column. Ensure:
+
+No spaces inside RPP name (e.g., RPP A112 → RPP-A112)
+
+Use hyphens consistently
+
+
+
+4. Add a new column Standardized Panel Name to reflect the corrected names.
+
+
+5. Apply this logic to all rows consistently and output a new cleaned version of the CSV.
+
+
+
+
+
+
+---
+
+Let me know if you want me to generate a sample Python script or Excel formula/Power Query to automate this renaming process.
+
+
+
+---
+
+Let me know if you’d like to automate this in Excel (Power Query), Python, or any other method – I can generate that for you as well.
