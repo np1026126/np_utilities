@@ -1,21 +1,38 @@
-Here is a professional email draft that summarizes your updates, clearly addresses the user's expectations, and refers to the attached Windsor site Google Sheet and instructions:
+Here's the revised professional email draft with your latest input included, clearly detailing the regeneration of the holistic template for Windsor with 5 tabs:
 
 
 ---
 
-Subject: Windsor Site – Updated Asset Sheets (Floor PDU, Panel, Breaker, UPS) and Instructions
+Subject: Windsor Site – Regenerated Holistic Template with Updated Asset Details and Instructions
 
 Dear Team,
 
-As part of the SAP site updates and based on the inputs shared earlier in Slack, please find below the status and details of the deliverables prepared for the Windsor site.
+As part of the SAP site updates and in response to the recent Slack discussion, please find the regenerated Holistic Template for the Windsor site attached via Google Sheets.
+
+This template consolidates and reflects updates across multiple asset categories and serves as a reference for validation and completion.
 
 
 ---
 
 ✅ Deliverables Summary
 
-1. Tabs 2 to 5 – Windsor Site Asset Data Completed
-The asset data for the following categories has been populated and reviewed:
+1. Holistic Template Regenerated for Windsor
+A comprehensive Google Sheet has been created with five tabs capturing all required assets:
+
+Tab 1 – Floor PDU (Panel 1)
+
+Tab 2 – PDU Panel Breakers
+
+Tab 3 – UPS
+
+Tab 4 – HVAC
+
+Tab 5 – Instructions
+
+
+
+2. Updated Asset Data (Tabs 1 to 4)
+The following data has been reviewed and populated for Windsor:
 
 Floor PDU
 
@@ -25,49 +42,52 @@ Breaker
 
 UPS
 
-
-These tabs contain updated values for Windsor-specific records, following the latest naming conventions, pole sequencing, and standardized formats.
-
-
-2. Color-Coded Columns for Review
-Within each sheet, the columns that require your review or cross-verification have been highlighted in light red.
-This visual aid will help focus on key fields needing your attention.
+HVAC
 
 
-3. Instructions Tab (Tab 6)
-A separate tab titled “INSTRUCTIONS” is included in the sheet which outlines:
-
-Fields that were modified or added
-
-Key logic followed for each sheet (e.g., renaming conventions, sequencing)
-
-User actions required (e.g., confirmation of KVA values, missing details, etc.)
+These values were aligned as per the expected naming conventions, position sequencing, and required mapping logic.
 
 
+3. Color-Coded Columns for Verification
+All fields that require user verification or modification have been highlighted in red across the sheets.
+This will help the team easily identify areas that need action or confirmation.
 
-4. Pending – Full SAP Sheet Update (Point #1)
-We are currently working on updating all SAP sheets as requested. This will be shared as a separate file by EOD tomorrow (30th July 2025).
+
+4. Detailed Instruction Tab (Tab 5)
+A dedicated ‘Instructions’ tab is included to:
+
+Outline changes made
+
+Specify user actions required for each asset type
+
+Clarify applied logic (e.g., panel renaming, pole sequencing, object type changes)
+
+
+
+5. Pending – All SAP Sites Update (Point #1)
+We are actively working on updating the full SAP site dataset.
+This will be delivered as a separate file by EOD tomorrow (30th July 2025).
 
 
 
 
 ---
 
-📌 Notes:
+📌 Additional Notes:
 
-For Windsor, this dataset should support your team in validating the 4 assets independently and in preparation for upcoming data integration.
+This regenerated template is meant to provide clarity and consistency across the Windsor asset records.
 
-Please confirm once you’ve reviewed the sheets, or let us know if any clarification is needed on specific fields.
+Kindly validate the highlighted fields and provide feedback or confirm completion.
 
 
-Thank you for your continued support.
+Please let me know if any additional support is required.
 
 Best regards,
 [Your Name]
-[Your Project/Team Name]
-[Your Contact Info]
+[Your Team or Project Name]
+[Your Email ID / Contact Info]
 
 
 ---
 
-Let me know if you'd like me to attach this as a Word/email-ready document or update the draft with any additional names, links, or exact file paths.
+Let me know if you want this converted into a Word or Excel-ready format with sections visually laid out.
