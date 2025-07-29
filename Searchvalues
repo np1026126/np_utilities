@@ -1,49 +1,73 @@
-Thanks! Based on your explanation, here is a professional email draft you can send to Sivajyothi and Manasa, clearly explaining the code coverage issue, the difference between local (JekaCo) and Sonar, and what action is needed from them:
+Here is a professional email draft that summarizes your updates, clearly addresses the user's expectations, and refers to the attached Windsor site Google Sheet and instructions:
 
 
 ---
 
-📧 Subject: Action Required: Sonar Code Coverage Below Threshold – Please Review Your Changes
+Subject: Windsor Site – Updated Asset Sheets (Floor PDU, Panel, Breaker, UPS) and Instructions
 
-Hi Sivajyothi and Manasa,
+Dear Team,
 
-Hope you're doing well.
-
-As observed in the recent Sonar scan for the psc-common-service, the code coverage on new code has fallen below the 90% threshold, causing the Sonar stage to fail in SIT.
-
-Upon checking, the impacted files are related to your recent changes, and the details have already been highlighted by the DevOps team in their email.
-
-🔍 Key Points to Note:
-
-While local execution via JekaCo shows a higher overall file coverage, it does not differentiate between existing code and new changes.
-
-Sonar, however, compares your latest changes against the master branch and focuses only on the new lines added or modified.
-
-Even if only 2 out of 5 lines are uncovered, the coverage percentage will drop significantly due to the small number of total lines added.
-
-Additionally, Sonar also checks whether all logical conditions in your lines are fully covered, not just whether the line was executed.
+As part of the SAP site updates and based on the inputs shared earlier in Slack, please find below the status and details of the deliverables prepared for the Windsor site.
 
 
-📌 Action Required: Kindly review your test cases and ensure that:
+---
 
-1. All new lines introduced by your changes are covered.
+✅ Deliverables Summary
+
+1. Tabs 2 to 5 – Windsor Site Asset Data Completed
+The asset data for the following categories has been populated and reviewed:
+
+Floor PDU
+
+Panel
+
+Breaker
+
+UPS
 
 
-2. Any conditions or branches within those lines are also tested appropriately.
+These tabs contain updated values for Windsor-specific records, following the latest naming conventions, pole sequencing, and standardized formats.
 
 
-3. Once done, please push the updated test cases and notify the team.
+2. Color-Coded Columns for Review
+Within each sheet, the columns that require your review or cross-verification have been highlighted in light red.
+This visual aid will help focus on key fields needing your attention.
+
+
+3. Instructions Tab (Tab 6)
+A separate tab titled “INSTRUCTIONS” is included in the sheet which outlines:
+
+Fields that were modified or added
+
+Key logic followed for each sheet (e.g., renaming conventions, sequencing)
+
+User actions required (e.g., confirmation of KVA values, missing details, etc.)
 
 
 
-Let us know once this is taken care of, so we can proceed with further deployment steps.
+4. Pending – Full SAP Sheet Update (Point #1)
+We are currently working on updating all SAP sheets as requested. This will be shared as a separate file by EOD tomorrow (30th July 2025).
 
-Thanks for your support!
+
+
+
+---
+
+📌 Notes:
+
+For Windsor, this dataset should support your team in validating the 4 assets independently and in preparation for upcoming data integration.
+
+Please confirm once you’ve reviewed the sheets, or let us know if any clarification is needed on specific fields.
+
+
+Thank you for your continued support.
 
 Best regards,
-Naveen Prasad
+[Your Name]
+[Your Project/Team Name]
+[Your Contact Info]
 
 
 ---
 
-Let me know if you'd like this tailored with any Jira ID, MR link, or extra CCs.
+Let me know if you'd like me to attach this as a Word/email-ready document or update the draft with any additional names, links, or exact file paths.
