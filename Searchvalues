@@ -1,96 +1,36 @@
-Sure! Here's your updated professional email with the final instruction added:
+Here’s a professionally worded explanation mail summarizing her six-month performance concerns without any bias and focused entirely on technical and performance aspects:
 
 
 ---
 
-Subject: Windsor Site – Regenerated Holistic Template with Updated Asset Details and Instructions
+Subject: Performance Feedback Summary – Past Six Months
 
-Dear Team,
+Dear [Manager’s Name],
 
-As part of the SAP site updates and in response to the recent Slack discussion, please find the regenerated Holistic Template for the Windsor site attached via Google Sheets.
+I would like to share a summary of the key performance concerns observed over the past six months regarding [Employee's Name]'s contributions, particularly in relation to backend development tasks and collaborative project responsibilities:
 
-This template consolidates and reflects updates across multiple asset categories and serves as a reference for validation and completion.
+1. Lack of Technical Readiness for Role Level:
+Despite being onboarded as an Engineer 3, there have been repeated challenges in grasping foundational backend concepts including scheduler implementation, Liquibase usage for DB changes, and writing testable, maintainable code. Several basic technical doubts continue to be raised even after multiple clarifications and walkthroughs.
 
+2. Repetitive Deployment Issues:
+Her code changes, especially around Liquibase, have frequently caused deployment failures (table creation/deletion and data type mismatches). These incidents have blocked other developers from pushing their modules, directly impacting the release schedule and cross-team coordination.
 
----
+3. Test Coverage Deficiencies Causing Sonar Failures:
+For tasks such as the scheduler, the test cases written have failed to meet the expected coverage (90%), leading to SonarQube failures. This has also impacted vendor teams who are unable to proceed with their builds due to unresolved Sonar issues.
 
-✅ Deliverables Summary
+4. Incomplete Task Delivery Over Extended Periods:
+Several deliverables, including the scheduler module, remain incomplete despite multiple sprints. The same task has spanned five to six sprints without closure, significantly affecting overall velocity and team output.
 
-1. Holistic Template Regenerated for Windsor
-A comprehensive Google Sheet has been created with five tabs capturing all required assets:
+5. High Dependency and Repetition of Doubts:
+There is a consistent pattern of raising the same doubts across different leads, often expecting exact code-level answers instead of leveraging guidance provided. This has caused delays and confusion within the team.
 
-Tab 1 – Floor PDU (Panel 1)
+Overall, the performance has not aligned with expectations for the given role level, and it continues to impact the team’s productivity and momentum. This feedback is intended to highlight the gaps and provide clarity for improvement moving forward.
 
-Tab 2 – PDU Panel Breakers
-
-Tab 3 – UPS
-
-Tab 4 – HVAC
-
-Tab 5 – Instructions
-
-
-
-2. Updated Asset Data (Tabs 1 to 4)
-The following data has been reviewed and populated for Windsor:
-
-Floor PDU
-
-Panel
-
-Breaker
-
-UPS
-
-HVAC
-
-
-These values were aligned as per the expected naming conventions, position sequencing, and required mapping logic.
-
-
-3. Color-Coded Columns for Verification
-All fields that require user verification or modification have been highlighted in red across the sheets.
-This will help the team easily identify areas that need action or confirmation.
-
-
-4. Detailed Instruction Tab (Tab 5)
-A dedicated ‘Instructions’ tab is included to:
-
-Outline changes made
-
-Specify user actions required for each asset type
-
-Clarify applied logic (e.g., panel renaming, pole sequencing, object type changes)
-
-
-
-5. Pending – All SAP Sites Update (Point #1)
-We are actively working on updating the full SAP site dataset.
-This will be delivered as a separate file by EOD tomorrow (30th July 2025).
-
-
-
-
----
-
-📌 Additional Notes:
-
-Kindly validate the highlighted fields and update in the same sheet if there is any change to the values.
-
-When updating, please change the color of the modified field so that the updates can be easily tracked.
-
-This regenerated template is meant to provide clarity and consistency across the Windsor asset records.
-
-
-Please let me know if any additional support is required.
-
-Best regards,
+Regards,
 [Your Name]
-[Your Team or Project Name]
-[Your Email ID / Contact Info]
+[Your Role/Team]
 
 
 ---
 
-Let me know if you’d like a subject line variation or an inline preview for Slack/Teams message format as well.
-
+Let me know if you'd like to revise this further for HR, management, or project-specific escalations.
