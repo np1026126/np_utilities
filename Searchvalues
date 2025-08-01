@@ -1,21 +1,75 @@
-Here’s a professional and clear response you can send to Peter:
+For this integration with the UCS system via an API, your goal is to automate the sync of SNMP OID and IP address changes when new DC power plants are added or updated in your system.
+
+Here’s a detailed message (and set of questions) you can send to the UCS team to initiate the conversation clearly and professionally:
 
 
 ---
 
-Hi Peter,
+📩 Draft Mail / Discussion Points to UCS Team
 
-Yes, initially we had considered 1200 amps, but I’ve corrected it to 1800 amps.
+Hi [UCS Team / Contact Name],
 
-For PDUs with 3 RPPs connected, I’ve updated the panel size to 1800 amps accordingly — since each RPP has 1200 amps worth of breakers, the total breaker load connected to the panel comes up to 3600 amps.
+Hope you're doing well.
 
-Let me know if you need any further clarification.
+As part of our upcoming DC6 enhancements, we are planning to automate the process of updating SNMP OID and IP address details of DC power plants with the UCS system. Currently, this communication is manual, but we are looking to move towards an API-based integration.
 
-Best regards,
+🎯 Use Case Summary
+
+When users add or update a DC power plant in our application (e.g., changing SNMP OID or IP address),
+
+We want to automatically notify UCS via an API call, so that UCS has the most recent configuration for SNMP polling.
+
+
+❓ We have a few questions to check feasibility:
+
+1. Do you already have an API exposed to:
+
+Add a new power plant with SNMP OID and IP address?
+
+Update SNMP OID or IP address for an existing power plant?
+
+
+
+2. If yes:
+
+Can you please share the API specification or Swagger/OpenAPI details?
+
+Are there any authentication mechanisms required (e.g., API keys, OAuth)?
+
+What would be the expected request format and mandatory fields?
+
+Is there a rate limit or daily quota on how many updates we can push?
+
+
+
+3. If not:
+
+Is there a plan or story in your backlog for exposing such an API?
+
+What would be the estimated timeline for availability?
+
+Is there any interim workaround you recommend until the API is available?
+
+
+
+4. Is there any callback or validation mechanism (like a response payload or error code) to confirm that an update is successful on your end?
+
+
+5. Should we consider any whitelisting of our server IP or security constraints before calling your API?
+
+
+
+
+---
+
+Please let us know your inputs so we can plan this integration accordingly for our next release.
+
+Thanks,
 [Your Name]
+[Your Project/Team Name]
 
 
 ---
 
-Would you like it to be more casual or add any technical details or screenshots along with this reply?
+Let me know if you want this message tailored for chat (Teams/Slack), a formal email, or if you want to prepare for a verbal discussion with them in a meeting.
 
