@@ -3,7 +3,38 @@ For this integration with the UCS system via an API, your goal is to automate th
 Here’s a detailed message (and set of questions) you can send to the UCS team to initiate the conversation clearly and professionally:
 
 
+---Here's a professionally written Feature Summary along with clear Acceptance Criteria (AC) based on your migration of PNG inventory from IFP, CPNG, and FUSE into DC-Track for 54 CAP sites:
+
+
 ---
+
+✅ Feature Summary
+
+Data migration of PNG (Power & Network Gear) inventory from source systems IFP, CPNG, and FUSE into DC-Track for a total of 54 CAP sites. This feature enables streamlined asset integration by consolidating all critical equipment records under DC-Track for centralized visibility, validation, and operational readiness.
+
+
+---
+
+📌 Acceptance Criteria (AC)
+
+AC No.	Acceptance Criteria
+
+AC1	Regenerate DC-Track-ready holistic templates for 8 key PNG asset types including UPS, PDU, RPP, Panels, HVAC, Generators, ATS, and CRAC.
+AC2	For each of the 54 CAP sites, perform end-to-end migration steps from staging to production DC-Track environments.
+AC3	Validate asset data quality and completeness prior to production migration.
+AC4	Handle fallouts by creating or updating missing/mismatched asset data including Make, Model, and Type as per DC-Track standards.
+AC5	Migrate validated sites into Alien environment for review and approval from site owners.
+AC6	Upon user validation, promote successfully validated sites into Production.
+AC7	Capture and log all data issues, transformation logic, and mapping decisions for audit readiness.
+AC8	Update tracking dashboard with real-time progress per site and asset category.
+
+
+
+---
+
+Would you like me to generate a version of this as a downloadable .docx or .csv for uploading into GTS/Inspire?
+
+
 
 📩 Draft Mail / Discussion Points to UCS Team
 
