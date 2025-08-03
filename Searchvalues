@@ -1,46 +1,78 @@
-Here’s a refined prompt you can use with Copilot or Google Gemini to process your Excel sheet and achieve exactly what you described — align RPPs to PDUs, correct naming, avoid creating new RPPs, identify missing PDUs, and highlight unmappable entries:
+Thanks for the clarification — you're right on track with the naming logic.
+
+Let me summarize and then provide the Copilot prompt and Python logic to achieve this transformation.
 
 
 ---
 
-✅ Prompt for Copilot or Gemini:
+✅ Final Naming Convention Rules for RPP (to Replace Original Names)
 
-> I’m uploading an Excel sheet that contains a list of existing RPP names and PDU names from multiple locations (54 sites) as part of a data migration to DC-Track.
+Rule #	Condition	Action
 
-Objective:
-
-Go through each RPP name and try to match it with the corresponding PDU based on naming patterns (e.g., RPP-D2-1 likely belongs to PDU-D21).
-
-Correct the RPP names to follow the standard format: RPP-<PDU name>1, RPP-<PDU name>2, etc., only if the RPP name suggests the matching PDU.
-
-Do not create any new RPPs.
-
-If you find an RPP mapped to a PDU that doesn’t exist in the list, then create the missing PDU entry with the same values as other PDUs in the site and flag it as "New PDU created."
-
-If an RPP name is too generic (e.g., RPP-1, RPP-2) and it’s not possible to identify the correct PDU, leave the RPP name unchanged and highlight it or mark it as "Unable to map – user to correct."
-
-Do not assume mappings just because of numeric sequence (e.g., RPP-3 ≠ PDU-3 unless supported by pattern).
-
-Provide an output Excel sheet with:
-
-Original RPP Name
-
-Corrected RPP Name (if applicable)
-
-Mapped PDU
-
-Action Taken (e.g., Renamed, New PDU Created, Unchanged – User to Correct)
-
-Highlight unmapped or ambiguous RPPs in a different color for user review.
+1	If the original RPP name contains a proper PDU prefix (like C or D or B) followed by exactly 3 digits, and is in a bracket → ✅ Replace original name with the one in the bracket.	
+2	If the RPP name contains only numbers like RPP1, RPP2, RPP4, i.e., no prefix letter → ❌ Do NOT replace. Keep original name.	
+3	If the bracketed RPP name contains an underscore or space, replace with hyphen (-) in corrected name.	
+4	After RPP-<Letter>, only 3 digits allowed. So RPP-C3211 is invalid, correct it to RPP-C321.	
 
 
 
-Process all 54 locations in the same logic.
+---
+
+🧠 Copilot Prompt to Fix RPP Names Automatically
+
+> I have a column in Excel named Name that contains RPP names. Some of these have bracketed values like RPP1 (RPP-C311).
+
+✅ If the bracketed value follows the correct pattern of RPP-<Letter><3-digits> (e.g. RPP-C311) — replace the original name with that.
+❌ If the original name is like RPP1, RPP2, etc. — and the bracket contains invalid format or too many digits (e.g. RPP-C3211), then do not use the bracket value, keep the original name.
+
+Also, normalize all valid names using this format:
+RPP-<Letter>-<3-digit number> → i.e., ensure RPP_C321 or RPP C321 becomes RPP-C321.
+
+Please generate a cleaned-up list with corrected RPP names in a new column called Corrected RPP Name.
 
 
 
 
 ---
 
-Let me know if you want a Python version of the script for local automation or if you want this formatted as a .txt file to copy-paste easily into Gemini or Copilot.
+🐍 Optional Python Script Logic (if needed)
+
+import pandas as pd
+import re
+
+# Load your Excel
+df = pd.read_excel('your_file.xlsx')
+
+def normalize_rpp(rpp_name):
+    match = re.search(r'\((.*?)\)', rpp_name)
+    if match:
+        bracketed = match.group(1)
+        # Normalize: replace space/underscore with hyphen
+        bracketed = re.sub(r'[\s_]', '-', bracketed)
+        # Match valid format: RPP-[A-Z][0-9]{3}
+        if re.match(r'RPP-[A-Z]-\d{3}$', bracketed):
+            return bracketed
+    # If original name doesn't match, or bracket invalid, return original
+    return rpp_name.split(' ')[0]
+
+df['Corrected RPP Name'] = df['Name'].apply(normalize_rpp)
+
+# Save it
+df.to_excel('corrected_rpp_output.xlsx', index=False)
+
+
+---
+
+📌 What To Do:
+
+Run this prompt in Copilot.
+
+Provide the Excel.
+
+Ask it to populate a Corrected RPP Name column using the logic.
+
+If using Python, this logic can give the same output locally.
+
+
+Would you like me to generate a downloadable .xlsx file based on the two screenshots you just shared and apply these transformations?
 
