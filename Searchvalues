@@ -1,32 +1,46 @@
-Here's a professionally written Feature Summary along with clear Acceptance Criteria (AC) based on your migration of PNG inventory from IFP, CPNG, and FUSE into DC-Track for 54 CAP sites:
+Here’s a refined prompt you can use with Copilot or Google Gemini to process your Excel sheet and achieve exactly what you described — align RPPs to PDUs, correct naming, avoid creating new RPPs, identify missing PDUs, and highlight unmappable entries:
 
 
 ---
 
-✅ Feature Summary
+✅ Prompt for Copilot or Gemini:
 
-Data migration of PNG (Power & Network Gear) inventory from source systems IFP, CPNG, and FUSE into DC-Track for a total of 54 CAP sites. This feature enables streamlined asset integration by consolidating all critical equipment records under DC-Track for centralized visibility, validation, and operational readiness.
+> I’m uploading an Excel sheet that contains a list of existing RPP names and PDU names from multiple locations (54 sites) as part of a data migration to DC-Track.
+
+Objective:
+
+Go through each RPP name and try to match it with the corresponding PDU based on naming patterns (e.g., RPP-D2-1 likely belongs to PDU-D21).
+
+Correct the RPP names to follow the standard format: RPP-<PDU name>1, RPP-<PDU name>2, etc., only if the RPP name suggests the matching PDU.
+
+Do not create any new RPPs.
+
+If you find an RPP mapped to a PDU that doesn’t exist in the list, then create the missing PDU entry with the same values as other PDUs in the site and flag it as "New PDU created."
+
+If an RPP name is too generic (e.g., RPP-1, RPP-2) and it’s not possible to identify the correct PDU, leave the RPP name unchanged and highlight it or mark it as "Unable to map – user to correct."
+
+Do not assume mappings just because of numeric sequence (e.g., RPP-3 ≠ PDU-3 unless supported by pattern).
+
+Provide an output Excel sheet with:
+
+Original RPP Name
+
+Corrected RPP Name (if applicable)
+
+Mapped PDU
+
+Action Taken (e.g., Renamed, New PDU Created, Unchanged – User to Correct)
+
+Highlight unmapped or ambiguous RPPs in a different color for user review.
+
+
+
+Process all 54 locations in the same logic.
+
+
 
 
 ---
 
-📌 Acceptance Criteria (AC)
-
-AC No.	Acceptance Criteria
-
-AC1	Regenerate DC-Track-ready holistic templates for 8 key PNG asset types including UPS, PDU, RPP, Panels, HVAC, Generators, ATS, and CRAC.
-AC2	For each of the 54 CAP sites, perform end-to-end migration steps from staging to production DC-Track environments.
-AC3	Validate asset data quality and completeness prior to production migration.
-AC4	Handle fallouts by creating or updating missing/mismatched asset data including Make, Model, and Type as per DC-Track standards.
-AC5	Migrate validated sites into Alien environment for review and approval from site owners.
-AC6	Upon user validation, promote successfully validated sites into Production.
-AC7	Capture and log all data issues, transformation logic, and mapping decisions for audit readiness.
-AC8	Update tracking dashboard with real-time progress per site and asset category.
-
-
-
-
----
-
-Would you like me to generate a version of this as a downloadable .docx or .csv for uploading into GTS/Inspire?
+Let me know if you want a Python version of the script for local automation or if you want this formatted as a .txt file to copy-paste easily into Gemini or Copilot.
 
