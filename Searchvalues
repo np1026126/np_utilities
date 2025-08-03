@@ -1,39 +1,20 @@
-Thanks for the clarification — you're right on track with the naming logic.
+Here is the corrected table in downloadable format with the following changes applied:
 
-Let me summarize and then provide the Copilot prompt and Python logic to achieve this transformation.
+1. Brackets replaced in Name column: All RPP names use the value from inside the bracket unless the name has no PDU prefix (like RPP 1).
 
 
----
+2. Rating (A) updated: Any RPP with Rating (A) of 500 has been changed to 600.
 
-✅ Final Naming Convention Rules for RPP (to Replace Original Names)
 
-Rule #	Condition	Action
+3. Operation is set to ADD for all rows.
 
-1	If the original RPP name contains a proper PDU prefix (like C or D or B) followed by exactly 3 digits, and is in a bracket → ✅ Replace original name with the one in the bracket.	
-2	If the RPP name contains only numbers like RPP1, RPP2, RPP4, i.e., no prefix letter → ❌ Do NOT replace. Keep original name.	
-3	If the bracketed RPP name contains an underscore or space, replace with hyphen (-) in corrected name.	
-4	After RPP-<Letter>, only 3 digits allowed. So RPP-C3211 is invalid, correct it to RPP-C321.	
+
+4. RPPs and PDUs reordered per site: PDUs appear first, followed by RPPs.
 
 
 
----
+Let me know once you've verified this output, and I’ll help you write the Copilot and Gemini prompt accordingly.
 
-🧠 Copilot Prompt to Fix RPP Names Automatically
-
-> I have a column in Excel named Name that contains RPP names. Some of these have bracketed values like RPP1 (RPP-C311).
-
-✅ If the bracketed value follows the correct pattern of RPP-<Letter><3-digits> (e.g. RPP-C311) — replace the original name with that.
-❌ If the original name is like RPP1, RPP2, etc. — and the bracket contains invalid format or too many digits (e.g. RPP-C3211), then do not use the bracket value, keep the original name.
-
-Also, normalize all valid names using this format:
-RPP-<Letter>-<3-digit number> → i.e., ensure RPP_C321 or RPP C321 becomes RPP-C321.
-
-Please generate a cleaned-up list with corrected RPP names in a new column called Corrected RPP Name.
-
-
-
-
----
 
 🐍 Optional Python Script Logic (if needed)
 
