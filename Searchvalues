@@ -1,68 +1,50 @@
-Here's the exact Copilot prompt you can use to compare two sheets (original and modified), and add a new column to the modified sheet with the original RPP name only if it has changed:
+Here is the exact prompt you can use in Copilot to generate the load sheet for all PDUs from your "floor PDU with missing PDUs" sheet:
 
 
 ---
 
-✅ Copilot Prompt:
+✅ Copilot Prompt to Generate Load Sheet:
 
-> Compare the RPP names between two sheets:
+> From the sheet "floor_pdu_with_missing.csv", extract only rows where the "Name" column starts with "PDU".
 
-The first sheet is: "floor_pdu_alt.csv" (original from ISP DB).
+For each such PDU:
 
-The second sheet is: "floor_pdu_with_missing.csv" (corrected with new PDUs and updated RPP names).
-
-
-For each row in the second sheet, if the RPP name in the "Name" column is different from the RPP name for the same site and PDU in the original sheet:
-
-Add a new column "Old RPP Name" to the second sheet.
-
-Populate it with the original RPP name from the first sheet for the corresponding row.
-
-If there is no change in RPP name, leave "Old RPP Name" blank.
+1. Create a new row in a separate sheet (named "Load Panel Sheet").
 
 
-Match rows based on:
-
-Site
-
-Location
-
-PDU Name (from "Name" column if PDU type, or deduced from RPP association)
+2. Set the following fields for each row:
 
 
-Ensure the output is a clean Excel with the added "Old RPP Name" column appended to the end.
+
+- Operation: ADD  
+- Object: POWER PANEL-LOCAL  
+- Floor PDU Name: same as PDU Name (from "Name" column)  
+- Load Name: convert PDU name to Load name — for example:  
+    - PDU-A11 → LOAD-A1  
+    - PDU-A21 → LOAD-A2  
+    - PDU-D31 → LOAD-D3  
+    - (Drop the last digit and keep just the first part after PDU-)  
+- Location: use the value from "Location" column (same row as the PDU)  
+- Phase Volts: 3-phase  
+- Wire Color: 120 Black/Red/Blue  
+- Rating: 1200  
+- No. of Poles: 12  
+- Panel Layout: Two Column  
+- Pole Line: Odd/Even  
+- First Pole #: 1  
+- Status: Planned
+
+3. Keep the final output in Excel format with columns in the exact order shown above.
+
+
+4. Repeat for each unique PDU across all sites.
+
+
 
 
 
 
 ---
 
-💡 Bonus:
-
-If your Copilot supports Python pandas, here’s a sample logic it can base the script on:
-
-import pandas as pd
-
-# Load both sheets
-original = pd.read_csv("floor_pdu_alt.csv")
-modified = pd.read_csv("floor_pdu_with_missing.csv")
-
-# Merge on Site and RPP-related identifiers (assuming 'Name' column holds RPPs)
-merged = modified.merge(
-    original[['Site', 'Name']],
-    on='Site',
-    how='left',
-    suffixes=('', '_Original')
-)
-
-# Add a new column to show the old name if different
-merged['Old RPP Name'] = merged.apply(
-    lambda row: row['Name_Original'] if row['Name'] != row['Name_Original'] else '',
-    axis=1
-)
-
-# Save the result
-merged.to_excel("floor_pdu_with_old_rpp_names.xlsx", index=False)
-
-Let me know if you want this Python code as an executable script or if you'd like me to generate the Excel file directly based on what you've shown.
+Let me know if you want the same output generated as a downloadable Excel right here. I can help create it for you.
 
