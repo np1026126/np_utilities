@@ -1,50 +1,52 @@
-Here is the exact prompt you can use in Copilot to generate the load sheet for all PDUs from your "floor PDU with missing PDUs" sheet:
+Here’s the exact prompt you can use in Copilot to generate the Local Panel Breakers sheet for all PDUs and RPPs across locations:
 
 
 ---
 
-✅ Copilot Prompt to Generate Load Sheet:
+✅ Copilot Prompt:
 
-> From the sheet "floor_pdu_with_missing.csv", extract only rows where the "Name" column starts with "PDU".
+> Task: Generate a Local Panel Breakers Sheet using the given Floor PDU and RPP mapping sheet.
 
-For each such PDU:
+For each PDU and associated Local Panel (e.g., Load A1, Load B1...), create 4 breaker entries in the final output.
 
-1. Create a new row in a separate sheet (named "Load Panel Sheet").
+Use the following rules to populate the columns:
+
+Column Name                      | Value / Rule
+--------------------------------|----------------------------------------------
+Operation                       | ADD
+Object                          | If "Sub-Panel floor PDU" (RPP) is present → BREAKER TO PANEL
+                                | Else → BREAKER TO OTHER
+Panel Type                      | Local
+Floor PDU                       | Use PDU name (from PDU-RPP mapping sheet)
+Panel                           | Local panel name (e.g., LOAD-A1, LOAD-D1), based on PDU
+Make                            | Generic
+Model                           | Generic floor PDU
+Location                        | Location of the PDU (from PDU-RPP mapping sheet)
+Starting Pole No               | Repeat 4 records per PDU: 1, 7, 2, 8
+No of Poles                     | 3 (for all rows)
+Rated Amps                      | 600
+Measured Amps                   | -1
+Sub-Panel Location              | Location of RPP (from RPP name in mapping sheet)
+Sub-Panel floor PDU             | Name of the RPP connected to this breaker
+Breaker State                   | Open
+
+Important Rules:
+
+For each Local Panel (Load A1, Load D1, etc.), generate 4 breaker entries.
+
+Pull PDU and RPP mapping from the sheet named "floor_pdu_with_missing_pdus" or similar.
+
+For each PDU, map its associated RPPs and their locations for the sub-panel fields.
+
+Multiple RPPs can be mapped to the same PDU. Repeat the 4-breaker block for each RPP if needed.
 
 
-2. Set the following fields for each row:
-
-
-
-- Operation: ADD  
-- Object: POWER PANEL-LOCAL  
-- Floor PDU Name: same as PDU Name (from "Name" column)  
-- Load Name: convert PDU name to Load name — for example:  
-    - PDU-A11 → LOAD-A1  
-    - PDU-A21 → LOAD-A2  
-    - PDU-D31 → LOAD-D3  
-    - (Drop the last digit and keep just the first part after PDU-)  
-- Location: use the value from "Location" column (same row as the PDU)  
-- Phase Volts: 3-phase  
-- Wire Color: 120 Black/Red/Blue  
-- Rating: 1200  
-- No. of Poles: 12  
-- Panel Layout: Two Column  
-- Pole Line: Odd/Even  
-- First Pole #: 1  
-- Status: Planned
-
-3. Keep the final output in Excel format with columns in the exact order shown above.
-
-
-4. Repeat for each unique PDU across all sites.
-
-
+Final Output: Create an Excel or CSV file named local_panel_breakers_generated.csv with the above columns in order and one row per breaker entry.
 
 
 
 
 ---
 
-Let me know if you want the same output generated as a downloadable Excel right here. I can help create it for you.
+Let me know if you want this sheet generated here — I can help you process the sheet and give you the downloadable Excel directly.
 
