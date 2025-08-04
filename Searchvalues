@@ -1,29 +1,68 @@
-Certainly! Here's a more detailed and professional version of your response, incorporating all your points clearly:
+Here's the exact Copilot prompt you can use to compare two sheets (original and modified), and add a new column to the modified sheet with the original RPP name only if it has changed:
 
 
 ---
 
-Hi Andres,
+✅ Copilot Prompt:
 
-Good Afternoon, and thank you for your follow-up.
+> Compare the RPP names between two sheets:
 
-As previously communicated, we had initially aimed to provide the remaining supplementary sheet for the SAP sites by the end of today. When the request came in, we mentioned that we would try to share it by today morning (US time). However, we encountered a few challenges that have delayed the completion.
+The first sheet is: "floor_pdu_alt.csv" (original from ISP DB).
 
-Specifically, we faced multiple fallouts related to the RPP naming conventions, which impacted our ability to correctly identify and map the associated PDUs and related fields. Due to these inconsistencies, it has taken additional time to validate and finalize the data to ensure accuracy.
+The second sheet is: "floor_pdu_with_missing.csv" (corrected with new PDUs and updated RPP names).
 
-We sincerely apologize for this inconvenience and truly appreciate your patience and understanding.
 
-We are actively working to close the remaining 7 assets and are targeting to have the completed sheet ready by end of day today (our time), so that it will be available for your review tomorrow.
+For each row in the second sheet, if the RPP name in the "Name" column is different from the RPP name for the same site and PDU in the original sheet:
 
-Additionally, you had mentioned that if we are able to provide the sheet by today, your team could proceed with the review and finalize it by the 13th. We would like to confirm if that timeline still holds, or if it might need to be extended by a day due to this slight delay from our end.
+Add a new column "Old RPP Name" to the second sheet.
 
-Please let us know. Thank you again for your continued support.
+Populate it with the original RPP name from the first sheet for the corresponding row.
 
-Best regards,
-Naveen Prasad Natarajan
+If there is no change in RPP name, leave "Old RPP Name" blank.
+
+
+Match rows based on:
+
+Site
+
+Location
+
+PDU Name (from "Name" column if PDU type, or deduced from RPP association)
+
+
+Ensure the output is a clean Excel with the added "Old RPP Name" column appended to the end.
+
+
 
 
 ---
 
-Let me know if you'd like a slightly shorter or more casual version.
+💡 Bonus:
+
+If your Copilot supports Python pandas, here’s a sample logic it can base the script on:
+
+import pandas as pd
+
+# Load both sheets
+original = pd.read_csv("floor_pdu_alt.csv")
+modified = pd.read_csv("floor_pdu_with_missing.csv")
+
+# Merge on Site and RPP-related identifiers (assuming 'Name' column holds RPPs)
+merged = modified.merge(
+    original[['Site', 'Name']],
+    on='Site',
+    how='left',
+    suffixes=('', '_Original')
+)
+
+# Add a new column to show the old name if different
+merged['Old RPP Name'] = merged.apply(
+    lambda row: row['Name_Original'] if row['Name'] != row['Name_Original'] else '',
+    axis=1
+)
+
+# Save the result
+merged.to_excel("floor_pdu_with_old_rpp_names.xlsx", index=False)
+
+Let me know if you want this Python code as an executable script or if you'd like me to generate the Excel file directly based on what you've shown.
 
