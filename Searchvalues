@@ -1,52 +1,75 @@
-Here’s the exact prompt you can use in Copilot to generate the Local Panel Breakers sheet for all PDUs and RPPs across locations:
+Here’s a clear and complete prompt you can give to GitHub Copilot or Gemini to generate the UPS entries from your Floor PDU CSV file based on your detailed instructions and the screenshots you provided:
 
 
 ---
 
-✅ Copilot Prompt:
+✅ Prompt to Ask Copilot or Gemini:
 
-> Task: Generate a Local Panel Breakers Sheet using the given Floor PDU and RPP mapping sheet.
+> I have a CSV file named floor_pdu.csv which contains a column with names starting with PDU and another column for Old RPP Name.
 
-For each PDU and associated Local Panel (e.g., Load A1, Load B1...), create 4 breaker entries in the final output.
+I want to create a new UPS sheet (CSV format) for all the PDU rows only (i.e., rows where:
 
-Use the following rules to populate the columns:
+the value in the Floor PDU column starts with "PDU"
 
-Column Name                      | Value / Rule
---------------------------------|----------------------------------------------
-Operation                       | ADD
-Object                          | If "Sub-Panel floor PDU" (RPP) is present → BREAKER TO PANEL
-                                | Else → BREAKER TO OTHER
-Panel Type                      | Local
-Floor PDU                       | Use PDU name (from PDU-RPP mapping sheet)
-Panel                           | Local panel name (e.g., LOAD-A1, LOAD-D1), based on PDU
-Make                            | Generic
-Model                           | Generic floor PDU
-Location                        | Location of the PDU (from PDU-RPP mapping sheet)
-Starting Pole No               | Repeat 4 records per PDU: 1, 7, 2, 8
-No of Poles                     | 3 (for all rows)
-Rated Amps                      | 600
-Measured Amps                   | -1
-Sub-Panel Location              | Location of RPP (from RPP name in mapping sheet)
-Sub-Panel floor PDU             | Name of the RPP connected to this breaker
-Breaker State                   | Open
-
-Important Rules:
-
-For each Local Panel (Load A1, Load D1, etc.), generate 4 breaker entries.
-
-Pull PDU and RPP mapping from the sheet named "floor_pdu_with_missing_pdus" or similar.
-
-For each PDU, map its associated RPPs and their locations for the sub-panel fields.
-
-Multiple RPPs can be mapped to the same PDU. Repeat the 4-breaker block for each RPP if needed.
+the Old RPP Name column is empty
 
 
-Final Output: Create an Excel or CSV file named local_panel_breakers_generated.csv with the above columns in order and one row per breaker entry.
+For each such PDU, generate a corresponding UPS entry using the following rules and default values:
+
+🛠 Mapping Logic:
+
+If PDU name is PDU A11 → UPS name = UPS A1
+
+If PDU name is PDU A21 → UPS name = UPS A2
+
+If PDU name is PDU A31 → UPS name = UPS A3
+
+If PDU name is PDU A41 or PDU A42 → UPS name = UPS A4
+
+
+📋 For each UPS entry, populate the following columns with values:
+
+Column Name	Value / Rule
+
+Operation	ADD
+Object	UPS
+Make	Generic
+Model	Generic
+Name	Derived from mapping logic above
+Location	Same as the location of the PDU
+Status	Planned
+Rating (KVA)	Leave blank (to be filled by user)
+Rating (KW)	Leave blank (to be filled by user)
+Rating (VAC)	480
+Output Wiring	4-Wire + Ground
+Location Name	Same as Location
+Front Faces	North
+Custom Field - Nominal AC Output	250
+Custom Field - Output LD	250 V
+Custom Field - UPS Maintenance	Y
+Custom Field - UPS Phase	3 Phase
+Custom Field - Power Factor	1
+Custom Field - AC Output Voltage	450
+Installation Date	01/01/2000
+
+
+Please generate the output in Excel/CSV format with these columns and values for all the matching PDU rows (where Old RPP is blank) for all 46 sites.
 
 
 
 
 ---
 
-Let me know if you want this sheet generated here — I can help you process the sheet and give you the downloadable Excel directly.
+This prompt gives Copilot or Gemini:
+
+The exact condition to filter the rows (PDU + empty RPP).
+
+The UPS name mapping logic.
+
+The exact column structure and values.
+
+Instruction to generate CSV/Excel format output.
+
+
+You can now paste this into Copilot Chat or Gemini with your sample floor_pdu.csv, and it should generate the required UPS sheet. Let me know if you want me to write a sample Python script or Excel macro as well.
 
