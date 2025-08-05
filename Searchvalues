@@ -1,28 +1,15 @@
-Here’s the revised message with a professional way to include your request for confirmation:
+Great! Here's a polished version of your Slack reply, combining both points:
 
 
 ---
 
-Subject: Floor PDU Power Chain – Update on Panel Configuration
+Hi Jonathan,
+Yes, your understanding is absolutely correct. We are now moving forward with the updated approach—creating 4 separate local panels, each containing one 600A breaker, instead of a single panel housing 4 breakers. Each breaker will independently feed one RPP, as discussed and aligned with James and Andrew.
 
-Dear Team,
-
-Following today’s discussion and based on the latest inputs, we are aligning our floor PDU build as per the updated recommendation.
-
-Previously, we created a single local panel within the floor PDU containing 12 poles (4 x 3-pole 600A breakers), sized to 1200A as per the provided diagram. Each breaker was intended to feed separate RPPs (considered as floor PDUs), adhering to the original instruction.
-
-However, during today’s call, a change was proposed to improve clarity and alignment with system standards. Instead of a single panel housing all 4 breakers, we will now create 4 separate panels, each containing one 600A breaker. Each breaker will independently feed one RPP.
-
-This revised approach was discussed with James Hill and Andrew, and they have confirmed alignment with the proposed structure.
-
-Since this design change has now been incorporated, may I kindly request you to confirm if we can proceed with this as the final approach? Please let me know if there are any further concerns or inputs.
-
-Best regards,
-[Your Name]
-[Your Designation / Team, if needed]
+I’ll make the necessary changes to the WINDSOR sheet based on this updated approach by the end of today and will keep you posted once the sheet is updated.
 
 
 ---
 
-Let me know if you want a shorter version or if this should go as a reply instead.
+Let me know if you'd like to add anything about the supplemental sheets or training video they mentioned.
 
