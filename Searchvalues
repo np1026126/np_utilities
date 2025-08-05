@@ -1,75 +1,66 @@
-Here’s a clear and complete prompt you can give to GitHub Copilot or Gemini to generate the UPS entries from your Floor PDU CSV file based on your detailed instructions and the screenshots you provided:
+Thanks for the clarity. Here's exactly what you're trying to do and how to ask Copilot or Gemini to help you achieve it — along with a clean, accurate prompt to copy and paste.
 
 
 ---
 
-✅ Prompt to Ask Copilot or Gemini:
+✅ Goal:
 
-> I have a CSV file named floor_pdu.csv which contains a column with names starting with PDU and another column for Old RPP Name.
+You want to map old RPP names to new standardized RPP names, but:
 
-I want to create a new UPS sheet (CSV format) for all the PDU rows only (i.e., rows where:
+Exclude rows where the Floor PDU column starts with "PDU".
 
-the value in the Floor PDU column starts with "PDU"
+Only consider rows where the RPP name was changed (not PDU names).
 
-the Old RPP Name column is empty
+You have:
 
+A new modified sheet (floor_pdu1) with new RPP names and a blank column Old RPP Name.
 
-For each such PDU, generate a corresponding UPS entry using the following rules and default values:
-
-🛠 Mapping Logic:
-
-If PDU name is PDU A11 → UPS name = UPS A1
-
-If PDU name is PDU A21 → UPS name = UPS A2
-
-If PDU name is PDU A31 → UPS name = UPS A3
-
-If PDU name is PDU A41 or PDU A42 → UPS name = UPS A4
-
-
-📋 For each UPS entry, populate the following columns with values:
-
-Column Name	Value / Rule
-
-Operation	ADD
-Object	UPS
-Make	Generic
-Model	Generic
-Name	Derived from mapping logic above
-Location	Same as the location of the PDU
-Status	Planned
-Rating (KVA)	Leave blank (to be filled by user)
-Rating (KW)	Leave blank (to be filled by user)
-Rating (VAC)	480
-Output Wiring	4-Wire + Ground
-Location Name	Same as Location
-Front Faces	North
-Custom Field - Nominal AC Output	250
-Custom Field - Output LD	250 V
-Custom Field - UPS Maintenance	Y
-Custom Field - UPS Phase	3 Phase
-Custom Field - Power Factor	1
-Custom Field - AC Output Voltage	450
-Installation Date	01/01/2000
-
-
-Please generate the output in Excel/CSV format with these columns and values for all the matching PDU rows (where Old RPP is blank) for all 46 sites.
+An original sheet (floor_pdu_original) with the old RPP names and original location info.
 
 
 
 
 ---
 
-This prompt gives Copilot or Gemini:
+✅ Output you need:
 
-The exact condition to filter the rows (PDU + empty RPP).
+A column called Old RPP Name in your modified sheet that is:
 
-The UPS name mapping logic.
+Filled using matching new RPP name ↔ old RPP name and location from the original file.
 
-The exact column structure and values.
-
-Instruction to generate CSV/Excel format output.
+Blank for rows where the name is a PDU (i.e., Floor PDU starts with "PDU").
 
 
-You can now paste this into Copilot Chat or Gemini with your sample floor_pdu.csv, and it should generate the required UPS sheet. Let me know if you want me to write a sample Python script or Excel macro as well.
+
+---
+
+📥 Prompt to use in Copilot or Gemini:
+
+I have two Excel files:
+
+1. `floor_pdu_original.csv`: This contains the original RPP names and their locations. (Example: column `RPP Name`, column `Location`)
+2. `floor_pdu1.csv`: This contains the modified RPP names with a blank column `Old RPP Name` that I want to populate.
+
+Instructions:
+- Compare the RPP names and locations from both files.
+- Ignore any rows in `floor_pdu1.csv` where the `Floor PDU` starts with "PDU". These are actual PDUs, not RPPs.
+- For the rest, map each `RPP Name` in `floor_pdu1.csv` to the corresponding original `RPP Name` from `floor_pdu_original.csv` **based on location match and similar name pattern**, and write it in the `Old RPP Name` column.
+- If no match is found, leave the `Old RPP Name` column blank.
+- Output the updated `floor_pdu1.csv`.
+
+Optional: Use fuzzy or closest match logic only when exact match fails, but location match is mandatory.
+
+
+---
+
+🛠️ Tips for Better Accuracy:
+
+If you're using Python with Pandas or Excel VBA for this, you can automate it more precisely.
+
+If Copilot isn't giving exact row-based matching, try sorting both sheets by Location first.
+
+If using Copilot in Excel, ask for a Power Query or INDEX-MATCH formula that follows the above logic.
+
+
+Would you like a Python script or Excel formula-based approach to automate this yourself as a fallback?
 
