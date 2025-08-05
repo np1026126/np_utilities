@@ -1,40 +1,58 @@
-Here’s the Copilot prompt you can use to generate the full 938 HVAC zone records based on the two input files:
+Here’s the prompt you can give to GitHub Copilot (or Excel Copilot, Power Automate Copilot, or Chat Copilot) to help identify the 8 missing locations from final_pdu_with_oldRPP_names.csv by comparing with HVAC_Holistic_Generated.csv:
 
-1️⃣ The sample HVAC holistic template (e.g., HVAC_windsor.csv)
 
-2️⃣ The list of all locations (e.g., hvac.csv)
+---
+
+✅ Copilot Prompt:
+
+> I have two CSV files:
+
+1. final_pdu_with_oldRPP_names.csv — this contains a column titled Location*.
+
+
+2. HVAC_Holistic_Generated.csv — this contains a column titled Location.
+
+
+
+Please write a script (in Python or Power Query or Excel formula — choose best fit) to:
+
+Compare the Location values from HVAC_Holistic_Generated.csv against the Location* column of final_pdu_with_oldRPP_names.csv.
+
+Identify the missing locations that are present in HVAC_Holistic_Generated.csv but not in final_pdu_with_oldRPP_names.csv.
+
+Output the list of missing locations (total ~8).
+
+
+Note: Matching should be exact (including spacing) unless a cleaned version is needed (then trim and strip extra spaces).
+
 
 
 
 ---
 
-✅ Copilot Prompt to Use:
+💡 Optional Excel Formula (for manual Excel users):
 
-I have two CSV files:
-1. One file is a sample HVAC holistic template (e.g., HVAC_windsor.csv) showing the correct column structure and example data.
-2. The second file contains 938 locations (e.g., hvac.csv) in the format: LocationCode > RoomName (e.g., ALPRGAGQ > Battery room 2B).
+If you're doing this directly in Excel:
 
-I want you to generate a new HVAC holistic sheet that:
-- Follows the same structure as the sample template.
-- Creates one row per room (i.e., each row from the hvac.csv file).
-- Extracts the LocationCode (before '>') as the site/location.
-- For each site, if there are multiple rooms, generate incremental HVAC names like `HVAC-1 Placeholder`, `HVAC-2 Placeholder`, etc.
-- Fill the following columns with default values:
-  - Operation: ADD
-  - Object: Cooling Unit
-  - Make: Generic
-  - Model: Generic HVAC
-  - Status: Planned
-  - Cooling Zone: leave blank for now
-  - Compensation Factor: 100
-  - Sensible Capacity (Tons): leave blank
-  - Airflow Rate (CFM): leave blank
-  - Redundancy: N+1
-  - Installation Date: 1/1/1990
-  - Custom Field HVAC Region Name: 499
-  - Custom Field HVAC Sub Type: Unknown
-  - Custom Field HVAC Type: Air Conditioner
-  - Custom Field HVAC Sub Type Status: Active
+1. Paste all values from HVAC into Column A of a new sheet.
+
+
+2. Paste all values from Final PDU into Column B.
+
+
+3. In Column C, use this formula:
+
+
+
+=IF(COUNTIF(B:B, A2)=0, "Missing", "Present")
+
+4. Filter for "Missing" in Column C to get the 8 missing locations.
+
+
+
+Would you like me to also generate the actual Python script or Excel Power Query code for this task?
+
+- Custom Field HVAC Sub Type Status: Active
   - Custom Field Percent for Zone: 100
 
 Please generate the final table with 938 rows by combining the above logic. The "Location" column should match exactly what is in the location file (e.g., `ALPRGAGQ > Battery room 2B`). HVAC name should increment within each site group.
