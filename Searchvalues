@@ -1,51 +1,28 @@
-Here is your professionally rewritten update message:
+Here is a professionally worded email/message you can send to communicate the change in design, align the stakeholders, and confirm that users are okay with the updated structure:
 
 
 ---
 
-Hi Team,
+Subject: Floor PDU Power Chain – Update on Panel Configuration
 
-I have completed regenerating the HT sheet for all 54 SAP sites. Currently, I have organized the data into 7 separate sheets, each containing entries for all 54 locations based on asset type.
+Dear Team,
 
-These 7 sheets will now be shared with Jason, who will proceed to segregate them into 54 individual sheets, one for each SAP location. Each of those location-specific sheets will contain all 7 asset tabs relevant to that site.
+Following today’s discussion and based on the latest inputs, we are aligning our floor PDU build as per the updated recommendation.
 
-Will keep you posted once the segregation is completed.
+Previously, we created a single local panel within the floor PDU containing 12 poles (4 x 3-pole 600A breakers), sized to 1200A as per the provided diagram. Each breaker was intended to feed separate RPPs (considered as floor PDUs), adhering to the original instruction.
 
-Thanks,
-Naveen
+However, during today’s call, a change was proposed to improve clarity and alignment with system standards. Instead of a single panel housing all 4 breakers, we will now create 4 separate panels, each containing one 600A breaker. Each breaker will independently feed one RPP.
 
+We have discussed this change with the relevant stakeholders, and both James Hill and Andrew have confirmed their alignment with the revised approach. Based on their feedback, we will proceed with implementing this change in the power chain design.
 
----
+Kindly let us know if there are any concerns. Otherwise, we’ll move forward with the updated configuration.
 
-Let me know if you'd like a shorter version or if it should be drafted for a Slack message.
-
-1. Paste all values from HVAC into Column A of a new sheet.
-
-
-2. Paste all values from Final PDU into Column B.
-
-
-3. In Column C, use this formula:
-
-
-
-=IF(COUNTIF(B:B, A2)=0, "Missing", "Present")
-
-4. Filter for "Missing" in Column C to get the 8 missing locations.
-
-
-
-Would you like me to also generate the actual Python script or Excel Power Query code for this task?
-
-- Custom Field HVAC Sub Type Status: Active
-  - Custom Field Percent for Zone: 100
-
-Please generate the final table with 938 rows by combining the above logic. The "Location" column should match exactly what is in the location file (e.g., `ALPRGAGQ > Battery room 2B`). HVAC name should increment within each site group.
+Best regards,
+[Your Name]
+[Your Designation / Team, if needed]
 
 
 ---
 
-Once you upload both files to Copilot with this prompt, it will generate a final combined HVAC holistic sheet with accurate values and structure.
-
-Let me know if you’d like this as an Excel formula-based transformation or Python code too.
+Let me know if you want it tailored for a reply instead of a new email or message.
 
