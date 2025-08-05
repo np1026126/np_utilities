@@ -1,17 +1,48 @@
-SELECT 
-    parent.location_code || ' > ' || child.location_code AS location_room_mapping
-FROM 
-    psc_site_code_info parent
-JOIN 
-    psc_site_code_info child
-ON 
-    parent.location_uuid = child.parent_loc_uuid
-WHERE 
-    parent.location_code IN (
-        'VISTCA65', 'BLTNMN86', 'NWCSDEBG', 'FRDLNYEK', 'YNKRNYZL', 'WMTPPAAA', 'HLBOOR38',
-        'BBTPNJDA', 'ORLHFL01', 'PMBRFLTF', 'ESYRYNEN', 'HRNTNYCR', 'RDMEWA22', 'LENYKSCJ',
-        'OMALNEXU', 'NLVGNVOQ', 'CHNTVAAV', 'RONKVALV', 'ANJTMDAY', 'AURSCOTY', 'BGVLPAAM',
-        'JHTWPADP', 'RCMDVA83' -- continue listing all 54 base locations
-    )
-ORDER BY 
-    parent.location_code, child.location_code;
+Here’s the Copilot prompt you can use to generate the full 938 HVAC zone records based on the two input files:
+
+1️⃣ The sample HVAC holistic template (e.g., HVAC_windsor.csv)
+
+2️⃣ The list of all locations (e.g., hvac.csv)
+
+
+
+---
+
+✅ Copilot Prompt to Use:
+
+I have two CSV files:
+1. One file is a sample HVAC holistic template (e.g., HVAC_windsor.csv) showing the correct column structure and example data.
+2. The second file contains 938 locations (e.g., hvac.csv) in the format: LocationCode > RoomName (e.g., ALPRGAGQ > Battery room 2B).
+
+I want you to generate a new HVAC holistic sheet that:
+- Follows the same structure as the sample template.
+- Creates one row per room (i.e., each row from the hvac.csv file).
+- Extracts the LocationCode (before '>') as the site/location.
+- For each site, if there are multiple rooms, generate incremental HVAC names like `HVAC-1 Placeholder`, `HVAC-2 Placeholder`, etc.
+- Fill the following columns with default values:
+  - Operation: ADD
+  - Object: Cooling Unit
+  - Make: Generic
+  - Model: Generic HVAC
+  - Status: Planned
+  - Cooling Zone: leave blank for now
+  - Compensation Factor: 100
+  - Sensible Capacity (Tons): leave blank
+  - Airflow Rate (CFM): leave blank
+  - Redundancy: N+1
+  - Installation Date: 1/1/1990
+  - Custom Field HVAC Region Name: 499
+  - Custom Field HVAC Sub Type: Unknown
+  - Custom Field HVAC Type: Air Conditioner
+  - Custom Field HVAC Sub Type Status: Active
+  - Custom Field Percent for Zone: 100
+
+Please generate the final table with 938 rows by combining the above logic. The "Location" column should match exactly what is in the location file (e.g., `ALPRGAGQ > Battery room 2B`). HVAC name should increment within each site group.
+
+
+---
+
+Once you upload both files to Copilot with this prompt, it will generate a final combined HVAC holistic sheet with accurate values and structure.
+
+Let me know if you’d like this as an Excel formula-based transformation or Python code too.
+
