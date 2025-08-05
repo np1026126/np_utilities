@@ -1,15 +1,28 @@
-Great! Here's a polished version of your Slack reply, combining both points:
+Here’s a professional way to reply in Slack with everything you want to convey — including:
+
+Clarifying your naming approach
+
+Explaining the challenge with RPP naming
+
+Sharing the screenshot as a reference
+
+Asking for confirmation or correction from users
+
 
 
 ---
 
-Hi Jonathan,
-Yes, your understanding is absolutely correct. We are now moving forward with the updated approach—creating 4 separate local panels, each containing one 600A breaker, instead of a single panel housing 4 breakers. Each breaker will independently feed one RPP, as discussed and aligned with James and Andrew.
+Hi Andres, just to clarify the panel naming approach:
 
-I’ll make the necessary changes to the WINDSOR sheet based on this updated approach by the end of today and will keep you posted once the sheet is updated.
+Since it's challenging to determine the exact RPP each breaker will feed (as shown in the second screenshot, e.g., RPP_A5_A1, RPP_A11_A2), I’m using a consistent naming format for now as shown in the first screenshot:
+PDU-[name]-PANEL 1, PDU-[name]-PANEL 2, PDU-[name]-SPARE 1, etc.
+
+This way, the panels are uniquely named while staying aligned with the floor PDU structure. However, since I’m not 100% sure about the correct RPP names for each case, it would really help if users could review and confirm or correct the RPP assignments as needed.
+
+Let me know if that sounds good or if you'd prefer a different naming convention.
 
 
 ---
 
-Let me know if you'd like to add anything about the supplemental sheets or training video they mentioned.
+Let me know if you want to directly mention or tag someone in this message too.
 
