@@ -1,109 +1,17 @@
-Thanks for explaining in such detail. You're trying to update a floor PDU panel sheet with correct RPP names and adjust pole number logic based on panel names.
-
-
----
-
-✅ Final Objective:
-
-You have:
-
-1. Floor PDU Panel file (Screenshot 1):
-Contains current FloorPDU names (RPP names) and Panel names (like Panel A, Panel 1).
-
-
-2. Floor PDU updated RPP mapping (Screenshot 2):
-Contains Original RPP Name (used in Panel file) and the correct New RPP Name.
-
-
-
-
----
-
-🧠 Logic You Want Copilot/Gemini to Follow:
-
-🎯 Part 1: Replace RPP Names
-
-Match the FloorPDU name from Screenshot 1 with Original RPP Name in Screenshot 2.
-
-Replace it with the corresponding new RPP name (column Name or similar).
-
-Only update if a match is found.
-
-
-🎯 Part 2: Update Panel Pole Logic
-
-Look at Panel column:
-
-If Panel ends with even number (e.g., Panel 2, Panel 4) or even letter (e.g., Panel B, Panel D), then:
-
-Set First Pole Number (Column N) = 43
-
-
-If Panel ends with odd number (e.g., Panel 1, Panel 3) or odd letter (e.g., Panel A, Panel C), then:
-
-Set First Pole Number = 1
-
-
-
-Set Number of Poles (Column M) = 42 for all rows.
-
-
-
----
-
-✅ Prompt to Ask Copilot or Gemini:
-
-I have two Excel files:
-
-1. `floor_pdu_panel.csv`: This contains a column `FloorPDU` with current RPP names, and a column `Panel` with names like Panel A, Panel B, Panel 1, etc.
-2. `floor_pdu_rpp_mapping.csv`: This contains a column `Original RPP Name` and a column with updated `New RPP Name`.
-
-What I want:
-
-1. For every row in `floor_pdu_panel.csv`, match `FloorPDU` with `Original RPP Name` from the second file.
-   - If matched, replace it with the corresponding `New RPP Name`.
-   - If not matched, leave it as-is.
-
-2. Based on the `Panel` column:
-   - If the last character is an **even number** or **even letter (B, D, etc.)**, then set `First Pole Number` column to `43`
-   - If the last character is an **odd number** or **odd letter (A, C, etc.)**, then set `First Pole Number` to `1`
-
-3. Set `Number of Poles` column to `42` for all rows.
-
-Apply these updates and return the corrected `floor_pdu_panel.csv` with these modifications.
-
-
----
-
-Would you like a Python script or Excel formula/Power Query logic that can help you do this directly without Copilot too?
-
-📥 Prompt to use in Copilot or Gemini:
-
-I have two Excel files:
-
-1. `floor_pdu_original.csv`: This contains the original RPP names and their locations. (Example: column `RPP Name`, column `Location`)
-2. `floor_pdu1.csv`: This contains the modified RPP names with a blank column `Old RPP Name` that I want to populate.
-
-Instructions:
-- Compare the RPP names and locations from both files.
-- Ignore any rows in `floor_pdu1.csv` where the `Floor PDU` starts with "PDU". These are actual PDUs, not RPPs.
-- For the rest, map each `RPP Name` in `floor_pdu1.csv` to the corresponding original `RPP Name` from `floor_pdu_original.csv` **based on location match and similar name pattern**, and write it in the `Old RPP Name` column.
-- If no match is found, leave the `Old RPP Name` column blank.
-- Output the updated `floor_pdu1.csv`.
-
-Optional: Use fuzzy or closest match logic only when exact match fails, but location match is mandatory.
-
-
----
-
-🛠️ Tips for Better Accuracy:
-
-If you're using Python with Pandas or Excel VBA for this, you can automate it more precisely.
-
-If Copilot isn't giving exact row-based matching, try sorting both sheets by Location first.
-
-If using Copilot in Excel, ask for a Power Query or INDEX-MATCH formula that follows the above logic.
-
-
-Would you like a Python script or Excel formula-based approach to automate this yourself as a fallback?
-
+SELECT 
+    parent.location_code || ' > ' || child.location_code AS location_room_mapping
+FROM 
+    psc_site_code_info parent
+JOIN 
+    psc_site_code_info child
+ON 
+    parent.location_uuid = child.parent_loc_uuid
+WHERE 
+    parent.location_code IN (
+        'VISTCA65', 'BLTNMN86', 'NWCSDEBG', 'FRDLNYEK', 'YNKRNYZL', 'WMTPPAAA', 'HLBOOR38',
+        'BBTPNJDA', 'ORLHFL01', 'PMBRFLTF', 'ESYRYNEN', 'HRNTNYCR', 'RDMEWA22', 'LENYKSCJ',
+        'OMALNEXU', 'NLVGNVOQ', 'CHNTVAAV', 'RONKVALV', 'ANJTMDAY', 'AURSCOTY', 'BGVLPAAM',
+        'JHTWPADP', 'RCMDVA83' -- continue listing all 54 base locations
+    )
+ORDER BY 
+    parent.location_code, child.location_code;
