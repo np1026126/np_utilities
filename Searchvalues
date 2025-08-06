@@ -1,39 +1,43 @@
-Thanks for the clarification — you're looking for a Copilot prompt to compare two Excel sheets and populate columns N and M in the new breaker sheet with the RPP mapping from the old breaker sheet, based on PDU name, but only for panel names that include "PANEL" (not "SPARE").
-
-Here’s the exact prompt you can use in Copilot:
+Here’s a precise and professional Copilot prompt you can use to extract only the data from your HVAC sheet that matches the 8 CLLI codes in the second screenshot:
 
 
 ---
 
-✅ Copilot Prompt to Populate RPP Columns Based on PDU and Panel Type
+✅ Copilot Prompt to Filter HVAC Data Based on CLLI Codes
 
 > I have two Excel sheets:
 
-1. Old_Breaker_Sheet.csv
-‣ This sheet contains columns like PDU Name, Connected RPP (Column N), and Panel Name.
-‣ For each PDU, four breakers are created under a single panel, and RPPs are mapped to each breaker row.
+1. Sheet 1 (HVAC_holistic_generated)
+  – Column Location contains values in the format: "CLLICODE > Room Name"
+  – I want to filter this data to keep only rows where the CLLI code portion (i.e., the text before the '>' symbol) matches any value from the list in Sheet 2.
 
 
-2. New_Load_Panel_Breaker_Sheet.csv
-‣ This sheet contains multiple rows per PDU, with panel names like PDU-A11-PANEL 1, PDU-A11-SPARE 1, etc.
-‣ Columns N and M (RPP-related) are currently empty and need to be filled.
+2. Sheet 2 (missing_hvac_locationcodes)
+  – Contains one column named ClliCode with 8 specific codes.
 
 
 
-✅ What I need you to do:
+✅ Please perform the following:
 
-For each row in New_Load_Panel_Breaker_Sheet.csv, check if the Panel Name (Column B) contains "PANEL" (not "SPARE").
+For each row in Sheet 1, extract the CLLI code part from the Location column (i.e., the text before '>' symbol and any extra spaces).
 
-Extract the PDU name from the panel name (e.g., from PDU-A11-PANEL 1, extract PDU-A11).
+Compare this extracted CLLI code with the list in Sheet 2.
 
-Find the first matching occurrence of that PDU name in the Old_Breaker_Sheet.csv (based on PDU Name column).
+Keep only the rows from Sheet 1 where the extracted CLLI code matches any of the 8 codes in Sheet 2.
 
-From the old sheet, take the value from Column N and Column M (RPP mappings), and copy them into the current row of the new sheet's Column N and Column M, respectively.
-
-For rows where Panel Name contains "SPARE", leave Columns N and M blank.
+Remove all other rows from Sheet 1.
 
 
 ✅ Output:
+A filtered version of HVAC_holistic_generated sheet with only the matching CLLI codes and their corresponding rows.
+
+
+
+
+---
+
+This prompt ensures Copilot knows exactly what to extract, how to compare using only the part before '>', and what output to return.
+
 
 The updated version of New_Load_Panel_Breaker_Sheet.csv with Columns N and M populated wherever applicable.
 
