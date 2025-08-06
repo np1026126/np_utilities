@@ -1,59 +1,47 @@
-Absolutely! Here's a professionally rewritten Copilot prompt based on the instructions from your screenshots and explanation:
+Thanks for the clarification — you're looking for a Copilot prompt to compare two Excel sheets and populate columns N and M in the new breaker sheet with the RPP mapping from the old breaker sheet, based on PDU name, but only for panel names that include "PANEL" (not "SPARE").
+
+Here’s the exact prompt you can use in Copilot:
 
 
 ---
 
-✅ Copilot Prompt: Generate 4 Panels per PDU using Template Panel Sheet
+✅ Copilot Prompt to Populate RPP Columns Based on PDU and Panel Type
 
-> I have two input CSVs:
+> I have two Excel sheets:
 
-1. Floor_PDU_locationcode_fixed.csv
-‣ This contains all valid PDU entries.
-‣ A valid PDU row is where the Name column starts with "PDU" and the Old RPP Name is empty.
-‣ For each of these PDU rows, extract:
-
+1. Old_Breaker_Sheet.csv
+‣ This sheet contains columns like PDU Name, Connected RPP (Column N), and Panel Name.
+‣ For each PDU, four breakers are created under a single panel, and RPPs are mapped to each breaker row.
 
 
-PDU Name from Name column (e.g., PDU-A11)
-
-Location from the same row
-
-
-2. PDU Panel Connecting to RPP.csv
-‣ This contains the existing load panel structure for a single panel per PDU.
-‣ I want to reuse all the columns and values from this sheet except for:
+2. New_Load_Panel_Breaker_Sheet.csv
+‣ This sheet contains multiple rows per PDU, with panel names like PDU-A11-PANEL 1, PDU-A11-SPARE 1, etc.
+‣ Columns N and M (RPP-related) are currently empty and need to be filled.
 
 
 
-Floor PDU Name → replace with the new panel names
+✅ What I need you to do:
 
-Location → should match the PDU's location from the first file
+For each row in New_Load_Panel_Breaker_Sheet.csv, check if the Panel Name (Column B) contains "PANEL" (not "SPARE").
 
+Extract the PDU name from the panel name (e.g., from PDU-A11-PANEL 1, extract PDU-A11).
 
-🛠️ Task: For each PDU in the first file:
+Find the first matching occurrence of that PDU name in the Old_Breaker_Sheet.csv (based on PDU Name column).
 
-Generate 4 rows (panels) using the structure from the second file.
+From the old sheet, take the value from Column N and Column M (RPP mappings), and copy them into the current row of the new sheet's Column N and Column M, respectively.
 
-Panel names should follow this naming pattern:
-
-PDU-A11-PANEL 1
-
-PDU-A11-PANEL 2
-
-PDU-A11-SPARE 1
-
-PDU-A11-SPARE 2
+For rows where Panel Name contains "SPARE", leave Columns N and M blank.
 
 
+✅ Output:
 
-📌 Keep all static values from the panel template (like Phase: Three Phase Wye, Rating (A): 1200, etc.).
+The updated version of New_Load_Panel_Breaker_Sheet.csv with Columns N and M populated wherever applicable.
 
-✅ Final output: A CSV with 4 panel rows per PDU, structured just like the panel file, with only the name and location changed dynamically.
 
 
 
 
 ---
 
-Let me know if you’d like this prompt translated into a Python script or Excel formula logic too!
+Let me know if you want to script this in Python or Excel formulas as well.
 
