@@ -1,51 +1,59 @@
-Great! Based on your explanation and the screenshot, here's the Copilot prompt you can use to achieve the new structure:
+Absolutely! Here's a professionally rewritten Copilot prompt based on the instructions from your screenshots and explanation:
 
 
 ---
 
-✅ Copilot Prompt for Generating 4 Panels per PDU (with 1 Breaker Each)
+✅ Copilot Prompt: Generate 4 Panels per PDU using Template Panel Sheet
 
-> I have two CSV files:
+> I have two input CSVs:
 
-1. PDU Sheet – This file contains a list of PDUs with their names and locations.
-
-Relevant columns: Name (PDU name), Location (CLLI or site info).
-
-
-
-2. Existing Panel Sheet – This has currently 1 local power panel per PDU (e.g., PDU A11 → LDO A11) with some fixed structure.
+1. Floor_PDU_locationcode_fixed.csv
+‣ This contains all valid PDU entries.
+‣ A valid PDU row is where the Name column starts with "PDU" and the Old RPP Name is empty.
+‣ For each of these PDU rows, extract:
 
 
 
-Now I want to restructure it:
+PDU Name from Name column (e.g., PDU-A11)
 
-🔁 For each PDU, generate 4 unique power panels, named like:
-
-LDO A11-1, LDO A11-2, LDO A11-3, LDO A11-4
-
-Follow the same logic for all PDUs from the first file.
+Location from the same row
 
 
-⚙ Inside each new panel, I want to generate 1 breaker only.
-
-✅ Maintain the following values from the original panel file:
-
-Operation: ADD
-
-Object: POWER PANEL LOCAL
-
-Make, Model, Phase, Voltage, etc.: Same as existing panel template
+2. PDU Panel Connecting to RPP.csv
+‣ This contains the existing load panel structure for a single panel per PDU.
+‣ I want to reuse all the columns and values from this sheet except for:
 
 
-🔁 Repeat this for all PDUs from the PDU CSV file.
-📌 The output CSV should have 4x rows for each PDU, each with one panel and its respective values.
 
-⚠ If needed, copy all other default or static values from the template in the existing panel sheet (e.g., Three Phase W, 1200, etc.).
+Floor PDU Name → replace with the new panel names
+
+Location → should match the PDU's location from the first file
+
+
+🛠️ Task: For each PDU in the first file:
+
+Generate 4 rows (panels) using the structure from the second file.
+
+Panel names should follow this naming pattern:
+
+PDU-A11-PANEL 1
+
+PDU-A11-PANEL 2
+
+PDU-A11-SPARE 1
+
+PDU-A11-SPARE 2
+
+
+
+📌 Keep all static values from the panel template (like Phase: Three Phase Wye, Rating (A): 1200, etc.).
+
+✅ Final output: A CSV with 4 panel rows per PDU, structured just like the panel file, with only the name and location changed dynamically.
 
 
 
 
 ---
 
-Let me know if you’d also like a Python or Power Query version of this transformation.
+Let me know if you’d like this prompt translated into a Python script or Excel formula logic too!
 
