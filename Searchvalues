@@ -1,28 +1,60 @@
-Here’s a professional way to reply in Slack with everything you want to convey — including:
+Thanks for the clarification. Here's what you need:
 
-Clarifying your naming approach
+✅ Objective:
 
-Explaining the challenge with RPP naming
+In your Floor_PDU.csv:
 
-Sharing the screenshot as a reference
+If a row represents a PDU (Name starts with "PDU"):
 
-Asking for confirmation or correction from users
+Currently: Location column has only the Site name (e.g., Alpharetta).
+
+Expected: You want to replace the Location for such rows with the CLLI code that is present in the RPP rows (same site), without the room name or > symbol.
+
+
+
+
+---
+
+✅ Copilot Prompt:
+
+> I have a CSV file with power equipment data.
+
+The column Name contains either RPP or PDU names.
+
+The column Site contains the site name.
+
+The column Location contains either:
+
+For RPPs: CLLI_CODE > Room Name
+
+For PDUs: just the site name (e.g., Alpharetta)
+
+
+
+I want to update the Location value for PDU rows only (i.e., where Name starts with "PDU"):
+
+For each PDU, look for an RPP with the same Site.
+
+Extract the CLLI_CODE from the RPP’s Location (i.e., the part before the > symbol).
+
+Replace the PDU’s Location with that CLLI_CODE.
+
+
+Ensure that:
+
+PDU rows no longer have the site name as the location.
+
+RPP rows remain unchanged.
+
+
 
 
 
 ---
 
-Hi Andres, just to clarify the panel naming approach:
+📌 Optional Output Column (if needed for audit):
 
-Since it's challenging to determine the exact RPP each breaker will feed (as shown in the second screenshot, e.g., RPP_A5_A1, RPP_A11_A2), I’m using a consistent naming format for now as shown in the first screenshot:
-PDU-[name]-PANEL 1, PDU-[name]-PANEL 2, PDU-[name]-SPARE 1, etc.
+You could also ask Copilot to create a new column Updated Location so original data remains untouched.
 
-This way, the panels are uniquely named while staying aligned with the floor PDU structure. However, since I’m not 100% sure about the correct RPP names for each case, it would really help if users could review and confirm or correct the RPP assignments as needed.
-
-Let me know if that sounds good or if you'd prefer a different naming convention.
-
-
----
-
-Let me know if you want to directly mention or tag someone in this message too.
+Let me know if you'd like a sample Python or Excel Power Query formula for this too.
 
