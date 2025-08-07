@@ -1,4 +1,4 @@
-Certainly! Here's a refined and professional version of your reply to Andres, including all your key points:
+Certainly! Here's the revised content with everything clearly and professionally included:
 
 
 ---
@@ -7,7 +7,9 @@ Reply:
 
 Thanks for the update and for keeping me informed, Andres.
 
-Noted on the revised instructions shared with the site users. From our side, the supplemental sheets were generated using the limited data available from the IFP and CPNG databases. Specifically, the UPS names were derived based on the PDU naming logic, as UPS-specific data was not available in the CPNG DB either.
+Noted on the revised instructions shared. From our side, the supplemental sheets were generated using the limited data available from the IFP and CPNG databases.
+
+Specifically, there were no UPS entries available in the CPNG backend database. However, the CPNG front-end UI displayed UPS associations by applying a frontend logic based on PDU names. This logic was not backed by stored data in the database, which made it inaccessible for extraction. Since we did not have access to the single line diagrams either, we had to adopt this approach of logically grouping PDUs (e.g., PDU-A11, PDU-A12, PDU-A13) under a common placeholder UPS name (e.g., UPS-A1).
 
 Additionally, for many of the SAP sites, PDU data itself was missing in the source systems. In those cases, we created PDU entries based on the available RPP names from IFP. However, even those mappings had inconsistencies due to missing or improperly structured records in the source data.
 
@@ -16,5 +18,7 @@ Given these constraints, we’ve done our best to structure the sheets, trusting
 
 ---
 
-Let me know if you'd like to simplify it further or add any specific technical point.
+Let me know if you want a slightly shorter version or want to send it as a Teams/Slack message instead of an email.
+
+
 
