@@ -1,67 +1,117 @@
-Got it! Here's the refined Copilot prompt you can use to upload the full PDF and ask it to extract only the Generator, HVAC, Plant, and Switchgear details, then explain those in a clear and simple way like you're preparing a document for a 20-year-old beginner in your team:
+Thanks! Here's the updated and complete version of your email response, now including the additional points about the limitations in mapping PDUs and RPPs from IFP and CPNG, and your request for help correcting based on the single-line diagram.
 
 
 ---
 
-✅ Copilot Prompt to Extract and Explain Generator, HVAC, Plant & Switchgear
+✉️ Revised Final Email Draft:
 
-> I am uploading a PDF document that contains around 23 sheets/pages related to DCTrack configuration and calculations (used by the Sunbird team for inventory management of power systems like Generators, HVAC, Plants, Switchgear, Fuel Tanks, AC Mains, etc.).
+> Subject: Clarification on UPS Naming Logic and Request for Input
 
-Please perform the following:
+Hi Jonathan,
 
-1. Read the entire document.
+Thank you for the clarification and for sharing the Las Vegas example.
 
+I’d like to provide some background on how the UPS data was generated from our end.
 
-2. Extract only the relevant information related to:
+The UPS entries were created based purely on the PDU names we had available from the CPNG database. Unfortunately, we did not find any actual UPS-specific records in the backend CPNG tables. Also, the UPS configuration that might exist in the CPNG front-end interface was not accessible to us.
 
-Generator
+As a result, we had to build the UPS names logically by grouping PDUs — for example, PDU-A11, A12, and A13 were grouped under UPS-A1, and so on. This was only intended as a placeholder structure for your team to validate and correct based on the actual electrical setup.
 
-HVAC
+Additionally, for many locations, we couldn’t find any PDU entries either in IFP or CPNG. In such cases, we had to derive the PDUs based on IFP names or RPP names available in IFP — which again may not be accurate. Also, the RPP names were not properly maintained under appropriate sections in IFP, which made it difficult to map PDUs cleanly. In certain cases, there was no clear mapping possible at all.
 
-Plant
+As previously discussed, we had requested the single-line diagrams to form the UPS structure more accurately. However, since those diagrams were not provided, we couldn’t derive the module-level UPS names like “UPS-1A1” and “UPS-1A2” as shown in your Las Vegas example.
 
-Switchgear
+With this context, we kindly request your team to:
 
+Validate and correct the UPS names based on the single-line diagram.
 
-
-3. For each of the above:
-
-What fields are used in the system (e.g., kW, voltages, capacities)?
-
-What formulas or calculations are used? (e.g., Total Gen Load kW, Redundant Rectifier logic)
-
-What values are expected for these fields?
-
-How does this item function in the DCTrack system?
+Confirm or adjust the PDU and RPP mappings if needed.
 
 
+Once we receive the corrections, we will immediately update the final sheet accordingly.
 
-4. Generate a detailed and beginner-friendly explanation, as if explaining to a 20-year-old team member who is new to DCTrack and doesn't have deep domain knowledge.
+Please let us know if we can follow the same approach for the other locations.
+
+Thank you once again for your support and cooperation.
+
+Best regards,
+[Your Name]
+[Your Team / Project N
+
+Certainly! Here's the revised email including the point about not receiving the single-line diagram, which is the core reason you were unable to provide the detailed UPS module data. The response is professional and clear while explaining your constraints:
 
 
-5. Output a well-formatted document or markdown that I can share with my team for easy understanding.
+---
+
+✉️ Final Email Draft:
+
+> Subject: Clarification on UPS Naming Logic and Request for Input
+
+Hi Jonathan,
+
+Thank you for the clarification and for sharing the Las Vegas example.
+
+I’d like to provide context on the UPS data we submitted. The UPS entries were generated based solely on the PDU names available to us from the CPNG database. Unfortunately, UPS-specific data was not present in any of the CPNG backend tables, and we do not have access to the UPS configuration details that may exist on the front end.
+
+Due to this limitation, we created placeholder UPS names using a logical grouping approach — for example, grouping PDUs like PDU-A11, A12, and A13 under UPS-A1. These groupings were intended to provide a draft structure that could be reviewed and corrected with the help of site-specific data.
+
+We understand from your example that UPS modules like UPS-1A1 and UPS-1A2 were created based on the single-line diagrams. We want to clarify that we did not receive the single-line diagrams despite requesting them earlier, which is why we couldn’t derive accurate module-level UPS breakdowns. Without those diagrams, and with no UPS data available in the CPNG database, we had no reliable way to form the detailed UPS structure you are expecting.
+
+Kindly request your support in validating and correcting the UPS naming and ratings based on the available single-line diagrams from your end. Once those are reviewed and confirmed, we’ll be happy to update the records accordingly across all locations.
+
+Please let us know if we can proceed similarly for the other sites.
+
+Thank you again for your support.
+
+Best regards,
+[Your Name]
+[Team or Project Name]
 
 
+Thank you for the clarification — you’ve explained the situation well. Based on what you just said, here is how you can clearly and professionally respond to Jonathan and the team, explaining your constraints and requesting their input:
+
+
+---
+
+✉️ Reply Email Draft:
+
+> Subject: Clarification on UPS Naming Logic and Request for Input
+
+Hi Jonathan,
+
+Thanks for the detailed clarification and for sharing the Las Vegas example.
+
+I’d like to clarify that the UPS records we created were derived solely based on the PDU names available to us from the CPNG database. Unfortunately, we did not receive any UPS-specific data as part of the CPNG system tables or exports.
+
+Since there were no UPS entries in the CPNG DB, and the front-end did not expose that backend mapping either, we followed a placeholder approach where:
+
+We grouped PDUs logically (e.g., PDU-A11, A12, A13) under a common UPS name (e.g., UPS-A1).
+
+These names were meant to help identify possible groupings that could then be validated and corrected with actual site-specific UPS configuration using the single-line diagrams.
+
+
+At this point, we do not have visibility into how the module breakdowns (such as UPS-1A1 and UPS-1A2) were derived, or what logic was used — especially as there are cases where the related PDUs (e.g., PDU-A2) don’t exist in our input.
+
+Kindly request your support to validate and correct the UPS naming and module-level data based on the single-line diagrams, as was done for Las Vegas. This would help ensure accuracy across all locations.
+
+Please let us know if we can proceed similarly for the other sites once those diagrams are reviewed on your end.
+
+Thank you once again for your support.
+
+Best regards,
+[Your Name]
+[Team or Project Name]
 
 
 
 
 ---
 
-Let me know if you want the explanation broken down into sections (like for presentation slides or Confluence notes), and I’ll tailor it accordingly.
-
----
-
-This prompt ensures Copilot knows exactly what to extract, how to compare using only the part before '>', and what output to return.
-
-
-The updated version of New_Load_Panel_Breaker_Sheet.csv with Columns N and M populated wherever applicable.
-
-
+Would you like me to also help you with a version where you escalate or mark this as a blocker for your migration if that's needed?
 
 
 
 ---
 
-Let me know if you want to script this in Python or Excel formulas as well.
+Let me know if you want to make it firmer (as a blocker), or more casual if it's an internal note.
 
