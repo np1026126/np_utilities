@@ -1,18 +1,24 @@
-Here’s a professional and clear reply you can send to Jonathan:
+Here’s the refined version of your message with that clarification added professionally:
 
 
 ---
 
 Reply:
 
-Thanks for pointing this out, Jonathan.
+We reviewed the 54 SAP sites from the MSC perspective, and during this review, we found that only two sites — MSC Charlotte and MSC North Mecklenburg — share the same SAP short name. None of the other SAP sites have this issue.
 
-Yes, we reviewed the query and identified that both NEC Rocklin and MSC Rocklin share the same short name in IFP, which is why the data pulled includes rooms from both sites. Since our query was based on the site short name, it inadvertently included NEC Rocklin rooms as well.
+Due to this shared short name, the query returned identical asset data for both sites. Since the records appeared as duplicates during upload, one of the entries (in this case, Charlotte) was removed under the assumption that it was redundant.
 
-We're currently working only with MSC sites, and NEC should not be considered. Thanks again for bringing this to our attention — we’ll correct the data accordingly.
+Now that we’ve identified the root cause — that both sites are pulling the same data due to the shared short name — we will correct the logic, re-run the queries, and ensure that both sites are distinctly captured in the next update.
+
+Additionally, similar to the Rocklin case, we are also reviewing all other SAP sites to identify any overlaps in short names, especially where MSC and NEC sites might share a code. We will filter out any unintended data from NEC sites to ensure MSC sheets remain accurate and clean.
+
+We want to emphasize that this issue is isolated to only these two sites, and the rest of the SAP site data is not affected. Please continue your work with confidence — we’ll ensure this correction is handled promptly.
+
+Thanks again for pointing this out — it helped us uncover a critical edge case.
 
 
 ---
 
-Let me know if you’d like to copy others or mention anything else in the reply.
+Let me know if you'd like to add a timeline or any CC mentions.
 
