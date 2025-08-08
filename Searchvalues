@@ -1,4 +1,4 @@
-You can explain it clearly and professionally to the user like this:
+Got it — I’ve added that point into the Code Lookup explanation so it’s complete and clear:
 
 
 ---
@@ -7,24 +7,46 @@ Hi James,
 
 In our application, there are two ways to create a location:
 
-1. Address Lookup – The user enters an address, and our system queries the LOCUS address source system.
 
-If the address is found and marked as valid in LOCUS, we populate the location details from there.
+---
 
-After that, the user enters the SILI/SES code. Once entered, the system validates whether that code is available and links it to the location.
+1. Address Lookup – Used when the user already knows the physical address they want to create.
 
+As the user starts typing the address, our system queries LOCUS, which returns type-ahead suggestions in a dropdown.
 
+The user selects the correct address from this list. Once selected, LOCUS automatically populates the address details in our system.
 
-2. Code Lookup – The user enters the SILI/SES code directly, and the associated location data is populated from the source system for codes.
+The user then selects the location code type (SES code) and location code value (e.g., MANT, CM, etc.).
 
+We then make a call to SILLYNet — not to validate the address, but to validate whether the entered code type + code value combination exists.
 
+If valid, SILLYNet returns the alias name, SILLY code, GLC, site name, and LOB, which we auto-populate.
 
-In this case, it appears the location was created via Address Lookup, and the address provided by the creator was a valid residential address in LOCUS. Because LOCUS returned it as valid, our system populated it without knowing it was a personal address rather than a data center.
+In Address Lookup, we trust the address coming from LOCUS and do not cross-check it with SILLYNet.
 
-That’s why the location is showing an individual house address.
 
 
 ---
 
-If you want, I can also draft a shorter, direct reply for quick chat use so it’s less formal but still clear. Would you like me to prepare that too?
+2. Code Lookup – Used when the user already knows the code type and code value.
+
+For example, the user selects code type = SES code and code value = MNPCA.
+
+We call the SILLYNet API to validate whether this code type + code value combination exists.
+
+If valid, SILLYNet returns the alias name, LOB, and the LOCUS ID for that location.
+
+Using this LOCUS ID, we then query LOCUS to get the correct address for that location.
+
+We then auto-populate the address (from LOCUS) along with the alias name and LOB (from SILLYNet).
+
+From an ELS point of view, we always get the locations from LOCUS and cross-verify them in SILLYNet. SILLYNet also maintains the LOCUS ID for every address it stores, ensuring the location data stays consistent between the two systems.
+
+If the location is not present in SILLYNet, it is created as part of the process.
+
+
+
+---
+
+If you want, I can now condense this into a crisp explanation that highlights why in Code Lookup the address always matches — so it’s clear to the user why mismatches only happen in Address Lookup. Would you like me to do that next?
 
