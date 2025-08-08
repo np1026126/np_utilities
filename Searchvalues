@@ -1,16 +1,30 @@
-Here’s a rewritten first line in a more natural, human way while keeping it professional:
-
-> Since this initiative originated as part of the IFP Decoupled project to migrate IFP assets into DCTrack, our migration scope naturally began with sourcing all required data from IFP as the primary system of record.
+You can explain it clearly and professionally to the user like this:
 
 
+---
 
-Would you like me to slot this revised opening into the full reply so it reads seamlessly?
+Hi James,
+
+In our application, there are two ways to create a location:
+
+1. Address Lookup – The user enters an address, and our system queries the LOCUS address source system.
+
+If the address is found and marked as valid in LOCUS, we populate the location details from there.
+
+After that, the user enters the SILI/SES code. Once entered, the system validates whether that code is available and links it to the location.
 
 
-Commits to a fix with a clear timeline.
 
-Suggests a data correction in IFP so the same issue doesn’t recur.
+2. Code Lookup – The user enters the SILI/SES code directly, and the associated location data is populated from the source system for codes.
 
 
-If you want, I can also prepare the exact one-liner you can attach under the IFP table screenshot so it’s obvious the source data had the same CLLI for both sites. That will make your case watertight.
+
+In this case, it appears the location was created via Address Lookup, and the address provided by the creator was a valid residential address in LOCUS. Because LOCUS returned it as valid, our system populated it without knowing it was a personal address rather than a data center.
+
+That’s why the location is showing an individual house address.
+
+
+---
+
+If you want, I can also draft a shorter, direct reply for quick chat use so it’s less formal but still clear. Would you like me to prepare that too?
 
