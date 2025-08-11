@@ -1,3 +1,12 @@
+Here’s a professional way you can reply to Peter and Andres:
 
-Current Issue:
-In Address Lookup, since the address is provided by the user and we only validate it against LOCUS, we are not cross-verifying that address with SILLYNet (the address spotter). We already have a feature in the backlog to cross-check all addresses from other owning systems. When a difference is found in the address, it will be flagged and displayed separately.
+
+---
+
+Peter / Andres — For Duff, Plainfield, and Westside, the UPS, PDUs, and RPPs are missing because the upstream data sources don’t have the necessary records. Specifically, PDUs are not present in CPNG, and RPPs are not available in IFP. Without the RPP data, we cannot generate the dependent PDUs and, in turn, the UPS associations. At present, there’s no source available to fill these gaps, which is why these assets are absent in the generated output.
+
+
+---
+
+Do you want me to also make a follow-up version that proposes a next step so it doesn’t sound like the discussion ends here? That way, it shows you’re proactive about solving it.
+
