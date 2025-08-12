@@ -1,21 +1,28 @@
-Here’s your updated Slack message with the additional Busway and RPP details included, still keeping it professional and clear:
+Here’s a clean and precise prompt you can give to Copilot or Google Gemini so they know exactly what transformation you want on your Excel sheet:
 
 
 ---
 
-Hi Team,
-
-While creating cooling units, I’ve noticed that in some cases the HVAC zones are created automatically, but in other cases they are not. Additionally, for a few assets (including generators), creation is failing with a generic error message, and I’m unable to pinpoint the exact cause from the data available.
-
-In certain cases, there are no RPPs, and only a Busway is present. I need clarity on how a Busway can be created as a floor PDU, how it can be connected to a floor PDU, and how breakers can be connected to it. I also need some guidance on Busway and tab box creation as part of the migration.
-
-Could we set up a 30-minute working session to go through these issues together and identify the root cause? Please let me know your availability so we can get this scheduled.
-
-Thanks,
-[Your Name]
+Prompt:
+"I have an Excel sheet with a column named 'Panel' and another column named 'Starting Position No'.
+Every 'Panel' value is either 'Panel 1' or 'Panel 2'.
+I need to update 'Starting Position No' for all rows where 'Panel' = 'Panel 2' by adding 42 to the existing value in 'Starting Position No'.
+If 'Panel' = 'Panel 1', leave the value unchanged.
+Please write a Python (pandas) or Excel formula/VBA script to do this."
 
 
 ---
 
-If you’d like, I can also make a bullet-point version so it’s even easier for them to read and respond quickly in Slack. That format often works better in busy channels.
+If you want Copilot to directly do it in Excel formula without Python, you can give this shorter prompt:
+
+
+---
+
+Prompt:
+"In Excel, in a new column, I want to display the 'Starting Position No' where if 'Panel' = 'Panel 2', it should be the existing 'Starting Position No' + 42, otherwise keep it the same. Give me the Excel formula for this."
+
+
+---
+
+If you want, I can directly give you both the Python (pandas) code and the Excel formula so you can run it immediately. That way you don’t even need to wait for Copilot to generate it. Would you like me to prepare both?
 
