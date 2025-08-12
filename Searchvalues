@@ -1,38 +1,26 @@
-Here’s a professional draft you can send as an email for your 30-minute working session request:
+Here’s a clear, professional Slack message you can send:
 
 
 ---
 
-Subject: Request for 30-Minute Working Session on Busway/Tab Box Connections and HVAC Zone Creation
+Hi Team,
 
-Hi [Recipient Names],
+There’s a request from the users to:
 
-As part of the ongoing migration to DC Track, I’m encountering a few challenges that I would like to review in a focused working session:
-
-1. Busway and Asset Creation
-
-In some cases, there are no PDUs or RPPs, only a Busway. I need clarity on how PDUs and UPS can be created from Busway, and how Busway and tab boxes are connected to breakers in such scenarios.
-
-Understanding the correct method of connecting Busway, tab boxes, and breakers during asset creation.
+1. Regenerate HVAC assets for all TAP sites.
 
 
+2. For 4 specific TAP site locations, regenerate 7 assets — UPS, 4PG, panel, panel breakers, and their connections with HVAC (including how 4PG and panel breakers are linked to HVAC).
 
-2. HVAC Cooling Unit and Zone Creation
 
-In certain cases, HVAC zones are created automatically when adding a cooling unit, but in other cases, they are not. I need help identifying why this discrepancy occurs and how to address it.
+3. For the remaining TAP sites (other than the 4 above), only HVAC regeneration is needed.
 
 
 
-
-Could we set up a 30-minute call tomorrow at any time convenient for you to go through these points in detail? Please confirm your availability so I can send a calendar invite.
-
-Thank you for your time and support.
-
-Best regards,
-Naveen Prasad Natarajan
+Please confirm if we can proceed and the timelines for completing this.
 
 
 ---
 
-If you want, I can also make a concise version for Slack so you can follow up there if they don’t respond to the email quickly. Would you like me to prepare that too?
+Do you want me to also make a slightly shorter, action-focused version so the team can respond faster in Slack?
 
