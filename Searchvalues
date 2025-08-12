@@ -1,28 +1,38 @@
-Here’s a clean and precise prompt you can give to Copilot or Google Gemini so they know exactly what transformation you want on your Excel sheet:
+Here’s a professional draft you can send as an email for your 30-minute working session request:
 
 
 ---
 
-Prompt:
-"I have an Excel sheet with a column named 'Panel' and another column named 'Starting Position No'.
-Every 'Panel' value is either 'Panel 1' or 'Panel 2'.
-I need to update 'Starting Position No' for all rows where 'Panel' = 'Panel 2' by adding 42 to the existing value in 'Starting Position No'.
-If 'Panel' = 'Panel 1', leave the value unchanged.
-Please write a Python (pandas) or Excel formula/VBA script to do this."
+Subject: Request for 30-Minute Working Session on Busway/Tab Box Connections and HVAC Zone Creation
+
+Hi [Recipient Names],
+
+As part of the ongoing migration to DC Track, I’m encountering a few challenges that I would like to review in a focused working session:
+
+1. Busway and Asset Creation
+
+In some cases, there are no PDUs or RPPs, only a Busway. I need clarity on how PDUs and UPS can be created from Busway, and how Busway and tab boxes are connected to breakers in such scenarios.
+
+Understanding the correct method of connecting Busway, tab boxes, and breakers during asset creation.
+
+
+
+2. HVAC Cooling Unit and Zone Creation
+
+In certain cases, HVAC zones are created automatically when adding a cooling unit, but in other cases, they are not. I need help identifying why this discrepancy occurs and how to address it.
+
+
+
+
+Could we set up a 30-minute call tomorrow at any time convenient for you to go through these points in detail? Please confirm your availability so I can send a calendar invite.
+
+Thank you for your time and support.
+
+Best regards,
+Naveen Prasad Natarajan
 
 
 ---
 
-If you want Copilot to directly do it in Excel formula without Python, you can give this shorter prompt:
-
-
----
-
-Prompt:
-"In Excel, in a new column, I want to display the 'Starting Position No' where if 'Panel' = 'Panel 2', it should be the existing 'Starting Position No' + 42, otherwise keep it the same. Give me the Excel formula for this."
-
-
----
-
-If you want, I can directly give you both the Python (pandas) code and the Excel formula so you can run it immediately. That way you don’t even need to wait for Copilot to generate it. Would you like me to prepare both?
+If you want, I can also make a concise version for Slack so you can follow up there if they don’t respond to the email quickly. Would you like me to prepare that too?
 
