@@ -1,42 +1,47 @@
-Here’s a polished way to frame your question to the users based on the two screenshots and your observation:
+Here’s a polished way you can present the in-service date logic back to the users, with the rules clearly stated and tied to how anticipated load is derived:
 
 
 ---
 
-Draft Question to Users:
+Clarification on In-Service Date Logic for Anticipated Load %
 
-In the current DC flow, the anticipated load is calculated in Amps as:
+For each equipment added under a PSE, the in-service date (ISD) determines how the anticipated load percentage evolves over time. The rules are as follows:
 
-\text{Anticipated Load (A)} = \frac{\text{Equipment Watts}}{\text{Selected Power Plant Float Voltage}}
+Before ISD is reached → Anticipated Load % = 1.0 (100%)
 
-At the same time, the system also provides an anticipated watts value, which is derived as:
+From ISD until 6 months after → Anticipated Load % = 0.5 (50%)
 
-\text{Anticipated Watts} = (\text{Sum of Max Heat in kW}) \times 1000
+Beyond 6 months from ISD → Anticipated Load % = 0.0 (0%)
 
-This approach ensures we have both anticipated load in Amps and anticipated watts in Watts.
 
-However, in the proposed AC flow, the formula being used for anticipated load is:
+The anticipated load value is calculated as:
 
-\text{Anticipated Load (kW)} = \frac{\text{Total Equipment Watts}}{1000}
-
-This already gives us the anticipated load in kW, which seems very close to the anticipated watts calculation (since anticipated watts ÷ 1000 = kW).
-
-👉 My clarification point:
-Should we continue calculating anticipated watts separately in Watts for AC flow, the same way we do in DC, or should we consider the anticipated load (kW) calculation sufficient, and avoid duplicating the same value in two different units?
+\text{Anticipated Load (kW)} = \text{Formalized Anticipated Load (kW)} \times \text{Anticipated Load %}
 
 
 ---
 
-This wording highlights:
+Example:
 
-How DC does it (Amps + Watts)
+Suppose equipment wattage = 50 kW.
 
-How AC is proposed (only kW)
+ISD = 31st August 2025.
 
-The overlap/doubt (are we double-counting the same thing?)
+Before 31st Aug 2025: Anticipated Load = 50 × 1.0 = 50 kW
 
-The direct question (should AC also have anticipated watts in Watts, or just stick to kW).
+Between 31st Aug 2025 and 28th Feb 2026: Anticipated Load = 50 × 0.5 = 25 kW
+
+After 28th Feb 2026: Anticipated Load = 50 × 0.0 = 0 kW
 
 
-Would you like me to now combine this with your previous 3 questions (UPS load formula, anticipated load roll-up, UPS Bank vs UPS) into a single consolidated email draft so you can send it all at once instead of piecemeal?
+
+
+---
+
+This makes it clear that the load value itself fluctuates depending on the ISD, because the percentage applied changes over time.
+
+
+---
+
+👉 Do you want me to also draft a visual timeline diagram (for your PPT) showing these 3 phases — Pre-ISD (100%) → 0–6 months post-ISD (50%) → Beyond 6 months (0%) — so your team immediately understands the progression?
 
