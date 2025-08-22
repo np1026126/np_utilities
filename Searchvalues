@@ -1,33 +1,24 @@
-Here’s a refined version of your second clarification question that includes all the missing parts you mentioned and frames it cleanly for the users:
+Got it 👍 — here’s your refined third clarification question, with the extra point about UPS Bank vs UPS:
 
 
 ---
 
 Draft Question to Users:
 
-> I’d like to clarify the calculation of anticipated load across levels.
+> I’d like to confirm the treatment of UPS vs UPS Bank in our calculations.
 
-For example, in a given PSE, the anticipated load at the RPP panel is calculated as (equipment watts ÷ 1000). So, if 10 equipments together have 50 kW, that 50 is stored as the anticipated load of the RPP panel.
+In the current AC power flow, the PDU is not directly connected to the UPS — it is connected only to the UPS Bank. As part of DC-Track, we also see this structure, where the UPS relationship is maintained at the UPS Bank level.
 
-Now, if we look at the Total UPS Load formula, it is written as Anticipated Load (current PSE) + Previous Anticipated Load. My question is:
+Given this, is it acceptable for us to calculate and maintain all values (UPS Rating in kW, anticipated load, remaining utilization, etc.) directly at the UPS Bank level, rather than at the individual UPS level?
 
-At the UPS or PDU level, should this “Anticipated Load” still be taken directly as (equipment watts ÷ 1000) for the same PSE (e.g., add the same 50 kW directly at UPS level)?
-
-Or should we instead calculate anticipated load only at the RPP panel level and then roll it up — i.e.,
-
-Sum of all RPP panels → RPP level anticipated load
-
-Sum of all RPPs → PDU level anticipated load
-
-Sum of all PDUs → UPS level anticipated load
-
-
-Could you please confirm whether we are expected to propagate the same PSE anticipated load (e.g., 50 kW) upwards directly or whether it should only be aggregated step by step through RPP → PDU → UPS?
+In other words, can we treat the UPS Bank as the effective entity for power flow and reporting, and record all load and rating values at the Bank level, since that is the point of connection to the PDUs?
 
 
 
 
 ---
 
-👉 Do you want me to also merge this with your first question (about the formulas for UPS, PDU, RPP loads) into one consolidated message so you can send them as a single clarification instead of splitting? That way the users will see the dependency more clearly.
+👉 This version emphasizes clearly why you’re asking (because PDUs never connect to UPS directly, only to UPS Bank) and frames it in a way the users can validate easily.
+
+Do you also want me to now merge all three of your clarification points (UPS load formula, anticipated load roll-up, and UPS vs UPS Bank) into a single professional mail draft you can send to Andres/users? That way it’s all bundled as one clarification request.
 
