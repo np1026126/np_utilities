@@ -1,46 +1,46 @@
-Here’s a professional way you can phrase your ask to the Sunbird team about the rule for budget consumed values roll-up:
+Here’s a polished draft email you can send to the Sunbird team (Kyle and Kailash) that combines your Rule 1 request along with your new clarification on redundancy and mirrored RPP panels, while also requesting a working session today.
 
 
 ---
 
-Draft Message (Professional & Clear):
+Subject: Request for Working Session on DC Track Rules and Redundancy Clarifications
 
-Hello Team,
+Dear Kyle and Kailash,
 
-As discussed, we would like to request your guidance and confirmation regarding the rules for budget consumed values roll-up in DC Track.
+I hope you are doing well.
 
-At present, the breaker-level consumed values are shown at the local panel breaker level.
+As discussed earlier, we wanted to follow up on a few points regarding DC Track configuration and rule setup, and would like to request a working session with you today if possible to clarify these in detail.
 
-What we are looking for is a hierarchical roll-up so that:
+Rule 1 – Roll-up of Budget Consumed Values
+We would like your confirmation and guidance on implementing hierarchical roll-up of budget consumed values in DC Track:
 
-RPP Panel Level: The budget consumed values of all breakers under an RPP panel should automatically sum up and reflect at the RPP panel level.
+RPP Panel → RPP: Budget consumed values of breakers under an RPP panel should sum up at the RPP panel level, and all panels roll up to the RPP.
 
-RPP Level: The total budget consumed values from all RPP panels under an RPP should then roll up and reflect at the RPP level. (Note: in our setup, RPPs are created as Floor PDUs with a custom field marking them as RPPs.)
+RPP → Floor PDU: Budget consumed values of all RPPs connected to a Floor PDU should roll up and reflect at the Floor PDU level.
 
-Floor PDU Level: Similarly, the budget consumed values of all RPPs connected to a Floor PDU should sum up and reflect at the Floor PDU level.
-
-UPS Bank Level: Finally, all budget consumed values from PDUs should sum up and reflect at the UPS Bank level, since in the AC flow the PDU is connected to the UPS Bank (not directly to the UPS).
-
+Floor PDU → UPS Bank: Budget consumed values at the Floor PDU should further roll up and reflect at the UPS Bank level, since in the AC flow the PDU is connected to the UPS Bank (not directly to the UPS).
 
 
-Could you please confirm if these kinds of roll-up rules can be implemented in DC Track? If not natively, we would appreciate your advice on how best to configure this behavior.
+Additional Clarification – Redundancy & Mirrored RPP Panels
+We also need clarification on handling redundancy at the Floor PDU level. Specifically:
 
-Thank you for your support.
+When redundancy is defined at the Floor PDU, the corresponding RPP panels are created as mirrored pairs.
+
+If a load is added to one RPP panel, how can that same load be automatically reflected to its redundant/mirrored panel in DC Track?
+
+
+This is critical for ensuring accurate capacity tracking across redundant paths.
+
+Request for a Working Session
+Could you kindly let us know if there is any availability today for a short working session to walk through these questions? We would like to ensure alignment on the approach before moving forward.
+
+Thank you for your support, and we look forward to your guidance.
+
+Best regards,
+[Your Name]
 
 
 ---
 
-👉 This way, you are:
-
-Explaining the hierarchy clearly (breaker → RPP panel → RPP → PDU → UPS Bank).
-
-Emphasizing your existing customization (RPPs modeled as Floor PDUs).
-
-Asking in a professional, open-ended way that invites them to confirm feasibility or suggest alternatives.
-
-
-
----
-
-Do you want me to also create a simple diagram/flow representation (like the one you asked for earlier for AC power flow) that you can attach along with this message so that Sunbird immediately sees the hierarchy?
+Would you like me to also reframe this as a Slack message version (shorter, direct, with pointers) so you can ping them quickly, and then follow up with this detailed mail?
 
