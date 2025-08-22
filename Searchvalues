@@ -1,46 +1,83 @@
-Here’s a polished draft email you can send to the Sunbird team (Kyle and Kailash) that combines your Rule 1 request along with your new clarification on redundancy and mirrored RPP panels, while also requesting a working session today.
+Got it 👍 — here’s a refined, professional summary with your adjustments built in. I’ve reworded it so that the PDU panels point is framed as a question, replaced the Load Devices point with your “maintain the power chain” explanation, and expanded the clarification on panel → breaker details.
 
 
 ---
 
-Subject: Request for Working Session on DC Track Rules and Redundancy Clarifications
+Draft Summary / Mail Content
 
-Dear Kyle and Kailash,
+We have reviewed the data provided for the 8 NEC sites, and here are the key observations and questions:
 
-I hope you are doing well.
+1. Assets Included
 
-As discussed earlier, we wanted to follow up on a few points regarding DC Track configuration and rule setup, and would like to request a working session with you today if possible to clarify these in detail.
+Each site contains mostly 4 standard assets.
 
-Rule 1 – Roll-up of Budget Consumed Values
-We would like your confirmation and guidance on implementing hierarchical roll-up of budget consumed values in DC Track:
+Two locations also include a Busway as an additional asset.
 
-RPP Panel → RPP: Budget consumed values of breakers under an RPP panel should sum up at the RPP panel level, and all panels roll up to the RPP.
+One location includes a Transformer as an additional asset.
 
-RPP → Floor PDU: Budget consumed values of all RPPs connected to a Floor PDU should roll up and reflect at the Floor PDU level.
-
-Floor PDU → UPS Bank: Budget consumed values at the Floor PDU should further roll up and reflect at the UPS Bank level, since in the AC flow the PDU is connected to the UPS Bank (not directly to the UPS).
+No DC power assets (plant, battery, etc.) were found in the current data.
 
 
-Additional Clarification – Redundancy & Mirrored RPP Panels
-We also need clarification on handling redundancy at the Floor PDU level. Specifically:
 
-When redundancy is defined at the Floor PDU, the corresponding RPP panels are created as mirrored pairs.
+2. PDU Panels
 
-If a load is added to one RPP panel, how can that same load be automatically reflected to its redundant/mirrored panel in DC Track?
+Panels are mapped at the PDU level, which I understand are primarily used to connect RPPs — can you confirm if this understanding is correct?
+
+For each PDU panel, should we be creating a corresponding breaker in order to connect to the RPP?
 
 
-This is critical for ensuring accurate capacity tracking across redundant paths.
 
-Request for a Working Session
-Could you kindly let us know if there is any availability today for a short working session to walk through these questions? We would like to ensure alignment on the approach before moving forward.
+3. Maintaining the Power Chain
 
-Thank you for your support, and we look forward to your guidance.
+Based on the current dataset, in order to maintain the power chain and ensure that values flow correctly across the hierarchy, we would need to ensure the PDU → Panel → Breaker → RPP linkage is modeled properly.
 
-Best regards,
-[Your Name]
+Without this, downstream calculations (anticipated load, utilization, etc.) may not flow back up to the PDU and UPS bank levels.
+
+
+
+4. Clarification on Breaker Details
+
+Currently, panel → breaker connections are not listed in the dataset.
+
+Should we be sourcing the panel breaker details from IFP (in which case we would prepare a script to extract and process them), or will your team be providing these breaker details directly for the NEC sites?
+
+This clarification is important for us to proceed correctly, as the breaker layer is required to complete the PDU-to-RPP mapping in DC Track.
+
+
+Got it 👍 — here’s the final polished version of that third point with the script addition included:
 
 
 ---
 
-Would you like me to also reframe this as a Slack message version (shorter, direct, with pointers) so you can ping them quickly, and then follow up with this detailed mail?
+3. Maintaining the Power Chain
+
+Based on the current dataset, in order to maintain the power chain and ensure that values flow correctly across the hierarchy, we need to establish the following connections:
+
+UPS → UPS Bank through a load device.
+
+UPS Bank → PDU through a load device.
+
+PDU → RPP through the associated panel breakers.
+
+
+These connections need to be modeled so that downstream calculations (e.g., anticipated load, utilization, etc.) can correctly roll up from the panel breakers at the RPP level through the PDU and ultimately to the UPS bank in the DC Track UI.
+
+To facilitate this, we will be creating a script to populate this data automatically so that the hierarchy and flows are consistent across all sites.
+
+
+
+---
+
+Do you want me to merge this refined point into the full four-point summary email draft I wrote earlier, so you can send it as one consolidated message to the Sunbird team?
+
+
+
+
+
+
+---
+
+👉 This way, you are not just reporting observations but also asking direct, professional questions on the missing breaker layer.
+
+Do you want me to also expand this into a formal email template (with subject line and closing) so you can directly send it to the Sunbird team?
 
