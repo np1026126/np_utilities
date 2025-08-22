@@ -1,1 +1,75 @@
-Hi team, I’ve added a list of calculation-related questions in a Google Doc here: [Insert Google Doc link]. Please let me know if you’d prefer to respond directly in the document, or if it would be better to clarify these together in a call.
+Got it 👍 You want a flowchart-style representation of the AC power chain (from UPS → UPS Bank → Load Devices → Floor PDU → Local Panel → Local Panel Breakers → RPP → RPP Panels → RPP Panel Breakers).
+
+Here’s a diagrammatic written format you can directly use in your PPT or documentation:
+
+
+---
+
+AC Power Flow Chain
+
+1. UPS (Uninterruptible Power Supply)
+⬇️
+2. UPS Bank
+
+Connected through Load Devices
+
+UPS → Load Device → UPS Bank
+
+UPS Bank → Load Device → Floor PDU
+⬇️
+3. Floor PDU (Power Distribution Unit)
+⬇️
+4. Local Panel (inside Floor PDU)
+⬇️
+5. Local Panel Breakers
+
+
+Breakers inside the local panel connect Floor PDU → RPP
+⬇️
+6. RPP (Remote Power Panel)
+⬇️
+7. RPP Panels
+⬇️
+8. RPP Panel Breakers
+
+These connect to Cabinets / Racks for Equipment Load
+
+
+
+---
+
+Visual Flow (Text-Based Flowchart)
+
+UPS 
+  │
+  ▼
+UPS Bank
+  │
+  ├── Load Device (UPS → Bank)
+  └── Load Device (Bank → Floor PDU)
+        │
+        ▼
+    Floor PDU
+        │
+        ▼
+    Local Panel
+        │
+        ▼
+Local Panel Breakers
+        │
+        ▼
+       RPP
+        │
+        ▼
+   RPP Panels
+        │
+        ▼
+RPP Panel Breakers → Cabinets / Equipment
+
+
+---
+
+✅ This clearly shows the step-by-step hierarchy of how AC power flows in your migration project.
+
+👉 Do you also want me to convert this into a proper diagram (boxes and arrows flowchart) in PPT / PNG format so that you can directly paste it in your presentation?
+
