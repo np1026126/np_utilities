@@ -1,24 +1,29 @@
-Got it 👍 — here’s your refined third clarification question, with the extra point about UPS Bank vs UPS:
+Got it 👍 — here’s how you can expand your fourth question to capture the missing detail about AC flow and the Power Plant Float value:
 
 
 ---
 
-Draft Question to Users:
+Refined Question (Generator & HVAC Final Utilization):
 
-> I’d like to confirm the treatment of UPS vs UPS Bank in our calculations.
+> While reviewing the final utilization formulas for Generators and HVAC, I noticed that in the current DC power flow we use the field Power Plant Float (representing the voltage of the selected power plant) in the calculation.
 
-In the current AC power flow, the PDU is not directly connected to the UPS — it is connected only to the UPS Bank. As part of DC-Track, we also see this structure, where the UPS relationship is maintained at the UPS Bank level.
+As we extend this same formula logic to AC Power Flow, I have a few clarifications:
 
-Given this, is it acceptable for us to calculate and maintain all values (UPS Rating in kW, anticipated load, remaining utilization, etc.) directly at the UPS Bank level, rather than at the individual UPS level?
+Since AC flow does not have a Power Plant associated with it, what should be the replacement for Power Plant Float Voltage in the formula?
 
-In other words, can we treat the UPS Bank as the effective entity for power flow and reporting, and record all load and rating values at the Bank level, since that is the point of connection to the PDUs?
+Should we use a default standardized value (e.g., 208V) for AC flow calculations?
+
+Or should this value be derived dynamically from another field or system reference?
+
+Can you please confirm if the rest of the formula structure remains unchanged when applied to AC flow for Generators and HVAC?
+
 
 
 
 
 ---
 
-👉 This version emphasizes clearly why you’re asking (because PDUs never connect to UPS directly, only to UPS Bank) and frames it in a way the users can validate easily.
+👉 This wording keeps your original point (reuse of formula) but also directly asks the missing question: what to substitute for Power Plant Float when moving from DC to AC.
 
-Do you also want me to now merge all three of your clarification points (UPS load formula, anticipated load roll-up, and UPS vs UPS Bank) into a single professional mail draft you can send to Andres/users? That way it’s all bundled as one clarification request.
+Would you like me to now consolidate all four questions (UPS load formula, anticipated load roll-up, UPS bank vs UPS, and this Generator/HVAC AC flow clarification) into a single professional mail draft you can send to users, instead of multiple separate queries? That way, you’ll appear very structured and proactive.
 
