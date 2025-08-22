@@ -1,28 +1,5 @@
-Here’s how you can phrase it clearly and professionally to the users/team:
+New anticipated UPS load = (current PSE anticipated load) + (previous anticipated UPS load)
 
+New anticipated PDU load = (current PSE anticipated load at that PDU) + (previous anticipated PDU load)
 
----
-
-Question for Clarification
-
-We have applied the in-service date logic for anticipated load percentage as follows:
-
-Until the in-service date is reached → Anticipated Load % = 1
-
-From in-service date to +6 months → Anticipated Load % = 0.5
-
-After 6 months from in-service date → Anticipated Load % = 0
-
-
-Thus, the Anticipated Load = Formalized Anticipated Load × Anticipated Load %, and the value will automatically decrease over time based on this schedule.
-
-Now, as part of the Wireless flow, when C&D updates an equipment’s status to Installed in DC Track, that equipment is immediately marked as active.
-
-👉 Question:
-Should we continue to strictly follow the above in-service date–based logic for anticipated load reduction, or should we instead align it with the C&D Installed status update (i.e., consider that point as the effective in-service trigger)?
-
-
----
-
-Do you want me to also draft this in bulleted “options” format (like Option A: follow in-service logic, Option B: follow installed status) so that it’s easier for the users to quickly decide?
-
+New anticipated RPP load = (current PSE anticipated load at that RPP / panel) + (previous anticipated RPP load)
