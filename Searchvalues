@@ -1,75 +1,46 @@
-Got it 👍 You want a flowchart-style representation of the AC power chain (from UPS → UPS Bank → Load Devices → Floor PDU → Local Panel → Local Panel Breakers → RPP → RPP Panels → RPP Panel Breakers).
-
-Here’s a diagrammatic written format you can directly use in your PPT or documentation:
+Here’s a professional way you can phrase your ask to the Sunbird team about the rule for budget consumed values roll-up:
 
 
 ---
 
-AC Power Flow Chain
+Draft Message (Professional & Clear):
 
-1. UPS (Uninterruptible Power Supply)
-⬇️
-2. UPS Bank
+Hello Team,
 
-Connected through Load Devices
+As discussed, we would like to request your guidance and confirmation regarding the rules for budget consumed values roll-up in DC Track.
 
-UPS → Load Device → UPS Bank
+At present, the breaker-level consumed values are shown at the local panel breaker level.
 
-UPS Bank → Load Device → Floor PDU
-⬇️
-3. Floor PDU (Power Distribution Unit)
-⬇️
-4. Local Panel (inside Floor PDU)
-⬇️
-5. Local Panel Breakers
+What we are looking for is a hierarchical roll-up so that:
+
+RPP Panel Level: The budget consumed values of all breakers under an RPP panel should automatically sum up and reflect at the RPP panel level.
+
+RPP Level: The total budget consumed values from all RPP panels under an RPP should then roll up and reflect at the RPP level. (Note: in our setup, RPPs are created as Floor PDUs with a custom field marking them as RPPs.)
+
+Floor PDU Level: Similarly, the budget consumed values of all RPPs connected to a Floor PDU should sum up and reflect at the Floor PDU level.
+
+UPS Bank Level: Finally, all budget consumed values from PDUs should sum up and reflect at the UPS Bank level, since in the AC flow the PDU is connected to the UPS Bank (not directly to the UPS).
 
 
-Breakers inside the local panel connect Floor PDU → RPP
-⬇️
-6. RPP (Remote Power Panel)
-⬇️
-7. RPP Panels
-⬇️
-8. RPP Panel Breakers
 
-These connect to Cabinets / Racks for Equipment Load
+Could you please confirm if these kinds of roll-up rules can be implemented in DC Track? If not natively, we would appreciate your advice on how best to configure this behavior.
+
+Thank you for your support.
+
+
+---
+
+👉 This way, you are:
+
+Explaining the hierarchy clearly (breaker → RPP panel → RPP → PDU → UPS Bank).
+
+Emphasizing your existing customization (RPPs modeled as Floor PDUs).
+
+Asking in a professional, open-ended way that invites them to confirm feasibility or suggest alternatives.
 
 
 
 ---
 
-Visual Flow (Text-Based Flowchart)
-
-UPS 
-  │
-  ▼
-UPS Bank
-  │
-  ├── Load Device (UPS → Bank)
-  └── Load Device (Bank → Floor PDU)
-        │
-        ▼
-    Floor PDU
-        │
-        ▼
-    Local Panel
-        │
-        ▼
-Local Panel Breakers
-        │
-        ▼
-       RPP
-        │
-        ▼
-   RPP Panels
-        │
-        ▼
-RPP Panel Breakers → Cabinets / Equipment
-
-
----
-
-✅ This clearly shows the step-by-step hierarchy of how AC power flows in your migration project.
-
-👉 Do you also want me to convert this into a proper diagram (boxes and arrows flowchart) in PPT / PNG format so that you can directly paste it in your presentation?
+Do you want me to also create a simple diagram/flow representation (like the one you asked for earlier for AC power flow) that you can attach along with this message so that Sunbird immediately sees the hierarchy?
 
