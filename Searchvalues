@@ -1,47 +1,28 @@
-Here’s a polished way you can present the in-service date logic back to the users, with the rules clearly stated and tied to how anticipated load is derived:
+Here’s how you can phrase it clearly and professionally to the users/team:
 
 
 ---
 
-Clarification on In-Service Date Logic for Anticipated Load %
+Question for Clarification
 
-For each equipment added under a PSE, the in-service date (ISD) determines how the anticipated load percentage evolves over time. The rules are as follows:
+We have applied the in-service date logic for anticipated load percentage as follows:
 
-Before ISD is reached → Anticipated Load % = 1.0 (100%)
+Until the in-service date is reached → Anticipated Load % = 1
 
-From ISD until 6 months after → Anticipated Load % = 0.5 (50%)
+From in-service date to +6 months → Anticipated Load % = 0.5
 
-Beyond 6 months from ISD → Anticipated Load % = 0.0 (0%)
-
-
-The anticipated load value is calculated as:
-
-\text{Anticipated Load (kW)} = \text{Formalized Anticipated Load (kW)} \times \text{Anticipated Load %}
+After 6 months from in-service date → Anticipated Load % = 0
 
 
----
+Thus, the Anticipated Load = Formalized Anticipated Load × Anticipated Load %, and the value will automatically decrease over time based on this schedule.
 
-Example:
+Now, as part of the Wireless flow, when C&D updates an equipment’s status to Installed in DC Track, that equipment is immediately marked as active.
 
-Suppose equipment wattage = 50 kW.
-
-ISD = 31st August 2025.
-
-Before 31st Aug 2025: Anticipated Load = 50 × 1.0 = 50 kW
-
-Between 31st Aug 2025 and 28th Feb 2026: Anticipated Load = 50 × 0.5 = 25 kW
-
-After 28th Feb 2026: Anticipated Load = 50 × 0.0 = 0 kW
-
-
+👉 Question:
+Should we continue to strictly follow the above in-service date–based logic for anticipated load reduction, or should we instead align it with the C&D Installed status update (i.e., consider that point as the effective in-service trigger)?
 
 
 ---
 
-This makes it clear that the load value itself fluctuates depending on the ISD, because the percentage applied changes over time.
-
-
----
-
-👉 Do you want me to also draft a visual timeline diagram (for your PPT) showing these 3 phases — Pre-ISD (100%) → 0–6 months post-ISD (50%) → Beyond 6 months (0%) — so your team immediately understands the progression?
+Do you want me to also draft this in bulleted “options” format (like Option A: follow in-service logic, Option B: follow installed status) so that it’s easier for the users to quickly decide?
 
