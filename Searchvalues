@@ -1,24 +1,33 @@
-Got it 👍 Here’s the refined question including UPS, PDU, and RPP:
+Here’s a refined version of your second clarification question that includes all the missing parts you mentioned and frames it cleanly for the users:
 
 
 ---
 
 Draft Question to Users:
 
-> I had a clarification on the formulas provided:
+> I’d like to clarify the calculation of anticipated load across levels.
 
-For the Total UPS Load, the definition makes sense since it uses Anticipated Load + Previous Anticipated Output (kW), which effectively gives both the current and anticipated load.
+For example, in a given PSE, the anticipated load at the RPP panel is calculated as (equipment watts ÷ 1000). So, if 10 equipments together have 50 kW, that 50 is stored as the anticipated load of the RPP panel.
 
-For the Total PDU Load, the formula given is Current Polled Amps of PDU from UCS or CPNG. This seems to only represent the current load, without factoring in the anticipated load. Should the anticipated load also be included here, similar to the UPS calculation?
+Now, if we look at the Total UPS Load formula, it is written as Anticipated Load (current PSE) + Previous Anticipated Load. My question is:
 
-For the Total RPP Load, the formula provided is (Continuous Rating × 1.73 × RPP Voltage) – RPP Consumed Load. This also appears to capture only the consumed load and not the anticipated load. Could you confirm if that is correct, or should anticipated load also be included at the RPP level?
+At the UPS or PDU level, should this “Anticipated Load” still be taken directly as (equipment watts ÷ 1000) for the same PSE (e.g., add the same 50 kW directly at UPS level)?
 
+Or should we instead calculate anticipated load only at the RPP panel level and then roll it up — i.e.,
+
+Sum of all RPP panels → RPP level anticipated load
+
+Sum of all RPPs → PDU level anticipated load
+
+Sum of all PDUs → UPS level anticipated load
+
+
+Could you please confirm whether we are expected to propagate the same PSE anticipated load (e.g., 50 kW) upwards directly or whether it should only be aggregated step by step through RPP → PDU → UPS?
 
 
 
 
 ---
 
-Do you also want me to condense this into a short Slack-friendly version (2–3 crisp lines) that you can directly paste, so you don’t have to explain the whole thing in detail every time?
-
+👉 Do you want me to also merge this with your first question (about the formulas for UPS, PDU, RPP loads) into one consolidated message so you can send them as a single clarification instead of splitting? That way the users will see the dependency more clearly.
 
