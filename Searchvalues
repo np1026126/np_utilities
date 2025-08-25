@@ -1,25 +1,183 @@
-Got it 👍 — here’s the updated polished mail with your additional line included:
+Here’s a clean, “ready-to-build” design you can hand to your devs (or drop into a ticket) to implement the end-to-end anticipated-load roll-up from RPP Panel → RPP → PDU → UPS Bank using DCTrack APIs.
+
+Scope & Intent
+
+Input: a PSE with anticipated equipment load in kW (call it pse_kw).
+
+Where to write first: RPP Panel (anticipated load is applied only at panel level).
+
+Roll-up: recompute RPP, PDU, and UPS Bank loads by aggregating their children.
+
+Keep/track three values at every level:
+
+Consumed_kW (current/installed draw already in DCTrack)
+
+PrevAnt_kW (the existing anticipated value before this PSE)
+
+NewAnt_kW (the new anticipated value after applying this PSE = Consumed_kW + PrevAnt_kW + delta_kW)
 
 
----
 
-Subject: Clarification on Data Submission and Panel Breakers
+Field conventions (suggested)
 
-Hi Andrij,
+RPP Panel: Consumed_kW, Anticipated_kW (stored value), NewAnt_kW (transient or stored in the same field after commit).
 
-Sorry for the miss — if it was from our end, we didn’t see that part. The last update I received on July 29th (forwarded from Steve) mentioned that Rocklin was completed as the 3rd site and you were working on the 4th site. After that, I didn’t get any further communication, so we assumed you were still working on the complete dataset.
+RPP / PDU / UPS Bank: same two fields: Consumed_kW, Anticipated_kW.
 
-If I had received the note that the full data was submitted on the 8th, I would have gone through it right away. I believe I was not copied on the email when the completed list was shared, which is why I wasn’t aware until now. Once I got to know, I immediately reviewed it.
-
-On the load devices — we can take care of creating those on our side, that’s not an issue. The only point where we need clarification/help is with the panel breakers. Could you please confirm whether you’ll be able to provide the panel breaker details, or if we should be sourcing them directly from IFP?
-
-Thanks again for your support, and apologies for the confusion.
-
-Best regards,
-[Your Name]
+“Delta” from this PSE at a panel = delta_kW = pse_kw (for the selected panel only).
 
 
----
+High-level algorithm
 
-👉 Do you also want me to tighten this into a shorter Slack-friendly version (something quick and polite) that you can paste directly in your project channel?
+1. Resolve power chain for the selected panel(s)
+
+From PSE selection (Room + Location + chosen RPP Panel):
+
+Get Panel → RPP → PDU → UPS Bank via DCTrack relationships.
+
+Also fetch the sibling panel under the same RPP if you need to show both.
+
+
+
+
+2. Update the selected RPP Panel
+
+Read current values:
+
+panel.Consumed_kW
+
+panel.Anticipated_kW (this is the “previous anticipated” at panel)
+
+
+Compute:
+
+panel.NewAnt_kW = panel.Consumed_kW + panel.Anticipated_kW + delta_kW
+
+
+Persist:
+
+panel.Anticipated_kW = panel.NewAnt_kW
+
+
+
+
+3. Recompute RPP (aggregate both panels)
+
+For the parent RPP, aggregate all child panels (usually 2):
+
+rpp.Consumed_kW   = Σ(childPanel.Consumed_kW)
+
+rpp.NewAnt_kW     = Σ(childPanel.Anticipated_kW)  (notice: we sum the panels’ new anticipated values)
+
+rpp.PrevAnt_kW    = rpp.Anticipated_kW (for audit/UI if you want to display previous)
+
+
+Persist:
+
+rpp.Anticipated_kW = rpp.NewAnt_kW
+
+
+
+
+4. Recompute PDU (aggregate all RPPs under it)
+
+pdu.Consumed_kW   = Σ(childRPP.Consumed_kW)
+
+pdu.NewAnt_kW     = Σ(childRPP.Anticipated_kW)
+
+pdu.PrevAnt_kW    = pdu.Anticipated_kW
+
+Persist:
+
+pdu.Anticipated_kW = pdu.NewAnt_kW
+
+
+
+
+5. Recompute UPS Bank (aggregate all PDUs under it)
+
+upsBank.Consumed_kW   = Σ(childPDU.Consumed_kW)
+
+upsBank.NewAnt_kW     = Σ(childPDU.Anticipated_kW)
+
+upsBank.PrevAnt_kW    = upsBank.Anticipated_kW
+
+Persist:
+
+upsBank.Anticipated_kW = upsBank.NewAnt_kW
+
+
+
+
+6. (Optional) Compute utilization where needed
+
+utilization_% = (Anticipated_kW / Rating_kW) * 100
+
+Apply at RPP / PDU / UPS Bank for dashboards/thresholds.
+
+
+
+
+API/Process outline (pseudo)
+
+GET /rpp-panels?location={loc}&room={room} → list panels; choose target panel.
+
+GET /rpp-panels/{panelId} → read Consumed_kW, Anticipated_kW.
+
+PUT /rpp-panels/{panelId} body:
+
+Anticipated_kW = Consumed_kW + Anticipated_kW + delta_kW
+
+
+GET /rpp/{rppId}/panels → aggregate to RPP and PUT /rpp/{rppId} with Anticipated_kW.
+
+GET /pdu/{pduId}/rpps → aggregate to PDU and PUT /pdu/{pduId} with Anticipated_kW.
+
+GET /ups-banks/{bankId}/pdus → aggregate to UPS Bank and PUT /ups-banks/{bankId} with Anticipated_kW.
+
+
+Idempotency & audit
+
+Record each PSE application as a transaction so you can reverse it:
+
+Store {panelId, pseId, delta_kW, timestamp}.
+
+
+Re-apply/rollback by subtracting/adding delta_kW at the panel then re-running the roll-ups.
+
+
+Edge cases
+
+First-time panel: Anticipated_kW may be null → treat as 0.
+
+Multiple panels selected in one PSE: apply step 2 to each selected panel, then run one pass of steps 3–5.
+
+Missing relationships: if panel → RPP or RPP → PDU or PDU → UPS Bank is missing, flag error and skip write.
+
+RPP created as “Floor PDU”: logic is identical; just use the RPP role to select its children panels.
+
+
+Worked micro-example
+
+PSE: pse_kw = 5.0
+
+Panel A (target): Consumed_kW = 20, Anticipated_kW = 0 → new Anticipated_kW = 25
+
+RPP has Panel A (25) + Panel B (18) → RPP.Anticipated_kW = 43
+
+PDU has RPP1 (43) + RPP2 (37) → PDU.Anticipated_kW = 80
+
+UPS Bank has PDU-X (80) + PDU-Y (55) → UPSBank.Anticipated_kW = 135
+
+
+Why this meets your intent
+
+The only place you inject the PSE load is the selected RPP Panel.
+
+All higher levels (RPP, PDU, UPS Bank) are pure roll-ups of their children’s (new) anticipated values.
+
+You retain both Consumed and Anticipated at every level and can compute utilization/remaining capacity anywhere.
+
+
+If you want, I can turn this into a one-page diagram (ASCII or PPT outline) showing the nodes and the aggregation arrows so it drops straight into your deck.
 
