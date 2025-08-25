@@ -1,39 +1,44 @@
-Great questions — let’s lock the terms and make the flow crystal-clear.
-
-What’s what (tables & purpose)
-
-topology_matrix (a.k.a. “matrix” I mentioned earlier)
-A cache of the IDs and relationships for the selected Location + Room so we don’t keep re-discovering topology every time.
-
-Columns (example): job_id, location_id, room_id, rpp_panel_id, rpp_id, pdu_id, ups_bank_id, dctrack_asset_keys, snapshot_ts.
+Got it 👍 — since your manager feels your PPT slides are too text-heavy, you can feed the full PPT to Google Gemini and ask it to simplify into a visual flow diagram. Here’s a strong prompt you can use:
 
 
-Metrics tables (roll-ups/point-in-time values — not the same as matrix)
+---
 
-rpp_panel_metrics, rpp_metrics, pdu_metrics, ups_bank_metrics
+Prompt for Gemini:
 
-Hold consumed_kw, anticipated_kw, updated_at, source (PSE/DCTrack/CND).
+> I have a PPT with 4 slides that describe the AC power chain calculation workflow for PSE creation and anticipated load tracking. The slides currently contain too many words, making it hard to follow. Please convert the content into a clean, professional flow diagram that shows the step-by-step process with arrows, minimal text, and clear boxes.
 
-Used for previews and historical diffs.
+Specifically, show:
+
+Start: PSE creation → capture Location & Room
+
+Fetch Data: Call DCTrack API → retrieve RPP Panels, RPP, PDU, UPS Bank mappings
+
+Matrix Population: Store hierarchy in Matrix Table & Power Chain Mapping
+
+Anticipated Load Calc: For RPP panel (consumed + new PSE load), then roll-up to RPP, PDU, UPS Bank
+
+UI Display: Show new anticipated load to user before save
+
+Commit: On Save → write final values into pse_panel_allocations and update Matrix Table snapshot
+
+Mirroring: Show only primary panel in UI, but auto-apply same load to redundant/mirror panel in backend
+
+Delta Handling: On edit, update anticipated load with deltas while retaining snapshot history
+
+
+Keep the flow intuitive and easy to read (like swimlane or step-flow diagram) without long sentences. Use legends for special cases (mirror panels, snapshot IDs, etc.).
+
+Output should be a flowchart visualization (arrows + nodes), not bullet points.
 
 
 
-pse_panel_allocations
-Stores the committed (on Save) anticipated load for a job at panel level (and mirrored pair).
 
-Columns: job_id, panel_id, anticipated_kw, anticipated_pct, in_service_date, mirror_side(A/B), created_by, updated_at.
+---
 
+This way, Gemini will focus on reducing text and give you a flow diagram your manager can instantly grasp.
 
-mirror_map
-Defines redundancy pairs so we can auto-apply the same allocation to the hidden side.
+👉 Do you want me to also draft a one-slide minimal text version here (boxes + arrows in text form), so you can paste it directly into your PPT even before Gemini renders visuals?
 
-Columns: a_panel_id, b_panel_id, rpp_id_a, rpp_id_b, scope(panel/rpp/pdu), active.
-
-
-calc_run
-A lightweight audit record for each calculation/commit. Helps trace exactly what was computed when.
-
-Columns: run_id, job_id, mode(preview|save), trigger(create|edit|remove), rows_affected, started_at, finished_at, status(ok|error), notes.
 
 
 Consumed values source
