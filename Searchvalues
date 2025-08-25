@@ -1,334 +1,90 @@
-Here’s a clean, end-to-end design you can lift into your spec. It covers how we capture a PSE’s anticipated load at the RPP-panel level, keep totals consistent up the chain (RPP → PDU → UPS Bank), when/how we push to DCIM (Sunbird dcTrack), and how edits are handled.
+AC Power Calculation Flow – Migration Approach
+
+Slide 1 – Calculation Flow Overview
+
+Title: Anticipated Load Calculation & Roll-up Logic
+
+How it works (Step-by-Step):
+
+User Action: Select RPP panel(s) for new equipment load (e.g., 5 kW).
+
+At RPP Panel Level: Anticipated Load = Current Consumed + New Job Load.
+
+At RPP Level: Sum of anticipated loads from all panels under the RPP.
+
+At PDU Level: Sum of anticipated loads of all RPPs connected to that PDU.
+
+At UPS Bank Level: Sum of anticipated loads of all PDUs connected to the UPS Bank.
 
 
----
+Key Points:
 
-1) Core data model (Cyrus)
+Anticipated load is first calculated at RPP panel level.
 
-Tables
+Roll-up happens bottom-up → Panel → RPP → PDU → UPS Bank.
 
-pse_job (job_id, site_id, status, created_at, in_service_date, …)
+Current Consumed values are fetched from dcTrack.
 
-pse_equipment (equip_id, job_id, watts, rack_id, …)
+Anticipated load is stored in custom fields in dcTrack.
 
-power_chain_map (rpp_panel_id, rpp_id, pdu_id, ups_bank_id, clli, room, …)
-(authoritative mapping, hydrated from dcTrack API)
-
-rpp_panel_metrics
-(rpp_panel_id, ts, current_consumed_kw, prev_anticipated_kw, new_anticipated_kw, source='calc'|'edit', calc_run_id)
-
-rpp_metrics
-(rpp_id, ts, current_consumed_kw, prev_anticipated_kw, new_anticipated_kw, calc_run_id)
-
-pdu_metrics
-(pdu_id, ts, current_consumed_kw, prev_anticipated_kw, new_anticipated_kw, calc_run_id)
-
-ups_bank_metrics
-(ups_bank_id, ts, current_consumed_kw, prev_anticipated_kw, new_anticipated_kw, calc_run_id)
-
-pse_panel_allocations
-(job_id, rpp_panel_id, anticipated_kw, anticipated_pct, created_by, last_updated_at)
-(one row per panel you allocate in this job; this is the authoritative list you show in the UI footer)
-
-calc_run (calc_run_id, job_id, started_at, finished_at, status, reason)
-(auditability/idempotency)
+Each update recalculates totals and syncs back asynchronously.
 
 
-Notes
+Formula Simplified:
 
-Keep new vs prev columns so you can show deltas and rollbacks.
+Panel: New = Previous Anticipated + New Job Load
 
-All kW (store to 3 decimal places). Convert from equipment Watts → kW at the edge.
+RPP: New = Σ Panel Loads
 
+PDU: New = Σ RPP Loads
 
-
----
-
-2) Inputs & conversions
-
-Per job anticipated load (kW) = SUM(equipment.watts) / 1000
-
-Panel-level anticipated load to apply = the user’s allocation to that specific panel (not necessarily the whole job total if they split across panels).
-
-Current consumed = from dcTrack (breaker + panel totals) or our last cached value if offline.
+UPS Bank: New = Σ PDU Loads
 
 
 
 ---
 
-3) Write path (user creates/edits a PSE)
+Slide 2 – When & How It Happens
 
-Step A — Panel selection & preview (synchronous, UI)
+When Calculations Occur:
 
-1. User picks RPP → we fetch power_chain_map via dcTrack API to know the two RPP panels, the PDU, and the UPS bank.
-
-
-2. Show current meters (read-only):
-
-Panel: current consumed (kW), prev anticipated (kW)
-
-RPP / PDU / UPS bank: the same three metrics
+1. Preview Stage (UI): Live calculation before save.
 
 
+2. Save Stage: New values committed → Panel/RPP/PDU/UPS Bank updated.
 
-3. Let user allocate the job’s anticipated kW across the available RPP panels (e.g., 5 kW all on Panel-1, or 3+2 split).
+
+3. Edit Stage: Previous allocations adjusted, recalculated, and rolled up.
 
 
-4. In the panel picker footer, show a live preview:
-
-Panel new anticipated = prev_anticipated_kw(panel) + job_panel_alloc_kw
-
-RPP new anticipated = prev_anticipated_kw(rpp) + Σ job_panel_alloc_kw (across both panels)
-
-PDU new anticipated = prev_anticipated_kw(pdu) + Σ job_panel_alloc_kw (across all RPPs feeding the PDU in this job)
-
-UPS bank new anticipated = prev_anticipated_kw(ups_bank) + Σ job_panel_alloc_kw (across all PDUs in this job)
+4. Sync Stage: Updated values pushed asynchronously to dcTrack.
 
 
 
+Design Principles:
 
-> Preview = pure math on cached prev values; no writes yet.
+Bottom-up aggregation ensures accuracy.
 
+Anticipated load percentage applied based on in-service date rules.
 
+Async sync prevents UI delays.
 
-Step B — Commit (transactional, server)
-
-On Save:
-
-1. Start calc_run.
-
-
-2. Upsert pse_panel_allocations for each selected panel with the job’s kW (split as chosen).
-
-
-3. Recompute aggregates (server):
-
-Rebuild prev_anticipated_kw(*) = last committed new_anticipated_kw(*)
-
-Compute panel new anticipated = prev + Σ job_panel_alloc_kw(panel) + Σ other open jobs allocations on the same panel
-
-Roll up to RPP / PDU / UPS bank in that order.
-
-
-
-4. Persist the new snapshot rows in *_metrics with calc_run_id.
-
-
-5. Queue dcTrack updates (see §6).
-
-
-
-Return success + the computed numbers for all levels.
-
-
----
-
-4) Edit path (user changes an old job or panel split)
-
-Edits are idempotent and diff-based:
-
-1. Load existing pse_panel_allocations for the job.
-
-
-2. User adjusts panel(s) and saves.
-
-
-3. Server computes diff per panel (old vs new kW), re-aggregates the chain (panel → RPP → PDU → UPS bank), writes fresh *_metrics, and enqueues dcTrack patch calls only for impacted items.
-
-
-4. Show a footer list:
-
-All open jobs touching the same panels/RPP (source table: pse_panel_allocations joined to power_chain_map) with job_id, anticipated_kw, last_updated_at.
-
-The user can click into a job to edit; save triggers the same flow.
-
-
+Open Jobs View: Users can see all active jobs affecting the same panel/RPP.
 
 
 
 ---
 
-5) In-service date logic (anticipated % factor)
+✅ Outcome:
 
-If you need date-based tapering:
+Transparent load calculation at each level.
 
-Anticipated % :=
+Prevents over-allocation by showing utilization impacts instantly.
 
-1.0 until in_service_date
+Ensures consistency between Cyrus and dcTrack inventories.
 
-0.5 for the window [in_service_date, +6 months)
 
-0.0 after +6 months
 
 
-Effective anticipated kW used in all sums = allocated_kW * anticipated_pct.
-
-
-Store the raw allocation and the derived effective kW in pse_panel_allocations so you can show both.
-
-
----
-
-6) Sync to dcTrack (when & how)
-
-When to push
-
-After a successful commit/edit (Step B), enqueue an async job:
-
-If Sunbird gives you a custom attribute at RPP Panel: anticipated_load_kw → PATCH panel.
-
-If not, write to the RPP object (sum of both panels), and to PDU & UPS bank objects as custom attributes (anticipated_load_kw, prev_anticipated_kw, current_consumed_kw), per the API fields they expose.
-
-
-Batch by object type to reduce API chatter; use exponential backoff on failures.
-
-
-What to push
-
-Panel: new_anticipated_kw, and (optionally) prev_anticipated_kw, current_consumed_kw.
-
-RPP, PDU, UPS bank: same trio.
-
-Include calc_run_id and job_id in a note/comment field for traceability.
-
-
-Idempotency
-
-PUT with an idempotency key = hash(object_id,calc_run_id) so retries don’t double-count.
-
-
-
----
-
-7) Calculations (authoritative formulae)
-
-Let A_panel(job) = job’s effective anticipated kW on that panel.
-
-Panel
-
-new_anticipated_kw(panel) = prev_anticipated_kw(panel) + Σ A_panel(job) for all open jobs
-
-
-RPP
-
-new_anticipated_kw(rpp) = prev_anticipated_kw(rpp) + Σ new_anticipated_kw(panels under rpp) - Σ prev_anticipated_kw(panels under rpp)
-(or equivalently prev_rpp + Σ A_panel(job) across both panels)
-
-
-PDU
-
-new_anticipated_kw(pdu) = prev_anticipated_kw(pdu) + Σ A_panel(job) across all RPPs feeding this PDU
-
-
-UPS bank
-
-new_anticipated_kw(ups_bank) = prev_anticipated_kw(ups_bank) + Σ A_panel(job) across all PDUs feeding this bank
-
-
-
-This keeps roll-ups additive and avoids double counting.
-
-
----
-
-8) UI: what the user sees
-
-Panel picker: two tiles (Panel-1 / Panel-2) with:
-
-Current Consumed kW, Prev Anticipated kW, Resulting New Anticipated kW (live as they type).
-
-
-Footer – “Open Jobs touching this RPP”:
-
-Table of job_id | panel | anticipated_kW | anticipated_% | effective_kW | last updated | edit
-
-
-Warnings
-
-If any new utilization crosses thresholds (e.g., 80%/100%), show inline banners for Panel/RPP/PDU/UPS bank.
-
-
-
-
----
-
-9) Concurrency & integrity
-
-Row-level locks on pse_panel_allocations for the panels being changed.
-
-Recheck prev_anticipated from the latest *_metrics snapshot before commit; if drifted, recompute and warn (“values changed since you opened—refreshed preview shown”).
-
-Every commit produces a calc_run record (audit).
-
-
-
----
-
-10) Failure handling
-
-If dcTrack push fails, keep our database source of truth and mark the sync job RETRYING.
-Show a small “Sync pending” pill next to the affected objects in the UI.
-
-If dcTrack is missing topology (e.g., RPP → PDU not found), block commit with an actionable error (“Topology incomplete for RPP-A21; please resolve in dcTrack”).
-
-
-
----
-
-11) Batch (pre-compute) vs on-demand
-
-During job authoring: compute in-memory preview only.
-
-On Save/Edit: commit allocations, persist metrics, then enqueue dcTrack sync.
-
-Nightly: reconciliation job that:
-
-Pulls dcTrack current consumed values
-
-Rebuilds prev/new snapshots from pse_panel_allocations for all open jobs
-
-Flags drift.
-
-
-
-
----
-
-12) Open items for Sunbird (to confirm in your working session)
-
-1. Which objects support custom fields for: anticipated_load_kw, prev_anticipated_kw, current_consumed_kw?
-
-
-2. Can they expose panel-level fields, or do we store panel detail only in Cyrus and write RPP/PDU/UPS bank totals to dcTrack?
-
-
-3. Any built-in roll-up rules we can leverage (panel → RPP → PDU → UPS bank) to reduce pushes?
-
-
-4. Preferred API rate limits & payload shapes; idempotency headers support.
-
-
-5. Best way to tag updates with job_id / calc_run_id for auditability.
-
-
-
-
----
-
-TL;DR lifecycle
-
-1. User allocates anticipated kW to RPP panel(s) → live preview shows new totals for Panel/RPP/PDU/UPS bank.
-
-
-2. Save → we store allocations, recompute prev/new for all levels, persist metrics, and push to dcTrack asynchronously.
-
-
-3. Edit later → diff the allocation, recompute cascade, push only what changed.
-
-
-4. Footer always lists all jobs touching the same RPP so users can correct older allocations; edits re-roll totals automatically.
-
-
-
-If you want, I can turn this into a one-pager PDF or a slide outline next.
+Successfully created text document 'Ac Power Calc' which will be referenced in all future messages with the unique identifier textdoc_id: '68abcb35f0188191be950f976686d04a'
 
