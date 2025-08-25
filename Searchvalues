@@ -1,38 +1,146 @@
-Got it 👍 Since you can’t download, I’ll print the full flow content here (structured like a PPT / Doc so you can copy-paste it directly into Git or convert into PPT).
+Great questions — let’s lock the terms and make the flow crystal-clear.
+
+What’s what (tables & purpose)
+
+topology_matrix (a.k.a. “matrix” I mentioned earlier)
+A cache of the IDs and relationships for the selected Location + Room so we don’t keep re-discovering topology every time.
+
+Columns (example): job_id, location_id, room_id, rpp_panel_id, rpp_id, pdu_id, ups_bank_id, dctrack_asset_keys, snapshot_ts.
+
+
+Metrics tables (roll-ups/point-in-time values — not the same as matrix)
+
+rpp_panel_metrics, rpp_metrics, pdu_metrics, ups_bank_metrics
+
+Hold consumed_kw, anticipated_kw, updated_at, source (PSE/DCTrack/CND).
+
+Used for previews and historical diffs.
+
+
+
+pse_panel_allocations
+Stores the committed (on Save) anticipated load for a job at panel level (and mirrored pair).
+
+Columns: job_id, panel_id, anticipated_kw, anticipated_pct, in_service_date, mirror_side(A/B), created_by, updated_at.
+
+
+mirror_map
+Defines redundancy pairs so we can auto-apply the same allocation to the hidden side.
+
+Columns: a_panel_id, b_panel_id, rpp_id_a, rpp_id_b, scope(panel/rpp/pdu), active.
+
+
+calc_run
+A lightweight audit record for each calculation/commit. Helps trace exactly what was computed when.
+
+Columns: run_id, job_id, mode(preview|save), trigger(create|edit|remove), rows_affected, started_at, finished_at, status(ok|error), notes.
+
+
+Consumed values source
+Either a local table (e.g., consumed_snapshots) hydrated from CND/dcTrack, or read on demand and cached into metrics.
+
 
 
 ---
 
-Slide 1: Anticipated Load Calculation Flow
+End-to-end flow (tight, step-by-step “flowchart”)
 
-Flow Overview (Bottom-Up Calculation):
+1) PSE Creation (user in FUSE selects Location + Room)
+   - Inputs known immediately: location_id, room_id, job_id.
 
-RPP Panel Level
+2) Topology Bootstrap (system)
+   - Call dcTrack APIs with Location + Room.
+   - Discover all RPP PANELS in the room → for each, resolve RPP → PDU → UPS BANK chain.
+   - Write/refresh rows in topology_matrix (job-scoped snapshot of IDs).
+   - (Optional) Write/refresh power_chain_map if you keep a global map of connections.
 
-User adds equipment → anticipated load = equipment watts ÷ 1000 (kW)
+3) User selects a target RPP + Panel (UI)
+   - Equipment anticipated load (kW) = equipment_watts / 1000.
+   - Look up mirror partner via mirror_map (A↔B) BUT keep B hidden in UI.
 
-New anticipated load = consumed value (existing) + anticipated load (new PSE)
+4) Preview Calculation (no DB overwrite)
+   - Fetch current consumed/anticipated baselines:
+       • Prefer latest from *_metrics (rpp_panel_metrics, rpp_metrics, pdu_metrics, ups_bank_metrics).
+       • If stale/missing, hydrate metrics from dcTrack/CND and cache.
+   - Compute panel-level preview:
+       • new_panel_anticipated_kw = baseline_panel_anticipated_kw + equipment_kw
+       • mirror_panel gets the same value (offscreen).
+   - Roll-up (compute-only, not save):
+       • Sum panels → RPP preview
+       • Sum RPPs → PDU preview
+       • Sum PDUs → UPS BANK preview
+   - UI shows PREVIEW only for the A-side chain; B-side is applied silently.
+
+5) Save / Commit (user clicks Save)
+   - Upsert A-side row in pse_panel_allocations (job_id, panel_id, anticipated_kw, % etc.).
+   - Upsert mirrored B-side row using mirror_map.
+   - Update metrics snapshots bottom-up with committed values:
+       • rpp_panel_metrics → rpp_metrics → pdu_metrics → ups_bank_metrics
+   - Insert a calc_run record (mode=save, ok, counts, timestamps).
+   - Enqueue async PATCH to dcTrack to update anticipated fields for Panel/RPP/PDU/UPS Bank.
+
+6) Edit / Re-Select (user changes panel or value)
+   - Load prior pse_panel_allocations for job_id.
+   - Compute delta (new_kw - old_kw).
+   - Apply to A-side and mirrored B-side in preview → show UI.
+   - On Save: upsert new rows; adjust metrics with delta; write calc_run; queue dcTrack updates.
+
+7) Remove / Cancel (user removes allocation)
+   - Delete pse_panel_allocations rows (A & mirrored B).
+   - Subtract from metrics bottom-up; write calc_run; queue dcTrack updates.
+
+8) Background Sync (async worker)
+   - Processes dcTrack PATCH queue.
+   - Updates *_metrics timestamps/status when dcTrack confirms.
 
 
-RPP Level
+---
 
-Sum of all connected RPP panel anticipated loads
+Where each table is used (quick map)
 
-Populate → new anticipated load, old anticipated load, and consumed values
+During discovery: topology_matrix (cache topology IDs for fast lookups per job).
 
+During preview: read *_metrics for baselines; compute delta in memory; do not touch DB except calc_run(mode=preview).
 
-PDU Level
+On save: write pse_panel_allocations (A & mirror B), update *_metrics, add calc_run(mode=save), enqueue dcTrack updates.
 
-Sum of all connected RPPs’ anticipated loads
+Mirroring: consult mirror_map in preview and save; UI always hides B-side.
 
-
-UPS Bank Level
-
-Sum of all connected PDUs’ anticipated loads
-
-Calculations are maintained here since PDUs connect only to UPS banks (not directly to UPS)
+Auditing: calc_run for “who/when/what delta” per operation.
 
 
+
+---
+
+Notes you can paste under the flow
+
+Matrix vs. Metrics:
+
+Matrix (topology_matrix) = who connects to whom (IDs/topology snapshot for the job).
+
+Metrics (rpp/pdu/ups_bank *_metrics) = how much load (numbers/roll-ups at a timestamp).
+
+
+Why calc_run matters:
+
+You’ll need a clear audit trail to reconcile dcTrack vs app if values drift or a sync fails.
+
+
+Why pse_panel_allocations exists:
+
+Keeps the job’s committed anticipated loads distinct from live consumed data and distinct from dcTrack’s own fields.
+
+
+Mirror detail:
+
+mirror_map has A/B IDs. On preview, compute both; on save, write both to pse_panel_allocations and update both in metrics; only A is rendered in UI.
+
+
+
+
+---
+
+If you want, I can also format the above as ASCII boxes with arrows so it looks like a text flowchart you can drop straight into Git READMEs.
 
 
 ---
