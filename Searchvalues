@@ -1,284 +1,132 @@
-Awesome—here’s a concrete, ready-to-build data model (with mirror support) plus the exact lifecycle for preview, save, and switching A⇄B.
+Got it 👍 Since you can’t download, I’ll print the full flow content here (structured like a PPT / Doc so you can copy-paste it directly into Git or convert into PPT).
 
 
 ---
 
-1) Tables & columns (proposed schemas)
+Slide 1: Anticipated Load Calculation Flow
 
--- Authoritative topology snapshot we hydrate from dcTrack:
-CREATE TABLE power_chain_map (
-  rpp_panel_id        BIGINT PRIMARY KEY,
-  rpp_id              BIGINT NOT NULL,
-  pdu_id              BIGINT NOT NULL,
-  ups_bank_id         BIGINT NOT NULL,
-  site_clli           VARCHAR(32) NOT NULL,
-  room_name           VARCHAR(128) NOT NULL,
-  panel_name          VARCHAR(128) NOT NULL,
-  rpp_name            VARCHAR(128) NOT NULL,
-  pdu_name            VARCHAR(128) NOT NULL,
-  ups_bank_name       VARCHAR(128) NOT NULL,
-  rating_kw           DECIMAL(10,3) NULL,   -- optional: object rating at panel level if you have it
-  created_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at          TIMESTAMP NOT NULL DEFAULT NOW()
-);
+Flow Overview (Bottom-Up Calculation):
 
--- A↔B mirror map (store ids for quick jumps both ways):
-CREATE TABLE mirror_map (
-  a_rpp_panel_id      BIGINT UNIQUE,
-  b_rpp_panel_id      BIGINT UNIQUE,
-  a_rpp_id            BIGINT,
-  b_rpp_id            BIGINT,
-  a_pdu_id            BIGINT,
-  b_pdu_id            BIGINT,
-  a_ups_bank_id       BIGINT,
-  b_ups_bank_id       BIGINT,
-  created_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  CONSTRAINT one_side_present CHECK (
-    (a_rpp_panel_id IS NOT NULL) OR (b_rpp_panel_id IS NOT NULL)
-  )
-);
+RPP Panel Level
 
--- Per-job allocation at PANEL level (A entry is visible; B entry is mirrored/hidden):
-CREATE TABLE pse_panel_allocations (
-  allocation_id       BIGSERIAL PRIMARY KEY,
-  job_id              BIGINT NOT NULL,
-  rpp_panel_id        BIGINT NOT NULL,
-  is_mirror           BOOLEAN NOT NULL DEFAULT FALSE,  -- TRUE for B-side ghost row
-  mirrored_from_panel BIGINT NULL,                     -- panel A id if this is B
-  allocated_kw_raw    DECIMAL(10,3) NOT NULL,          -- user-entered kW (before in-service factor)
-  in_service_pct      DECIMAL(5,3) NOT NULL,           -- 1.000 / 0.500 / 0.000
-  allocated_kw_eff    DECIMAL(10,3) NOT NULL,          -- allocated_kw_raw * in_service_pct
-  created_by          VARCHAR(128) NOT NULL,
-  created_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  UNIQUE (job_id, rpp_panel_id, is_mirror)
-);
+User adds equipment → anticipated load = equipment watts ÷ 1000 (kW)
 
--- Metrics snapshots (commit-time “previous/new” state for auditing & rollups):
-CREATE TABLE rpp_panel_metrics (
-  snapshot_id         BIGSERIAL PRIMARY KEY,
-  rpp_panel_id        BIGINT NOT NULL,
-  calc_run_id         BIGINT NOT NULL,
-  ts                  TIMESTAMP NOT NULL DEFAULT NOW(),
-  current_consumed_kw DECIMAL(12,3) NOT NULL,
-  prev_anticipated_kw DECIMAL(12,3) NOT NULL,
-  new_anticipated_kw  DECIMAL(12,3) NOT NULL
-);
-
-CREATE TABLE rpp_metrics (
-  snapshot_id         BIGSERIAL PRIMARY KEY,
-  rpp_id              BIGINT NOT NULL,
-  calc_run_id         BIGINT NOT NULL,
-  ts                  TIMESTAMP NOT NULL DEFAULT NOW(),
-  current_consumed_kw DECIMAL(12,3) NOT NULL,
-  prev_anticipated_kw DECIMAL(12,3) NOT NULL,
-  new_anticipated_kw  DECIMAL(12,3) NOT NULL
-);
-
-CREATE TABLE pdu_metrics (
-  snapshot_id         BIGSERIAL PRIMARY KEY,
-  pdu_id              BIGINT NOT NULL,
-  calc_run_id         BIGINT NOT NULL,
-  ts                  TIMESTAMP NOT NULL DEFAULT NOW(),
-  current_consumed_kw DECIMAL(12,3) NOT NULL,
-  prev_anticipated_kw DECIMAL(12,3) NOT NULL,
-  new_anticipated_kw  DECIMAL(12,3) NOT NULL
-);
-
-CREATE TABLE ups_bank_metrics (
-  snapshot_id         BIGSERIAL PRIMARY KEY,
-  ups_bank_id         BIGINT NOT NULL,
-  calc_run_id         BIGINT NOT NULL,
-  ts                  TIMESTAMP NOT NULL DEFAULT NOW(),
-  current_consumed_kw DECIMAL(12,3) NOT NULL,
-  prev_anticipated_kw DECIMAL(12,3) NOT NULL,
-  new_anticipated_kw  DECIMAL(12,3) NOT NULL
-);
-
--- Audit/idempotency for each calculation commit:
-CREATE TABLE calc_run (
-  calc_run_id         BIGSERIAL PRIMARY KEY,
-  job_id              BIGINT NOT NULL,
-  started_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-  finished_at         TIMESTAMP NULL,
-  status              VARCHAR(16) NOT NULL,   -- RUNNING / SUCCEEDED / FAILED
-  reason              VARCHAR(256) NULL
-);
+New anticipated load = consumed value (existing) + anticipated load (new PSE)
 
 
----
+RPP Level
 
-2) Preview vs Save vs Switch — exact behavior
+Sum of all connected RPP panel anticipated loads
 
-A) Preview (no writes)
-
-Inputs: job_id, chosen Panel A (its rpp_panel_id), and the new allocation (kW) the user typed.
-
-Read baseline (latest committed) for Panel A → RPP A → PDU A → UPS Bank A; also silently read the B-side via mirror_map.
-
-Read any existing allocation row(s) for this job+panel (A and mirrored B). If none, treat as 0.
-
-Compute delta on A:
-delta_A = new_alloc_eff - old_alloc_eff
-
-Mirror the same delta to B for preview purposes: delta_B = delta_A.
-
-DO NOT WRITE anything. Just display:
-
-New anticipated on Panel A = prev_A + delta_A
-
-Roll that delta up to RPP A, PDU A, UPS Bank A
-
-Validate B side capacity using delta_B; show only A on UI, but raise a warning if B would breach.
+Populate → new anticipated load, old anticipated load, and consumed values
 
 
+PDU Level
 
-> Preview is “math on cached prev values + delta.” Nothing is persisted.
-
-
-
-B) Save (commit)
-
-Start a calc_run.
-
-Upsert into pse_panel_allocations:
-
-Row 1: Panel A (visible): allocated_kw_raw, in_service_pct, allocated_kw_eff.
-
-Row 2: Panel B (mirrored): same values, is_mirror=TRUE, mirrored_from_panel=<panel A id>.
-If no mirror exists, skip B row.
+Sum of all connected RPPs’ anticipated loads
 
 
-Recompute prev → new snapshots for:
+UPS Bank Level
 
-Panel A & Panel B
+Sum of all connected PDUs’ anticipated loads
 
-RPP A/B, PDU A/B, UPS Bank A/B (roll-ups)
-
-
-Insert snapshot rows into *_metrics with calc_run_id.
-
-Enqueue dcTrack updates for A & B objects (async).
-
-Mark calc_run finished.
-
-
-C) Switching A⇄B during Preview
-
-If user just switches the selection from Panel A to Panel B before Save:
-
-Nothing was written yet.
-
-Recompute preview for the newly selected panel (the delta on the previous pick becomes 0 because it wasn’t committed).
-
-
-If user had saved on Panel A earlier and now edits to move load to Panel B:
-
-This is an edit:
-
-Read existing A/B allocation rows for this job.
-
-Compute diffs: reduce A by X, increase B by X (mirror still applies: B’s mirror is A, A’s mirror is B).
-
-Upsert both rows accordingly.
-
-Recompute & persist snapshots, push to dcTrack.
-
-
-
-
-> Rule of thumb:
-• Before Save = ephemeral preview only.
-• After Save = edit flow that adjusts A & B persisted rows symmetrically.
+Calculations are maintained here since PDUs connect only to UPS banks (not directly to UPS)
 
 
 
 
 ---
 
-3) What the UI shows (and hides)
+Slide 2: Legends & Triggers
 
-Users only see A-side objects (RPP A, Panel A).
+When Calculations Trigger:
 
-The preview panel shows:
+Preview Mode (Before Save):
 
-Consumed (prev), Anticipated (prev), +Delta (this change), New Anticipated and utilization %.
+Delta calculations are performed but not committed.
+
+User sees anticipated load preview values.
 
 
-A single warning banner if the mirrored B path would cross capacity thresholds.
+Save Mode (On Commit):
 
-On Save, UI shows success + committed A-side numbers. B is never shown, but updated in the backend and pushed to dcTrack.
+New anticipated load + existing values committed to DB.
+
+Old records are deleted → new values persisted.
+
+
+
+Tables & Columns (Cyrus DB Example):
+
+anticipated_load_rpp_panel
+
+Columns: job_id, plant_id, plant_name, anticipated_load, load_percentage, status
+
+
+anticipated_load_rpp
+
+Aggregate values from panels
+
+
+anticipated_load_pdu
+
+Aggregate values from RPPs
+
+
+anticipated_load_ups_bank
+
+Aggregate values from PDUs
+
+
+
+
+---
+
+Slide 3: Mirror Path Example (Redundancy)
+
+Mirroring Logic:
+
+For every Panel / RPP / UPS, there is a redundant “mirror” (A/B).
+
+Users see only “A-side” assets (e.g., RPP-A1).
+
+Backend automatically duplicates updates to mirror side (e.g., RPP-B1).
+
+Example:
+
+User assigns 5 kW to Panel A1.
+
+System mirrors update → Panel B1 updated automatically.
+
+UI always hides “B” side; only “A” shown.
+
 
 
 
 ---
 
-4) Typical queries you’ll run
+Slide 4: End-to-End Flowchart (Textual)
 
-Load baseline for preview (A-side):
-
--- example for Panel A
-SELECT current_consumed_kw, prev_anticipated_kw
-FROM rpp_panel_metrics
-WHERE rpp_panel_id = :panelA
-ORDER BY ts DESC
-LIMIT 1;
-
-Find B mirror of Panel A (if any):
-
-SELECT b_rpp_panel_id
-FROM mirror_map
-WHERE a_rpp_panel_id = :panelA;
-
-Existing allocation for this job & panel:
-
-SELECT allocated_kw_eff
-FROM pse_panel_allocations
-WHERE job_id = :job AND rpp_panel_id = :panelA AND is_mirror = FALSE;
-
-Commit (upsert) allocation rows (simplified):
-
--- Upsert A
-INSERT INTO pse_panel_allocations (job_id, rpp_panel_id, is_mirror, mirrored_from_panel,
-  allocated_kw_raw, in_service_pct, allocated_kw_eff, created_by)
-VALUES (:job, :panelA, FALSE, NULL, :raw, :pct, :eff, :user)
-ON CONFLICT (job_id, rpp_panel_id, is_mirror)
-DO UPDATE SET allocated_kw_raw = EXCLUDED.allocated_kw_raw,
-              in_service_pct  = EXCLUDED.in_service_pct,
-              allocated_kw_eff= EXCLUDED.allocated_kw_eff,
-              updated_at      = NOW();
-
--- Upsert B (if exists)
-INSERT INTO pse_panel_allocations (job_id, rpp_panel_id, is_mirror, mirrored_from_panel,
-  allocated_kw_raw, in_service_pct, allocated_kw_eff, created_by)
-VALUES (:job, :panelB, TRUE, :panelA, :raw, :pct, :eff, :user)
-ON CONFLICT (job_id, rpp_panel_id, is_mirror)
-DO UPDATE SET allocated_kw_raw = EXCLUDED.allocated_kw_raw,
-              in_service_pct  = EXCLUDED.in_service_pct,
-              allocated_kw_eff= EXCLUDED.allocated_kw_eff,
-              updated_at      = NOW();
+Equipment Load (Watts)  
+       ↓  
+Anticipated Load (kW) at RPP Panel  
+       ↓ (sum)  
+RPP Level Anticipated Load  
+       ↓ (sum)  
+PDU Level Anticipated Load  
+       ↓ (sum)  
+UPS Bank Level Anticipated Load  
+       ↓  
+Update Cyrus DB (tables above)  
+       ↓  
+Mirror Updates → Redundant Panels / RPPs / UPS Banks  
+       ↓  
+DC-Track API Sync (final push)
 
 
 ---
 
-Recap of the “remove/replace” question
+👉 You can copy-paste this directly into Word, Google Docs, or PPT and then add arrows/flowchart shapes to make it visual.
 
-If user flips A→B in Preview (no save yet):
-Nothing to “remove”—we never wrote. We simply recompute deltas for the newly selected panel.
-
-If user had Saved on A and later wants B instead:
-That is an edit:
-
-Reduce A’s saved allocation by X; reduce mirrored B-of-A by X.
-
-Increase B’s saved allocation by X; increase mirrored A-of-B by X.
-
-Recompute snapshots & push to dcTrack for both trees.
-
-
-
-This keeps A-only in the UI, keeps B perfectly mirrored, and guarantees that every change is auditable and idempotent.
-
-If you want, I can also draft stored procedures for preview payload and commit allocation to make the service layer thin.
+Do you want me to also generate an ASCII-art style flowchart diagram (with arrows and boxes) so even without PPT shapes it looks like a flow diagram?
 
