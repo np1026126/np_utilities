@@ -1,245 +1,71 @@
-Got it 👍 — since your manager feels your PPT slides are too text-heavy, you can feed the full PPT to Google Gemini and ask it to simplify into a visual flow diagram. Here’s a strong prompt you can use:
+Perfect — thanks for the detailed flow! I’ll lay this out as a flowchart diagram in text format (so you can paste into PPT, Lucidchart, Miro, or any diagramming tool).
 
 
 ---
 
-Prompt for Gemini:
+Flowchart (Utility Feed → BDFB Panel)
 
-> I have a PPT with 4 slides that describe the AC power chain calculation workflow for PSE creation and anticipated load tracking. The slides currently contain too many words, making it hard to follow. Please convert the content into a clean, professional flow diagram that shows the step-by-step process with arrows, minimal text, and clear boxes.
-
-Specifically, show:
-
-Start: PSE creation → capture Location & Room
-
-Fetch Data: Call DCTrack API → retrieve RPP Panels, RPP, PDU, UPS Bank mappings
-
-Matrix Population: Store hierarchy in Matrix Table & Power Chain Mapping
-
-Anticipated Load Calc: For RPP panel (consumed + new PSE load), then roll-up to RPP, PDU, UPS Bank
-
-UI Display: Show new anticipated load to user before save
-
-Commit: On Save → write final values into pse_panel_allocations and update Matrix Table snapshot
-
-Mirroring: Show only primary panel in UI, but auto-apply same load to redundant/mirror panel in backend
-
-Delta Handling: On edit, update anticipated load with deltas while retaining snapshot history
-
-
-Keep the flow intuitive and easy to read (like swimlane or step-flow diagram) without long sentences. Use legends for special cases (mirror panels, snapshot IDs, etc.).
-
-Output should be a flowchart visualization (arrows + nodes), not bullet points.
-
-
-
-
----
-
-This way, Gemini will focus on reducing text and give you a flow diagram your manager can instantly grasp.
-
-👉 Do you want me to also draft a one-slide minimal text version here (boxes + arrows in text form), so you can paste it directly into your PPT even before Gemini renders visuals?
-
-
-
-Consumed values source
-Either a local table (e.g., consumed_snapshots) hydrated from CND/dcTrack, or read on demand and cached into metrics.
-
+[Utility Feed]
+      |
+      v
+[Transformer]
+      |
+      v
+[ATS Switch] <-------------------------+
+   |                                   |
+   |                                   |
+   v                                   |
+[AC Switch]                            |
+   |                                   |
+   v                                   |
+[DC Plant]                             |
+   |                                   |
+   v                                   |
+[Plant Bay / Plant Panel]              |
+   |                                   |
+   v                                   |
+[Plant Panel Breakers]                 |
+   |                                   |
+   +--> [Rectifiers]                   |
+   |                                   |
+   +--> [Batteries]                    |
+   |                                   |
+   v                                   |
+  [BDFB]                               |
+      |                                |
+      v                                |
+ [BDFB Panel]                          |
+                                       |
+<Generator> <--- (Fuel Tanks) ---------+
 
 
 ---
 
-End-to-end flow (tight, step-by-step “flowchart”)
+Key Notes for Slide Explanation
 
-1) PSE Creation (user in FUSE selects Location + Room)
-   - Inputs known immediately: location_id, room_id, job_id.
+Utility Feed → Transformer: Normal AC input power.
 
-2) Topology Bootstrap (system)
-   - Call dcTrack APIs with Location + Room.
-   - Discover all RPP PANELS in the room → for each, resolve RPP → PDU → UPS BANK chain.
-   - Write/refresh rows in topology_matrix (job-scoped snapshot of IDs).
-   - (Optional) Write/refresh power_chain_map if you keep a global map of connections.
+Transformer → ATS Switch: Primary supply line.
 
-3) User selects a target RPP + Panel (UI)
-   - Equipment anticipated load (kW) = equipment_watts / 1000.
-   - Look up mirror partner via mirror_map (A↔B) BUT keep B hidden in UI.
+ATS Switch → Generator: Backup power source in case transformer fails.
 
-4) Preview Calculation (no DB overwrite)
-   - Fetch current consumed/anticipated baselines:
-       • Prefer latest from *_metrics (rpp_panel_metrics, rpp_metrics, pdu_metrics, ups_bank_metrics).
-       • If stale/missing, hydrate metrics from dcTrack/CND and cache.
-   - Compute panel-level preview:
-       • new_panel_anticipated_kw = baseline_panel_anticipated_kw + equipment_kw
-       • mirror_panel gets the same value (offscreen).
-   - Roll-up (compute-only, not save):
-       • Sum panels → RPP preview
-       • Sum RPPs → PDU preview
-       • Sum PDUs → UPS BANK preview
-   - UI shows PREVIEW only for the A-side chain; B-side is applied silently.
+Generator → ATS Switch: Feeds via fuel tanks (dependency).
 
-5) Save / Commit (user clicks Save)
-   - Upsert A-side row in pse_panel_allocations (job_id, panel_id, anticipated_kw, % etc.).
-   - Upsert mirrored B-side row using mirror_map.
-   - Update metrics snapshots bottom-up with committed values:
-       • rpp_panel_metrics → rpp_metrics → pdu_metrics → ups_bank_metrics
-   - Insert a calc_run record (mode=save, ok, counts, timestamps).
-   - Enqueue async PATCH to dcTrack to update anticipated fields for Panel/RPP/PDU/UPS Bank.
+ATS Switch → AC Switch: Routes available power.
 
-6) Edit / Re-Select (user changes panel or value)
-   - Load prior pse_panel_allocations for job_id.
-   - Compute delta (new_kw - old_kw).
-   - Apply to A-side and mirrored B-side in preview → show UI.
-   - On Save: upsert new rows; adjust metrics with delta; write calc_run; queue dcTrack updates.
+AC Switch → DC Plant: Converts and passes power downstream.
 
-7) Remove / Cancel (user removes allocation)
-   - Delete pse_panel_allocations rows (A & mirrored B).
-   - Subtract from metrics bottom-up; write calc_run; queue dcTrack updates.
+DC Plant → Plant Panel: Distribution point with breakers.
 
-8) Background Sync (async worker)
-   - Processes dcTrack PATCH queue.
-   - Updates *_metrics timestamps/status when dcTrack confirms.
+Plant Panel → Rectifiers & Batteries: Ensures DC continuity and backup.
 
-
----
-
-Where each table is used (quick map)
-
-During discovery: topology_matrix (cache topology IDs for fast lookups per job).
-
-During preview: read *_metrics for baselines; compute delta in memory; do not touch DB except calc_run(mode=preview).
-
-On save: write pse_panel_allocations (A & mirror B), update *_metrics, add calc_run(mode=save), enqueue dcTrack updates.
-
-Mirroring: consult mirror_map in preview and save; UI always hides B-side.
-
-Auditing: calc_run for “who/when/what delta” per operation.
+Plant Panel → BDFB → BDFB Panel: Final distribution stage before racks/equipment.
 
 
 
 ---
 
-Notes you can paste under the flow
+👉 This structure is ready to paste into PPT or Lucidchart as a process flow diagram.
 
-Matrix vs. Metrics:
-
-Matrix (topology_matrix) = who connects to whom (IDs/topology snapshot for the job).
-
-Metrics (rpp/pdu/ups_bank *_metrics) = how much load (numbers/roll-ups at a timestamp).
-
-
-Why calc_run matters:
-
-You’ll need a clear audit trail to reconcile dcTrack vs app if values drift or a sync fails.
-
-
-Why pse_panel_allocations exists:
-
-Keeps the job’s committed anticipated loads distinct from live consumed data and distinct from dcTrack’s own fields.
-
-
-Mirror detail:
-
-mirror_map has A/B IDs. On preview, compute both; on save, write both to pse_panel_allocations and update both in metrics; only A is rendered in UI.
-
-
-
-
----
-
-If you want, I can also format the above as ASCII boxes with arrows so it looks like a text flowchart you can drop straight into Git READMEs.
-
-
----
-
-Slide 2: Legends & Triggers
-
-When Calculations Trigger:
-
-Preview Mode (Before Save):
-
-Delta calculations are performed but not committed.
-
-User sees anticipated load preview values.
-
-
-Save Mode (On Commit):
-
-New anticipated load + existing values committed to DB.
-
-Old records are deleted → new values persisted.
-
-
-
-Tables & Columns (Cyrus DB Example):
-
-anticipated_load_rpp_panel
-
-Columns: job_id, plant_id, plant_name, anticipated_load, load_percentage, status
-
-
-anticipated_load_rpp
-
-Aggregate values from panels
-
-
-anticipated_load_pdu
-
-Aggregate values from RPPs
-
-
-anticipated_load_ups_bank
-
-Aggregate values from PDUs
-
-
-
-
----
-
-Slide 3: Mirror Path Example (Redundancy)
-
-Mirroring Logic:
-
-For every Panel / RPP / UPS, there is a redundant “mirror” (A/B).
-
-Users see only “A-side” assets (e.g., RPP-A1).
-
-Backend automatically duplicates updates to mirror side (e.g., RPP-B1).
-
-Example:
-
-User assigns 5 kW to Panel A1.
-
-System mirrors update → Panel B1 updated automatically.
-
-UI always hides “B” side; only “A” shown.
-
-
-
-
----
-
-Slide 4: End-to-End Flowchart (Textual)
-
-Equipment Load (Watts)  
-       ↓  
-Anticipated Load (kW) at RPP Panel  
-       ↓ (sum)  
-RPP Level Anticipated Load  
-       ↓ (sum)  
-PDU Level Anticipated Load  
-       ↓ (sum)  
-UPS Bank Level Anticipated Load  
-       ↓  
-Update Cyrus DB (tables above)  
-       ↓  
-Mirror Updates → Redundant Panels / RPPs / UPS Banks  
-       ↓  
-DC-Track API Sync (final push)
-
-
----
-
-👉 You can copy-paste this directly into Word, Google Docs, or PPT and then add arrows/flowchart shapes to make it visual.
-
-Do you want me to also generate an ASCII-art style flowchart diagram (with arrows and boxes) so even without PPT shapes it looks like a flow diagram?
+Do you want me to also simplify it into a one-slide visual layout with color-coded blocks (like: blue = AC side, orange = ATS/Generator redundancy, green = DC distribution)? That way your manager can quickly understand the split between AC and DC flows.
 
