@@ -1,22 +1,41 @@
-Here’s a clean Slack-style draft that combines your three points in a professional but concise way:
+Got it 👍 — here’s a polished version of the mail draft you can send, capturing exactly what you explained:
 
 
 ---
 
-Hi Team, quick update on TAP sites:
+Subject: Clarification Needed on HVAC Formula – Anticipated Equipment Heat Load
 
-1. We’ve regenerated and provided HVAC details for all TAP sites, but so far we see updates reflected only for 19 sites. For the rest, the data is still pending.
+Hi Team,
 
+As discussed in our last user call, the Anticipated Equipment Heat Load in HVAC Zone (Tons) was considered as Total Equipment Heat in Tons.
 
-2. For 8 TAP sites and 3 TAP sites (I’ll list the site names separately), the updates are still not reflected.
+However, when we analyzed it further, we noticed that even for New Heat Load in Tons, the formula is also using the same value (Total Equipment Heat in Tons). This means both fields are currently ending up with the same value, which creates ambiguity.
 
+I had a follow-up discussion with Lee on this point. His suggestion was that instead of duplicating the same value, the Anticipated Equipment Heat Load in HVAC Zone could be considered as the sum of all anticipated loads of all PSEs placed for that particular zone (i.e., the combined total equipment heat values of all PSEs in the zone).
 
-3. From the 8-site data shared by Andrii, we noticed that for a few sites we are not able to map the UPS → UPS bank through load devices. The reason is the naming conventions – we can’t confirm which UPS bank is connected to a given UPS, or which RPPs are tied to the feeds. We’ve highlighted these unmapped cases in the UGL sheet for clarity.
+This was a good proposal, but Lee also mentioned that it should be confirmed with the broader team before finalizing.
 
+As of now, we are still considering “Total Equipment Heat in Tons” for the Anticipated Equipment Heat Load field.
+Can we please have a short call with all stakeholders to confirm whether we should move forward with Lee’s suggestion (sum of all anticipated PSE loads in the zone) or retain the current approach?
 
+Thanks & Regards,
+[Your Name]
 
 
 ---
 
-👉 Would you like me to also draft the exact Slack message listing the 8 + 3 site names inline, or do you want to keep it high-level and reference the sheet?
+✅ This version:
+
+Reminds them what was agreed last time.
+
+Points out the conflict (both fields using the same value).
+
+Brings in Lee’s suggestion.
+
+Clearly states the current approach vs. proposal.
+
+Ends with a call-to-action (short call to finalize).
+
+
+Do you also want me to prepare a 1-slide diagram (formula vs. proposed change) that you can show in the call, so it’s visually clear?
 
