@@ -1,71 +1,22 @@
-Perfect — thanks for the detailed flow! I’ll lay this out as a flowchart diagram in text format (so you can paste into PPT, Lucidchart, Miro, or any diagramming tool).
+Here’s a clean Slack-style draft that combines your three points in a professional but concise way:
 
 
 ---
 
-Flowchart (Utility Feed → BDFB Panel)
+Hi Team, quick update on TAP sites:
 
-[Utility Feed]
-      |
-      v
-[Transformer]
-      |
-      v
-[ATS Switch] <-------------------------+
-   |                                   |
-   |                                   |
-   v                                   |
-[AC Switch]                            |
-   |                                   |
-   v                                   |
-[DC Plant]                             |
-   |                                   |
-   v                                   |
-[Plant Bay / Plant Panel]              |
-   |                                   |
-   v                                   |
-[Plant Panel Breakers]                 |
-   |                                   |
-   +--> [Rectifiers]                   |
-   |                                   |
-   +--> [Batteries]                    |
-   |                                   |
-   v                                   |
-  [BDFB]                               |
-      |                                |
-      v                                |
- [BDFB Panel]                          |
-                                       |
-<Generator> <--- (Fuel Tanks) ---------+
+1. We’ve regenerated and provided HVAC details for all TAP sites, but so far we see updates reflected only for 19 sites. For the rest, the data is still pending.
 
 
----
+2. For 8 TAP sites and 3 TAP sites (I’ll list the site names separately), the updates are still not reflected.
 
-Key Notes for Slide Explanation
 
-Utility Feed → Transformer: Normal AC input power.
+3. From the 8-site data shared by Andrii, we noticed that for a few sites we are not able to map the UPS → UPS bank through load devices. The reason is the naming conventions – we can’t confirm which UPS bank is connected to a given UPS, or which RPPs are tied to the feeds. We’ve highlighted these unmapped cases in the UGL sheet for clarity.
 
-Transformer → ATS Switch: Primary supply line.
-
-ATS Switch → Generator: Backup power source in case transformer fails.
-
-Generator → ATS Switch: Feeds via fuel tanks (dependency).
-
-ATS Switch → AC Switch: Routes available power.
-
-AC Switch → DC Plant: Converts and passes power downstream.
-
-DC Plant → Plant Panel: Distribution point with breakers.
-
-Plant Panel → Rectifiers & Batteries: Ensures DC continuity and backup.
-
-Plant Panel → BDFB → BDFB Panel: Final distribution stage before racks/equipment.
 
 
 
 ---
 
-👉 This structure is ready to paste into PPT or Lucidchart as a process flow diagram.
-
-Do you want me to also simplify it into a one-slide visual layout with color-coded blocks (like: blue = AC side, orange = ATS/Generator redundancy, green = DC distribution)? That way your manager can quickly understand the split between AC and DC flows.
+👉 Would you like me to also draft the exact Slack message listing the 8 + 3 site names inline, or do you want to keep it high-level and reference the sheet?
 
