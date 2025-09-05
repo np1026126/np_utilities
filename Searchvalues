@@ -1,29 +1,31 @@
-Here’s a polite way to handle this situation on Slack without creating unnecessary pressure:
+Got it. So you want the message to explain clearly that:
+
+The Anchorage site data was re-uploaded.
+
+The data might have been deleted because the team was using the same site for both testing and as a sample for migrating other assets.
+
+You’ll ensure it won’t be used again by anyone else so this doesn’t repeat.
+
+
+Here’s a polished version you can send to the users:
 
 
 ---
 
-Option 1 – Extend the date clearly but positively
+Message Draft
 
-> Hi Team, just a quick update on the migration status – as of today (4th Sept), we have successfully completed most assets. Two assets are still pending due to some final validations, so we are extending the migration target to 5th Sept to ensure everything is migrated accurately and thoroughly. Thanks for your understanding!
+> Hi [User Name/Team],
 
+The data for the Anchorage site has now been re-uploaded. Apologies for the inconvenience — it looks like the team was using the same site not only for testing purposes but also as a sample reference for migrating other assets. This could be one of the reasons the data got unknowingly deleted in the process.
 
+Moving forward, I’ll ensure this site is kept dedicated so that no one else uses it for testing or migration work, and the data remains intact for your needs.
 
-This sets the right expectation, avoids surprises, and shows you’re focusing on quality.
-
-
----
-
-Option 2 – Keep the original date but clarify status
-
-> Hi Team, as of the 4th Sept target date, almost all assets are completed except for two pending assets. These will be completed by 5th Sept as we want to ensure smooth migration without any data gaps. Appreciate your patience as we wrap this up!
+You can now proceed with your testing as the data is fully available again.
 
 
-
-This way, you don’t technically change the original target but acknowledge the pending work clearly.
 
 
 ---
 
-If you want, I can draft a single-line Slack status update for you so it looks neat and professional. Do you want me to prepare that?
+If you want, I can make a shorter version for a quick Slack reply and a slightly formal version for email. Which one do you prefer?
 
