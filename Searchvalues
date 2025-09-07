@@ -1,93 +1,16 @@
-Here’s a concise and professional mail draft you can use for sharing the interim status update with your manager and team:
+I am providing two CSV files:  
+1. Original sheet with 4000 records.  
+2. Failed sheet with ~2000 records containing an "Error and Warning" column.  
 
+Tasks:
+1. Read both CSVs fully.
+2. For each record in the failed sheet where the error says "Position in row not available" or "Duplicate row label + position in row":
+   - Generate a **new row label** (1–300) and **new position in row** (1–99) so that:
+     - For each unique Location (string before ">" in the Location column), the combination of row label + position in row is unique.
+     - The same combination must not appear in the original sheet or the already fixed rows.
+   - `Position in row` cannot be zero.
+3. Preserve all other columns as they are.
+4. Output a corrected CSV with the same structure as the original, but with fixed `row label` and `position in row` values for the failed rows.
+5. Ensure there are **no duplicates** within each location after correction.
 
----
-
-Subject: Interim Status Update – Calculation Feature Progress
-
-Hi Team,
-
-As discussed earlier, please find the interim status of the overall calculation feature work attached as a screenshot. The detailed status document has also been uploaded, and the link for the same is provided below for reference.
-
-This interim update captures:
-
-Current completion progress for all assigned tasks and subtasks.
-
-Pending items along with their assignees and progress percentage.
-
-Tasks already completed versus work in progress for upcoming milestones.
-
-
-Link to the status document: [Insert Link Here]
-
-Kindly review the attached status and the linked document for a detailed breakdown of progress.
-
-Thanks & Regards,
-Naveen Prasad
-
-
----
-
-If you want, I can also prepare a crisper version for Slack or Teams message format so it’s easier for the team to read quickly. Do you want me to create that too?
-
-
-2. Or provide the copy-paste ready version so you can directly update your current Google Sheet
-
-Got it. Based on the screenshot and the details you’ve shared earlier, here’s how we can structure the main tasks and two subtasks each for Mahira, Manasa, and Sudiksha in the same way as you used for Sameer:
-
-
----
-
-Task Details in Structured Format
-
-Task for Mahira
-
-Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
-
-T6	Anticipated Load Editing & Update	T6.1	Edit anticipated load in UNO and Cyrus tables for given RPP IDs	Mahira	0
-		T6.2	Update latest anticipated load values in PSE Calculation Table and asynchronously update DC Track	Mahira	0
-
-
-
----
-
-Task for Manasa
-
-Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
-
-T7	HVAC Calculation & Anticipated Load	T7.1	Populate HVAC calculation values for Wireless sites in Anticipated Load Table	Manasa	0
-		T7.2	On submit, auto-populate anticipated load table values and asynchronously update DC Track	Manasa	0
-
-
-
----
-
-Task for Sudiksha
-
-Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
-
-T8	Display RPP & RPP Panel Values in UI	T8.1	Fetch RPP and RPP panel values in UNO and display UPS Bank, RPP, and Panel Values in PSE Request Details Table	Sudiksha	0
-		T8.2	On RPP/RPP Panel selection, display all calculated values from Mahira & Manasa modules on UI for user reference	Sudiksha	0
-
-
-
----
-
-This keeps everything consistent with your previous task sheets:
-
-Main Task → High-level objective
-
-Subtask 1 & 2 → Clear and actionable steps
-
-Assignee & Progress → For tracking and responsibility
-
-
-
----
-
-If you want, I can prepare this in Excel format with the same column structure you used earlier so you can directly upload it to your Google Sheet.
-
-Do you want me to create a ready-to-upload Excel file for this?
-
-
-
+Give me the final corrected CSV as output.
