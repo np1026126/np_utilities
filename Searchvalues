@@ -1,51 +1,97 @@
-Got it. I can help you structure the data into a clean Excel format with columns for Task, Subtasks, Assignee, and Progress (%) so you can share it with your manager.
+Got it. I can help you extend the same Excel structure to include Task 5 with two subtasks for Sameer, just like the previous tasks.
 
-Here’s how the structure would look based on the information you provided:
+Here’s how the Task 5 details would look in the same format:
 
 
 ---
 
-Excel Structure
+Task 5 Details
 
 Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
 
-T1	Forming Power Chain in Scheduler	T1.1	Writing a scheduler to fetch all values for wireless locations and DC Track assets	Sameer	0
-		T1.2	Forming power chain for each RTP panel in the location-room combination	Sameer	0
-T2	Populate UPS Bank, PDU, RPP During PSE	T2.1	Populating UPS Bank, PDU, and RPP values during PSE creation for the location and RPP panel	Meera	0
-		T2.2	On click of RPP panel, calculate real-time anticipated load for UPS Bank, PDU, and RPP and pass to front-end	Meera	0
-T3	Display RPP & RPP Panel Values in UI	T3.1	On RPP/RPP panel selection, display all values related to RPP/RPP panel in the UI	Subiksha	0
-		T3.2	On click, send values back to Manasa for auto-population of anticipated load	Subiksha	0
-T4	Auto-Populate Values in PSE & Anticipated Load Table	T4.1	Auto-populate values in PSE calculation table for the given PSE Job ID with RPP, PDU, UPS details and load values	Manasa	0
-		T4.2	Auto-populate anticipated load table for the Job ID and asynchronously update DC Track	Manasa	0
+T5	Work Summary Calculator	T5.1	Fetch the data for UPS, PDU, RPP, Generator, and HVAC from DC Track and calculate the work summary values	Sameer Chachiya	0
+		T5.2	Display the calculated summary values in the UI for further processing and analysis	Sameer Chachiya	0
 
 
 
 ---
 
-How You Can Use It
+This keeps the structure consistent with your existing sheet:
 
-Task ID: Unique identifier for each main task.
+Task Name: High-level task description.
 
-Subtask ID: Unique subtask identifier for tracking finer details.
+Subtask Description: Specific actionable items.
 
-Progress (%): Can be updated regularly (e.g., 0%, 50%, 100%).
+Assignee: Sameer is handling both subtasks.
 
-Assignee: Names based on what you gave: Sameer, Meera, Subiksha, Manasa.
+Progress (%): Starts at 0 until work begins.
 
 
 
 ---
 
-Next Steps
+If you want, I can help you:
 
-I can:
-
-1. Generate this as a real Excel file for you to download.
+1. Add Task 5 directly into a downloadable Excel file so you can merge it with your existing sheet.
 
 
-2. Or directly show you the table in copy-paste ready format for your Excel.
+2. Or provide the copy-paste ready version so you can directly update your current Google Sheet
+
+Got it. Based on the screenshot and the details you’ve shared earlier, here’s how we can structure the main tasks and two subtasks each for Mahira, Manasa, and Sudiksha in the same way as you used for Sameer:
+
+
+---
+
+Task Details in Structured Format
+
+Task for Mahira
+
+Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
+
+T6	Anticipated Load Editing & Update	T6.1	Edit anticipated load in UNO and Cyrus tables for given RPP IDs	Mahira	0
+		T6.2	Update latest anticipated load values in PSE Calculation Table and asynchronously update DC Track	Mahira	0
 
 
 
-Which one would you prefer?
+---
+
+Task for Manasa
+
+Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
+
+T7	HVAC Calculation & Anticipated Load	T7.1	Populate HVAC calculation values for Wireless sites in Anticipated Load Table	Manasa	0
+		T7.2	On submit, auto-populate anticipated load table values and asynchronously update DC Track	Manasa	0
+
+
+
+---
+
+Task for Sudiksha
+
+Task ID	Task Name	Subtask ID	Subtask Description	Assignee	Progress (%)
+
+T8	Display RPP & RPP Panel Values in UI	T8.1	Fetch RPP and RPP panel values in UNO and display UPS Bank, RPP, and Panel Values in PSE Request Details Table	Sudiksha	0
+		T8.2	On RPP/RPP Panel selection, display all calculated values from Mahira & Manasa modules on UI for user reference	Sudiksha	0
+
+
+
+---
+
+This keeps everything consistent with your previous task sheets:
+
+Main Task → High-level objective
+
+Subtask 1 & 2 → Clear and actionable steps
+
+Assignee & Progress → For tracking and responsibility
+
+
+
+---
+
+If you want, I can prepare this in Excel format with the same column structure you used earlier so you can directly upload it to your Google Sheet.
+
+Do you want me to create a ready-to-upload Excel file for this?
+
+
 
