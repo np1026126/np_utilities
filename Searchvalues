@@ -1,62 +1,33 @@
-Got it. If you want to give Google Gemini (or Copilot) a very clear prompt so it can automatically fix the Fuel Tank Location column using the Production VZW Sites sheet and the rules you’ve explained, here’s a polished prompt you can use:
+Got it. If you’ve already uploaded the zip file in Google Gemini and you want it to open all three folders inside, scan through the eight sites, and then count all four assets (UPS, UPS Banks, PDU, and PDU Panels), here’s a clear prompt you can give:
 
 
 ---
 
-Prompt for Google Gemini or Copilot
+Prompt for Google Gemini
 
-I have two Google Sheets:
+I have uploaded a zip file with three folders: Branchburg, Colorado Springs, and NEC Sites.  
+Each folder contains multiple files for up to eight sites total.  
+Every site has data for four assets: UPS, UPS Banks, PDU, and PDU Panels.  
 
-1. Fuel Tank Assets Sheet – Contains asset data including the "Location" column. Some rows in "Location" have:
-
-Missing 8-digit short names (silly codes)
-
-Incorrect format (e.g., only site name, no room name)
-
-Room names missing or not matching expected names ("ROOF" or "OUTSIDE").
-
-
-
-2. Production VZW Sites Sheet – Contains:
-
-8-digit short name (silly code)
-
-Site Name
-
-Room names
-
-
-
-
-I need you to:
-
-1. Compare the Fuel Tank Assets Sheet "Location" column with the Production VZW Sites Sheet.
-
-
-2. If the 8-digit short name is missing but site name exists, find the matching site in the Production VZW Sites Sheet and insert the correct 8-digit short name.
-
-
-3. If both short name and room name are missing or wrong, insert the short name from the Production sheet and a room name as either "ROOF" or "OUTSIDE" based on availability.
-
-
-4. The final format for "Location" must always be:
-
-<8-digit short name> > <Room Name>
-
-Example: ABCD1234 > ROOF
-
-
-5. Keep all other data in the Fuel Tank sheet unchanged.
-
-
-6. Return a corrected version of the Fuel Tank sheet with updated "Location" values.
-
-
+Please do the following:
+1. Unzip the file and go into each folder.
+2. For each site, open all files and count the number of data rows for each of the four asset types:  
+   - UPS  
+   - UPS Banks  
+   - PDU  
+   - PDU Panels
+3. Give me a table with the counts per asset for each site and also a **grand total** for all sites combined.
+4. Make sure the table includes counts **per site**, **per folder**, and **overall totals** at the end.
 
 
 ---
 
-If you want, I can also create a ready-to-use Apps Script or Python code so that you can directly run this automation on your sheets.
+If you want NEC-only totals separately, just add this line at the end:
 
-Do you want me to prepare that script for you? It will fix the locations automatically.
+Also give a separate total for NEC Sites folder only.
+
+
+---
+
+If you like, I can also give you a variant prompt to ask Gemini to generate charts or summaries per folder automatically. Do you want me to prepare that too?
 
