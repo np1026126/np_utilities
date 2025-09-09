@@ -1,33 +1,35 @@
-Got it. If you’ve already uploaded the zip file in Google Gemini and you want it to open all three folders inside, scan through the eight sites, and then count all four assets (UPS, UPS Banks, PDU, and PDU Panels), here’s a clear prompt you can give:
+Here’s a Slack message you can post to your user group and managers so that the update is short, professional, and clear while pointing them to the sheet for details:
 
 
 ---
 
-Prompt for Google Gemini
+Slack Message Draft:
 
-I have uploaded a zip file with three folders: Branchburg, Colorado Springs, and NEC Sites.  
-Each folder contains multiple files for up to eight sites total.  
-Every site has data for four assets: UPS, UPS Banks, PDU, and PDU Panels.  
+Hi Team,
 
-Please do the following:
-1. Unzip the file and go into each folder.
-2. For each site, open all files and count the number of data rows for each of the four asset types:  
-   - UPS  
-   - UPS Banks  
-   - PDU  
-   - PDU Panels
-3. Give me a table with the counts per asset for each site and also a **grand total** for all sites combined.
-4. Make sure the table includes counts **per site**, **per folder**, and **overall totals** at the end.
+The asset migration status sheet has been updated with the latest records for all assets, including:
+
+Total Records
+
+Imported Till Date
+
+Initial & Current Fallout Counts
+
+Fixes Completed (IT/User)
+
+Pending Items
+
+Import Completion Dates
+
+
+Please refer to the attached sheet / link for the latest status and detailed breakdown for each asset.
+
+Thank you for your support in reviewing the pending items and helping us close them on time.
 
 
 ---
 
-If you want NEC-only totals separately, just add this line at the end:
+If you want, I can also give you a crisper version for managers or a detailed version for the entire user group depending on your audience.
 
-Also give a separate total for NEC Sites folder only.
-
-
----
-
-If you like, I can also give you a variant prompt to ask Gemini to generate charts or summaries per folder automatically. Do you want me to prepare that too?
+Do you want me to prepare both versions?
 
