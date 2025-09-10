@@ -1,35 +1,68 @@
-Here’s a Slack message you can post to your user group and managers so that the update is short, professional, and clear while pointing them to the sheet for details:
+Here’s a professional way to communicate this clearly on Slack or email:
 
 
 ---
 
-Slack Message Draft:
+Subject: Clarification on HVAC Data Source for Migration
 
 Hi Team,
 
-The asset migration status sheet has been updated with the latest records for all assets, including:
+I want to clarify an important point regarding the HVAC data for migration. During our earlier discussions with Pete and the other stakeholders, it was agreed that:
 
-Total Records
+The HVAC zones would be fully regenerated with the new room names.
 
-Imported Till Date
-
-Initial & Current Fallout Counts
-
-Fixes Completed (IT/User)
-
-Pending Items
-
-Import Completion Dates
+The sensible cooling capacity details would be updated in the regenerated sheet, not in the old FUSE-based sheet.
 
 
-Please refer to the attached sheet / link for the latest status and detailed breakdown for each asset.
+However, the recent checks seem to be referring to the old FUSE data, whereas the expectation was always to use the regenerated HVAC sheet—the same approach we followed for UPS, PDU, and PDU panels.
 
-Thank you for your support in reviewing the pending items and helping us close them on time.
+This means the verification and migration should only be based on the regenerated HVAC data where the cooling capacity details are correctly captured for all zones as per the new setup.
+
+Please ensure we align on this so that there is no confusion between the old data source and the regenerated one.
+
+Thanks & Regards,
+[Your Name]
+
+Here’s a professional way to communicate this update clearly and diplomatically:
 
 
 ---
 
-If you want, I can also give you a crisper version for managers or a detailed version for the entire user group depending on your audience.
+Subject: Update on HVAC Data for Migration
 
-Do you want me to prepare both versions?
+Hi Team,
+
+I wanted to clarify the current status of the HVAC data being used for the migration:
+
+Initially, the HVAC data was taken from FUSE. However, during validation, users, including Andrei, confirmed that this data was not accurate and should not be used for the final migration.
+
+It was agreed by Pete and others that the zones must be regenerated with updated room names, and the cooling capacity (Sensible Cooling) would be populated based on this regenerated data.
+
+While some sites have already been updated with the regenerated HVAC data, others are still pending and currently show the older FUSE data, which is leading to confusion when reviewing reports.
+
+
+Next Steps:
+
+We will ensure that only the regenerated HVAC data with correct room names is used for all SAPs/SAP types.
+
+The missing sites will be updated so that the migration reflects accurate cooling capacity values as intended.
+
+
+This will avoid inconsistencies in the analysis and ensure everyone is referring to the correct dataset moving forward.
+
+Thanks & Regards,
+Your Name
+
+
+---
+
+If you want, I can also give you a Slack version of this message in a shorter, more conversational style for the user group. Do you want me to create that?
+
+
+
+
+
+---
+
+If you want, I can also draft a short Slack version for quick team updates. Would you like me to prepare that?
 
