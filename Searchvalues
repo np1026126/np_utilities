@@ -1,36 +1,46 @@
-Here’s how you can frame the reply professionally so that it clearly explains the context, aligns with previous discussions, and addresses why the regenerated sheet should be used instead of the older FUSE-based data:
+Here’s a professional way you can present the calculation work updates to the team so it’s clear and concise:
 
 
 ---
 
-Suggested Reply:
+Calculation Work - Interim Status Update
 
-Hi Steve,
+Here’s the current status of the pending tasks across the team:
 
-Just to clarify, the reason we moved away from the original FUSE-based HVAC data is because, during the WinSAR updates, it was confirmed that the data from FUSE was inaccurate and incomplete for HVAC zones.
+1. MR Deployment:
 
-Based on Peter’s direction and inputs from Lee and other stakeholders, we were explicitly asked not to use the old FUSE data. Instead, we were required to:
+Sameer has raised the MR.
 
-Regenerate the HVAC sheets with the latest location names.
+Build and deployment are pending.
 
-Update the cooling zones and sensible capacity (TONS) in the regenerated sheets for both SAP and TAP sites.
-
-
-As per our review:
-
-For SAP sites: Most of the HVAC data in the regenerated sheets has been updated by users.
-
-For TAP sites: Only 18 out of 88 sites were updated (by Lee), while the rest are still pending updates from site owners.
+We need to validate functionality after deployment.
 
 
-This expectation was clearly communicated earlier — the regenerated sheets were meant to be the single source of truth for HVAC migration data, ensuring that cooling zones and capacities are accurate before proceeding.
+2. Mira's Work (Part of Manasa's Tasks):
 
-So, the current verification should be only on the regenerated sheets; the older FUSE-based sheets were never meant to be used for final validation.
+Assigned items from Manasa's scope are still in progress.
+
+Current completion: 60%
+
+
+3. Subiksha's Work (Display Values):
+
+Displaying values for RPP-related calculations is ongoing.
+
+Pending tasks include rendering calculated data on the front-end.
+
+
+4. Big Sur's Work (Saving Values):
+
+Saving calculated values in the DB and displaying them on the front-end for RPPDU components is still in progress.
+
+Current completion: 60%
+
 
 
 ---
 
-If you want, I can also draft a short Slack version for you so it doesn’t feel like a long email.
+If you want, I can also prepare a Slack update message version with a simple, easy-to-read style so you can post it directly.
 
-Do you want me to prepare that too?
+Do you want me to give you that Slack version now?
 
