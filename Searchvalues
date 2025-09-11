@@ -1,40 +1,107 @@
-Got it. You need a formula in Excel that combines the 8-digit short name (Column A) with either:
-
-New Room Name (Column I) when it’s present
-
-Room Name (Column G) only when Column I is empty
+Here’s a detailed summary mail you can use for the entire team and users to capture everything discussed in today’s migration fallout call, including pending action items:
 
 
-Here’s the formula you can use:
+---
 
-=IF(I2<>"", A2 & " > " & I2, A2 & " > " & G2)
+Subject: Summary of Migration Fallout Call – [Date]
 
-Explanation:
+Dear Team,
 
-1. IF(I2<>"", ...) → Checks if Column I (New Room Name) is not empty.
-
-
-2. A2 & " > " & I2 → If New Room Name exists, use it with Column A.
+This is to summarize the key points discussed in today’s call regarding the migration fallouts across UPS, HVAC, AC assets, and Rocklin site data corrections. Please find the details and action items below.
 
 
-3. A2 & " > " & G2 → If New Room Name is empty, fallback to Room Name (Column G).
+---
+
+1. UPS Asset Fallouts
+
+Category 1: Missing room names for some assets – Users need to provide correct room names.
+
+Category 2: Room names provided not matching with source sheet names – Users must align with source sheet.
+
+Category 3: Incorrect room names vs. source names leading to mapping issues – Needs correction from users.
+
+
+Action: Users to update correct room names for all affected UPS assets.
+
+
+---
+
+2. HVAC Assets
+
+TAP Sites:
+
+Users requested to refer to migrated original sheets (not regenerated sheets) as the original sheets have correct updated values for TAP sites.
+
+
+SAP Sites:
+
+Fallouts identified due to discrepancies between golden source sheet names and ELS location names (e.g., UPS/Battery vs. UPS Battery).
+
+These need correction in ELS for consistency.
 
 
 
-Steps:
+Action:
 
-1. Put this formula in the new column where you want the combined value.
+IT Team to correct naming mismatches in ELS.
 
-
-2. Drag it down to apply for all rows.
-
-
-3. This ensures the correct room name is picked automatically.
-
+Users to update sensible capacity in regenerated sheets where missing.
 
 
 
 ---
 
-If you want, I can also give you a Google Sheets version that works the same way. Do you want me to give you that formula too?
+3. AC Assets for Missing Sites
+
+Six Sites Impacted: 3 TAP + 3 SAP sites missing AC assets.
+
+Users confirmed they will provide UPS, PDU, RPP, and related AC asset data for these six sites.
+
+
+Action: Users to share the missing AC asset data for all six sites.
+
+
+---
+
+4. Rocklin Site Data
+
+Previous data provided for Rocklin site found incorrect.
+
+We have regenerated Rocklin site data for all 22 assets and shared with users.
+
+Users will validate, correct, and return for final import.
+
+
+Action: Users to share corrected Rocklin site data post-validation.
+
+
+---
+
+5. Pending Items Recap
+
+Correct room names for UPS fallouts.
+
+Align SAP site names with golden source sheet.
+
+Provide missing AC assets for six sites.
+
+Update sensible capacity for HVAC zones.
+
+Validate and return regenerated Rocklin site data.
+
+
+
+---
+
+Please review and update the required information at the earliest so we can proceed with the migration activities without further delay.
+
+Regards,
+[Your Name]
+[Your Project/Team Name]
+
+
+---
+
+If you want, I can also prepare a one-slide visual summary of this mail for Slack or your next team call. Would you like me to do that?
+
 
