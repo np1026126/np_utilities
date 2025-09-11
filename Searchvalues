@@ -1,46 +1,36 @@
-Here’s a professional way you can present the calculation work updates to the team so it’s clear and concise:
+Here’s a clear prompt you can use in Copilot or Gemini to compare the two CSV files (ht-bdfb.csv and ht-bdfb-dctrack.csv) and find the missing records:
 
 
 ---
 
-Calculation Work - Interim Status Update
+Prompt for Copilot / Gemini
 
-Here’s the current status of the pending tasks across the team:
+I have two CSV files:
 
-1. MR Deployment:
-
-Sameer has raised the MR.
-
-Build and deployment are pending.
-
-We need to validate functionality after deployment.
+1. ht-bdfb.csv → Original file with 2176 records.
 
 
-2. Mira's Work (Part of Manasa's Tasks):
-
-Assigned items from Manasa's scope are still in progress.
-
-Current completion: 60%
+2. ht-bdfb-dctrack.csv → Exported file from DCTrack with 1660 records.
 
 
-3. Subiksha's Work (Display Values):
 
-Displaying values for RPP-related calculations is ongoing.
+I need to:
 
-Pending tasks include rendering calculated data on the front-end.
+Compare both files by location name.
+
+Identify records present in ht-bdfb.csv but missing in ht-bdfb-dctrack.csv.
+
+Note: Some location names in ht-bdfb.csv were modified before import, so they might differ slightly in ht-bdfb-dctrack.csv. If an exact match is not found, still treat it as missing.
+
+Generate a list of missing records in a new CSV with all original columns from ht-bdfb.csv.
 
 
-4. Big Sur's Work (Saving Values):
-
-Saving calculated values in the DB and displaying them on the front-end for RPPDU components is still in progress.
-
-Current completion: 60%
-
+Please write Python or SQL logic (or directly process if supported) to find missing records and export them as ht-bdfb-missing.csv.
 
 
 ---
 
-If you want, I can also prepare a Slack update message version with a simple, easy-to-read style so you can post it directly.
+If you want, I can also directly give you a Python script that will do this comparison locally and create the missing records file for you.
 
-Do you want me to give you that Slack version now?
+Do you want me to give you the ready Python code for it?
 
