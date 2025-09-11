@@ -1,36 +1,53 @@
-Here’s a clear prompt you can use in Copilot or Gemini to compare the two CSV files (ht-bdfb.csv and ht-bdfb-dctrack.csv) and find the missing records:
+Here’s how you can frame the email to Suresh clearly and professionally:
 
 
 ---
 
-Prompt for Copilot / Gemini
+Subject: Migration of Cabinets, WIPs, and Breaker Mapping for Budget Load Update
 
-I have two CSV files:
+Hi Suresh,
 
-1. ht-bdfb.csv → Original file with 2176 records.
+As we proceed with the budget load update at the cabinet level for the soft launch, I wanted to confirm the dependencies for cabinet and WIP migration.
 
+Key Points:
 
-2. ht-bdfb-dctrack.csv → Exported file from DCTrack with 1660 records.
+1. Cabinet Migration:
 
-
-
-I need to:
-
-Compare both files by location name.
-
-Identify records present in ht-bdfb.csv but missing in ht-bdfb-dctrack.csv.
-
-Note: Some location names in ht-bdfb.csv were modified before import, so they might differ slightly in ht-bdfb-dctrack.csv. If an exact match is not found, still treat it as missing.
-
-Generate a list of missing records in a new CSV with all original columns from ht-bdfb.csv.
+We are migrating the cabinets into DC Track so that anticipated load, current load, and reserve load can be maintained directly at the cabinet level.
 
 
-Please write Python or SQL logic (or directly process if supported) to find missing records and export them as ht-bdfb-missing.csv.
+
+2. WIP Migration & Mapping:
+
+When breaker assignment type is set as Cabinet, DC Track expects WIP connector details (position and location).
+
+This means that along with cabinet migration, WIPs also need to be migrated and correctly mapped to both cabinets and breakers.
+
+
+
+3. Requirement for Budget Load Update:
+
+For the budget load data update to work seamlessly at the cabinet level, we need:
+
+Cabinets migrated into DC Track.
+
+WIPs migrated and linked with the cabinets.
+
+Breakers correctly assigned to cabinets via WIP connectors.
+
+
+
+
+
+Request:
+
+Could you confirm if the migration of WIPs along with cabinets and the assignment of breakers to cabinets via WIP will be handled as part of the upcoming migration activities? This is essential for completing the budget load update at the cabinet level before the soft launch.
+
+Thanks,
+[Your Name]
 
 
 ---
 
-If you want, I can also directly give you a Python script that will do this comparison locally and create the missing records file for you.
-
-Do you want me to give you the ready Python code for it?
+If you want, I can also prepare a Slack version of this so you can quickly update Suresh informally. Do you want me to prepare that as well?
 
