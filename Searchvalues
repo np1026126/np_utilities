@@ -1,4 +1,4 @@
-Here’s a detailed summary mail you can use for the entire team and users to capture everything discussed in today’s migration fallout call, including pending action items:
+Here’s the updated summary mail with the BDFB points included as requested:
 
 
 ---
@@ -7,7 +7,7 @@ Subject: Summary of Migration Fallout Call – [Date]
 
 Dear Team,
 
-This is to summarize the key points discussed in today’s call regarding the migration fallouts across UPS, HVAC, AC assets, and Rocklin site data corrections. Please find the details and action items below.
+This is to summarize the key points discussed in today’s call regarding the migration fallouts across UPS, HVAC, AC assets, Rocklin site data, and BDFB assets. Please find the details and action items below.
 
 
 ---
@@ -77,9 +77,26 @@ Action: Users to share corrected Rocklin site data post-validation.
 
 ---
 
-5. Pending Items Recap
+5. BDFB Asset Fallouts
 
-Correct room names for UPS fallouts.
+BDFB Assets: 86 assets identified where room names were missing entirely.
+
+RPP and PDU Assets: Room names provided were not mapping correctly with the golden source system.
+
+
+Action:
+
+Users to provide correct room names for BDFB assets.
+
+Users to align RPP and PDU room names with the golden source system for import readiness.
+
+
+
+---
+
+6. Pending Items Recap
+
+Correct room names for UPS, RPP, PDU, and BDFB fallouts.
 
 Align SAP site names with golden source sheet.
 
@@ -102,6 +119,5 @@ Regards,
 
 ---
 
-If you want, I can also prepare a one-slide visual summary of this mail for Slack or your next team call. Would you like me to do that?
-
+If you want, I can also make this into a simple one-page tracker format so your manager and users can quickly see what is pending with whom. Do you want me to prepare that?
 
