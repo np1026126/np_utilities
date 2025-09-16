@@ -1,34 +1,64 @@
-Here’s a polished version of what you can post or mail to users to ask smoothly for their inputs while also confirming the IT follow-up timeline:
+Got it. If you want Google Gemini to take your uploaded follow-up sheet and automatically generate a cleaned-up version with legends, clear issue categories, and a well-formatted summary for each location, you can give Gemini a structured prompt like this:
 
 
 ---
 
-Subject: Request for Timeline on User Follow-ups & IT Follow-up Status
+Prompt for Google Gemini
 
-Body:
+You are given a follow-up sheet containing migration issues for RPP, RPP Panels, and associated locations.  
+I want you to analyze the sheet and produce a **consolidated summary** with the following requirements:
 
-Hi All,
+1. **Categorize Issues into Clear Legends**:
+   - RPP Name Missing  
+   - RPP Panel Name Missing  
+   - Location Name Incorrect / Not Found  
+   - Name Mismatch Between IFP DB and User Template  
+   - Any Other Data Issues  
 
-As part of the migration activities, we have categorized the follow-ups into two sections: IT follow-ups and user-side follow-ups.
+2. **For Each Location**:
+   - City / Location Name  
+   - RPP Name (from IFP DB)  
+   - RPP Panel Name (from IFP DB)  
+   - RPP Name (from User Template)  
+   - RPP Panel Name (from User Template)  
+   - Exact Issue Category (from the above legends)  
+   - Suggested Action for Users  
 
-The IT follow-ups are already in progress, and we are targeting to complete them by Wednesday.
+3. **Output Requirements**:
+   - Create a **new cleaned-up sheet** with one row per location and issue type.  
+   - Include a **Legends Section at the top** explaining each issue category clearly.  
+   - Ensure the sheet is easy to read with clear column headers.  
 
-For the user follow-ups, we have already shared the list of pending inputs required from your side.
+4. **Corrections**:
+   - If possible, automatically fix simple mismatches like hyphen vs underscore.  
+   - Highlight rows needing manual user input in a separate "Pending Action" column.  
 
+5. **Final Output**:
+   - A single summarized sheet with:  
+       - Legends at the top  
+       - Categorized issues  
+       - Suggested actions  
 
-It would be great if you could let us know the tentative timeline for providing these inputs so that we can plan to take them up in parallel with the IT follow-ups. This will help us ensure everything is ready for the final migration together.
-
-Please confirm the expected timelines for the user follow-ups so we can align accordingly.
-
-Thanks for your support and coordination!
-
-Regards,
-[Your Name]
+Please generate this summary in a professional format so it can be shared directly with users.
 
 
 ---
 
-If you want, I can also give you a Slack-friendly short version so you can post it quickly in the user group instead of sending a formal mail.
+What This Will Do
 
-Do you want me to prepare that?
+Gemini will read your original sheet.
+
+It will categorize all issues into a standard legend.
+
+It will fix simple naming mismatches automatically (like hyphen vs underscore).
+
+It will generate a clean sheet with clear issue descriptions and actions for users.
+
+
+
+---
+
+If you want, I can also give you a sample legend structure and final column headers so the output from Gemini looks perfectly standardized.
+
+Do you want me to prepare that sample legend and column structure? It will save you time.
 
