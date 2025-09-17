@@ -1,40 +1,85 @@
-Got it. If you want Google Gemini to take your uploaded follow-up sheet and automatically generate a cleaned-up version with legends, clear issue categories, and a well-formatted summary for each location, you can give Gemini a structured prompt like this:
+Here’s a professional way you can draft the migration update email including today’s status, the NEC breaker fallout details, and the support needed from Andrew:
 
 
 ---
 
-Prompt for Google Gemini
+Subject: Migration Status Update – NEC Breaker Fallouts & Next Steps
 
-You are given a follow-up sheet containing migration issues for RPP, RPP Panels, and associated locations.  
-I want you to analyze the sheet and produce a **consolidated summary** with the following requirements:
+Body:
 
-1. **Categorize Issues into Clear Legends**:
-   - RPP Name Missing  
-   - RPP Panel Name Missing  
-   - Location Name Incorrect / Not Found  
-   - Name Mismatch Between IFP DB and User Template  
-   - Any Other Data Issues  
+Hello Team,
 
-2. **For Each Location**:
-   - City / Location Name  
-   - RPP Name (from IFP DB)  
-   - RPP Panel Name (from IFP DB)  
-   - RPP Name (from User Template)  
-   - RPP Panel Name (from User Template)  
-   - Exact Issue Category (from the above legends)  
-   - Suggested Action for Users  
+As part of today’s migration updates, here is the consolidated status and the next steps:
 
-3. **Output Requirements**:
-   - Create a **new cleaned-up sheet** with one row per location and issue type.  
-   - Include a **Legends Section at the top** explaining each issue category clearly.  
-   - Ensure the sheet is easy to read with clear column headers.  
 
-4. **Corrections**:
-   - If possible, automatically fix simple mismatches like hyphen vs underscore.  
-   - Highlight rows needing manual user input in a separate "Pending Action" column.  
+---
 
-5. **Final Output**:
-   - A single summarized sheet with:  
+1. Completed Activities
+
+Several pending items from the previous migration cycle have been completed successfully.
+
+For the NEC sites, we have imported data for RPP, PDU, UPS, UPS Bank, and associated panels as provided by the users.
+
+
+
+---
+
+2. NEC Breaker Fallout Details
+
+While importing breaker information (fetched directly from IFP DB), we observed mismatches between the breaker data and the user-provided RPP & RPP panel names.
+
+We have attached a fallout sheet listing:
+
+Locations where RPP/RPP panel names were not found
+
+Cases where panel names didn’t match with IFP DB data
+
+Sites where RPP details were missing for breakers
+
+
+Some name mismatches (like underscore vs hyphen) have been fixed, but several records still require user input for accurate mapping.
+
+
+
+---
+
+3. Support Needed from Andrew
+
+We need Andrew’s help with:
+
+Verifying the RPP & RPP panel names for breaker mapping.
+
+Providing missing data for locations where panel names are not present.
+
+Confirming the correct mapping for records flagged in the fallout sheet.
+
+
+
+---
+
+4. Next Steps
+
+Once Andrew provides the corrected data, we will proceed with breaker migration for NEC sites.
+
+We are on track to complete IT follow-ups by Wednesday, provided we receive user inputs on time.
+
+
+
+---
+
+Please review the attached fallout sheet for the exact details and let us know when we can expect the corrected inputs.
+
+Thank you,
+[Your Name]
+
+
+---
+
+If you want, I can also create a Slack update version for quick posting in the migration channel with a shorter format.
+
+Do you want me to prepare that Slack message as well? It will be easier for the team to track.
+
+- A single summarized sheet with:  
        - Legends at the top  
        - Categorized issues  
        - Suggested actions  
