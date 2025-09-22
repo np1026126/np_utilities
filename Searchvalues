@@ -1,3 +1,101 @@
+Here’s a professional way you can communicate the issues you just mentioned so that the team clearly understands the problem and the next steps. I’ve structured it so it can go either into an email or Slack update:
+
+
+---
+
+Subject: Critical Issues Identified – RPP Panel, HVAC, Generator, and Mirror Side Updates
+
+Body:
+
+Hello Team,
+
+During our validation and testing, we identified the following critical issues that need attention:
+
+
+---
+
+1. RPP Panel – Anticipated Load Screen Not Displayed
+
+The RPP panel name is not being passed correctly.
+
+As a result, the anticipated load screen is not loading as expected.
+
+Root cause: Some fields are either not saved properly or values are not passed correctly to the backend.
+
+Additionally, when the page reloads, the data seems to be loading from cache instead of the actual saved values, causing inconsistencies.
+
+
+
+---
+
+2. HVAC and Generator Calculations
+
+The calculations for HVAC and Generator loads are not working correctly.
+
+The displayed load values are not in sync with the actual data sources.
+
+This requires backend logic verification and data refresh fixes.
+
+
+
+---
+
+3. Mirror Side – Total Load Update Issue
+
+On the mirror side, when updating load values,
+
+Individual parameters are getting updated.
+
+Total load value is not getting updated properly.
+
+
+This leads to incorrect totals when users view the mirror configuration.
+
+
+
+---
+
+Next Steps
+
+Backend team: Investigate data passing, saving logic, and ensure cache is bypassed when loading fresh data.
+
+Calculation module owners: Validate HVAC and Generator formulas and verify correctness.
+
+Mirror update team: Fix the total load update issue and ensure totals are calculated dynamically on every update.
+
+
+
+---
+
+Expectation
+
+Requesting owners to review the above issues and provide ETAs for fixes.
+
+Once fixes are in place, we can plan a re-deployment for validation.
+
+
+Thank you,
+[Your Name]
+
+
+---
+
+If you want, I can also prepare a consolidated issue tracker format so that for each issue, we can mention:
+
+Module (RPP Panel, HVAC, Generator, Mirror Side)
+
+Issue Description
+
+Root Cause
+
+Assigned Owner
+
+ETA
+
+
+Do you want me to prepare that tracker format for you? It will make communication with developers and users much easier.
+
+
 Here’s a professional way you can draft the migration update email including today’s status, the NEC breaker fallout details, and the support needed from Andrew:
 
 
@@ -79,31 +177,8 @@ If you want, I can also create a Slack update version for quick posting in the m
 
 Do you want me to prepare that Slack message as well? It will be easier for the team to track.
 
-- A single summarized sheet with:  
-       - Legends at the top  
-       - Categorized issues  
-       - Suggested actions  
-
-Please generate this summary in a professional format so it can be shared directly with users.
-
-
----
-
-What This Will Do
-
-Gemini will read your original sheet.
-
-It will categorize all issues into a standard legend.
-
-It will fix simple naming mismatches automatically (like hyphen vs underscore).
-
-It will generate a clean sheet with clear issue descriptions and actions for users.
 
 
 
----
 
-If you want, I can also give you a sample legend structure and final column headers so the output from Gemini looks perfectly standardized.
-
-Do you want me to prepare that sample legend and column structure? It will save you time.
 
