@@ -1,184 +1,81 @@
-Here’s a professional way you can communicate the issues you just mentioned so that the team clearly understands the problem and the next steps. I’ve structured it so it can go either into an email or Slack update:
+Here’s the updated migration update content including the new point about PLE and version 6.2 deployment checks:
 
 
 ---
 
-Subject: Critical Issues Identified – RPP Panel, HVAC, Generator, and Mirror Side Updates
+Migration Update – Key Issues Identified
 
-Body:
+1. Data Saving & Field Passing Issues
 
-Hello Team,
+RPP Panel Names: Missing RPP panel names are preventing the anticipated load screen from displaying correctly.
 
-During our validation and testing, we identified the following critical issues that need attention:
+Field Mapping & Saving: Some fields are not being saved properly during updates; values are not persisting after page reloads because they seem to be cached instead of retrieved fresh.
 
-
----
-
-1. RPP Panel – Anticipated Load Screen Not Displayed
-
-The RPP panel name is not being passed correctly.
-
-As a result, the anticipated load screen is not loading as expected.
-
-Root cause: Some fields are either not saved properly or values are not passed correctly to the backend.
-
-Additionally, when the page reloads, the data seems to be loading from cache instead of the actual saved values, causing inconsistencies.
+Mirror Side Updates: In mirror scenarios, total load updates are partially failing—mirror values need to reflect both primary and redundant paths accurately.
 
 
 
 ---
 
-2. HVAC and Generator Calculations
+2. Calculation Discrepancies
 
-The calculations for HVAC and Generator loads are not working correctly.
+HVAC & Generator Calculations: Inaccurate values are appearing for both HVAC and generator anticipated loads, requiring correction in the backend calculation logic.
 
-The displayed load values are not in sync with the actual data sources.
-
-This requires backend logic verification and data refresh fixes.
+Dual Power Sources (AC & DC): When both AC and DC power exist for a single location, DC plant anticipated loads are not loading correctly, causing incomplete calculations.
 
 
 
 ---
 
-3. Mirror Side – Total Load Update Issue
+3. Work Summary Display Issues
 
-On the mirror side, when updating load values,
+Incorrect Sections on Plant Selection: When selecting a DC plant, the work summary still displays UPS, PDU, and RPP sections instead of focusing on rectifiers, batteries, and plant-specific loads.
 
-Individual parameters are getting updated.
-
-Total load value is not getting updated properly.
-
-
-This leads to incorrect totals when users view the mirror configuration.
+Anticipated Load Gaps: For DC plant selections, anticipated loads for plants are missing entirely, affecting load forecasting.
 
 
 
 ---
 
-Next Steps
+4. Deployment & Version Control
 
-Backend team: Investigate data passing, saving logic, and ensure cache is bypassed when loading fresh data.
-
-Calculation module owners: Validate HVAC and Generator formulas and verify correctness.
-
-Mirror update team: Fix the total load update issue and ensure totals are calculated dynamically on every update.
+PLE Push Gaps: Some MRs and code changes are not being pushed properly into version 6.2 during the PLE deployment. The team needs to ensure all relevant changes are included in the 6.2 release before proceeding further.
 
 
 
 ---
 
-Expectation
+Proposed Next Steps
 
-Requesting owners to review the above issues and provide ETAs for fixes.
-
-Once fixes are in place, we can plan a re-deployment for validation.
+1. Fix Field Mapping & Mirroring: Ensure proper field persistence and synchronize mirror updates for total load calculations.
 
 
-Thank you,
-[Your Name]
+2. Refactor Calculation Logic: Update HVAC, generator, and DC plant logic to handle dual power sources correctly.
 
 
----
-
-If you want, I can also prepare a consolidated issue tracker format so that for each issue, we can mention:
-
-Module (RPP Panel, HVAC, Generator, Mirror Side)
-
-Issue Description
-
-Root Cause
-
-Assigned Owner
-
-ETA
+3. UI Adjustments: Modify work summary components to dynamically render sections based on AC/DC context.
 
 
-Do you want me to prepare that tracker format for you? It will make communication with developers and users much easier.
+4. Version Check: Verify all pending MRs are merged into 6.2 before final PLE rollout.
 
 
-Here’s a professional way you can draft the migration update email including today’s status, the NEC breaker fallout details, and the support needed from Andrew:
+5. Validation & Testing: Perform site-level validations post-fix to ensure data integrity across all modules.
 
-
----
-
-Subject: Migration Status Update – NEC Breaker Fallouts & Next Steps
-
-Body:
-
-Hello Team,
-
-As part of today’s migration updates, here is the consolidated status and the next steps:
-
-
----
-
-1. Completed Activities
-
-Several pending items from the previous migration cycle have been completed successfully.
-
-For the NEC sites, we have imported data for RPP, PDU, UPS, UPS Bank, and associated panels as provided by the users.
 
 
 
 ---
 
-2. NEC Breaker Fallout Details
+If you want, I can prepare a visual flow diagram to show:
 
-While importing breaker information (fetched directly from IFP DB), we observed mismatches between the breaker data and the user-provided RPP & RPP panel names.
+Where issues originate
 
-We have attached a fallout sheet listing:
+Which systems are affected (DC Track, UI, calculations, deployments)
 
-Locations where RPP/RPP panel names were not found
-
-Cases where panel names didn’t match with IFP DB data
-
-Sites where RPP details were missing for breakers
+The dependencies for fixes
 
 
-Some name mismatches (like underscore vs hyphen) have been fixed, but several records still require user input for accurate mapping.
+This will make it easier for both IT and business users to understand the scope quickly.
 
-
-
----
-
-3. Support Needed from Andrew
-
-We need Andrew’s help with:
-
-Verifying the RPP & RPP panel names for breaker mapping.
-
-Providing missing data for locations where panel names are not present.
-
-Confirming the correct mapping for records flagged in the fallout sheet.
-
-
-
----
-
-4. Next Steps
-
-Once Andrew provides the corrected data, we will proceed with breaker migration for NEC sites.
-
-We are on track to complete IT follow-ups by Wednesday, provided we receive user inputs on time.
-
-
-
----
-
-Please review the attached fallout sheet for the exact details and let us know when we can expect the corrected inputs.
-
-Thank you,
-[Your Name]
-
-
----
-
-If you want, I can also create a Slack update version for quick posting in the migration channel with a shorter format.
-
-Do you want me to prepare that Slack message as well? It will be easier for the team to track.
-
-
-
-
-
+Do you want me to create that diagram? It will be in a simple format you can directly use in your migration report.
 
