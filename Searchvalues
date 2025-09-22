@@ -1,81 +1,75 @@
-Here’s the updated migration update content including the new point about PLE and version 6.2 deployment checks:
+Here's a professional escalation mail draft for your manager. It keeps the tone neutral and constructive while clearly explaining the concerns:
 
 
 ---
 
-Migration Update – Key Issues Identified
+Subject: Escalation Regarding Task Progress on Anticipated Load Calculator & HVAC Integration
 
-1. Data Saving & Field Passing Issues
+Dear [Manager's Name],
 
-RPP Panel Names: Missing RPP panel names are preventing the anticipated load screen from displaying correctly.
+I would like to bring to your attention some challenges we are facing with the tasks assigned to [Colleague's Name] so that we can plan the next steps effectively.
 
-Field Mapping & Saving: Some fields are not being saved properly during updates; values are not persisting after page reloads because they seem to be cached instead of retrieved fresh.
+Tasks Assigned
 
-Mirror Side Updates: In mirror scenarios, total load updates are partially failing—mirror values need to reflect both primary and redundant paths accurately.
+1. Anticipated Load Calculator Screens (AC flow – RPP, RPP panel-based) and its equivalent on the UNO screen.
 
+
+2. Updating New Heat Load Instance from HVAC:
+
+On Submit, the HVAC data for wireless locations needs to be updated to the Cyrus DB and pushed back to DC Track (similar to the existing "Zone Netted" flow).
+
+
+
+
+Challenges Faced
+
+Technical Understanding Gaps:
+
+For the anticipated load calculator, instead of differentiating the AC flow logic (RPP, RPP Panel, Location) from the DC plant logic, the same DC approach was reused, causing repeated failures.
+
+Even after we helped correct the query logic, the same challenges persisted when implementing it on the UNO screen.
+
+She was unsure how to integrate two services from the frontend to backend and required repeated hand-holding on API flow.
+
+
+Dependency on Others:
+
+Frequently required help to identify the files she modified and could not explain the changes or logic clearly.
+
+Code was generated using Copilot, but she was unable to explain why certain functions (e.g., generic filters) were used.
+
+
+Impact on Timelines:
+
+Both tasks remained open for longer durations since the technical and application-level understanding was lacking, increasing dependencies on other team members to complete the work.
+
+
+
+Current Status
+
+Task #2 (HVAC integration) has already been reassigned due to lack of progress.
+
+Task #1 (Anticipated Load Calculator) was partially completed after significant support but is pending full integration on the UNO screen.
+
+
+Recommendation
+
+Given the current situation, I recommend:
+
+Reassigning the remaining work to ensure timelines are met.
+
+Providing additional technical mentoring or training to [Colleague's Name] for future tasks so that such delays can be avoided.
+
+
+Please let me know how you would like to proceed.
+
+Regards,
+[Your Name]
 
 
 ---
 
-2. Calculation Discrepancies
+If you want, I can also prepare a short Slack version for quick escalation instead of a formal mail.
 
-HVAC & Generator Calculations: Inaccurate values are appearing for both HVAC and generator anticipated loads, requiring correction in the backend calculation logic.
-
-Dual Power Sources (AC & DC): When both AC and DC power exist for a single location, DC plant anticipated loads are not loading correctly, causing incomplete calculations.
-
-
-
----
-
-3. Work Summary Display Issues
-
-Incorrect Sections on Plant Selection: When selecting a DC plant, the work summary still displays UPS, PDU, and RPP sections instead of focusing on rectifiers, batteries, and plant-specific loads.
-
-Anticipated Load Gaps: For DC plant selections, anticipated loads for plants are missing entirely, affecting load forecasting.
-
-
-
----
-
-4. Deployment & Version Control
-
-PLE Push Gaps: Some MRs and code changes are not being pushed properly into version 6.2 during the PLE deployment. The team needs to ensure all relevant changes are included in the 6.2 release before proceeding further.
-
-
-
----
-
-Proposed Next Steps
-
-1. Fix Field Mapping & Mirroring: Ensure proper field persistence and synchronize mirror updates for total load calculations.
-
-
-2. Refactor Calculation Logic: Update HVAC, generator, and DC plant logic to handle dual power sources correctly.
-
-
-3. UI Adjustments: Modify work summary components to dynamically render sections based on AC/DC context.
-
-
-4. Version Check: Verify all pending MRs are merged into 6.2 before final PLE rollout.
-
-
-5. Validation & Testing: Perform site-level validations post-fix to ensure data integrity across all modules.
-
-
-
-
----
-
-If you want, I can prepare a visual flow diagram to show:
-
-Where issues originate
-
-Which systems are affected (DC Track, UI, calculations, deployments)
-
-The dependencies for fixes
-
-
-This will make it easier for both IT and business users to understand the scope quickly.
-
-Do you want me to create that diagram? It will be in a simple format you can directly use in your migration report.
+Do you want me to create that version too?
 
