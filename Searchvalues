@@ -1,20 +1,62 @@
-Here’s a professional way to draft the Slack message based on your situation:
+Got it — you want to guide GitHub Copilot properly so that it can write the right code for your addMirrorUpdateToBulkRequest method.
+
+Copilot works best when you give it very clear, context-rich instructions in the form of comments or prompts in your code. Since you already have the method and want to add a new field (totalSpaceLoads in kilowatts from inputDTO) for RPP, RPP panels, PDU, and UPS bank, here’s how you can phrase it so Copilot writes the right code for you:
 
 
 ---
 
-Hi Team,
+1. Go inside your addMirrorUpdateToBulkRequest method
 
-As per my manager’s request, I have provided access to UAT and PROD environments for the 11 users since I had the necessary privileges.
+Add a comment just above where you want the code generated. For example:
 
-However, for PLE, we did not have admin privileges to grant access ourselves. We raised a CANVAS ticket, but it was not addressed. We requested admin privileges so we could manage it internally, but the request kept getting routed to multiple people, including Areeb, Areeb Babu, and Vinod, with no resolution.
+// TODO: Get total load values in kilowatts from inputDTO.totalLoad
+// Add this as "totalSpaceLoads" field when updating DC Track for RPP, RPP Panels, PDU, and UPS bank
+// Use the same bulk request structure as existing fields for consistency
 
-Eventually, Munindra helped escalate the issue, involving Rakshit (even Calvin tried reaching him), and Rakshit confirmed that he has the necessary access to complete it. The team has also confirmed they cannot provide admin privileges to us.
+Then hit Enter and start typing something like:
 
-As of now, Rakshit is working on the ticket, and once it is resolved, the users will have the required PLE access.
+// Copilot: please add code here
+
+and pause. Copilot will generate a suggestion.
 
 
 ---
 
-If you want, I can make it even more concise for a quick Slack update. Would you like me to do that?
+2. Example of what you can tell Copilot in plain English
+
+In the comment or as a direct prompt, you can say:
+
+> "Inside addMirrorUpdateToBulkRequest, add logic to fetch totalLoad from inputDTO and store it as totalSpaceLoads in kilowatts in the bulk update request for RPP, RPP panels, PDU, and UPS bank. Follow the same pattern as existing fields in the bulk request body."
+
+
+
+
+---
+
+3. Why this works
+
+Copilot scans the whole file and your comment tells it what to do.
+
+By referencing inputDTO.totalLoad, Copilot knows which variable to read from.
+
+Mentioning RPP, RPP panels, PDU, and UPS bank helps it replicate the logic for all entities.
+
+
+
+---
+
+4. Extra tip
+
+If the bulk request update code is similar for all components, you can also ask:
+
+// Refactor the logic so the code for RPP, RPP panels, PDU, and UPS bank reuses the same function
+
+Copilot can suggest common helper methods if it detects repetitive code.
+
+
+---
+
+If you want, I can give you the exact Copilot-ready comment for your method so it automatically generates the correct code for totalSpaceLoads.
+
+Do you want me to write that comment for you?
 
