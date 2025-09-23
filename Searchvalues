@@ -1,13 +1,20 @@
-Here’s a more professional version for your Slack update:
+Here’s a professional way to draft the Slack message based on your situation:
 
 
 ---
 
-Migration Update – PNC Inventory Assets
-All IT follow-ups for the migration have been completed, with the exception of RPP panel breakers and band circuits. The team is actively addressing these remaining items and is on track to have them resolved by end of day today.
+Hi Team,
+
+As per my manager’s request, I have provided access to UAT and PROD environments for the 11 users since I had the necessary privileges.
+
+However, for PLE, we did not have admin privileges to grant access ourselves. We raised a CANVAS ticket, but it was not addressed. We requested admin privileges so we could manage it internally, but the request kept getting routed to multiple people, including Areeb, Areeb Babu, and Vinod, with no resolution.
+
+Eventually, Munindra helped escalate the issue, involving Rakshit (even Calvin tried reaching him), and Rakshit confirmed that he has the necessary access to complete it. The team has also confirmed they cannot provide admin privileges to us.
+
+As of now, Rakshit is working on the ticket, and once it is resolved, the users will have the required PLE access.
 
 
 ---
 
-If you want, I can also give you a slightly more detailed version highlighting overall progress and next steps. Would you like me to prepare that too?
+If you want, I can make it even more concise for a quick Slack update. Would you like me to do that?
 
