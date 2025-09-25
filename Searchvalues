@@ -1,62 +1,132 @@
-Got it — you want to guide GitHub Copilot properly so that it can write the right code for your addMirrorUpdateToBulkRequest method.
-
-Copilot works best when you give it very clear, context-rich instructions in the form of comments or prompts in your code. Since you already have the method and want to add a new field (totalSpaceLoads in kilowatts from inputDTO) for RPP, RPP panels, PDU, and UPS bank, here’s how you can phrase it so Copilot writes the right code for you:
+Got it—you want a step-by-step flow that you can copy into your testing document along with screenshots, so it reads like a proper test evidence process. Here's a detailed structured flow you can use:
 
 
 ---
 
-1. Go inside your addMirrorUpdateToBulkRequest method
+AC Calculation and RPP Utilization – Test Steps
 
-Add a comment just above where you want the code generated. For example:
+Step 1: Open the UNO PSE Assignment Screen
 
-// TODO: Get total load values in kilowatts from inputDTO.totalLoad
-// Add this as "totalSpaceLoads" field when updating DC Track for RPP, RPP Panels, PDU, and UPS bank
-// Use the same bulk request structure as existing fields for consistency
+Navigate to the UNO PSE Assignment screen from the application menu.
 
-Then hit Enter and start typing something like:
-
-// Copilot: please add code here
-
-and pause. Copilot will generate a suggestion.
-
-
----
-
-2. Example of what you can tell Copilot in plain English
-
-In the comment or as a direct prompt, you can say:
-
-> "Inside addMirrorUpdateToBulkRequest, add logic to fetch totalLoad from inputDTO and store it as totalSpaceLoads in kilowatts in the bulk update request for RPP, RPP panels, PDU, and UPS bank. Follow the same pattern as existing fields in the bulk request body."
-
+Ensure that you are in the correct location/site context before proceeding.
 
 
 
 ---
 
-3. Why this works
+Step 2: Select Power Input Type as AC
 
-Copilot scans the whole file and your comment tells it what to do.
+In the Power Info section, locate the Plant Type drop-down.
 
-By referencing inputDTO.totalLoad, Copilot knows which variable to read from.
+Select AC from the drop-down options.
 
-Mentioning RPP, RPP panels, PDU, and UPS bank helps it replicate the logic for all entities.
+Once selected, a pop-up window will open for RPP selection.
+
+
+Screenshot Tip: Take a screenshot after selecting the AC option, capturing the pop-up.
+
+
+---
+
+Step 3: Choose RPP from the Pop-up
+
+In the pop-up, a list of available RPPs for the selected location will be displayed.
+
+Select the required RPP (e.g., RPP A11).
+
+On selection, the corresponding RPP Panel details will open.
+
+
+Screenshot Tip: Capture the list of RPPs shown and highlight the selected one.
+
+
+---
+
+Step 4: Select the RPP Panel
+
+From the RPP details, select the specific RPP Panel associated with the chosen RPP.
+
+The system will display calculations for RPP Panel, RPP, PDU, and UPS.
+
+
+Screenshot Tip: Take a screenshot of the RPP panel selection window.
+
+
+---
+
+Step 5: Automatic A-Side to B-Side Mapping
+
+Once the A-side (e.g., RPP A11) is selected:
+
+The B-side (e.g., RPP B11) will automatically inherit the same value.
+
+This mapping applies to PDU and UPS as well.
+
+
+Verify that all B-side components display the same value as A-side.
+
+
+Screenshot Tip: Capture the screen showing values on both A-side and B-side.
+
+
+---
+
+Step 6: View Anticipated Load
+
+On the main screen, check the Anticipated Load section.
+
+The system will display the anticipated load for all PSCs associated with the selected RPP, RPP Panel, and location.
+
+
+Screenshot Tip: Take a screenshot showing the anticipated load values.
+
+
+---
+
+Step 7: Validate RPP Utilization Threshold
+
+Check the RPP Utilization value displayed:
+
+If the utilization > 80%, the system should automatically mark Work Required = Yes.
+
+If ≤ 80%, Work Required = No.
+
+
+
+Screenshot Tip: Highlight the utilization percentage and the Work Required field.
+
+
+---
+
+Step 8: Save and Update to DC Track
+
+Once all validations are done, save the changes.
+
+Verify that the calculated values are updated back to DC Track successfully.
+
+
+Screenshot Tip: Capture the confirmation message or status update screen.
+
+
+---
+
+Step 9: Final Verification
+
+Reopen the assignment screen to confirm that:
+
+A-side and B-side values are retained correctly.
+
+Anticipated load values match the calculations.
+
+Work Required flag is as expected.
+
 
 
 
 ---
 
-4. Extra tip
+If you want, I can prepare a ready-to-use Word template with these steps so you can directly attach screenshots in the right places.
 
-If the bulk request update code is similar for all components, you can also ask:
-
-// Refactor the logic so the code for RPP, RPP panels, PDU, and UPS bank reuses the same function
-
-Copilot can suggest common helper methods if it detects repetitive code.
-
-
----
-
-If you want, I can give you the exact Copilot-ready comment for your method so it automatically generates the correct code for totalSpaceLoads.
-
-Do you want me to write that comment for you?
+Do you want me to prepare that template for you? It will save you a lot of formatting time.
 
