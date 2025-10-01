@@ -1,132 +1,37 @@
-Got it—you want a step-by-step flow that you can copy into your testing document along with screenshots, so it reads like a proper test evidence process. Here's a detailed structured flow you can use:
+Here’s a professional draft you can use to raise the ticket with the Sunbird team regarding the DCTrack import issue:
 
 
 ---
 
-AC Calculation and RPP Utilization – Test Steps
+Subject: DCTrack Import Error – Breaker2 Cabinet Data
 
-Step 1: Open the UNO PSE Assignment Screen
+Description:
+We are facing an issue while performing a CSV import into DCTrack. The scenario is as follows:
 
-Navigate to the UNO PSE Assignment screen from the application menu.
+We exported the Breaker2 cabinet data (connected to a panel) from DCTrack.
 
-Ensure that you are in the correct location/site context before proceeding.
+Without making any modifications to the exported file, we attempted to re-import the same CSV back into DCTrack.
 
+During the import, the system threw an error message stating: “System error. Please contact Sunbird team for further assistance.”
 
-
----
-
-Step 2: Select Power Input Type as AC
-
-In the Power Info section, locate the Plant Type drop-down.
-
-Select AC from the drop-down options.
-
-Once selected, a pop-up window will open for RPP selection.
+Since no changes were made to the exported file, the expectation was that the import should have worked without errors.
 
 
-Screenshot Tip: Take a screenshot after selecting the AC option, capturing the pop-up.
+Request:
+Kindly investigate the cause of this system error and advise on the corrective steps required to successfully re-import the data. Please confirm if this is a system-side issue or if there are additional validations we need to check.
+
+Asset Details:
+
+Asset Type: Breaker2
+
+Connected To: Breaker2 Cabinet (for the given panel)
 
 
----
-
-Step 3: Choose RPP from the Pop-up
-
-In the pop-up, a list of available RPPs for the selected location will be displayed.
-
-Select the required RPP (e.g., RPP A11).
-
-On selection, the corresponding RPP Panel details will open.
-
-
-Screenshot Tip: Capture the list of RPPs shown and highlight the selected one.
+Impact:
+This issue is blocking us from making required updates via CSV import for breaker data.
 
 
 ---
 
-Step 4: Select the RPP Panel
-
-From the RPP details, select the specific RPP Panel associated with the chosen RPP.
-
-The system will display calculations for RPP Panel, RPP, PDU, and UPS.
-
-
-Screenshot Tip: Take a screenshot of the RPP panel selection window.
-
-
----
-
-Step 5: Automatic A-Side to B-Side Mapping
-
-Once the A-side (e.g., RPP A11) is selected:
-
-The B-side (e.g., RPP B11) will automatically inherit the same value.
-
-This mapping applies to PDU and UPS as well.
-
-
-Verify that all B-side components display the same value as A-side.
-
-
-Screenshot Tip: Capture the screen showing values on both A-side and B-side.
-
-
----
-
-Step 6: View Anticipated Load
-
-On the main screen, check the Anticipated Load section.
-
-The system will display the anticipated load for all PSCs associated with the selected RPP, RPP Panel, and location.
-
-
-Screenshot Tip: Take a screenshot showing the anticipated load values.
-
-
----
-
-Step 7: Validate RPP Utilization Threshold
-
-Check the RPP Utilization value displayed:
-
-If the utilization > 80%, the system should automatically mark Work Required = Yes.
-
-If ≤ 80%, Work Required = No.
-
-
-
-Screenshot Tip: Highlight the utilization percentage and the Work Required field.
-
-
----
-
-Step 8: Save and Update to DC Track
-
-Once all validations are done, save the changes.
-
-Verify that the calculated values are updated back to DC Track successfully.
-
-
-Screenshot Tip: Capture the confirmation message or status update screen.
-
-
----
-
-Step 9: Final Verification
-
-Reopen the assignment screen to confirm that:
-
-A-side and B-side values are retained correctly.
-
-Anticipated load values match the calculations.
-
-Work Required flag is as expected.
-
-
-
-
----
-
-If you want, I can prepare a ready-to-use Word template with these steps so you can directly attach screenshots in the right places.
-
-Do you want me to prepare that template for you? It will save you a lot of formatting time.
+👉 Do you want me to also add screenshots of the error message and sample CSV file in the ticket template? That usually helps Sunbird support to troubleshoot faster.
 
