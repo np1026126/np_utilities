@@ -1,37 +1,66 @@
-Here’s a professional draft you can use to raise the ticket with the Sunbird team regarding the DCTrack import issue:
+Got it 👍 Since this is a different bug (panel breaker pole validation issue), here’s a proper draft you can raise with the Sunbird team.
 
 
 ---
 
-Subject: DCTrack Import Error – Breaker2 Cabinet Data
+Subject: DCTrack Import Error – Panel Breaker Pole Validation Issue
 
 Description:
-We are facing an issue while performing a CSV import into DCTrack. The scenario is as follows:
+While importing breaker data through CSV into DCTrack, we are consistently facing validation errors related to panel breakers.
 
-We exported the Breaker2 cabinet data (connected to a panel) from DCTrack.
+The error shown during import:
+“Panel breaker set at Starting Pole No. <X> does not exist.”
 
-Without making any modifications to the exported file, we attempted to re-import the same CSV back into DCTrack.
+However, upon verifying in DCTrack for the same location, the panel breaker does exist at the specified pole position.
 
-During the import, the system threw an error message stating: “System error. Please contact Sunbird team for further assistance.”
-
-Since no changes were made to the exported file, the expectation was that the import should have worked without errors.
+This issue is repeating for multiple locations and panels, making it a blocker for breaker imports.
 
 
-Request:
-Kindly investigate the cause of this system error and advise on the corrective steps required to successfully re-import the data. Please confirm if this is a system-side issue or if there are additional validations we need to check.
+Steps to Reproduce:
 
-Asset Details:
+1. Export breaker data from DCTrack (CSV).
 
-Asset Type: Breaker2
 
-Connected To: Breaker2 Cabinet (for the given panel)
+2. Without modifying any values, attempt to re-import the same file.
+
+
+3. Observe the import results – errors such as “Panel breaker set at Starting Pole does not exist” are displayed.
+
+
+
+Observed Behavior:
+
+System incorrectly throws validation errors for breakers that are actually present in DCTrack.
+
+Breakers at the specified pole numbers are visible in the panel but still flagged as missing.
+
+
+Expected Behavior:
+
+The import process should validate against the existing breaker positions correctly.
+
+If the breaker exists at the mentioned pole, the system should not throw errors.
+
+
+Sample Affected Assets:
+
+Example: Breaker at Panel RPP A31, Pole 20
+
+Example: Breaker at Panel Cab 1523 A, Pole 205
 
 
 Impact:
-This issue is blocking us from making required updates via CSV import for breaker data.
+
+Import jobs are failing for multiple locations.
+
+Breaker data updates are blocked, affecting data accuracy.
+
 
 
 ---
 
-👉 Do you want me to also add screenshots of the error message and sample CSV file in the ticket template? That usually helps Sunbird support to troubleshoot faster.
+👉 You can also attach the error screenshot (as you shared) along with the CSV file you used for import. This will help Sunbird reproduce and debug faster.
+
+Do you want me to combine both issues (system error + pole validation error) into a single consolidated ticket or keep them as two separate bugs for clarity?
+
 
