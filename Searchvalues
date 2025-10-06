@@ -1,66 +1,23 @@
-Got it 👍 Since this is a different bug (panel breaker pole validation issue), here’s a proper draft you can raise with the Sunbird team.
+Here’s a clear and professional Slack message you can post to coordinate the call between the Sunbird and C&D teams:
 
 
 ---
 
-Subject: DCTrack Import Error – Panel Breaker Pole Validation Issue
+Slack Message Draft:
 
-Description:
-While importing breaker data through CSV into DCTrack, we are consistently facing validation errors related to panel breakers.
+> Hi @Samer @Howard,
 
-The error shown during import:
-“Panel breaker set at Starting Pole No. <X> does not exist.”
+We are using DC-TRAC as the inventory system for our project. The cabinet inventory originates from the C&D team, and after the migration to DC-TRAC, any new cabinets created in C&D should flow as delta updates through the DC-TRAC → C&D integration.
 
-However, upon verifying in DCTrack for the same location, the panel breaker does exist at the specified pole position.
+However, we are currently facing some issues with the delta flow — it’s not working as expected. Could you please share your available time for a short discussion with the C&D team to review and troubleshoot this part of the integration?
 
-This issue is repeating for multiple locations and panels, making it a blocker for breaker imports.
+Thanks,
+Naveen
 
-
-Steps to Reproduce:
-
-1. Export breaker data from DCTrack (CSV).
-
-
-2. Without modifying any values, attempt to re-import the same file.
-
-
-3. Observe the import results – errors such as “Panel breaker set at Starting Pole does not exist” are displayed.
-
-
-
-Observed Behavior:
-
-System incorrectly throws validation errors for breakers that are actually present in DCTrack.
-
-Breakers at the specified pole numbers are visible in the panel but still flagged as missing.
-
-
-Expected Behavior:
-
-The import process should validate against the existing breaker positions correctly.
-
-If the breaker exists at the mentioned pole, the system should not throw errors.
-
-
-Sample Affected Assets:
-
-Example: Breaker at Panel RPP A31, Pole 20
-
-Example: Breaker at Panel Cab 1523 A, Pole 205
-
-
-Impact:
-
-Import jobs are failing for multiple locations.
-
-Breaker data updates are blocked, affecting data accuracy.
 
 
 
 ---
 
-👉 You can also attach the error screenshot (as you shared) along with the CSV file you used for import. This will help Sunbird reproduce and debug faster.
-
-Do you want me to combine both issues (system error + pole validation error) into a single consolidated ticket or keep them as two separate bugs for clarity?
-
+Would you like me to make it sound slightly more formal (for posting in a shared channel) or more collaborative/informal (for direct message or smaller group)?
 
