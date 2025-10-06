@@ -1,23 +1,31 @@
-Here’s a clear and professional Slack message you can post to coordinate the call between the Sunbird and C&D teams:
+You are an expert in DC-TRAC integrations and API-based synchronization. 
+I am integrating cabinets from a system called CND into DC-TRAC inventory. 
+After initial migration, I need to set up a delta synchronization so that 
+any new cabinets created or updated in CND automatically flow into DC-TRAC.
 
+The DC-TRAC team provided a sample XML “Universal Connector” template 
+(which shows where to configure GET API details), and the CND team 
+shared their GET API contract for fetching cabinet details.
 
----
+Your task is to:
+1. Read and understand both files:
+   - The sample XML connector template (provided by DC-TRAC)
+   - The API contract document (provided by CND)
+2. Based on the GET API URL, query parameters, and response structure 
+   from the CND API contract, fill out the XML connector template properly 
+   so that it can be imported into DC-TRAC.
+3. Replace placeholders like server URL, polling interval, and API path 
+   with the exact values from the CND API document.
+4. Keep all comments in green as they are and replace all yellow placeholders 
+   with correct, working values.
+5. The resulting XML must be ready for import into DC-TRAC as a Universal Connector 
+   to perform GET calls periodically and fetch cabinets created/updated 
+   since the last run.
 
-Slack Message Draft:
+Here are the files to refer:
+- File 1: DC-TRAC sample connector XML (Universal Connector example)
+- File 2: CND DC-TRAC Delta API contract (includes GET URL, parameters, and JSON response example)
 
-> Hi @Samer @Howard,
-
-We are using DC-TRAC as the inventory system for our project. The cabinet inventory originates from the C&D team, and after the migration to DC-TRAC, any new cabinets created in C&D should flow as delta updates through the DC-TRAC → C&D integration.
-
-However, we are currently facing some issues with the delta flow — it’s not working as expected. Could you please share your available time for a short discussion with the C&D team to review and troubleshoot this part of the integration?
-
-Thanks,
-Naveen
-
-
-
-
----
-
-Would you like me to make it sound slightly more formal (for posting in a shared channel) or more collaborative/informal (for direct message or smaller group)?
-
+Based on these, generate the final XML file that can be directly imported 
+into DC-TRAC to enable automatic cabinet delta synchronization.
+Output only the completed XML file.
