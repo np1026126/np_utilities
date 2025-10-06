@@ -1,31 +1,36 @@
-You are an expert in DC-TRAC integrations and API-based synchronization. 
-I am integrating cabinets from a system called CND into DC-TRAC inventory. 
-After initial migration, I need to set up a delta synchronization so that 
-any new cabinets created or updated in CND automatically flow into DC-TRAC.
+Got it 👍 — you want to post a Slack message to the DC-Track (Sunbird) team, explaining that you’ve followed all the steps they gave (including the XML connector configuration) but the Universal Connector still isn’t working for the CND–DCTrack sync integration, and you’d like them to check or join a call.
 
-The DC-TRAC team provided a sample XML “Universal Connector” template 
-(which shows where to configure GET API details), and the CND team 
-shared their GET API contract for fetching cabinet details.
+Here’s a professional and clear version of what you can post 👇
 
-Your task is to:
-1. Read and understand both files:
-   - The sample XML connector template (provided by DC-TRAC)
-   - The API contract document (provided by CND)
-2. Based on the GET API URL, query parameters, and response structure 
-   from the CND API contract, fill out the XML connector template properly 
-   so that it can be imported into DC-TRAC.
-3. Replace placeholders like server URL, polling interval, and API path 
-   with the exact values from the CND API document.
-4. Keep all comments in green as they are and replace all yellow placeholders 
-   with correct, working values.
-5. The resulting XML must be ready for import into DC-TRAC as a Universal Connector 
-   to perform GET calls periodically and fetch cabinets created/updated 
-   since the last run.
 
-Here are the files to refer:
-- File 1: DC-TRAC sample connector XML (Universal Connector example)
-- File 2: CND DC-TRAC Delta API contract (includes GET URL, parameters, and JSON response example)
+---
 
-Based on these, generate the final XML file that can be directly imported 
-into DC-TRAC to enable automatic cabinet delta synchronization.
-Output only the completed XML file.
+💬 Slack Message (for DC-Track Team)
+
+> Hi @Howard @Summer,
+
+I’ve followed all the steps shared over email for the CND → DCTrack synchronization setup, including:
+
+Creating and configuring the Universal Connector XML file as per the API contract,
+
+Importing it into DCTrack, and
+
+Setting the username, password, and enabling integration.
+
+
+However, the Universal Connector still isn’t working for the CND sync integration. I’m unable to get a successful connection or trigger the sync even after multiple attempts.
+
+Could you please help check if there’s any additional setup needed on the DCTrack side (like authentication, connector permissions, or endpoint configuration)?
+
+If possible, can we have a quick call to go through the configuration and identify why the connector isn’t picking up the data from CND?
+
+Thanks,
+Naveen
+
+
+
+
+---
+
+Would you like me to make it slightly shorter and more casual (for a quick message in a shared Slack channel)?
+
