@@ -1,17 +1,25 @@
-Here’s a polished and professional version of your Slack update that you can post in the user migration channel:
+Here’s a professional and polite Slack message you can send to Howard and the Sunbird team (Andy, Samer, etc.) to ask for an ETA — while keeping it firm and respectful since they’re a vendor providing support:
 
 
 ---
 
-User Migration Update – PNC Inventory Assets
-For the recently regenerated 7 sites, we observed that a few of these locations do not contain any RPPs. Instead, they are configured as bus-based setups.
+Slack Message Draft:
 
-Our current calculation logic is designed based on RPP and RPP panel configurations, so these bus-based locations will not reflect results in line with RPP-based calculations.
+> Hi @Howard @Andy,
 
-Could you please confirm if these sites are expected to remain bus-based only, or if RPPs are planned to be added later? This will help us align our calculation logic accordingly.
+Thanks for the updates shared earlier. Since this issue is currently a blocker for our demo and validation activities, could you please confirm the ETA for the fix?
+
+We understand the engineering team is analyzing it, but we’d like to plan our internal activities accordingly. Please let us know if we can expect the resolution by today or if it might extend further.
+
+Appreciate your continued support and quick turnaround on this.
+
+Thanks,
+Naveen
+
+
 
 
 ---
 
-Would you like me to make it slightly shorter and more conversational (for Slack tone), or keep this formal tone?
+Would you like me to make a shorter version (for a quick thread reply) or keep this full version to post as a main message in the shared channel?
 
