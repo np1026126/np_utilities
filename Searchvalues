@@ -1,28 +1,19 @@
-Got it 👍 — you want to post a Slack message to the DC-Track (Sunbird) team, explaining that you’ve followed all the steps they gave (including the XML connector configuration) but the Universal Connector still isn’t working for the CND–DCTrack sync integration, and you’d like them to check or join a call.
-
-Here’s a professional and clear version of what you can post 👇
+Here’s a clear and professional Slack message you can post to clarify the responsibility and refer to the CNB team’s action item (based on the emails you shared):
 
 
 ---
 
-💬 Slack Message (for DC-Track Team)
+Slack Message Draft:
 
-> Hi @Howard @Summer,
+> Hi @Shridhar @Howard,
 
-I’ve followed all the steps shared over email for the CND → DCTrack synchronization setup, including:
+Regarding the DC-TRAC ↔ CNB cabinet sync issue, the blocker was assigned to the 1PSC team. However, as per the update from Sunbird, the existing CNB API needs to include a new parameter – code, which should hold the location value concatenated with the room name (using the '>' symbol) for the sync to work correctly.
 
-Creating and configuring the Universal Connector XML file as per the API contract,
+Even Shivakumar from the CNB team has confirmed this and requested Rajesh from his team to work on adding this parameter in the CNB API response.
 
-Importing it into DCTrack, and
+Hence, the next action lies with the CNB team to modify the API response accordingly. Once this change is done, the sync from DC-TRAC should work as expected.
 
-Setting the username, password, and enabling integration.
-
-
-However, the Universal Connector still isn’t working for the CND sync integration. I’m unable to get a successful connection or trigger the sync even after multiple attempts.
-
-Could you please help check if there’s any additional setup needed on the DCTrack side (like authentication, connector permissions, or endpoint configuration)?
-
-If possible, can we have a quick call to go through the configuration and identify why the connector isn’t picking up the data from CND?
+Tagging here for visibility and to track the progress.
 
 Thanks,
 Naveen
@@ -32,5 +23,5 @@ Naveen
 
 ---
 
-Would you like me to make it slightly shorter and more casual (for a quick message in a shared Slack channel)?
+Would you like me to make a shorter version (for a group chat) or keep this detailed format (for a project channel like #dctrack-integration)?
 
