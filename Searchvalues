@@ -1,20 +1,17 @@
-Here’s a clear, polite, and professional Slack reply you can send to Howard:
+Here’s a polished and professional version of your Slack update that you can post in the user migration channel:
 
 
 ---
 
-Slack Reply Draft:
+User Migration Update – PNC Inventory Assets
+For the recently regenerated 7 sites, we observed that a few of these locations do not contain any RPPs. Instead, they are configured as bus-based setups.
 
-> Thanks, @Howard. This is currently a blocker for us to proceed with the demo to users for breaker assignment.
+Our current calculation logic is designed based on RPP and RPP panel configurations, so these bus-based locations will not reflect results in line with RPP-based calculations.
 
-It would be great if we could get this part fixed soon, as we’re at a crucial stage of validation. Please let us know if anything is needed from our end — we’ll be happy to join a bridge call or assist in any way required.
-
-Appreciate your support on this. 🙏
-
-
+Could you please confirm if these sites are expected to remain bus-based only, or if RPPs are planned to be added later? This will help us align our calculation logic accordingly.
 
 
 ---
 
-Would you like me to make a slightly shorter version (for a faster Slack thread reply) or keep it this detailed for clarity?
+Would you like me to make it slightly shorter and more conversational (for Slack tone), or keep this formal tone?
 
