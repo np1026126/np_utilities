@@ -1,19 +1,22 @@
-Here’s a clear and professional Slack message you can post to clarify the responsibility and refer to the CNB team’s action item (based on the emails you shared):
+Here’s a clear and professional Slack message you can send to Sudha explaining the DC-TRAC cabinet statuses —
 
 
 ---
 
 Slack Message Draft:
 
-> Hi @Shridhar @Howard,
+> Hi @Sudha,
 
-Regarding the DC-TRAC ↔ CNB cabinet sync issue, the blocker was assigned to the 1PSC team. However, as per the update from Sunbird, the existing CNB API needs to include a new parameter – code, which should hold the location value concatenated with the room name (using the '>' symbol) for the sync to work correctly.
+In DC-TRAC, we have the following cabinet/asset statuses — Planned, Installed, and Archived.
 
-Even Shivakumar from the CNB team has confirmed this and requested Rajesh from his team to work on adding this parameter in the CNB API response.
+Planned – This indicates that the asset is not yet available for use. It represents equipment that is planned to be placed in a specific location, with the required details captured, but not yet physically installed or active.
 
-Hence, the next action lies with the CNB team to modify the API response accordingly. Once this change is done, the sync from DC-TRAC should work as expected.
+Installed – This means the asset is live and available for operational use.
 
-Tagging here for visibility and to track the progress.
+Archived – This status is used for decommissioned or retired assets that are no longer in use.
+
+
+Hope this helps clarify the meaning of the statuses in DC-TRAC.
 
 Thanks,
 Naveen
@@ -23,5 +26,5 @@ Naveen
 
 ---
 
-Would you like me to make a shorter version (for a group chat) or keep this detailed format (for a project channel like #dctrack-integration)?
+Would you like me to make it sound a little more conversational (for the chat thread) or keep it in this formal explanatory tone?
 
