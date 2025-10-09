@@ -1,1 +1,50 @@
-=IF(LEFT(S2,4)="Cab ",MID(S2,5,LEN(S2)-4),S2)
+Here’s how you can professionally draft both the Slack update and email update for your manager and the Sunbird team.
+
+
+---
+
+💬 Slack Update (for ext-vz-sunbird-1psc-support channel)
+
+> Hi @Howard,
+
+I connected with you and verified the setup. The cabinets created in C&D are now automatically flowing into DC-Track, and we’re able to assign breakers to those cabinets successfully.
+
+Everything looks good on that part. The only issue remaining is that the current load and anticipated load values are not getting added to the budget load — the budget load field still remains blank.
+
+Could you please help check on this part? Once the budget load starts reflecting, the flow will be fully complete.
+
+Thanks,
+Naveen
+
+
+
+
+---
+
+📧 Email Update (to Manager and Sunbird Team)
+
+Subject: Update on DC-Track – Cabinet Sync and Load Value Observation
+
+Hi All,
+
+I connected with Howard today to verify the DC-Track integration.
+
+The cabinets created in C&D are now automatically syncing into DC-Track, and we’re able to assign breakers successfully to those cabinets.
+
+The integration flow is working as expected for cabinet creation and breaker assignment.
+
+
+However, the only pending issue is that the current load and anticipated load values are not getting added to the budget load. The budget load field remains empty even after the data sync.
+
+Requesting the Sunbird team to review this part so that the budget load values reflect correctly. Once that is fixed, the end-to-end flow should be fully operational.
+
+Thanks & Regards,
+Naveen Prasad Natarajan
+1PSC Migration Team
+Verizon
+
+
+---
+
+Would you like me to make a slightly shorter Slack version (for quick posting in the same thread) or keep it in this detailed confirmation format?
+
