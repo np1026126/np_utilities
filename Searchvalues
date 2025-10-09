@@ -1,17 +1,45 @@
-Here’s a professional and polite Slack message you can send to Howard and the Sunbird team (Andy, Samer, etc.) to ask for an ETA — while keeping it firm and respectful since they’re a vendor providing support:
+Here’s how you can professionally draft both your email reply and Slack update regarding the DC-Track issue you’re still facing after the latest Sunbird update.
 
 
 ---
 
-Slack Message Draft:
+📧 Professional Email Reply to Manager and Team
 
-> Hi @Howard @Andy,
+Subject: Update on DC-Track and CNDB Cabinet Sync – Issue Still Persisting
 
-Thanks for the updates shared earlier. Since this issue is currently a blocker for our demo and validation activities, could you please confirm the ETA for the fix?
+Hi [Manager’s Name],
 
-We understand the engineering team is analyzing it, but we’d like to plan our internal activities accordingly. Please let us know if we can expect the resolution by today or if it might extend further.
+As per the recent update from Sunbird, the sync between DC-Track and CNDB was expected to work after removing the dummy Floor PDU and converting the load values from kW to W. I made the following changes and verified the results in DC-Track:
 
-Appreciate your continued support and quick turnaround on this.
+1. Removed the dummy Floor PDU entry that was part of the earlier configuration.
+
+
+2. Requested CNDB to send anticipated load and current load in watts instead of kilowatts.
+
+
+
+However, we are still facing the same issue — the cabinets are being created with the status “Planned” and showing the message “Origin: CMDB, Not Reconciled.”
+Even after reconciling the record, the state remains the same.
+
+I’ve attached screenshots for reference. Requesting Sunbird’s support team to review this behavior again, as this is still blocking our validation and demo activities.
+
+Thanks and regards,
+Naveen Prasad Natarajan
+1PSC Migration Team
+Verizon
+
+
+---
+
+💬 Slack Message (to Howard / Sunbird Channel)
+
+> Hi @Howard,
+
+I made the changes as discussed — removed the dummy Floor PDU and ensured that anticipated and current load values are being sent in watts instead of kilowatts.
+
+However, we’re still seeing the same issue: the cabinets are getting created with status “Planned” and showing “Origin: CMDB, Not Reconciled” in DC-Track. Even after reconciliation, the state remains unchanged.
+
+Could you please help review this again? This is still a blocker for our validation and user demo.
 
 Thanks,
 Naveen
@@ -21,5 +49,5 @@ Naveen
 
 ---
 
-Would you like me to make a shorter version (for a quick thread reply) or keep this full version to post as a main message in the shared channel?
+Would you like me to make a version of the email that directly includes Sunbird (Howard / Andy) in CC so it sounds more like a formal escalation instead of an internal update?
 
