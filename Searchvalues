@@ -1,47 +1,61 @@
-Here’s a crisp, professional mail you can paste:
+Here’s a polished set of user-facing discussion queries you can paste into your Word doc to guide the client meeting. They capture every topic visible in your screenshot and from your recorded voice note, in clear bullets that prompt the users for specific answers.
 
 
 ---
 
-Subject: Breaker assignment blocked due to cabinet naming/migration gaps – request to correct in PLE
+Discussion Queries for Busway Enablement (UNO / DC-Track)
 
-Hi Suresh and Jason,
+1. Feasibility & Representation
 
-During breaker assignment validation based on your cabinet inputs, we noticed issues with the cabinet data:
-
-A few cabinets are missing in the target environment.
-
-Some cabinets were migrated with incorrect names, so they don’t match the expected references in our mapping.
-
-Because of this, G-flow and AC-flow assignments are blocked. In our latest pass (“Winter” set), we were able to proceed on most items, but ~350 assignments are currently impacted by the above gaps.
+1. Is it possible to create a Busway in DC-Track as a functional equivalent of a Floor PDU / RPP?
 
 
-Request:
-Please confirm that we can correct the cabinet names and add the missing cabinets in PLE so we can complete breaker assignment and resume the flows.
+2. If the Busway is created as a Panel (for example, “Busway Panel”) under the Floor PDU, how will it appear in the power chain?
 
-Planned fix in PLE (once approved):
+Will the one-line diagram differ from the normal RPP flow?
 
-1. Load the missing cabinets.
-
-
-2. Normalize/rename the cabinet records to the agreed naming convention.
-
-
-3. Re-run breaker assignment for the affected set and validate G & AC flows.
+Should it visually remain under the Floor PDU, or should it appear as a new distribution segment?
 
 
 
-I’ve attached the list of impacted cabinets (missing/renamed) and the assignment report for reference.
-
-Please let me know if you’d like us to proceed in PLE, or if you prefer an alternate environment/change window. We’re ready to start as soon as we get your go-ahead.
-
-Thanks,
-[Your Name]
-[Team / Project]
-[Phone | Slack]
 
 
 ---
 
-If you want, I can also draft the attached “impacted cabinets” list in a clean CSV format.
+2. Location-Specific Implementation
+
+3. For the four sites—Roseville, Plainfield, Westside, and Tampa—that have only Busways (no RPPs):
+
+Should these Busways be the default selection shown to users in UNO when they create PSE requests?
+
+Should UNO automatically filter and show “Busway” instead of “RPP” for these locations?
+
+
+
+
+
+---
+
+3. Tap-Box and Cabinet Connectivity
+
+4. How should cabinets be associated with a Busway Tap Box?
+
+In DC-Track, can an existing cabinet be connected to a Busway Tap Box outlet directly (similar to panel breaker mapping)?
+
+Should this connection be created manually or through automation during migration?
+
+
+
+5. When a user creates a new Busway and Tap Box in UNO/DC-Track, what is the expected process to link the existing cabinet to that Busway?
+
+
+
+
+---
+
+4. Tap-Box Capacity Modeling
+
+6. Currently, each Tap Box in DC-Track UI supports only 16 poles, but IFP data shows up to 64 poles per Tap Box for some Busways.
+
+
 
