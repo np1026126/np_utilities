@@ -1,50 +1,47 @@
-Here’s how you can professionally draft both the Slack update and email update for your manager and the Sunbird team.
+Here’s a crisp, professional mail you can paste:
 
 
 ---
 
-💬 Slack Update (for ext-vz-sunbird-1psc-support channel)
+Subject: Breaker assignment blocked due to cabinet naming/migration gaps – request to correct in PLE
 
-> Hi @Howard,
+Hi Suresh and Jason,
 
-I connected with you and verified the setup. The cabinets created in C&D are now automatically flowing into DC-Track, and we’re able to assign breakers to those cabinets successfully.
+During breaker assignment validation based on your cabinet inputs, we noticed issues with the cabinet data:
 
-Everything looks good on that part. The only issue remaining is that the current load and anticipated load values are not getting added to the budget load — the budget load field still remains blank.
+A few cabinets are missing in the target environment.
 
-Could you please help check on this part? Once the budget load starts reflecting, the flow will be fully complete.
+Some cabinets were migrated with incorrect names, so they don’t match the expected references in our mapping.
+
+Because of this, G-flow and AC-flow assignments are blocked. In our latest pass (“Winter” set), we were able to proceed on most items, but ~350 assignments are currently impacted by the above gaps.
+
+
+Request:
+Please confirm that we can correct the cabinet names and add the missing cabinets in PLE so we can complete breaker assignment and resume the flows.
+
+Planned fix in PLE (once approved):
+
+1. Load the missing cabinets.
+
+
+2. Normalize/rename the cabinet records to the agreed naming convention.
+
+
+3. Re-run breaker assignment for the affected set and validate G & AC flows.
+
+
+
+I’ve attached the list of impacted cabinets (missing/renamed) and the assignment report for reference.
+
+Please let me know if you’d like us to proceed in PLE, or if you prefer an alternate environment/change window. We’re ready to start as soon as we get your go-ahead.
 
 Thanks,
-Naveen
-
-
-
-
----
-
-📧 Email Update (to Manager and Sunbird Team)
-
-Subject: Update on DC-Track – Cabinet Sync and Load Value Observation
-
-Hi All,
-
-I connected with Howard today to verify the DC-Track integration.
-
-The cabinets created in C&D are now automatically syncing into DC-Track, and we’re able to assign breakers successfully to those cabinets.
-
-The integration flow is working as expected for cabinet creation and breaker assignment.
-
-
-However, the only pending issue is that the current load and anticipated load values are not getting added to the budget load. The budget load field remains empty even after the data sync.
-
-Requesting the Sunbird team to review this part so that the budget load values reflect correctly. Once that is fixed, the end-to-end flow should be fully operational.
-
-Thanks & Regards,
-Naveen Prasad Natarajan
-1PSC Migration Team
-Verizon
+[Your Name]
+[Team / Project]
+[Phone | Slack]
 
 
 ---
 
-Would you like me to make a slightly shorter Slack version (for quick posting in the same thread) or keep it in this detailed confirmation format?
+If you want, I can also draft the attached “impacted cabinets” list in a clean CSV format.
 
