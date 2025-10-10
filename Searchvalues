@@ -57,5 +57,80 @@ Should this connection be created manually or through automation during migratio
 
 6. Currently, each Tap Box in DC-Track UI supports only 16 poles, but IFP data shows up to 64 poles per Tap Box for some Busways.
 
+Should we create multiple Tap Boxes (virtual) or sections under one physical Tap Box to represent all 64 poles?
 
+If yes, how should these be displayed in UNO and mapped to DC-Track?
+
+
+
+
+
+---
+
+5. UNO UI Behavior & Formula Alignment
+
+7. In UNO’s PSE Assignment screen, users presently select RPP and Panel for a request.
+
+When we enable Busway, should the selection fields change to Busway → Tap Box → Outlet?
+
+
+
+8. What formula should be used to calculate anticipated load, utilization, and work required for Busway?
+
+Should it follow the same logic as RPP (load aggregation and 80% utilization threshold)?
+
+
+
+9. How should the A/B-side mirroring behave for Busway-fed cabinets?
+
+Should B-side inherit A-side values, or remain independent?
+
+
+
+
+
+---
+
+6. Integration and DC-Track Sync
+
+10. Will DC-Track’s budget load field be updated from UNO for Busway in the same way as RPP?
+
+
+11. If Busway data is modeled as Panel templates, will there be any downstream impact on existing one-line diagrams or future DC-Track Busway module enablement?
+
+
+
+
+---
+
+7. Formula / Logic Clarifications
+
+12. When the Busway utilization exceeds 80%, should the “Work Required” flag behave identically to RPP logic?
+
+
+13. Are there any planned changes in formula derivation or aggregation logic once Busway support is added?
+
+
+14. Do we foresee any change in the PSE request flow (assignment, saving, validation) when the site uses Busways only?
+
+
+
+
+---
+
+8. Additional Validation
+
+15. Should we plan a pilot with one site (e.g., Roseville) to verify:
+
+
+
+Tap Box creation, cabinet mapping, anticipated load display, and utilization logic?
+
+One-line diagram representation in DC-Track?
+
+
+
+---
+
+Would you like me to format this into a clean Word document with section headers, numbering, and placeholders for screenshots (so you can attach your visuals below each question)? I can generate that next so you can directly present it in your meeting.
 
