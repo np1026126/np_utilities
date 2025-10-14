@@ -1,136 +1,37 @@
-Here’s a polished set of user-facing discussion queries you can paste into your Word doc to guide the client meeting. They capture every topic visible in your screenshot and from your recorded voice note, in clear bullets that prompt the users for specific answers.
+Here’s a clear, respectful Slack message you can post in your group channel to get that clarification on RPP and PDU level load calculations, referencing your earlier discussion with Andrij and Suresh:
 
 
 ---
 
-Discussion Queries for Busway Enablement (UNO / DC-Track)
+Slack Message Draft:
 
-1. Feasibility & Representation
+Hi @Andrij Kulynych @Suresh Raman 👋
 
-1. Is it possible to create a Busway in DC-Track as a functional equivalent of a Floor PDU / RPP?
+Just wanted to bring up one clarification regarding the RPP and PDU level calculations, which I had mentioned earlier in our chat but wanted to put it here in the open forum for alignment.
 
+As per our current understanding —
 
-2. If the Busway is created as a Panel (for example, “Busway Panel”) under the Floor PDU, how will it appear in the power chain?
+The sum of the current load of all RPP panels connected under an RPP will give the current load of the RPP.
 
-Will the one-line diagram differ from the normal RPP flow?
+Similarly, the sum of the anticipated load of all RPP panels connected under that RPP will give the anticipated load of the RPP.
 
-Should it visually remain under the Floor PDU, or should it appear as a new distribution segment?
-
-
-
+The total load at the RPP level will therefore be the sum of both current and anticipated loads of all connected panels.
 
 
----
+Likewise, for the PDU level, the logic remains the same —
 
-2. Location-Specific Implementation
+The sum of all RPPs’ current loads connected under a PDU will represent the current load of the PDU (which we are planning to source from CPNG as the actual/polled value).
 
-3. For the four sites—Roseville, Plainfield, Westside, and Tampa—that have only Busways (no RPPs):
-
-Should these Busways be the default selection shown to users in UNO when they create PSE requests?
-
-Should UNO automatically filter and show “Busway” instead of “RPP” for these locations?
+The sum of all RPPs’ anticipated loads connected under the same PDU will give the anticipated load of the PDU.
 
 
+Just wanted to reconfirm if this calculation flow aligns with your understanding as well. This was the clarification I intended to raise in the earlier call — not specific to Busway, but for RPP/PDU load derivation logic.
 
+Thanks! 🙏
+Naveen
 
 
 ---
 
-3. Tap-Box and Cabinet Connectivity
-
-4. How should cabinets be associated with a Busway Tap Box?
-
-In DC-Track, can an existing cabinet be connected to a Busway Tap Box outlet directly (similar to panel breaker mapping)?
-
-Should this connection be created manually or through automation during migration?
-
-
-
-5. When a user creates a new Busway and Tap Box in UNO/DC-Track, what is the expected process to link the existing cabinet to that Busway?
-
-
-
-
----
-
-4. Tap-Box Capacity Modeling
-
-6. Currently, each Tap Box in DC-Track UI supports only 16 poles, but IFP data shows up to 64 poles per Tap Box for some Busways.
-
-Should we create multiple Tap Boxes (virtual) or sections under one physical Tap Box to represent all 64 poles?
-
-If yes, how should these be displayed in UNO and mapped to DC-Track?
-
-
-
-
-
----
-
-5. UNO UI Behavior & Formula Alignment
-
-7. In UNO’s PSE Assignment screen, users presently select RPP and Panel for a request.
-
-When we enable Busway, should the selection fields change to Busway → Tap Box → Outlet?
-
-
-
-8. What formula should be used to calculate anticipated load, utilization, and work required for Busway?
-
-Should it follow the same logic as RPP (load aggregation and 80% utilization threshold)?
-
-
-
-9. How should the A/B-side mirroring behave for Busway-fed cabinets?
-
-Should B-side inherit A-side values, or remain independent?
-
-
-
-
-
----
-
-6. Integration and DC-Track Sync
-
-10. Will DC-Track’s budget load field be updated from UNO for Busway in the same way as RPP?
-
-
-11. If Busway data is modeled as Panel templates, will there be any downstream impact on existing one-line diagrams or future DC-Track Busway module enablement?
-
-
-
-
----
-
-7. Formula / Logic Clarifications
-
-12. When the Busway utilization exceeds 80%, should the “Work Required” flag behave identically to RPP logic?
-
-
-13. Are there any planned changes in formula derivation or aggregation logic once Busway support is added?
-
-
-14. Do we foresee any change in the PSE request flow (assignment, saving, validation) when the site uses Busways only?
-
-
-
-
----
-
-8. Additional Validation
-
-15. Should we plan a pilot with one site (e.g., Roseville) to verify:
-
-
-
-Tap Box creation, cabinet mapping, anticipated load display, and utilization logic?
-
-One-line diagram representation in DC-Track?
-
-
-
----
-
-Would you like me to format this into a clean Word document with section headers, numbering, and placeholders for screenshots (so you can attach your visuals below each question)? I can generate that next so you can directly present it in your meeting.
+Would you like me to include a short diagram snippet text (like a one-line ASCII power chain example: UPS → PDU → RPP → Panel → Cabinet) at the end of the message for easier visualization when you post it?
 
