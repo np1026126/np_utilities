@@ -1,49 +1,54 @@
-Here’s your final, polished Slack message version — it includes the visual hierarchy flow, the clarification note, and the context about your prior discussion with Andrij and Suresh 👇
+Here’s the final combined Slack message, now including your latest point about cabinets in the Install state — this version is complete, polished, and ready to post directly in your support or project channel 👇
 
 
 ---
 
-Slack Message Draft (with Visualization + Context):
+Slack Message Draft (Final Version):
 
-Hi @Andrij Kulynych @Suresh Raman 👋
+Hi @Howard R Crump III @Gnanapushpam Karthic Kumar 👋
 
-I wanted to bring up one clarification on the RPP and PDU load calculation logic, which I had actually intended to raise during our earlier call on Busway implementation — but it was unfortunately misunderstood as a Busway-specific question.
+I wanted to provide an update and seek clarification regarding the Budget Load calculation issue and related cabinet assignment behavior.
 
-As mentioned, we (Suresh, Andrij, and myself) had also discussed the same points earlier in our group chat, where Andrij had suggested that this topic be brought up for a larger team discussion to ensure everyone is aligned.
-So, as discussed with both of you in the chat, I’m bringing it here in the open forum for clarity.
+Currently, the Budget Load is not updating as expected, and here’s what I’ve observed during testing:
 
-Here’s what I was trying to confirm 👇
+When a cabinet is first assigned to a breaker, a dummy load record is automatically created at the cabinet level — this triggers the Budget Load computation. ✅
 
-Cabinet Level
-  └─ (Sum of Reserve Power of Breakers) = Current Load of Panel
-  └─ (Sum of Dry-Fit Values) = Anticipated Load of Panel
+However, once a breaker is already assigned, and we either reassign a new cabinet or reassign the same cabinet, the dummy load creation logic doesn’t trigger again, resulting in Budget Load values not getting updated or split properly.
 
-Panel Level
-  └─ (Σ Current Load of Cabinets) = Current Load of Panel
-  └─ (Σ Anticipated Load of Cabinets) = Anticipated Load of Panel
-  └─ (Current + Anticipated) = Total Load of Panel
+Additionally, when a cabinet is in Install state, assigning it to a breaker does not populate the Budget Load values, since the dummy loads are not being created for cabinets in that state.
 
-RPP Level
-  └─ (Σ Current Load of Panels under RPP) = Current Load of RPP
-  └─ (Σ Anticipated Load of Panels under RPP) = Anticipated Load of RPP
-  └─ (Current + Anticipated) = Total Load of RPP
+The dummy load creation currently happens only when the cabinet is in Planned status, which appears to be why the Budget Load field remains blank for installed cabinets.
 
-PDU Level
-  └─ (Σ Current Load of RPPs under PDU) = Current Load of PDU 
-         (to be sourced from CPNG as the actual/polled value)
-  └─ (Σ Anticipated Load of RPPs under PDU) = Anticipated Load of PDU
 
-So essentially, at each hierarchy level (Cabinet → Panel → RPP → PDU),
-we are summing up the current and anticipated loads from the immediate downstream level, and representing the total accordingly.
 
-Could you please confirm if this flow and calculation logic align with your understanding?
-If it’s easier, I can also walk through this quickly on a call with a visual example for clarity.
+From a UI perspective, I also noticed:
 
-Thanks 🙏
+Once a breaker is assigned to a cabinet, I’m unable to edit or reassign that cabinet.
+
+The delete icon (visible for breakers assigned to other items) is missing when a breaker is assigned to a cabinet.
+
+Because of this, I’m forced to delete the entire breaker to make any cabinet-related changes.
+
+
+I’ve already created two bug tickets for these issues —
+
+1. Unable to edit or reassign cabinets once a breaker is linked.
+
+
+2. Delete icon missing for breakers associated with cabinets.
+
+
+
+I’m assuming the dummy load creation logic is the root cause behind both the Budget Load not updating and the UI reassignment restriction.
+
+Could you please confirm if this behavior is known or if any backend trigger or rule adjustment is required for reassignments and for Install state cabinets?
+If needed, I can walk through this scenario on a short call to demonstrate the exact issue.
+
+Thanks,
 Naveen
 
 
 ---
 
-Would you like me to make a follow-up version that continues the same style up to the UPS Bank level (PDU → UPS Bank → UPS Modules), so it looks complete for your next discussion thread?
+Would you like me to include placeholders for the two ticket IDs and titles (so you can paste them once you have them from Canvas or Jira)?
 
