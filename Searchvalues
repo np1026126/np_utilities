@@ -1,93 +1,20 @@
-Excellent — this is a very realistic question and you’re thinking about it the right way 👏
-
-Let’s break this down into what you’re trying to do and then I’ll give you the exact Slack message you can send.
+Here’s a professional message you can post in the bug comment or Slack thread for clarity:
 
 
 ---
 
-🧩 Situation summary (in your words, simplified)
+Comment for the Bug:
 
-You have an Excel breaker assignment sheet exported from IFP.
+> As part of the migration, the data was pulled directly from IFP. Even though the cabinet name is present in the comments section, the status for those breakers was marked as Open in IFP, so I’ve retained it as Open here as well.
 
-It shows:
+I have cross-verified with IFP, and the asset details are matching correctly. For now, I’m maintaining the same data as received from IFP. Once the correct cabinet mapping is completed, the corresponding breakers will automatically move to a Closed state — which is already happening for other mapped entries.
 
-Location → (e.g., “CHRXHL1 Switch Room 900”)
-
-Breaker state → “Open”
-
-Starting position, Rated Amps, etc.
-
-Comment / Description → mentions something like “Cab 39801Z DC-60QA1-P1 CTX A1 Fed” (which is the cabinet name).
-
-
-From this, you see a mismatch:
-
-The breaker’s state is “Open” → meaning not connected.
-
-But in comment/description, it says it’s connected (mapped) to a cabinet.
-
-
-
-So you want to ask the IFP team to verify in the IFP UI whether these breakers are actually assigned to the cabinets or not, since you don’t have production access.
-
-
----
-
-🗣️ What you want to clarify to them
-
-You need to ask politely and clearly:
-
-1. Whether breakers showing as “Open” in the extract are really unassigned in the live system.
-
-
-2. Or if they’re already mapped to the cabinet (as the comment/description says).
-
-
-3. Basically: which one should we trust — the breaker status or the comment mapping?
+Essentially, the data in our system reflects the IFP source data as-is.
 
 
 
 
 ---
 
-💬 Slack message draft (professional & clear)
-
-Here’s a ready-to-send message you can paste in Slack 👇
-
-
----
-
-Hey [Name],
-
-I was checking the breaker assignment data that we exported from IFP.
-For several entries, I noticed something confusing — the breaker status is coming as “Open”, but in the comment/description column, it’s mentioned that the breaker is already connected to a specific cabinet (for example: “Cab 39801Z DC-60QA1-P1 CTX A1 Fed”).
-
-Could you please help check this in the live IFP production UI once?
-Specifically:
-
-Are these breakers actually assigned/mapped to the respective cabinets?
-
-Or are they really open/unassigned as per the system status?
-
-
-This will help us confirm whether we should trust the “Breaker State” field or the “Comment” description for cabinet mapping.
-
-Thanks a lot for checking this!
-
-
----
-
-✨ Optional short version (for chat-style Slack)
-
-> Hi [Name], quick help needed — in the IFP export, some breakers show “Open” in status but the comment mentions a cabinet (e.g., “Cab 39801Z…”).
-Can you please check in live IFP if those breakers are actually mapped to the cabinets or still open/unassigned?
-Just want to be sure whether to rely on the status or the description field.
-
-
-
-
----
-
-Would you like me to make it sound more formal (for manager-level) or friendly (for teammate-level) before you send it?
-
+Would you like me to make it sound a bit more formal and concise, like how you’d write in Jira comments or bug tracker notes?
 
