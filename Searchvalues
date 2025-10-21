@@ -1,17 +1,18 @@
-Here’s a professional way you can frame your message to the CPNG user in Slack or email:
+Here’s a concise and polite Slack message draft you can send to that user for clarification:
 
 
 ---
 
-Subject / Slack message:
-Need clarification on BDFG Panel breakers data
+Slack Message Draft:
 
-Message:
-Hi [Name],
+Hi [User’s Name] 👋
 
-As part of the migration activity, we have successfully imported both BDFG and BDFGPanel assets from CPNG. However, we are unable to retrieve any BDFGPanel breaker details from the CPNG source.
+I was checking the details you shared earlier for the location [mention location name], where you had asked me to add the BDFB and the BDFB panels.
 
-Could you please check and confirm whether breaker information for BDFGPanels is maintained in CPNG? If yes, kindly let us know the location or reference table/source where this data is available, so that we can include it in the extraction.
+When I verified in CPMG, I noticed that the BDFB panel breakers are not present there.
+Craig also confirmed that the values are not coming from CPMG because the BDFB panel breakers themselves are missing in the source.
+
+Could you please check once and confirm whether these BDFB panels are maintained in any other source system or if we have to get the details manually for this location?
 
 Thanks,
 Naveen
@@ -19,5 +20,5 @@ Naveen
 
 ---
 
-Would you like me to make this version more casual and concise for a Slack message instead of an email tone?
+Would you like me to make a slightly formal email version of this too (in case you need to loop in the C&D migration team and Craig)?
 
