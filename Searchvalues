@@ -1,20 +1,23 @@
-Here’s a professional message you can post in the bug comment or Slack thread for clarity:
+Here’s a professional way you can frame your message to the CPNG user in Slack or email:
 
 
 ---
 
-Comment for the Bug:
+Subject / Slack message:
+Need clarification on BDFG Panel breakers data
 
-> As part of the migration, the data was pulled directly from IFP. Even though the cabinet name is present in the comments section, the status for those breakers was marked as Open in IFP, so I’ve retained it as Open here as well.
+Message:
+Hi [Name],
 
-I have cross-verified with IFP, and the asset details are matching correctly. For now, I’m maintaining the same data as received from IFP. Once the correct cabinet mapping is completed, the corresponding breakers will automatically move to a Closed state — which is already happening for other mapped entries.
+As part of the migration activity, we have successfully imported both BDFG and BDFGPanel assets from CPNG. However, we are unable to retrieve any BDFGPanel breaker details from the CPNG source.
 
-Essentially, the data in our system reflects the IFP source data as-is.
+Could you please check and confirm whether breaker information for BDFGPanels is maintained in CPNG? If yes, kindly let us know the location or reference table/source where this data is available, so that we can include it in the extraction.
 
-
+Thanks,
+Naveen
 
 
 ---
 
-Would you like me to make it sound a bit more formal and concise, like how you’d write in Jira comments or bug tracker notes?
+Would you like me to make this version more casual and concise for a Slack message instead of an email tone?
 
