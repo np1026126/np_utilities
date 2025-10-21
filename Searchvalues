@@ -1,24 +1,18 @@
-Here’s a concise and polite Slack message draft you can send to that user for clarification:
+Here’s a polished rewrite of your message that you can use in email or Slack when reaching out to the user who gave the BDFB details:
 
 
 ---
 
-Slack Message Draft:
+Subject: Clarification on Missing BDFB Panel Breakers in CPNG
 
-Hi [User’s Name] 👋
+Hi [User’s Name],
 
-I was checking the details you shared earlier for the location [mention location name], where you had asked me to add the BDFB and the BDFB panels.
+I’m part of the 1PSC team working on the migration of assets from IFP, CPNG, and Fuze into DC-Track.
+I need one clarification regarding the BDFB and BDFB Panel migration details.
 
-When I verified in CPMG, I noticed that the BDFB panel breakers are not present there.
-Craig also confirmed that the values are not coming from CPMG because the BDFB panel breakers themselves are missing in the source.
+For a few locations (like Adelphi and Albuquerque), we have BDFBs and their corresponding panels marked as “ADD” to be migrated into DC-Track.
+However, when I verified in CPNG, I noticed that the BDFB panel breakers are not present there.
+Craig also confirmed that these values are not coming from CPNG since the BDFB panel breaker data doesn’t exist in the source.
 
-Could you please check once and confirm whether these BDFB panels are maintained in any other source system or if we have to get the details manually for this location?
-
-Thanks,
-Naveen
-
-
----
-
-Would you like me to make a slightly formal email version of this too (in case you need to loop in the C&D migration team and Craig)?
+Here
 
