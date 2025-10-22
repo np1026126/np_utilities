@@ -1,18 +1,20 @@
-Here’s a polished rewrite of your message that you can use in email or Slack when reaching out to the user who gave the BDFB details:
+Here’s a refined professional version of your reply that naturally includes that context:
 
 
 ---
 
-Subject: Clarification on Missing BDFB Panel Breakers in CPNG
+Hi [Manager’s Name], good morning.
+I wasn’t aware that a call was scheduled last night. Sharath called me around 9 PM, and that’s when I got to know about it. Around the same time, I was already on a call with Aravind discussing some open issues — since it’s a local holiday in Bangalore, we were aligning to ensure yesterday’s work isn’t impacted.
 
-Hi [User’s Name],
+Later, we also had a quick discussion with Dheeraj to review the current status. That’s why I couldn’t join the scheduled call.
 
-I’m part of the 1PSC team working on the migration of assets from IFP, CPNG, and Fuze into DC-Track.
-I need one clarification regarding the BDFB and BDFB Panel migration details.
+Please let me know if there’s anything important I need to follow up on from that discussion.
 
-For a few locations (like Adelphi and Albuquerque), we have BDFBs and their corresponding panels marked as “ADD” to be migrated into DC-Track.
-However, when I verified in CPNG, I noticed that the BDFB panel breakers are not present there.
-Craig also confirmed that these values are not coming from CPNG since the BDFB panel breaker data doesn’t exist in the source.
+Thanks,
+Naveen
 
-Here
+
+---
+
+Would you like me to make a Slack-friendly short version that sounds more conversational but still polite?
 
