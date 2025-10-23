@@ -1,24 +1,23 @@
-Here’s a clear, professional draft you can send as your reply:
+Here’s a clean and professional way to write your Slack message:
 
 
 ---
 
-Subject: Re: Rack UUID Update Validation
+Slack Message Draft:
 
-Hi Chris,
+Hi [Name],
+As requested, for the 6 sites, we are sharing all the assets in the holistic template format.
+By end of today, we’ll provide:
 
-As part of the review in the provided Google Sheet (RAC migration in PLE), I verified the ID column values against the fp_attach_space_inv_meta_data table.
+The data that has been imported into DC Track for all 6 locations (for site survey reference) in the provided link.
 
-For the Anchorage and Windsor sites, I was able to locate the corresponding entries and confirm that the rack_uuid values were correctly updated in the metadata table.
-However, I wasn’t able to check for all the other sites at this point. Based on the data observed, the remaining sites’ details appear to have been migrated successfully.
+The holistic template that was originally shared by your team.
 
-Please let me know if you’d like me to validate any specific sites in detail.
 
-Thanks & Regards,
-Naveen Prasad
+Both the data file and the holistic template will be available in the shared link once the upload is complete.
 
 
 ---
 
-Would you like me to make it sound a bit more formal and concise (for senior management visibility), or keep it casual and detailed like this version for internal team communication?
+Would you like me to make it slightly more formal (for a senior stakeholder) or more conversational (for a peer)?
 
