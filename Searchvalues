@@ -1,130 +1,62 @@
-Here’s a professional and structured version of your migration plan notes for the AC and DC asset flow, describing dependencies, rules, and expected issues clearly:
+Here’s the updated and complete professional version of your migration note section, including your new point about connectors:
 
 
 ---
 
-Asset Migration Notes – AC & DC Flow
-
-1. UPS and UPS Bank Migration
+7. PDU Panel Breaker Migration
 
 Rules / Dependencies:
 
-UPS assets must be imported successfully before proceeding with UPS Bank creation.
+Before migrating PDU Panel Breakers, both the RPP Panels and PDU Panels must be successfully created.
 
-Both UPS and UPS Bank must exist before Load Devices can be created.
+The import of PDU Panel Breakers depends on valid reference links to these parent components.
 
 
 Known Issues / Risks:
 
-Multiple custom fields exist for UPS across environments (DEV, SIT, PLE, PROD).
+If either the RPP Panels or PDU Panels are missing, the import will fail due to unresolved dependencies.
 
-The field names and column mappings differ between environments, causing import failures during migration.
-
-These discrepancies must be standardized before migration to avoid rework and data rejection.
+Mismatched or incorrect Panel Name or UUID references in the import sheet can lead to migration errors.
 
 
 Action Required:
 
-Review and align UPS custom field structures across all environments.
+Validate that all corresponding RPP and PDU Panels exist prior to executing the breaker import.
 
-Validate UPS import templates and perform a trial import before final migration.
+Cross-check naming conventions and relationship mappings between breakers and panels before running the import.
 
 
 
 
 ---
 
-2. Load Device Migration
+8. Connector Creation
 
 Rules / Dependencies:
 
-Load Devices can only be imported after UPS and UPS Bank are successfully migrated.
+Connectors are not supported through the standard import process, as there is no import sheet available for them.
+
+All connector records must be created manually after dependent assets (e.g., PDU, RPP, UPS Bank) are in place.
 
 
 Known Issues / Risks:
 
-Any incorrect or missing link between UPS and UPS Bank will cause Load Device import failures.
+Missing or incorrect connectors can cause power chain visualization gaps in DCTrack.
 
-Ensure power source references are properly configured.
-
-
+Manual creation introduces potential for human error, so each entry must be validated carefully.
 
 
----
+Action Required:
 
-3. Floor PDU Migration
+Create all required connectors manually in the Production environment after verifying asset dependencies.
 
-Rules / Dependencies:
+Only 19 connector records need to be manually created in Production.
 
-Floor PDUs depend on Load Devices, as their power source must already be created.
-
-Only after Load Device migration is complete can Floor PDUs be initiated.
-
-
-Known Issues / Risks:
-
-Any mismatch between Load Device references and Floor PDU templates may cause validation errors.
-
-Configuration consistency across environments (template structure, connector mapping) is critical.
+Maintain a log of created connectors with asset references for audit and traceability.
 
 
 
 
 ---
 
-4. RPP and Related Panels
-
-Rules / Dependencies:
-
-RPP Panels should be created after Floor PDUs are successfully migrated.
-
-Breaker connections (e.g., PDU Panel Breaker, RPP Panel Breaker) must be revalidated post-import.
-
-
-Known Issues / Risks:
-
-Breaker-to-Panel relationships may fail if dependent asset IDs are missing or renamed during import.
-
-Validation errors can occur due to inconsistent naming conventions.
-
-
-
-
----
-
-5. General Migration Challenges
-
-Environment-specific configurations: Variations between environments lead to mismatched field names and data formats.
-
-Import validation failures: Caused by missing dependencies or incorrect mappings.
-
-Dependency sequencing: Incorrect order of migration can lead to relational gaps between assets.
-
-Data completeness: Missing mandatory fields (e.g., “Power Source,” “Belongs To,” “Load Capacity”) will result in rejections.
-
-
-
----
-
-6. Recommended Approach
-
-1. Validate templates and mappings for all asset types before starting migration.
-
-
-2. Conduct trial imports for UPS and UPS Bank in a lower environment.
-
-
-3. Establish a dependency-based migration order:
-
-UPS → UPS Bank → Load Device → Floor PDU → RPP Panel → Breakers.
-
-
-
-4. Document all failures and fixes for each migration phase to maintain traceability.
-
-
-
-
----
-
-Would you like me to help you add tentative migration dates and duration for each phase next (e.g., “UPS migration – 3 days,” “Load Devices – 2 days,” etc.) so you can present it as a complete migration plan?
+Would you like me to now merge all eight sections (UPS → Connectors) into a single polished migration document (formatted for Word or Excel) so you can send or attach it in your project update?
