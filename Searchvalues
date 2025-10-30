@@ -1,95 +1,69 @@
-Yes 👍 based on the numbers visible in your screenshot, here’s the calculation summary:
 
-Asset Type	Original Count	Import Count	Fallout Count	Fallout %
-
-1	242	216	28	11.6%
-2	242	211	31	12.8%
-3	661	0	661	100%
-4	513	450	63	12.3%
-5	1562	106	1456	93.2%
-6	1287	1223	64	5.0%
-7	1491	78	1408	94.4%
-8	1833	0	1833	100%
-9	849	583	266	31.3%
-10	1920	0	1920	100%
+Perfect 👍 — here’s the exact Copilot prompt you can paste right after importing your Excel file into your Python or Jupyter project (or when you open it in VS Code with Copilot enabled).
 
 
-✅ Total Summary:
+---
 
-Total Original Count: 10,600
+💡 Exact Copilot Prompt
 
-Total Import Count: 2,967
+> I have imported an Excel file with two columns — psc_location (column A) and location (column B).
 
-Total Fallout Count: 6,769
+Each value in psc_location is in the format: SILLYCODE > ROOM NAME (for example: ADLPMDMT > BATTERY PLANT A 111).
+The location column contains similar data but may have variations such as:
 
-Overall Fallout %: ≈ 69.8%
+Missing letters or words (e.g., BATTERY ROOM instead of BATTERY ROOM A)
+
+Extra characters like /, ,, or spaces
+
+Case differences.
+
+
+I want to write a Python script using pandas and fuzzywuzzy (or rapidfuzz) that:
+
+1. Extracts only the room name part (after '>') from each psc_location value.
+
+
+2. Compares this extracted room name with the location column value.
+
+
+3. Calculates a similarity percentage for each comparison.
+
+
+4. Creates two new columns:
+
+Match_Percentage → shows the similarity score (0–100)
+
+Match_Result → shows:
+
+"Matched" if the score ≥ 80
+
+"Needs Review" if score is between 50–79
+
+"Not Present" if score < 50.
+
+
+
+
+5. Finally, exports the result into a new Excel file called matched_locations.xlsx with all these columns.
+
+
+
+Please generate clean, commented Python code that does this efficiently for a few thousand rows.
+
 
 
 
 ---
 
-🔹 Suggested Slack Message:
+✅ Optional addition (if you want a shorter version for quick use):
 
-Hi [Manager’s Manager’s Name],
-
-As per the review of the 10 asset categories migrated by our onshore counterpart, although they mentioned that all were migrated with few fallouts, the actual fallout percentage is quite high. Here’s the summary:
-
-Mirroring: ~100% fallout
-
-Redundancy Pair: 266 fallouts (~31%)
-
-RPP Panel: ~100% fallout
-
-RPP: 64 fallouts (~5%)
-
-PDU Panels: 1408 fallouts (~94%)
-
-Load Devices: ~100% fallout
+> Compare column A (psc_location) and column B (location) by matching the room names after '>'.
+Show match percentage using fuzzy match and mark rows as "Matched" (≥80%), "Needs Review" (50–79%), or "Not Present" (<50%).
+Write results into a new Excel file.
 
 
-Overall, ~70% of total records ended up as fallouts, indicating that a majority of the assets didn’t migrate successfully.
-We’ll need to analyze these fallout cases to identify and fix the issues before proceeding with further migration.
-
-Thanks,
-[Your Name]
-
-
-Perfect 👍 Here’s a professional email version of your message — clear, data-backed, and polite — suitable for sending to your manager’s manager (or copying your manager as well):
 
 
 ---
 
-Subject: High Fallout Counts Observed in Recent Asset Migration – Follow-up Actions Planned
-
-Dear [Manager’s Manager’s Name],
-
-During the review of the recent 10 asset categories migrated by our onshore counterpart, it was mentioned that all assets were migrated with minimal fallouts. However, upon analysis, the actual fallout percentage appears to be quite high. Please find the summary below:
-
-Asset Type	Fallout %	Remarks
-
-Mirroring	~100%	Entire set resulted in fallout
-Redundancy Pair	~31%	266 fallouts observed
-RPP Panel	~100%	Entire set resulted in fallout
-RPP	~5%	64 fallouts observed
-PDU Panels	~94%	Major portion resulted in fallout
-Load Devices	~100%	Entire set resulted in fallout
-
-
-Overall, out of a total of 10,600 records, around 6,769 have fallen out — indicating an overall fallout rate of nearly 70%.
-
-I will be focusing on these fallout cases to analyze and address the root causes. The objective is to resolve these issues and ensure a smoother and more successful migration in the upcoming phases.
-
-Please let me know if you’d like me to share a detailed breakdown or specific error patterns identified so far.
-
-Best regards,
-[Your Name]
-[Your Role / Team Name]
-
-
----
-
-Would you like me to make this into a Slack message version too (shorter, more conversational, but keeping the same tone)? I can tailor it so you can just paste it directly in your team’s Slack channel.
-
----
-
-Would you like me to make this message slightly more formal and structured (for a manager-to-manager Slack post, suitable for sharing in a channel)?
+Would you like me to give you the ready-to-use Python code (the one Copilot would generate for this prompt) so you can just run it directly if needed?
