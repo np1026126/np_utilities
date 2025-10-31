@@ -1,69 +1,46 @@
-
-Perfect 👍 — here’s the exact Copilot prompt you can paste right after importing your Excel file into your Python or Jupyter project (or when you open it in VS Code with Copilot enabled).
-
-
----
-
-💡 Exact Copilot Prompt
-
-> I have imported an Excel file with two columns — psc_location (column A) and location (column B).
-
-Each value in psc_location is in the format: SILLYCODE > ROOM NAME (for example: ADLPMDMT > BATTERY PLANT A 111).
-The location column contains similar data but may have variations such as:
-
-Missing letters or words (e.g., BATTERY ROOM instead of BATTERY ROOM A)
-
-Extra characters like /, ,, or spaces
-
-Case differences.
-
-
-I want to write a Python script using pandas and fuzzywuzzy (or rapidfuzz) that:
-
-1. Extracts only the room name part (after '>') from each psc_location value.
-
-
-2. Compares this extracted room name with the location column value.
-
-
-3. Calculates a similarity percentage for each comparison.
-
-
-4. Creates two new columns:
-
-Match_Percentage → shows the similarity score (0–100)
-
-Match_Result → shows:
-
-"Matched" if the score ≥ 80
-
-"Needs Review" if score is between 50–79
-
-"Not Present" if score < 50.
-
-
-
-
-5. Finally, exports the result into a new Excel file called matched_locations.xlsx with all these columns.
-
-
-
-Please generate clean, commented Python code that does this efficiently for a few thousand rows.
-
-
+Here’s a professional ticket draft you can use to raise the issue with the Sunbird team:
 
 
 ---
 
-✅ Optional addition (if you want a shorter version for quick use):
+Subject: Cabinet Creation Sync Issue Between CND and DCTrack
 
-> Compare column A (psc_location) and column B (location) by matching the room names after '>'.
-Show match percentage using fuzzy match and mark rows as "Matched" (≥80%), "Needs Review" (50–79%), or "Not Present" (<50%).
-Write results into a new Excel file.
+Description:
+We are facing an issue with the synchronization between CND and DCTrack for cabinet creation. When a cabinet is created in CND, it is successfully sent via the API, and we can see the cabinet details being passed in the API payload. However, the cabinet is not getting created in DCTrack.
+
+We have verified the API request and response, and the cabinet information is clearly visible in the payload. Despite this, the corresponding cabinet record does not appear in DCTrack.
+
+Please investigate and let us know the root cause or if any additional configuration or mapping update is required on the DCTrack side.
+
+Steps to Reproduce:
+
+1. Create a cabinet in CND.
 
 
+2. Verify that the cabinet data is sent to DCTrack via the API (refer to attached screenshot).
+
+
+3. Observe that the cabinet is not visible in DCTrack.
+
+
+
+Attachments:
+
+Screenshot of API payload showing cabinet details being sent.
+
+
+Expected Result:
+The cabinet created in CND should automatically be created in DCTrack through the sync process.
+
+Actual Result:
+The cabinet record is not created in DCTrack even though the API call shows successful transmission.
+
+Priority: High
+
+Requested Action:
+Please check and confirm if the sync process between CND and DCTrack is working as expected for cabinet creation, and help resolve the issue.
 
 
 ---
 
-Would you like me to give you the ready-to-use Python code (the one Copilot would generate for this prompt) so you can just run it directly if needed?
+Would you like me to reword it slightly for Slack format (more concise, conversational) as well?
