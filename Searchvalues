@@ -1,22 +1,61 @@
-Here’s a polished professional draft of your email to the testing team:
+Perfect — I see what you have.
+
+Let’s tell Copilot exactly what’s in each sheet and what join we want. You can copy–paste this as is (just change sheet names if yours are slightly different).
 
 
 ---
 
-Subject: Blocker Defect – Data Imported for Site VINSER for Testing
+Prompt for Copilot (Excel):
 
-Hi [Team/All],
+> I have two sheets in this workbook.
+Sheet 1 is named "RPP_UNKNOWN" and has these columns:
 
-A blocker defect was raised that is currently preventing the testing for the assignment process. To facilitate progress, I have completed the data import as part of the migration activity for the VINSER site.
+A: Name → this is the RPP name
 
-You may now proceed with testing using the VINSER site data. The data should be fully populated and available for validation.
+B: Location → this is the RPP location (format like “ALPRGAGQ > SWITCH ROOM C 304”).
 
-Please confirm once the testing is completed or if you encounter any further issues.
 
-Best regards,
-Naveen
+Sheet 2 is named "PDU_relationship" and has these columns:
+
+C: Item Name → this is the PDU name
+
+D: Item Location → this is the PDU location
+
+F: Related Item Name → this is the RPP name that the PDU is connected to
+
+G: Related Item Location → this is the RPP location
+
+
+I want to match every RPP in “RPP_UNKNOWN” with its PDUs from “PDU_relationship”.
+Join condition:
+
+RPP_UNKNOWN.Name = PDU_relationship.[Related Item Name]
+
+and RPP_UNKNOWN.Location = PDU_relationship.[Related Item Location]
+
+
+Give me a new table with these columns:
+
+1. RPP Name
+
+
+2. RPP Location
+
+
+3. PDU Name (from Item Name)
+
+
+4. PDU Location (from Item Location)
+
+
+
+If an RPP in “RPP_UNKNOWN” does not have any matching PDU in “PDU_relationship”, still show the RPP and mark PDU Name / PDU Location as “Not mapped”.
+
+Generate this as an Excel solution (either Power Query/M or a formula-based approach). Also explain the steps.
+
+
 
 
 ---
 
-Would you like me to make it sound slightly more assertive (to indicate urgency) or collaborative (to show support and teamwork)?
+If your second sheet has slightly different column letters, just adjust C/D/F/G in the prompt — logic stays the same: match RPP name + RPP location → pull PDU name + PDU location.
