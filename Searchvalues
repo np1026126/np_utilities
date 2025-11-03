@@ -1,40 +1,28 @@
-Perfect — I see what you have.
-
-Let’s tell Copilot exactly what’s in each sheet and what join we want. You can copy–paste this as is (just change sheet names if yours are slightly different).
+Here’s a polished and professional version of your email draft 👇
 
 
 ---
 
-Prompt for Copilot (Excel):
+Subject: One-Time Load Sheet Ready for Production Upload
 
-> I have two sheets in this workbook.
-Sheet 1 is named "RPP_UNKNOWN" and has these columns:
+Hi [Counterpart’s Name],
 
-A: Name → this is the RPP name
+I wanted to inform you that the one-time load sheet for calculations is ready to be uploaded into production. I’m currently performing the final validation checks to ensure the data is accurate.
 
-B: Location → this is the RPP location (format like “ALPRGAGQ > SWITCH ROOM C 304”).
+Once you’re available, please let me know so that we can proceed with uploading the sheet into the production environment together.
 
+You can access the sheet using the link below:
+🔗 [Provide the link here]
 
-Sheet 2 is named "PDU_relationship" and has these columns:
-
-C: Item Name → this is the PDU name
-
-D: Item Location → this is the PDU location
-
-F: Related Item Name → this is the RPP name that the PDU is connected to
-
-G: Related Item Location → this is the RPP location
+Thanks,
+Naveen
+(On behalf of the Data Migration Team)
+CC: Suresh
 
 
-I want to match every RPP in “RPP_UNKNOWN” with its PDUs from “PDU_relationship”.
-Join condition:
+---
 
-RPP_UNKNOWN.Name = PDU_relationship.[Related Item Name]
-
-and RPP_UNKNOWN.Location = PDU_relationship.[Related Item Location]
-
-
-Give me a new table with these columns:
+Would you like me to tailor it a bit more formally (for senior stakeholders) or keep it conversational for a peer-level counterpart?Give me a new table with these columns:
 
 1. RPP Name
 
