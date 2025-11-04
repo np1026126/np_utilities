@@ -1,49 +1,36 @@
-Here’s a polished and professional version of your email draft 👇
+Here’s the exact Copilot prompt you can paste along with your SQL query to get a helpful debugging and fix suggestion 👇
 
 
 ---
 
-Subject: One-Time Load Sheet Ready for Production Upload
+🟩 Prompt for Copilot:
 
-Hi [Counterpart’s Name],
+> You are an expert SQL developer.
+I’m migrating data from one database to another, and I’m identifying BDFB-related assets based on the EduName field in the EDU table.
+In this SQL query (pasted below), I’m filtering EduName using patterns like 'BDFB%', 'BDCBB%', 'PECB%', 'PDC%', 'MPDC%', and 'SPDC%'.
+The issue is that for some assets, the EduName does not contain any of these keywords, and only a numeric value (like 301.04 or 102.02) is stored.
+Because of that, my query is missing those rows and causing a mismatch in counts during migration.
 
-I wanted to inform you that the one-time load sheet for calculations is ready to be uploaded into production. I’m currently performing the final validation checks to ensure the data is accurate.
+Please help me modify or debug the query so that it can handle both cases —
+1️⃣ Rows where EduName starts with these keywords, and
+2️⃣ Rows where EduName has only a numeric value (i.e., no letters, just digits or dots).
 
-Once you’re available, please let me know so that we can proceed with uploading the sheet into the production environment together.
+Suggest the corrected SQL code and explain how the logic should work for this case.
 
-You can access the sheet using the link below:
-🔗 [Provide the link here]
+Here’s the full query:
 
-Thanks,
-Naveen
-(On behalf of the Data Migration Team)
-CC: Suresh
-
-
----
-
-Would you like me to tailor it a bit more formally (for senior stakeholders) or keep it conversational for a peer-level counterpart?Give me a new table with these columns:
-
-1. RPP Name
-
-
-2. RPP Location
-
-
-3. PDU Name (from Item Name)
-
-
-4. PDU Location (from Item Location)
-
-
-
-If an RPP in “RPP_UNKNOWN” does not have any matching PDU in “PDU_relationship”, still show the RPP and mark PDU Name / PDU Location as “Not mapped”.
-
-Generate this as an Excel solution (either Power Query/M or a formula-based approach). Also explain the steps.
+[PASTE YOUR SQL QUERY HERE]
 
 
 
 
 ---
 
-If your second sheet has slightly different column letters, just adjust C/D/F/G in the prompt — logic stays the same: match RPP name + RPP location → pull PDU name + PDU location.
+✅ Tip:
+When you paste your actual SQL under that prompt, Copilot will detect patterns like LIKE 'BDFB%' and can propose an additional condition such as:
+
+OR e.EduName NOT LIKE '%[A-Z]%'
+
+or a PATINDEX rule to include number-only names.
+
+Would you like me to tailor this Copilot prompt so it also mentions that you’re using SQL Server (T-SQL)? That helps Copilot give more precise syntax suggestions.
