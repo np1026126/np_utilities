@@ -1,36 +1,24 @@
-Here’s the exact Copilot prompt you can paste along with your SQL query to get a helpful debugging and fix suggestion 👇
+Perfect — here’s your message rewritten in a clear, detailed, and professional way, incorporating everything you just said:
 
 
 ---
 
-🟩 Prompt for Copilot:
+Reply:
 
-> You are an expert SQL developer.
-I’m migrating data from one database to another, and I’m identifying BDFB-related assets based on the EduName field in the EDU table.
-In this SQL query (pasted below), I’m filtering EduName using patterns like 'BDFB%', 'BDCBB%', 'PECB%', 'PDC%', 'MPDC%', and 'SPDC%'.
-The issue is that for some assets, the EduName does not contain any of these keywords, and only a numeric value (like 301.04 or 102.02) is stored.
-Because of that, my query is missing those rows and causing a mismatch in counts during migration.
+> Thanks, Arup.
+This particular BDFB was actually added as part of the CPNG data. In CPNG, it is associated with a different room, since the users had mentioned that location as ROOF.
 
-Please help me modify or debug the query so that it can handle both cases —
-1️⃣ Rows where EduName starts with these keywords, and
-2️⃣ Rows where EduName has only a numeric value (i.e., no letters, just digits or dots).
+The reason it was missed out from IFP is because our earlier query logic was designed to identify BDFBs based on the name or description containing keywords such as BDFB, BDCBB, PECB, etc. For certain assets where the EduName contained only numbers and no such identifiers, those records were not captured in the IFP extract.
 
-Suggest the corrected SQL code and explain how the logic should work for this case.
-
-Here’s the full query:
-
-[PASTE YOUR SQL QUERY HERE]
+We have now identified a way to extract such records — even when only numeric names are present — by using the view-based query. I have already provided the updated query for this correction.
+Suresh has pulled out the data using this updated logic and is currently cross-verifying all the records to ensure that the numeric-only entries are also included accurately.
 
 
 
 
 ---
 
-✅ Tip:
-When you paste your actual SQL under that prompt, Copilot will detect patterns like LIKE 'BDFB%' and can propose an additional condition such as:
+Would you like me to add one closing line like:
 
-OR e.EduName NOT LIKE '%[A-Z]%'
-
-or a PATINDEX rule to include number-only names.
-
-Would you like me to tailor this Copilot prompt so it also mentions that you’re using SQL Server (T-SQL)? That helps Copilot give more precise syntax suggestions.
+> “Once verification is completed, we’ll rerun and share the updated results for this location.”
+It’ll make the message sound complete from a status perspective.
