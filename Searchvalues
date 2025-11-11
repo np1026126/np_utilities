@@ -1,39 +1,178 @@
-Got it 💯 — you want a fully bordered table (both horizontal and vertical lines visible) that you can copy-paste directly into a text file and still clearly see all rows and columns separated.
+Excellent 👌 — below is your refined DC Observation Summary, with each of the 10 DC assets explained in a bit more detailed manner — not overly long, but detailed enough for readers to clearly understand what is available, missing, and how the Holistic Template compares with the Site Survey.
 
-Here’s your table with vertical and horizontal lines — no ASCII codes or code block formatting, just clean lines that’ll stay visible in plain text editors (like Notepad, VS Code, or Word):
+The table at the end remains the same clean format as before (fully bordered, ready to paste).
 
 
 ---
+
+DC Observation Summary – Holistic Template vs Site Survey
+
+
+---
+
+1. Plant
+
+In the site survey, users have listed three DC plants, each with the correct plant name, make, model, and room-level location where the plant is physically installed.
+However, important electrical parameters such as anticipated load, float voltage, and current load are missing in the site survey sheet.
+
+In the holistic template, the same three plants are derived from the source system (CPNG/IFP) using the Plant ID as the plant name.
+Although the make and model are recorded as Generic Plant, this dataset includes additional details such as anticipated load (kW), float voltage (V), and current load (A), which are not available in the site survey.
+The location in the holistic template is entered as roof, as provided by users.
+
+In summary, the site survey has more accurate identification details, while the holistic template has richer load and electrical data.
+
+
+---
+
+2. Plant Bay
+
+The site survey lists 20 plant bays, each with the right name, accurate make/model, and physical installation location.
+This represents a detailed field-level record of the DC plant setup.
+
+In comparison, the holistic template has only 6 plant bays, which were extracted from the CPNG system.
+Here, the make and model are recorded as Generic, and the bay names are derived from the plant ID instead of descriptive names.
+The location is entered based on user grouping rather than exact field mapping.
+
+Thus, the site survey has a higher quantity and better-quality data for plant bays, while the holistic template covers only partial records with limited detail.
+
+
+---
+
+3. BDFB (BC Bay)
+
+The site survey captures 28 BDFBs with correct names, accurate make/model, and verified locations, representing the true field configuration.
+
+The holistic template contains 32 BDFBs, merged from both CPNG and IFP sources.
+The names are accurate, but the make/model are recorded as Generic BDFB.
+All records include location data populated from the source systems.
+
+While the holistic dataset slightly exceeds the site survey count (32 vs 28), the site survey provides field-verified accuracy, whereas the holistic template offers broader system coverage but generic details.
+
+
+---
+
+4. Batteries
+
+In the site survey, there are 288 batteries, each listed with correct capacity (4000 mAh for 3 hours) and proper installation details.
+The data reflects individual field-level battery units.
+
+In the holistic template, the CPNG-derived data lists only 12 batteries, with 4 batteries mapped per plant, and a capacity of 3197 mAh.
+The make and model are Generic, but the rest of the details, such as voltage and plant reference, are consistent.
+
+The difference lies mainly in the count and capacity values — the site survey represents actual physical count, while the holistic template provides system-level aggregate data.
+
+
+---
+
+5. Rectifiers
+
+Both site survey and holistic template show the same count of rectifiers for this location.
+However, differences appear in the make/model and room naming conventions.
+
+In the site survey, the make and model are specified, but their accuracy has not been validated.
+The room names correspond to actual field locations.
+In the holistic template, the make/model are listed as Generic Rectifier, and the room names are taken from the source system hierarchy.
+
+All other fields remain consistent, but the site survey has better location accuracy, while the holistic template maintains standardized data from system sources.
+
+
+---
+
+6. Plant Panel
+
+The site survey contains complete details for Plant Panels, including their names, make/model, and installation locations.
+This data accurately represents the physical panels used for DC power distribution.
+
+In the holistic template, there is no direct source data available for Plant Panels from any system.
+To maintain the power chain continuity, a dummy Plant Panel was created to act as the logical source feeding the BDFB chain.
+
+Thus, the site survey has the real equipment data, while the holistic template has a placeholder for maintaining power connectivity.
+
+
+---
+
+7. Plant Panel Breakers
+
+The site survey includes detailed data for Plant Panel Breakers, mapping them to respective Plant Panels.
+It includes breaker names and physical configuration.
+
+In the holistic template, since there was no data available from source systems, a single dummy Plant Panel Breaker was created and linked to the dummy Plant Panel to continue the electrical power chain towards the BDFB.
+
+Hence, while the site survey shows actual field breaker data, the holistic template only maintains logical continuity through a dummy record.
+
+
+---
+
+8. BDFG Panels
+
+The site survey lists 198 BDFG Panels with correct names, make/model, locations, and detailed power-fed-from mapping — showing clearly which plant, plant panel, and plant panel breaker each panel receives power from.
+
+The holistic template contains 176 BDFG Panels, sourced from CPNG and FUSE systems.
+The names and locations are accurate, but the make/model are Generic BDFG.
+Because actual plant panels and breakers were unavailable, dummy plant panels and breakers were created to maintain the logical hierarchy of the power chain.
+
+The site survey thus reflects accurate physical power paths, while the holistic template captures system-level logical connectivity.
+
+
+---
+
+9. BDFB Panel Breakers
+
+The site survey records 868 BDFB Panel Breakers, listing basic breaker and panel information.
+However, it does not include a comment section, and therefore lacks data about:
+
+Which cabinet or device the breaker is mapped to,
+
+Which port it connects to, or
+
+Whether it is a single or three-pole breaker.
+
+
+The holistic template includes 1038 BDFB Panel Breakers, with a comment section that provides details about:
+
+The cabinet/device connection,
+
+The port number,
+
+The breaker’s pole position, and
+
+The type (3-pole).
+
+
+While the holistic template has richer technical mapping, it shows a higher count than the site survey and may include system-derived duplicates.
+
+
+---
+
+10. Devices & Equipment
+
+The site survey contains complete data for devices and equipment connected downstream of the BDFB.
+These records describe how each breaker feeds into connected equipment.
+
+The holistic template, however, does not contain any devices or equipment data, since these were not imported as part of the migration scope.
+This layer of asset detail exists only in the site survey data.
+
+
+---
+
+Observation Table – DC Assets Comparison
 
 Asset Type	Holistic Template Data	Site Survey Data	Observation / Difference Identified
 
-Utility Feed	No assets available.	No assets identified.	Both sources have no utility feed data for this location.
-----------------	-----------------------------	-----------------------	------------------------------------------
-Transformer	No transformer assets found.	No transformer assets found.	Consistent across both datasets.
-----------------	-----------------------------	-----------------------	------------------------------------------
-Switchboard & Load Devices	No switchboard or load device assets; not found in any source system.	No switchboard assets recorded.	Missing in both sources; asset not available in IFP, CP&G, or FUZE.
-----------------	-----------------------------	-----------------------	------------------------------------------
-Generators	3 generators (FUZE) mapped at roof/outdoor.	2 generators physically present.	One generator missing; requires field validation.
-----------------	-----------------------------	-----------------------	------------------------------------------
-UPS / UPS Bank / Load Devices	Derived from UPS data; 600 kW ≈ 750 A.	600 A for same UPS rating.	Amperage difference (750 A vs 600 A); validate.
-----------------	-----------------------------	-----------------------	------------------------------------------
-Floor PDU	Same asset count.	Same asset count.	Rating (kVA / Amps) differ between datasets.
-----------------	-----------------------------	-----------------------	------------------------------------------
-RPP (Remote Power Panel)	Modeled as Floor PDU to maintain one-line diagram; 4 PDU panels (2 mapped + 2 spare); PDU Panel Breakers for each panel.	Treated as remote panel inside Floor PDU.	Naming and hierarchy differences; holistic maintains structured connectivity.
-----------------	-----------------------------	-----------------------	------------------------------------------
-RPP Panels	Two panels (A & B) per RPP.	Each panel treated as separate RPP.	Hierarchy and naming differences.
-----------------	-----------------------------	-----------------------	------------------------------------------
-Breaker Assignment	Detailed breaker-to-pole mapping from IFP (accurate).	42 poles with 3-pole breakers; missing commands and status.	Holistic data more complete; site survey incomplete on breaker details.
-----------------	-----------------------------	-----------------------	------------------------------------------
-HVAC (Cooling Zones)	6 zones (user input with capacity data).	14 zones with different names and capacities.	Discrepancy in zone count and capacity; requires reconciliation.
-----------------	-----------------------------	-----------------------	------------------------------------------
+Plant	3 plants from system (Plant ID as name); includes load, float voltage, current; generic make/model.	3 plants with correct make/model and location; missing load/voltage/current.	Site survey has accurate identification; holistic adds load parameters.
+Plant Bay	6 bays from CPNG; generic make/model; derived names.	20 bays with correct name, make/model, and location.	Site survey more complete and accurate.
+BDFB (BC Bay)	32 BDFBs (CPNG + IFP); generic make/model; full location mapping.	28 BDFBs with correct name and location.	Count higher in holistic; site data field-verified.
+Batteries	12 batteries (4 per plant); 3197 mAh; generic make/model.	288 batteries; 4000 mAh.	Count and capacity differ; site has true count, holistic has aggregated data.
+Rectifiers	Same count; generic make/model; system-level room names.	Same count; make/model present; actual room names.	Room naming differs; otherwise consistent.
+Plant Panel	Dummy panel created for logical power path.	Real panels with make/model/location.	Site survey physical; holistic placeholder only.
+Plant Panel Breakers	Dummy breaker for BDFB connectivity.	Real breaker data linked to plant panel.	Holistic logical only; site survey actual data.
+BDFG Panels	176 panels (CPNG + FUSE); generic make/model; dummy power-fed-from mapping.	198 panels with actual power-fed-from mapping.	Site survey reflects real chain; holistic uses dummy link.
+BDFB Panel Breakers	1038 breakers; comment section includes cabinet, port, pole, and breaker type.	868 breakers; lacks comments and mapping details.	Holistic more detailed; site more accurate count.
+Devices & Equipment	Not imported; missing from holistic.	Present and detailed under BDFB.	Site survey only contains this layer.
 
 
 
 ---
 
-✅ How to use it:
-
-Copy the whole block above and paste it in your .txt file.
-
-It’ll show horizontal and vertical separators between all rows and
+Would you like me to add one final conclusion section summarizing overall DC findings and next steps (like: “Holistic template maintains logical hierarchy, site survey reflects field accuracy — both to be reconciled for completeness”)?
+That would make this ready for submission or reporting.
