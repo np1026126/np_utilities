@@ -1,169 +1,73 @@
-Perfect — here’s your complete AC Flow correction summary (from UPS → UPS Bank → PDU → PDU Panel → PDU Panel Breakers → RPP Panel → RPP Panel Breakers → HVAC) written in a clean, professional format with consistent description and tabular comparison for direct copy-paste into your Slack update 👇
+Here’s a clean, professional draft for your email to users — it ties together all your points (template sharing, clarifications, AC/DC analysis, and the location name note). You can copy and paste this directly into your mail compose window 👇
 
 
 ---
 
-AC FLOW DATA CORRECTION SUMMARY
+Subject: Site Survey Template Review – New Berlin | Clarifications and Updated Templates
+
+Hi Team,
+
+Thanks for sharing the site survey template for New Berlin.
+
+For upstream assets such as Utility Feed, Transformer, ATS (Main Electrical Switchboard), and Load Devices connecting these components — the data was not available in any of the source systems (CPNG, IFP, or FUSE).
+Hence, templates for these assets were not created earlier. We are now sharing sample templates for these components so that you can populate them as per the site data availability.
+
+These elements are essential for completing the AC and DC power-chain formation in DC Track.
 
 
 ---
 
-1. UPS
+DC Flow
 
-Description:
-In the site survey, the Status column has incorrect values (e.g., “False”) instead of valid DCTrack statuses. It must be either Planned or Installed.
-Additionally, the Output Wiring is shown as 3-wire whereas the holistic template default is 4-wire + Ground. This requires verification to confirm the correct wiring type.
-The Custom Field – UPS Maintenance By column should remain blank (no value required).
+Typical sequence:
+Utility Feed → Transformer / Generator → Switchboard → Load Device → DC Plant → Plant Panel → Plant Panel Breakers → BDFB Panel → BDFB Panel Breakers → Equipment / Cabinets
 
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Status	False	Planned / Installed
-Output Wiring	3-wire	4-wire + Ground (verify correctness)
-Custom Field (UPS Maintenance By)	Value present	Leave Blank
-
+For DC Plant and Plant Panel Breakers, these are mandatory, as they define the power-source mapping in DC Track and ensure continuity of the DC power-chain.
 
 
 ---
 
-2. UPS BANK
+AC Flow
 
-Description:
-In the site survey, the Status column is empty; it should have either Planned or Installed.
-The Naming convention for UPS Bank should follow: UPSBank-<UPSName> (same as UPS name with “Bank” suffix).
-The Rating (Amps) of the UPS Bank must match the KW rating of UPS and be greater than the rating of PDUs connected to it.
-Output wiring should be 3-wire, subject to cross-verification.
+Typical sequence:
+Utility Feed → Transformer / Generator → Switchboard → Load Device → UPS / UPS Bank → Load Device → Floor PDU → PDU Panel → PDU Panel Breakers → RPP → RPP Panel → RPP Panel Breakers → Cabinets / Equipment
 
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Status	Empty	Planned / Installed
-Name	UPSBank (naming inconsistency)	UPSBank-<UPSName>
-Output Wiring	3-wire (verify)	3-wire (if correct)
-Rating (Amps)	Not validated	Must ≥ PDU rating and match UPS KW
-
+For BDFB Panels and RPP Panels, ensure proper flow consistency between upstream and downstream assets.
 
 
 ---
 
-3. PDU
-
-Description:
-The Power Fed From should be just “UPS Bank” (not the specific UPS Bank name).
-The Source (UPS Bank / Load Device / PDU Panel:Breaker) format must follow the standard —
-<UPSBankName>/<LoadDeviceName> (as shown in the first sample screenshot).
-In the site survey, this format was not followed, and the power source reference (blue cell) is incorrect.
-
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Power Fed From	UPSBank-A1	UPS Bank
-Source	UPS-A1/LIEBERT EXM BDC:MIB	UPSBANK/PDU Breaker (e.g., UPSBANK-A/PDU-A11 BREAKER)
-
+Note:
+Across all assets, the Location Name column has inconsistencies.
+If possible, omit the “Location Name” column from input.
+If it must be provided, please use the format:
+<CLLICode> <space> <RoomName>
+—for example: NWBLWICZ Switch Room 1 100.
 
 
 ---
 
-4. RPP
+Attachments included:
 
-Description:
-For RPP, Power Fed From must only refer to the PDU (not “Floor PDU” or other terms).
-The Source should follow the format:
-<PDU Name>/<PDU Panel>/<Breaker Positions>
-Example: PDU-A11/PDU-A11 PANEL 1:3,5
-Additionally, the Rating (Amps) needs confirmation — the provided value 800A seems high since typical RPP ratings are 400A–500A. This needs validation.
+1. Clarification Document: Queries and clarifications raised on load devices and other assets.
 
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
 
-Power Fed From	Floor PDU	PDU
-Source	PDU-A11/PANELBOARD 1:RPP-A111	PDU-A11/PDU-A11 PANEL 1:3,5
-Rating (A)	800 (to verify)	Typically 400–500
+2. AC Flow – New Berlin Asset Analysis (comparison of Site Survey vs Holistic data).
+
+
+3. DC Flow – New Berlin Asset Analysis (comparison of Site Survey vs Holistic data).
+
+
+4. Sample Templates for Transformer, ATS Switchboard, and Load Devices to be used for completing missing upstream assets.
 
 
 
----
+Please review and update the corresponding sheets accordingly.
 
-5. PDU PANEL
-
-Description:
-Each PDU should have four panels created. The Number of Poles in site survey is given as 3, which is acceptable but can be set to 6 for dummy panels.
-The Panel Layout is incorrectly given as One Column — it should be Two Column so that odd and even poles are split.
-Pole Numbering must be either Odd/Even or Sequential.
-First Pole Number should always start with 1 since each panel is independent.
-
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Number of Poles	3	6 (optional)
-Panel Layout	One Column	Two Column
-Pole Numbering	Blank	Odd/Even or Sequential
-First Pole Number	1 / 4 / 7 / 10	1 (for each panel)
-
+Regards,
+Naveen Prasad
 
 
 ---
 
-6. PDU PANEL BREAKERS
-
-Description:
-An extra record “ATS → UPS” is present — this must be removed since PDU cannot connect directly to UPS.
-When an RPP is attached (and Sub-Panel Location / Floor PDU is provided with Status = Closed), the Object must be Breaker to Panel.
-If not attached and Status = Open, the Object must be Breaker to Others.
-Additionally, the Panel Names need correction — all currently read PDU-A11 PANEL 1; they should be distributed as shown below.
-
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Extra Row	ATS → UPS	Remove
-Object	Breaker to Panel (for open breakers)	Breaker to Others
-Panel Name	PDU-A11 PANEL 1 (for all)	PANEL 1, PANEL 2, PAIR 1, PAIR 2
-
-
-
----
-
-7. RPP PANEL
-
-Description:
-No issues observed. The data in RPP Panel sheet is correct and consistent with the holistic template.
-
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-All Fields	Correct	No Change Required
-
-
-
----
-
-8. RPP PANEL BREAKERS
-
-Description:
-If a Cabinet is attached and Breaker Status = Closed, the Object should be Breaker to Cabinet.
-If not attached or Status ≠ Closed, it should remain Breaker to Others.
-For Breaker to Cabinet entries, a separate sheet must be used as it includes additional cabinet-related columns.
-
-Field	Condition	Correct Object Value
-
-Cabinet attached + Closed Status	Breaker to Cabinet	Use separate sheet (with extra columns)
-No Cabinet / Not Closed	Breaker to Others	Existing data correct
-
-
-
----
-
-9. HVAC
-
-Description:
-For HVAC units, two mandatory fields — Cooling Zone Name and Sensible Capacity — are missing in the site survey data.
-These fields must be populated for DCTrack to compute correct thermal load associations and cooling zone mapping.
-
-Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
-
-Cooling Zone Name	Blank	Must be filled (e.g., ZONE-1 / FLR1-ZONE-A)
-Sensible Capacity	Blank	Must be filled (e.g., 52 kW / 177,000 BTU/hr)
-
-
-
----
-
-✅ End of AC Flow Data Correction Summary
-
-
----
-
-Would you like me to now convert this into a Word or PDF version (with clean formatting and aligned tables) so you can share it directly in Slack or attach it in the Jira ticket?
+Would you like me to make a slightly shorter Slack-style version (2-3 crisp paragraphs) of this same message so you can post a heads-up to users before sending the email?
