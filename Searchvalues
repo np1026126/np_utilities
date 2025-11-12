@@ -1,132 +1,64 @@
-Perfect, Naveen — I’ve carefully gone through your screenshots and your detailed explanation. Here’s a clear and professional message you can send to users explaining how to fill in the “Load Devices” sheet for the UPS → UPS Bank and UPS Bank → PDU connections in the AC flow.
+Got it, Naveen 👍 — here’s a clear, professional way to communicate your point to the users based on everything you’ve described.
 
 
 ---
 
-⚙️ Clarification on Filling Load Devices (UPS → UPS Bank / UPS Bank → PDU)
+⚙️ Clarification on Upstream Power Assets (Utility Feed, Transformer, Switchboard & Load Devices)
 
 Hi Team,
 
-Here’s the explanation on how to fill in the Load Devices section for the UPS and UPS Bank connections, as well as UPS Bank to PDU mapping. This is a critical part of the AC power chain formation in DC Track.
+From our side, as part of the data migration from IFP, CPNG, and FUSE, we were able to retrieve most of the DC and AC assets that are required for forming the power chain in DC Track.
+However, during the extraction we noticed that certain upstream assets — specifically the Utility Feed, Transformers, ATS/Main Electrical Switchboards, and their connecting Load Devices — were not available in the source systems (CPNG/FUSE/IFP).
+
+Because these upstream components were missing, we did not import those assets or their related Excel sheets (Utility Feed, Transformer, Switchboard, and Load Device templates) into DC Track.
+To ensure the power-chain continuity and calculation flow still function properly, we started the import from:
+
+DC Plant level for DC Flow
+
+UPS level for AC Flow
+
+
+These starting points allow the power flow to be accurately mapped even without the upstream utility and switchboard data.
+
+At the same time, we did not import any Equipment assets, since equipment-level data was not available from the source systems.
+
+If you would like to include those upstream elements (Utility Feed, Transformer, Switchboard, and Load Devices) for completeness, we can share sample template sheets that can be used for your reference. You can fill in those details, and we can include them in the next import cycle.
+
+Please review and confirm if you’d like to proceed with those additional upstream components.
+
+Thanks,
+Naveen
+
+Here’s a clean, professional Slack post you can drop in the channel:
 
 
 ---
 
-⚡ 1. UPS
+Update: Site Survey Corrections & Power-Chain Details
 
-The UPS represents the actual power backup equipment feeding downstream components.
+Hi team,
+We’ve reviewed the site-survey inputs and will share per-asset changes and guidance shortly. In particular, we’ll cover:
 
-For each UPS, provide:
+Load Devices: how to map UPS ↔ UPS Bank and UPS Bank ↔ PDU, and transformer/generator ↔ bus connections
 
-Make & Model (e.g., Vertiv 600KVA EXL-S1)
+DC Plant Panel and DC Plant Panel Breakers: required structure to feed BDFB/BDFB panels (Plant / Plant Panel : Plant Panel Breakers)
 
-KVA Rating, KW Rating, and Voltage (V) values
-
-Location (Site → Room / Ceiling name)
-
-Status (Planned / Installed)
+Sample sheets: updated templates to fill these items correctly
 
 
+I’ll share the detailed change list and sample sheets in about 1 hour.
+Please plan to connect with me then for a quick walk-through and Q&A.
 
-This data defines where the UPS unit is physically located and what load it supports.
-
-
----
-
-🔋 2. UPS Bank
-
-For every UPS, there should be one corresponding UPS Bank.
-
-The UPS Bank acts as the distribution point that receives power from the UPS.
-
-The UPS Bank Rating (Amps) is derived from the UPS’s KW or KVA rating.
-
-The UPS Bank also serves as the housing for Load Devices that connect the power flow between the UPS and PDU.
-
+Thanks,
+Naveen
 
 
 ---
 
-🔌 3. Load Devices
+If you want a shorter version:
 
-Load Devices represent the actual electrical connection path between the UPS, UPS Bank, and PDUs.
-There are two main types of Load Devices in this context:
-
-A. Load Device – UPS → UPS Bank
-
-Purpose: Carries power from the UPS to its corresponding UPS Bank.
-
-Line Side: Extension
-
-Load Side: Bus
-
-Power Fed From: The UPS itself.
-
-Source: UPS Name : UPS Output
-
-Device Name Convention: UPS Name + " Breaker" (e.g., UPS A1 Breaker).
-
-Model: Load Device – 3 Pole.
-
-Example Entry:
-
-Power Fed From → UPS A1 : UPS Output
-
-Line Side → Extension
-
-Load Side → Bus A
-
-Location → STLEMITX > UPS Room 303
-
-Rating → 600 Amps
-
-
-
-B. Load Device – UPS Bank → PDU
-
-Purpose: Carries power from the UPS Bank to the Floor PDU.
-
-Line Side: Bus
-
-Load Side: Extension
-
-Power Fed From: The UPS Bank output.
-
-Source: UPS Bank Name : Output
-
-Device Name Convention: PDU Name + " Breaker" (e.g., PDU B12 Breaker).
-
-Model: Load Device – 3 Pole.
-
-Example Entry:
-
-Power Fed From → UPS Bank A : Output
-
-Line Side → Bus A
-
-Load Side → Extension
-
-Location → STLEMITX > UPS Room 303
-
-Rating → 600 Amps
-
-
-
-
+Short post:
+“Heads up: I’ll share per-asset corrections + templates for Load Devices, DC Plant Panel, and DC Panel Breakers in ~1 hour. Please connect with me then for a brief walkthrough/Q&A. – Naveen”
 ---
 
-🧩 Important Notes
-
-Always ensure each UPS and UPS Bank pair has corresponding load devices defined in both directions (UPS → UPS Bank and UPS Bank → PDU).
-
-Maintain consistent naming and rating formats as shown in the sample sheet.
-
-The model for all load devices should remain “Load Device – 3 Pole.”
-
-
-We’ve attached the sample sheet from the STLEMITX site to guide you on the expected structure and mapping pattern.
-
-
----
-
-Would you like me to write a concise version (for Slack) of this same message, summarizing just the logic and conventions (UPS → UPS Bank and UPS Bank → PDU), to post along with your screenshot?
+Would you like me to give you a short Slack version (3–4 lines) of this message, suitable for posting in your user migration channel with the sample sheets attached?
