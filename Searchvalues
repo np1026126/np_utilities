@@ -1,43 +1,104 @@
-Got it, Naveen 👍 — you’re clarifying that these battery-specific fields are not from the Macon model but should be added under the battery make and model details, so that any new make/model coming in will have these parameters predefined.
+Perfect clarification, Naveen 👌 — you’re absolutely right.
+In both AC and DC power flows, there are two possible input paths into the Main Electrical Switchboard (ATS):
 
-Here’s a polished and professional message you can post in the Slack channel to convey that clearly 👇
+1. From the Utility Feed → Transformer → Switchboard, and
+
+
+2. From the Fuel Tank → Generator → Switchboard,
+where the ATS automatically switches between utility and generator power based on availability.
+
+
+
+Here’s your final, refined version that clearly represents that logic visually 👇
 
 
 ---
 
-Update – Battery Template Enhancement
+⚙️ Clarification on Upstream Power Assets and Power-Chain Flow
 
 Hi Team,
 
-We’ve identified a few additional parameters that need to be captured under the Battery Make & Model section.
-These fields are not part of the Macon model; rather, they define key specifications for each battery make and model.
-Whenever a new battery make/model is introduced, these fields should also be added for it.
+For upstream assets like Utility Feed, Transformers, Generators, ATS / Main Electrical Switchboards, and the Load Devices connecting these components, the data was not available in CPNG, IFP, or FUSE systems.
+Hence, templates were not created earlier. We are now sharing sample templates for these assets so that you can populate them if the site data is available.
 
-To maintain consistency and for easier reference, we are including these same columns in the Battery section of the holistic template as well.
-
-New fields to be included:
-
-Target Run Time (Hours)
-
-Capacity (AH)
-
-Nominal Voltage
-
-Number of Cells
-
-Peukert Exponent
-
-Capacity 1 Rate (Hours)
-
-Capacity 1 (Amp-Hour)
-
-Capacity 2 Rate (Hours)
-
-Capacity 2 (Amp-Hour)
+These assets are critical for establishing the complete AC and DC power-chain flow in DC Track.
 
 
-I’ll share the sample sheet link shortly with these fields pre-added. Please use that reference to update and correct the battery data for your respective site(s).
-The sample will include one location’s data to help you understand how to populate the values correctly.
+---
+
+⚡ DC Power Flow
+
++--------------------+
+                    |   Fuel Tank        |
+                    +---------+----------+
+                              |
+                              v
+                         [Generator]
+                              |
+                              v
+        +----------------------------------------------+
+        |             ATS / Main Switchboard           |
+        |   (Automatically switches between sources)   |
+        +----------------------------------------------+
+                 ^                             ^
+                 |                             |
+     [Utility Feed] → [Transformer] → Load Device
+                              |
+                              v
+                         [DC Plant]
+                              |
+                         [Plant Bay / Plant Panel]
+                              |
+                         [Plant Panel Breakers]
+                              |
+                              v
+                         [BDFB / BDFB Panel]
+                              |
+                         [BDFB Panel Breakers]
+                              |
+                         [Cabinets / Equipment]
+
+
+---
+
+🔋 AC Power Flow
+
++--------------------+
+                    |   Fuel Tank        |
+                    +---------+----------+
+                              |
+                              v
+                         [Generator]
+                              |
+                              v
+        +----------------------------------------------+
+        |             ATS / Main Switchboard           |
+        |   (Automatically switches between sources)   |
+        +----------------------------------------------+
+                 ^                             ^
+                 |                             |
+     [Utility Feed] → [Transformer] → Load Device
+                              |
+                              v
+                         [UPS]
+                              |
+                         [UPS Bank]
+                              |
+                         [Load Devices (UPS→Bank / Bank→PDU)]
+                              |
+                         [Floor PDU / PDU Panel]
+                              |
+                         [RPP / RPP Panels]
+                              |
+                         [RPP Panel Breakers]
+                              |
+                         [Cabinets / Equipment]
+
+
+---
+
+Please use the attached templates to capture these upstream components wherever possible.
+Once filled, we’ll validate and help integrate the data into DC Track.
 
 Thanks,
 Naveen
@@ -45,4 +106,4 @@ Naveen
 
 ---
 
-Would you like me to make a shorter, 3-line Slack post version of this (to go with the link when you share the sample sheet)?
+Would you like me to make a compact Slack version (with a single-line dual-source diagram for both flows) so you can share it in your migration channel with the template link?
