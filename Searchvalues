@@ -1,40 +1,24 @@
-Here’s a clean, professional draft for your email to users — it ties together all your points (template sharing, clarifications, AC/DC analysis, and the location name note). You can copy and paste this directly into your mail compose window 👇
+Here’s a polished Slack message you can send to Jessica — concise, professional, and matching your context perfectly 👇
 
 
 ---
 
-Subject: Site Survey Template Review – New Berlin | Clarifications and Updated Templates
+Hi Jessica,
+Since we couldn’t connect earlier, I’ve sent a detailed mail covering:
 
-Hi Team,
+The list of changes required for both AC and DC assets,
 
-Thanks for sharing the site survey template for New Berlin.
+Clarifications for the specific asset-related queries raised, and
 
-For upstream assets such as Utility Feed, Transformer, ATS (Main Electrical Switchboard), and Load Devices connecting these components — the data was not available in any of the source systems (CPNG, IFP, or FUSE).
-Hence, templates for these assets were not created earlier. We are now sharing sample templates for these components so that you can populate them as per the site data availability.
-
-These elements are essential for completing the AC and DC power-chain formation in DC Track.
+The sample templates for the additional upstream assets.
 
 
----
-
-DC Flow
-
-Typical sequence:
-Utility Feed → Transformer / Generator → Switchboard → Load Device → DC Plant → Plant Panel → Plant Panel Breakers → BDFB Panel → BDFB Panel Breakers → Equipment / Cabinets
-
-For DC Plant and Plant Panel Breakers, these are mandatory, as they define the power-source mapping in DC Track and ensure continuity of the DC power-chain.
+Please check your inbox for the full summary — I’ve included all supporting documents as you requested.
 
 
 ---
 
-AC Flow
-
-Typical sequence:
-Utility Feed → Transformer / Generator → Switchboard → Load Device → UPS / UPS Bank → Load Device → Floor PDU → PDU Panel → PDU Panel Breakers → RPP → RPP Panel → RPP Panel Breakers → Cabinets / Equipment
-
-For BDFB Panels and RPP Panels, ensure proper flow consistency between upstream and downstream assets.
-
-
+Would you like me to make a slightly shorter variant (2–3 lines) for use as a reply in the same thread under Jessica’s last message, so it reads naturally in Slack?
 ---
 
 Note:
