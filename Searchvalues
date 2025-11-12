@@ -1,109 +1,169 @@
-Perfect clarification, Naveen 👌 — you’re absolutely right.
-In both AC and DC power flows, there are two possible input paths into the Main Electrical Switchboard (ATS):
-
-1. From the Utility Feed → Transformer → Switchboard, and
-
-
-2. From the Fuel Tank → Generator → Switchboard,
-where the ATS automatically switches between utility and generator power based on availability.
-
-
-
-Here’s your final, refined version that clearly represents that logic visually 👇
+Perfect — here’s your complete AC Flow correction summary (from UPS → UPS Bank → PDU → PDU Panel → PDU Panel Breakers → RPP Panel → RPP Panel Breakers → HVAC) written in a clean, professional format with consistent description and tabular comparison for direct copy-paste into your Slack update 👇
 
 
 ---
 
-⚙️ Clarification on Upstream Power Assets and Power-Chain Flow
-
-Hi Team,
-
-For upstream assets like Utility Feed, Transformers, Generators, ATS / Main Electrical Switchboards, and the Load Devices connecting these components, the data was not available in CPNG, IFP, or FUSE systems.
-Hence, templates were not created earlier. We are now sharing sample templates for these assets so that you can populate them if the site data is available.
-
-These assets are critical for establishing the complete AC and DC power-chain flow in DC Track.
+AC FLOW DATA CORRECTION SUMMARY
 
 
 ---
 
-⚡ DC Power Flow
+1. UPS
 
-+--------------------+
-                    |   Fuel Tank        |
-                    +---------+----------+
-                              |
-                              v
-                         [Generator]
-                              |
-                              v
-        +----------------------------------------------+
-        |             ATS / Main Switchboard           |
-        |   (Automatically switches between sources)   |
-        +----------------------------------------------+
-                 ^                             ^
-                 |                             |
-     [Utility Feed] → [Transformer] → Load Device
-                              |
-                              v
-                         [DC Plant]
-                              |
-                         [Plant Bay / Plant Panel]
-                              |
-                         [Plant Panel Breakers]
-                              |
-                              v
-                         [BDFB / BDFB Panel]
-                              |
-                         [BDFB Panel Breakers]
-                              |
-                         [Cabinets / Equipment]
+Description:
+In the site survey, the Status column has incorrect values (e.g., “False”) instead of valid DCTrack statuses. It must be either Planned or Installed.
+Additionally, the Output Wiring is shown as 3-wire whereas the holistic template default is 4-wire + Ground. This requires verification to confirm the correct wiring type.
+The Custom Field – UPS Maintenance By column should remain blank (no value required).
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Status	False	Planned / Installed
+Output Wiring	3-wire	4-wire + Ground (verify correctness)
+Custom Field (UPS Maintenance By)	Value present	Leave Blank
+
 
 
 ---
 
-🔋 AC Power Flow
+2. UPS BANK
 
-+--------------------+
-                    |   Fuel Tank        |
-                    +---------+----------+
-                              |
-                              v
-                         [Generator]
-                              |
-                              v
-        +----------------------------------------------+
-        |             ATS / Main Switchboard           |
-        |   (Automatically switches between sources)   |
-        +----------------------------------------------+
-                 ^                             ^
-                 |                             |
-     [Utility Feed] → [Transformer] → Load Device
-                              |
-                              v
-                         [UPS]
-                              |
-                         [UPS Bank]
-                              |
-                         [Load Devices (UPS→Bank / Bank→PDU)]
-                              |
-                         [Floor PDU / PDU Panel]
-                              |
-                         [RPP / RPP Panels]
-                              |
-                         [RPP Panel Breakers]
-                              |
-                         [Cabinets / Equipment]
+Description:
+In the site survey, the Status column is empty; it should have either Planned or Installed.
+The Naming convention for UPS Bank should follow: UPSBank-<UPSName> (same as UPS name with “Bank” suffix).
+The Rating (Amps) of the UPS Bank must match the KW rating of UPS and be greater than the rating of PDUs connected to it.
+Output wiring should be 3-wire, subject to cross-verification.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Status	Empty	Planned / Installed
+Name	UPSBank (naming inconsistency)	UPSBank-<UPSName>
+Output Wiring	3-wire (verify)	3-wire (if correct)
+Rating (Amps)	Not validated	Must ≥ PDU rating and match UPS KW
+
 
 
 ---
 
-Please use the attached templates to capture these upstream components wherever possible.
-Once filled, we’ll validate and help integrate the data into DC Track.
+3. PDU
 
-Thanks,
-Naveen
+Description:
+The Power Fed From should be just “UPS Bank” (not the specific UPS Bank name).
+The Source (UPS Bank / Load Device / PDU Panel:Breaker) format must follow the standard —
+<UPSBankName>/<LoadDeviceName> (as shown in the first sample screenshot).
+In the site survey, this format was not followed, and the power source reference (blue cell) is incorrect.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Power Fed From	UPSBank-A1	UPS Bank
+Source	UPS-A1/LIEBERT EXM BDC:MIB	UPSBANK/PDU Breaker (e.g., UPSBANK-A/PDU-A11 BREAKER)
+
 
 
 ---
 
-Would you like me to make a compact Slack version (with a single-line dual-source diagram for both flows) so you can share it in your migration channel with the template link?
+4. RPP
+
+Description:
+For RPP, Power Fed From must only refer to the PDU (not “Floor PDU” or other terms).
+The Source should follow the format:
+<PDU Name>/<PDU Panel>/<Breaker Positions>
+Example: PDU-A11/PDU-A11 PANEL 1:3,5
+Additionally, the Rating (Amps) needs confirmation — the provided value 800A seems high since typical RPP ratings are 400A–500A. This needs validation.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Power Fed From	Floor PDU	PDU
+Source	PDU-A11/PANELBOARD 1:RPP-A111	PDU-A11/PDU-A11 PANEL 1:3,5
+Rating (A)	800 (to verify)	Typically 400–500
+
+
+
+---
+
+5. PDU PANEL
+
+Description:
+Each PDU should have four panels created. The Number of Poles in site survey is given as 3, which is acceptable but can be set to 6 for dummy panels.
+The Panel Layout is incorrectly given as One Column — it should be Two Column so that odd and even poles are split.
+Pole Numbering must be either Odd/Even or Sequential.
+First Pole Number should always start with 1 since each panel is independent.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Number of Poles	3	6 (optional)
+Panel Layout	One Column	Two Column
+Pole Numbering	Blank	Odd/Even or Sequential
+First Pole Number	1 / 4 / 7 / 10	1 (for each panel)
+
+
+
+---
+
+6. PDU PANEL BREAKERS
+
+Description:
+An extra record “ATS → UPS” is present — this must be removed since PDU cannot connect directly to UPS.
+When an RPP is attached (and Sub-Panel Location / Floor PDU is provided with Status = Closed), the Object must be Breaker to Panel.
+If not attached and Status = Open, the Object must be Breaker to Others.
+Additionally, the Panel Names need correction — all currently read PDU-A11 PANEL 1; they should be distributed as shown below.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Extra Row	ATS → UPS	Remove
+Object	Breaker to Panel (for open breakers)	Breaker to Others
+Panel Name	PDU-A11 PANEL 1 (for all)	PANEL 1, PANEL 2, PAIR 1, PAIR 2
+
+
+
+---
+
+7. RPP PANEL
+
+Description:
+No issues observed. The data in RPP Panel sheet is correct and consistent with the holistic template.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+All Fields	Correct	No Change Required
+
+
+
+---
+
+8. RPP PANEL BREAKERS
+
+Description:
+If a Cabinet is attached and Breaker Status = Closed, the Object should be Breaker to Cabinet.
+If not attached or Status ≠ Closed, it should remain Breaker to Others.
+For Breaker to Cabinet entries, a separate sheet must be used as it includes additional cabinet-related columns.
+
+Field	Condition	Correct Object Value
+
+Cabinet attached + Closed Status	Breaker to Cabinet	Use separate sheet (with extra columns)
+No Cabinet / Not Closed	Breaker to Others	Existing data correct
+
+
+
+---
+
+9. HVAC
+
+Description:
+For HVAC units, two mandatory fields — Cooling Zone Name and Sensible Capacity — are missing in the site survey data.
+These fields must be populated for DCTrack to compute correct thermal load associations and cooling zone mapping.
+
+Field	Site Survey Data (Incorrect)	Holistic Data (Correct)
+
+Cooling Zone Name	Blank	Must be filled (e.g., ZONE-1 / FLR1-ZONE-A)
+Sensible Capacity	Blank	Must be filled (e.g., 52 kW / 177,000 BTU/hr)
+
+
+
+---
+
+✅ End of AC Flow Data Correction Summary
+
+
+---
+
+Would you like me to now convert this into a Word or PDF version (with clean formatting and aligned tables) so you can share it directly in Slack or attach it in the Jira ticket?
