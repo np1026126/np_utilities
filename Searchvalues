@@ -1,15 +1,21 @@
-Got it 👍 — here’s how you can clearly communicate that update to the users on Slack or email:
+Got it, Naveen 👍 — you’re clarifying that these battery-specific fields are not from the Macon model but should be added under the battery make and model details, so that any new make/model coming in will have these parameters predefined.
+
+Here’s a polished and professional message you can post in the Slack channel to convey that clearly 👇
 
 
 ---
 
-Update – Battery Holistic Template Enhancement
+Update – Battery Template Enhancement
 
 Hi Team,
 
-We’ve identified a few additional fields that need to be included in the Battery holistic template. These fields are derived from the Macon model specifications, since the Macon model records in DC-Track production currently do not contain this information.
+We’ve identified a few additional parameters that need to be captured under the Battery Make & Model section.
+These fields are not part of the Macon model; rather, they define key specifications for each battery make and model.
+Whenever a new battery make/model is introduced, these fields should also be added for it.
 
-The following columns will be added to the template for data collection:
+To maintain consistency and for easier reference, we are including these same columns in the Battery section of the holistic template as well.
+
+New fields to be included:
 
 Target Run Time (Hours)
 
@@ -30,10 +36,8 @@ Capacity 2 Rate (Hours)
 Capacity 2 (Amp-Hour)
 
 
-These values should be populated directly from the site-verified battery model details.
-➡️ Note: It is not required to add a “voice” entry for the Macon model. The enhancement only involves adding the above data fields to complete the Macon model information for each battery record.
-
-I’ll share the updated sample sheet reflecting these fields shortly.
+I’ll share the sample sheet link shortly with these fields pre-added. Please use that reference to update and correct the battery data for your respective site(s).
+The sample will include one location’s data to help you understand how to populate the values correctly.
 
 Thanks,
 Naveen
@@ -41,4 +45,4 @@ Naveen
 
 ---
 
-Would you like me to make this message shorter and more conversational (for a quick Slack post)?
+Would you like me to make a shorter, 3-line Slack post version of this (to go with the link when you share the sample sheet)?
