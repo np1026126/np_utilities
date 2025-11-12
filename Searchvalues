@@ -1,53 +1,39 @@
-Got it, Naveen 👍 — here’s a clear, professional way to communicate your point to the users based on everything you’ve described.
+Got it 👍 — here’s how you can clearly communicate that update to the users on Slack or email:
 
 
 ---
 
-⚙️ Clarification on Upstream Power Assets (Utility Feed, Transformer, Switchboard & Load Devices)
+Update – Battery Holistic Template Enhancement
 
 Hi Team,
 
-From our side, as part of the data migration from IFP, CPNG, and FUSE, we were able to retrieve most of the DC and AC assets that are required for forming the power chain in DC Track.
-However, during the extraction we noticed that certain upstream assets — specifically the Utility Feed, Transformers, ATS/Main Electrical Switchboards, and their connecting Load Devices — were not available in the source systems (CPNG/FUSE/IFP).
+We’ve identified a few additional fields that need to be included in the Battery holistic template. These fields are derived from the Macon model specifications, since the Macon model records in DC-Track production currently do not contain this information.
 
-Because these upstream components were missing, we did not import those assets or their related Excel sheets (Utility Feed, Transformer, Switchboard, and Load Device templates) into DC Track.
-To ensure the power-chain continuity and calculation flow still function properly, we started the import from:
+The following columns will be added to the template for data collection:
 
-DC Plant level for DC Flow
+Target Run Time (Hours)
 
-UPS level for AC Flow
+Capacity (AH)
 
+Nominal Voltage
 
-These starting points allow the power flow to be accurately mapped even without the upstream utility and switchboard data.
+Number of Cells
 
-At the same time, we did not import any Equipment assets, since equipment-level data was not available from the source systems.
+Peukert Exponent
 
-If you would like to include those upstream elements (Utility Feed, Transformer, Switchboard, and Load Devices) for completeness, we can share sample template sheets that can be used for your reference. You can fill in those details, and we can include them in the next import cycle.
+Capacity 1 Rate (Hours)
 
-Please review and confirm if you’d like to proceed with those additional upstream components.
+Capacity 1 (Amp-Hour)
 
-Thanks,
-Naveen
+Capacity 2 Rate (Hours)
 
-Here’s a clean, professional Slack post you can drop in the channel:
+Capacity 2 (Amp-Hour)
 
 
----
+These values should be populated directly from the site-verified battery model details.
+➡️ Note: It is not required to add a “voice” entry for the Macon model. The enhancement only involves adding the above data fields to complete the Macon model information for each battery record.
 
-Update: Site Survey Corrections & Power-Chain Details
-
-Hi team,
-We’ve reviewed the site-survey inputs and will share per-asset changes and guidance shortly. In particular, we’ll cover:
-
-Load Devices: how to map UPS ↔ UPS Bank and UPS Bank ↔ PDU, and transformer/generator ↔ bus connections
-
-DC Plant Panel and DC Plant Panel Breakers: required structure to feed BDFB/BDFB panels (Plant / Plant Panel : Plant Panel Breakers)
-
-Sample sheets: updated templates to fill these items correctly
-
-
-I’ll share the detailed change list and sample sheets in about 1 hour.
-Please plan to connect with me then for a quick walk-through and Q&A.
+I’ll share the updated sample sheet reflecting these fields shortly.
 
 Thanks,
 Naveen
@@ -55,10 +41,4 @@ Naveen
 
 ---
 
-If you want a shorter version:
-
-Short post:
-“Heads up: I’ll share per-asset corrections + templates for Load Devices, DC Plant Panel, and DC Panel Breakers in ~1 hour. Please connect with me then for a brief walkthrough/Q&A. – Naveen”
----
-
-Would you like me to give you a short Slack version (3–4 lines) of this message, suitable for posting in your user migration channel with the sample sheets attached?
+Would you like me to make this message shorter and more conversational (for a quick Slack post)?
