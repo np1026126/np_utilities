@@ -1,181 +1,132 @@
-
-Hi Naveen 👋
-
-Yes, I understand your full context now — you’re coordinating the power-chain migration in DC Track, and users are confused about how to fill the template sheets for assets like Utility Feed, Transformers, Generators, ATS Switchboards, Load Devices, etc. They’ve started from UPS/UPS Bank, skipping the main electrical switchboards and DC Plant components because they couldn’t find those in CPNG or on site.
-
-Here’s a clear, professional message you can send to the users (for Slack or email):
+Perfect, Naveen — I’ve carefully gone through your screenshots and your detailed explanation. Here’s a clear and professional message you can send to users explaining how to fill in the “Load Devices” sheet for the UPS → UPS Bank and UPS Bank → PDU connections in the AC flow.
 
 
 ---
 
-🧩 Suggested Message to Users
-
-Subject / Slack post:
-Clarification on Filling Utility Feed / Switchboard / DC Plant Templates
-
-Message:
-Hi Team,
-
-Thanks for sharing the site survey templates. We noticed that several sites are missing data for upstream assets such as Utility Feed, Transformers, Generators, ATS Switch / Main Electrical Switchboard, and the Load Devices connecting those components.
-
-These elements are essential for completing the AC and DC power-chain formation in DC Track. The DC power chain typically starts from the Utility Feed → Transformer → ATS Switch → Generator → Switchboard → DC Plant, which then continues through Plant Bay / Plant Panel → Plant Panel Breakers → BDFB → BDFB Panels → BDFB Panel Breakers → Equipment / Cabinets.
-Likewise, the AC flow begins from Utility Feed → Transformer → ATS Switch → UPS / UPS Bank → Floor PDU → Local Panel → RPP Panel → RPP Panel Breakers → Cabinets / Equipment.
-
-If your site does not have a main electrical switchboard or ATS Switch available in CPNG or visible on site, please:
-
-1. Leave those fields blank for now — do not create dummy assets.
-
-
-2. Begin the data entry from the UPS / UPS Bank or DC Plant level, whichever is available.
-
-
-3. In the comments column, mention that “Upstream source data not available – starts from UPS/DC Plant.”
-
-
-4. Once we validate the available upstream data from CPNG, we’ll guide you on populating the missing switchboard and load-device details using the provided sample templates for Utility Feed, Transformer, Generator, and Switchboard.
-
-
-
-For DC plants, remember that Plant Panel and Plant Panel Breakers are mandatory — they define the power segment Plant / Plant Panel : Plant Panel Breakers, which ensures proper power-chain mapping in DC Track.
-
-We’ll review the updated sheets once you incorporate these points and help finalize the import sequence.
-
-Thanks,
-Naveen
-
-
----
-
-Would you like me to tailor this same message into a shorter Slack version (2–3 lines) summarizing the main guidance for quick channel updates?
-
-Perfect, Naveen 👍 — I understand what you’re trying to communicate now.
-
-You want to explain to users what “Load Devices,” “DC Plant Panel,” and “DC Panel Breakers” mean, and how to fill those fields correctly in the provided template sheet (especially for the AC/DC power chain part).
-
-Here’s a professional, clear explanation you can post in your user migration Slack channel or include in an email 👇
-
-
----
-
-🧩 Clarification on Filling Load Devices, DC Plant Panel, and DC Panel Breaker Sheets
+⚙️ Clarification on Filling Load Devices (UPS → UPS Bank / UPS Bank → PDU)
 
 Hi Team,
 
-Based on your queries regarding Load Devices, DC Plant Panel, and DC Plant Panel Breakers, here’s a clarification to help you fill the template sheets correctly.
-
-⚡ 1. Load Devices
-
-The Load Devices sheet represents the interconnection components between the line side and load side in the power path.
-
-These devices act as the link between sources like Transformers / Generators / ATS Switchboards and the bus or extension panels that distribute power further down the chain.
-
-In simpler terms:
-
-From Transformers → Bus / Extension → Load Device connects them.
-
-From Generators → Bus / Extension → Load Device connects them.
-
-From Bus → Downstream Switchboards or Extensions, the Load Device defines the connection path.
-
-
-When filling the sheet:
-
-Enter the source asset name (e.g., Transformer or Generator) in the “Line Side” column.
-
-Enter the target asset (e.g., Bus or Extension) in the “Load Side” column.
-
-Mention the Load Device name / tag in the “Device Name” column.
-
-Provide comments if the device is physically located between transformer and bus, or generator and bus.
-
-
-
-We’ll share a sample filled sheet for reference to ensure consistent naming and mapping.
+Here’s the explanation on how to fill in the Load Devices section for the UPS and UPS Bank connections, as well as UPS Bank to PDU mapping. This is a critical part of the AC power chain formation in DC Track.
 
 
 ---
 
-🔋 2. DC Plant Panel
+⚡ 1. UPS
 
-The DC Plant Panel represents the distribution panel that receives DC power from the DC Plant and supplies it to downstream equipment such as BDFBs or Rectifiers.
+The UPS represents the actual power backup equipment feeding downstream components.
 
-Each Plant may have one or more Panels; this mapping ensures the DC power chain continuity.
+For each UPS, provide:
+
+Make & Model (e.g., Vertiv 600KVA EXL-S1)
+
+KVA Rating, KW Rating, and Voltage (V) values
+
+Location (Site → Room / Ceiling name)
+
+Status (Planned / Installed)
 
 
-When filling:
 
-Map each Plant Panel under its corresponding DC Plant.
+This data defines where the UPS unit is physically located and what load it supports.
 
-Use consistent naming (e.g., Plant1-PanelA).
+
+---
+
+🔋 2. UPS Bank
+
+For every UPS, there should be one corresponding UPS Bank.
+
+The UPS Bank acts as the distribution point that receives power from the UPS.
+
+The UPS Bank Rating (Amps) is derived from the UPS’s KW or KVA rating.
+
+The UPS Bank also serves as the housing for Load Devices that connect the power flow between the UPS and PDU.
 
 
 
 ---
 
-⚙️ 3. DC Plant Panel Breakers
+🔌 3. Load Devices
 
-These are the individual breaker circuits within the DC Plant Panel.
+Load Devices represent the actual electrical connection path between the UPS, UPS Bank, and PDUs.
+There are two main types of Load Devices in this context:
 
-They define the outgoing connections from the Plant Panel to BDFBs or other downstream devices.
+A. Load Device – UPS → UPS Bank
 
-Each breaker record should specify:
+Purpose: Carries power from the UPS to its corresponding UPS Bank.
 
-The Parent Panel Name (from the DC Plant Panel sheet)
+Line Side: Extension
 
-The Breaker Name or ID
+Load Side: Bus
 
-The Load Device / BDFB / Equipment that this breaker feeds.
+Power Fed From: The UPS itself.
+
+Source: UPS Name : UPS Output
+
+Device Name Convention: UPS Name + " Breaker" (e.g., UPS A1 Breaker).
+
+Model: Load Device – 3 Pole.
+
+Example Entry:
+
+Power Fed From → UPS A1 : UPS Output
+
+Line Side → Extension
+
+Load Side → Bus A
+
+Location → STLEMITX > UPS Room 303
+
+Rating → 600 Amps
 
 
 
-The correct structure to maintain the DC power chain in DC Track will be:
-👉 Plant / Plant Panel : Plant Panel Breakers → BDFB → BDFB Panel : BDFB Panel Breakers → Cabinet / Device
+B. Load Device – UPS Bank → PDU
+
+Purpose: Carries power from the UPS Bank to the Floor PDU.
+
+Line Side: Bus
+
+Load Side: Extension
+
+Power Fed From: The UPS Bank output.
+
+Source: UPS Bank Name : Output
+
+Device Name Convention: PDU Name + " Breaker" (e.g., PDU B12 Breaker).
+
+Model: Load Device – 3 Pole.
+
+Example Entry:
+
+Power Fed From → UPS Bank A : Output
+
+Line Side → Bus A
+
+Load Side → Extension
+
+Location → STLEMITX > UPS Room 303
+
+Rating → 600 Amps
+
+
 
 
 ---
 
-Please review this guidance while filling the sheets. Once done, we’ll validate your inputs and proceed with the import.
+🧩 Important Notes
 
-Thanks,
-Naveen
+Always ensure each UPS and UPS Bank pair has corresponding load devices defined in both directions (UPS → UPS Bank and UPS Bank → PDU).
 
-Perfect, Naveen — I completely understand what you want to communicate here. You’re explaining to users why Plant Panels and Plant Panel Breakers are mandatory, and how to handle cases when these assets are not available during site survey.
+Maintain consistent naming and rating formats as shown in the sample sheet.
 
-Here’s a professional, clear message you can post in the User Migration channel (Slack or email):
-
-
----
-
-⚡ Clarification on DC Plant Panel and Plant Panel Breakers Data
-
-Hi Team,
-
-As discussed, Plant Panels and Plant Panel Breakers are mandatory components in the DC power chain structure.
-
-For every BDFB Panel, the “Power Fed From” field should trace back to the DC Plant source, which follows the hierarchy:
-👉 DC Plant / Plant Panel : Plant Panel Breakers
-
-This structure ensures the proper power path is maintained in DC Track.
-
-In several sites, we noticed that the Plant Panel and Plant Panel Breaker details were not found in CPNG or site survey data. In such cases:
-
-A dummy Plant Panel and Breaker (600 Amps) have been created temporarily, so that the BDFB Panel and BDFB Panel Breakers can be properly linked.
-
-This approach helps us maintain continuity in the DC chain until the actual details are available.
+The model for all load devices should remain “Load Device – 3 Pole.”
 
 
-As part of the site survey activity, we are attaching a sample sheet for both Plant Panels and Plant Panel Breakers — please refer to it while filling your respective site details.
-For reference, we’ve also attached a sample screenshot from the MSC Laser site showing how these were created and linked.
-
-Please review and use the same structure for your respective sites to ensure consistency across all DC plant mappings.
-
-Thanks,
-Naveen
+We’ve attached the sample sheet from the STLEMITX site to guide you on the expected structure and mapping pattern.
 
 
 ---
 
-Would you like me to make a short Slack version (3–4 lines) summarizing the same for channel posting, followed by the attachments link?
----
-
-Would you like me to write a shorter Slack version (3–4 lines) summarizing the same explanation for quick posting, and then you can attach the sample sheet link below it?
+Would you like me to write a concise version (for Slack) of this same message, summarizing just the logic and conventions (UPS → UPS Bank and UPS Bank → PDU), to post along with your screenshot?
