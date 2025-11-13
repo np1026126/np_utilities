@@ -1,162 +1,138 @@
-Below is a clean, professional explanation + tabular view for the Rectifier tab, including:
-
-Order (L-R)
-
-U-Position
-
-What “Custom Field – PDSC No” means
-
-What “Custom Field – Frame No” means
-
-Whether data is required or optional
-
-What vendors should fill in
-
-Your additional notes from the screenshot
-
-
-You can paste this directly into your clarification document or email.
+Below is a clean, professional, fully-structured explanation + tabular format for the RPP Tabs exactly based on what you explained.
+You can directly paste this into your clarification document for Jessica/NA team.
 
 
 ---
 
-✅ RECTIFIER TAB – CLARIFICATIONS
+✅ RPP (CPNG Tab) – Clarification
 
-1. ORDER (L → R)
+Why two RPP tabs exist (Floor PDU tab vs. RPP CPNG tab)
 
-Meaning:
-Order (Left-to-Right) represents the physical sequence in which the Rectifiers appear in the battery/rectifier lineup, when viewed from the front.
+In DC-Track, an RPP is considered as a Floor PDU (because this is how the one-line diagram mapping works in IFP).
 
-What to fill:
+Therefore, the RPP details appear under the “Floor PDU” screen after import.
 
-Assign 1, 2, 3, … in the order the rectifiers are arranged.
-
-If the physical order is unknown during survey, they may leave it blank.
+However, the CPNG source system also supplies RPP data, which is placed in the RPP CPNG tab.
 
 
-This is identical to the BDFB Panel, BDCBB Panel, PDU Panel, and DC Panel explanation.
+Important: The RPP CPNG tab is NOT the RPP Panel Breakers tab.
 
 
 ---
 
-2. U-POSITION
+🎯 What each tab actually means
 
-Meaning:
-Indicates whether the rectifier is mounted above or below in the physical vertical stack (the U-height position in the rack or cabinet).
+1. Floor PDU Tab (Source = IFP)
 
-What to fill:
+This contains RPP details extracted from the IFP system.
 
-Values typically: Above / Below
+The values here (Object name, Rating, Location etc.) come from IFP.
 
-If they know the exact U-height (e.g., U12, U13), they may fill it.
-
-If unsure, they may provide Approximate or leave blank.
+RPP is treated as a Floor PDU purely for DC-Track one-line diagram alignment.
 
 
-Again, same logic as the BDFB Panel and BDCBB Panel U-Position.
+2. RPP CPNG Tab (Source = CPNG)
+
+This contains RPP details from CPNG, but the column names and data structure are the same as the Floor PDU tab.
+
+Users typically fill “ADD” or “Do Not ADD” in this sheet based on whether the CPNG RPP should be imported.
+
+However, the model, type, and manufacturer values in CPNG are NOT correct (ex: “10 Point”, “Manufactured”, etc.).
+So during import, we converted all RPPs to GENERIC / GENERIC FLOOR PDU.
 
 
----
+Why everything was imported as GENERIC?
 
-✅ 3. CUSTOM FIELD – PDSC NUMBER
+The values from both CPNG and IFP were incomplete or incorrect.
 
-From your screenshot, the field is:
-
-PDSC No
-
-Meaning:
-
-This is a site-specific custom field used by Verizon for internal asset identification.
-
-“PDSC” most likely expands to:
-
-Power Distribution System Code
-
-or
-
-Power DC System Code
-
-Used internally to identify Rectifier/Power System references in legacy systems.
-
-How to explain to vendors:
-
-This is not a mandatory field for DC-Track.
-
-If they know the PDSC number from internal site documentation, they may fill it.
-
-If they do not know it, they can leave it blank.
-
-
-Example:
-
-In your screenshot:
-PDSC No = 000001
-This shows that it is simply an internal identifier.
-
-
----
-
-✅ 4. CUSTOM FIELD – FRAME NUMBER
-
-Meaning:
-
-This is also a custom internal tracking field used by Verizon.
-
-The Frame Number generally refers to:
-
-The specific rectifier frame / cabinet frame within the DC power plant
-
-Each rectifier frame holds multiple rectifier modules
-
-The Frame Number helps technicians identify which frame a given module belongs to in large DC power plants
-
-
-Industry Background (your added explanation):
-
-In DC plants:
-
-A Power Plant contains multiple frames / shelves
-
-Each frame has multiple rectifier modules
-
-Frame numbers help technicians identify the physical location of the rectifier assembly (Frame 1, Frame 2, etc.)
-
-
-What to tell vendors:
-
-This is not mandatory.
-
-If they can identify the frame from DC power system stickers/labels, they may provide it.
-
-If they do not know it, they can leave it blank.
+The NA users will later update correct make/model after site-level confirmation.
 
 
 
 ---
 
-📘 Rectifier Tab – Summary Table
+3. RPP Panel Breakers Tab (This is completely different)
 
-Field	Meaning	What Should Vendors Fill?	Is it Mandatory?
+This tab represents breaker assignment information, NOT the RPP metadata.
 
-Order (L → R)	Physical left-to-right arrangement of rectifiers	1, 2, 3… if known	Optional
-U-Position	Vertical position (Above / Below / U-height)	Fill if identifiable during survey	Optional
-PDSC Number (Custom Field)	Internal Verizon power system identifier	Fill only if known	Optional
-Frame Number (Custom Field)	Identifies rectifier frame/shelf in DC power plant	Fill only if known	Optional
+It contains:
+
+Breaker rating (amps)
+
+Breaker state (Open/Closed)
+
+Which cabinet the breaker is connected to
+
+Connector and port names
+
+Load device assignment
+
+Panel name (Panel 1, Panel 2, Spare 1, Spare 2 etc.)
+
+
+This tab is similar to PDU Panel Breakers, but applies to the RPP.
+
+
+---
+
+🔍 Key Distinction (Very Important)
+
+Tab Name	What It Represents	Source System	Purpose
+
+Floor PDU Tab	RPP information treated as Floor PDU (IFP view)	IFP	Needed to show RPP on one-line diagram
+RPP CPNG Tab	RPP information directly from CPNG	CPNG	Users decide to ADD/skip; column structure similar to Floor PDU
+RPP Panel Breakers Tab	Breaker-to-Cabinet mapping for each RPP panel	CPNG + Manual	Shows electrical connectivity – actual panel breaker wiring
 
 
 
 ---
 
-📌 Short Description for Email (You can paste this directly)
+📌 Additional clarifications to include
 
-> Order (L→R) indicates the physical sequence of rectifiers from left to right.
-U-Position represents the mounting height (Above/Below or specific U-height).
+1. Why “Roof” is present in Location
 
-PDSC Number and Frame Number are Verizon-specific custom fields used for internal referencing of power system frames and rectifier groups. These fields are not mandatory for DC-Track import. If the values are available from site documentation, they may be filled; otherwise, they can be left blank.
+Some RPPs have “Roof” as location in CPNG because source systems did not have accurate room names.
+
+NA team will correct this after site survey.
+
+
+2. Why RPP make/model is wrong
+
+CPNG/IFP contain non-standard or placeholder values.
+
+Therefore all RPPs were imported as:
+Make = GENERIC, Model = GENERIC FLOOR PDU
+
+
+3. Why users should NOT confuse RPP Panel Breakers tab with the CPNG RPP tab
+
+CPNG RPP = RPP metadata
+
+RPP Panel Breakers = electrical connectivity (breaker to cabinets)
+
+Both tabs serve completely different purposes.
+
+
+
+---
+
+📘 Short “Email-Ready” Description
+
+(You can paste this in your email to Jessica)
+
+> RPPs are treated as Floor PDUs in DC-Track because this aligns with the one-line representation used in IFP.
+
+The Floor PDU tab contains RPP data from IFP, while the RPP CPNG tab contains the same RPP metadata but sourced from CPNG. The two tabs look similar because CPNG follows the same structure.
+
+The RPP Panel Breakers tab is separate and represents actual breaker-to-cabinet assignments for each RPP panel.
+
+Because make/model/manufacturer information from CPNG and IFP (e.g., “10 point”, “Manufactured”) is not accurate, all RPPs were imported as GENERIC / GENERIC FLOOR PDU, and the NA team can later update correct values during site survey.
+
+Any RPPs showing “Roof” as the room will also need to be corrected with accurate room names after the survey.
 
 
 
 
 ---
 
-If you want, I can now prepare the same structured descriptions + tables for all remaining assets (Panel Bay, DC Panel, HVAC, etc.) so you can attach the full clarification pack in one consolidated document.
+If you want, I can now format all asset-wise explanations (UPS, UPS Bank, PDUs, Panels, Breakers, BDFB, Rectifier, HVAC, etc.) into a single consolidated master document for sending to the vendor.
