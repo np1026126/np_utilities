@@ -1,103 +1,90 @@
-Here is the revised, complete, professional mail intro, now including the missing-asset part (Utility Feed, Transformer, ATS/Main Switchboard, Load Devices for Switchboard), exactly as you explained:
+Absolutely — here is the same consolidated clarification, rewritten in the same professional, structured, tabular format you liked earlier.
+This is ready to copy-paste into your email or Slack message.
 
 
 ---
 
-📧 Mail Draft – Final Intro Section (with all points you requested)
-
-Hi Jessica,
-
-As discussed, I’ve prepared the updated templates and reference sheets required before beginning the Wall TWP and Branchburg site surveys. Before sending the detailed AC and DC asset clarifications, here is a summary of the updates and additional inputs:
+✅ Consolidated Clarification (With Tabular Format)
 
 
 ---
 
-1. Battery Template Enhancements
+1. OPERATION COLUMN (ADD / EDIT / DELETE)
 
-I have added additional Make/Model–specific fields at the end of the Battery sheet.
-Whenever a new Make and Model is provided (instead of using the generic model), these fields help maintain accurate Make/Model definitions inside DC-Track.
-If the vendor provides a new battery model during the site survey, these additional fields should be filled in.
+Description:
+The Operation column indicates what action DC-Track should perform for each row during import.
+Only the three valid values below are accepted. Any other value will make the row ignored.
 
+Operation Value	Meaning	When It Is Used
 
----
-
-2. Updated Reference Template (DC-Track Imported Data)
-
-Instead of using the older holistic sample template, I have extracted the actual data that was successfully imported into DC-Track.
-This file can now be used as the base template for the vendor.
-They can directly edit/extend the values on top of this sheet, ensuring that the:
-
-Column structure,
-
-Naming conventions, and
-
-Accepted formats
-match exactly with DC-Track requirements.
+ADD	Add a new asset record in DC-Track	When the asset does not exist in DC-Track
+EDIT	Update an existing record	When the asset already exists and needs correction
+DELETE	Remove the existing record from DC-Track	When the asset needs to be deleted
 
 
 
 ---
 
-3. Upstream Assets Missing from Source Systems (Important Note)
+2. STATUS COLUMN (PLANNED / INSTALLED / ARCHIVED)
 
-For several upstream assets—
+Description:
+The Status column denotes the real-world installation state of the asset at the site.
 
-Utility Feeds,
+Status Value	Meaning / Interpretation
 
-Transformers,
-
-ATS / Main Electrical Switchboards, and
-
-Load Devices connecting Switchboard → downstream panels
-
-
-—no data is available in any of the three source systems (CPNG, IFP, or FUSE).
-These were the main reasons these assets were not included in the earlier templates.
-
-However, I noticed that many of these upstream components are actually physically present in MS Elixir.
-Since these assets are important for completing the full AC/DC power-chain mapping in DC-Track, I am now including:
-
-Sample templates for Utility Feed, Transformer, ATS/Main Switchboard, and Load Devices (Switchboard)
-
-These will be attached at the bottom of the DC-Track reference sheet
+PLANNED	Asset is expected to be installed; not yet physically placed
+INSTALLED	Asset is already placed physically at the site
+ARCHIVED	Asset was present earlier but is removed/retired
 
 
-If these upstream assets exist at the Wall TWP or Branchburg sites,
-please include them as part of the site survey, using the sample templates I am providing.
-
-This will help ensure the power-chain formation remains complete from Utility/Generator → Switchboard → UPS/Plant → Panels → Devices.
+Only these three values are expected in the Status field.
 
 
 ---
 
-4. Additional Attachments
-
-Along with this mail, I am sharing:
-
-Clarification Sheet (answers to all questions raised on asset fields)
-
-AC Flow – New Berlin Asset Analysis
-
-DC Flow – New Berlin Asset Analysis
-
-DC-Track imported reference template, including
-
-UPS, UPS Bank, PDU, RPP, Plant assets
-
-Plus new templates for Utility Feed, Transformer, ATS/Switchboard, and Load Devices for Switchboard
-
-Plus Battery section with added columns
-
-
-
-I will now provide the detailed AC and DC asset clarifications in the next section of the mail thread.
-
-Thanks,
-Naveen
+3. BDFB CLARIFICATIONS
 
 
 ---
 
-If you want, I can now generate:
-✅ The entire full mail (Intro + AC corrections + DC corrections + HVAC + Batteries + PDU/PDU Panel/RPP etc.)
-in one single final format, ready to send.
+A) NUMBER OF LOADS
+
+Description:
+Refers to the number of downstream devices/panels fed by the BDFB.
+This field is optional and can remain blank if unknown.
+
+Field	Site Survey Input	Correct Expectation
+
+Number of Loads	Blank / Unknown	✔ Optional — can be left blank if the value is not known. <br>✔ Represents number of downstream loads/panels.
+
+
+
+---
+
+B) BDFB EQUIPMENT SERVED
+
+Description:
+This is a dropdown field in DC-Track. Only predefined values are permitted.
+
+Field	Allowed Values (Dropdown)	Guidance
+
+BDFB Equipment Served	DSL, FiOS, IOF/ROADM, Inside Hut, Data/Router, Old Toll, New Toll, Colocation	✔ Choose the correct one if known. <br>✔ If unsure, a general/default value like DSL can be used.
+
+
+
+---
+
+✔ FINAL ONE-BLOCK SUMMARY (Easy to Share)
+
+Topic	Correct Guidance
+
+Operation	ADD → create new asset; EDIT → update existing; DELETE → remove existing. Any other value → ignored.
+Status	PLANNED → not installed; INSTALLED → physically present; ARCHIVED → retired.
+BDFB – Number of Loads	Optional; leave blank if unknown. Represents number of downstream loads/panels.
+BDFB – Equipment Served	Select from dropdown: DSL / FiOS / IOF/ROADM / Inside Hut / Data/Router / Old Toll / New Toll / Colocation. If unsure → use DSL.
+
+
+
+---
+
+If you want, I can now also create a similar tabular clarification section for UPS, UPS Bank, PDU, PDU Panel, RPP, HVAC, so everything becomes a single polished document.
