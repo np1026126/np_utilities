@@ -1,57 +1,84 @@
-Below is a clean, professional description + a tabular summary for the PDU Panel – Connection to RPP Tab, based fully on what you explained.
+Below is a professional, clear description + tabular summary for the
+BDCB / BDCBB Panel Breakers – “Comments” Column Clarification, exactly matching your explanation.
 
-You can copy-paste this directly into your clarification document or email.
+You can directly paste this in the clarification document or email.
 
 
 ---
 
-✅ PDU Panel – Connection to RPP Tab
+✅ BDC-BB / BDCBB Panel Breakers – Comments Column Explanation
 
 Description
 
-The “No. of Poles” and “First Pole Number” fields define how the PDU panel is structured before mapping it to the RPP.
-Since the PDU panel is being created only to support the PDU → RPP mapping (because RPP acts like a Floor PDU in the one-line diagram), the poles are being generated as dummy panels only for connectivity.
+The “Comments” column in the BDC-BB / BDCBB Panel Breakers tab is used only when a breaker position is mapped to a cabinet or load device.
 
-No. of Poles:
+When a breaker is CLOSED, it means that breaker position is actively feeding a cabinet or some equipment.
 
-This represents the total number of pole positions available in that panel.
+In such cases, the Comments column is used to record the following details:
 
-In real setups, the pole count is typically a multiple of 6 (e.g., 6, 12, 18, 24, 30, 36, 42, etc.).
+Cabinet Name
 
-For this site-survey, we default all PDU panels to 6 poles per panel, because each PDU has 4 sub-panels.
+Connector / Port Name
 
-If the team can provide the actual pole count from site, that value can be entered instead.
+Device Name (if applicable)
 
+Port Number / Load Device Port (AC or DC)
 
-First Pole Number:
-
-This indicates the starting pole number for that specific panel.
-
-Example:
-
-If Panel-1 ends at pole 42, then Panel-2 starts at pole 43.
+Any other mapping details that help identify what that breaker is powering.
 
 
-In our DCTrack import, all PDU panels were created as independent panels, so each one starts with 1 as the first pole number.
 
-If the real site data indicates different starting positions, those can be entered.
+You mentioned correctly:
+
+✔ DCTrack does not require this data for import.
+✔ This Comments section is only added by Verizon (C&D/VC team) during data preparation, for easy understanding by vendors during site survey or cross-verification.
+✔ These values are pulled from the DB when available.
+
+When Comments Will Be Blank
+
+If a breaker position is OPEN, it means that breaker is not assigned to any cabinet or load device.
+
+Therefore, no cabinet/port details exist.
+
+So in these rows, Comments = blank, which is expected and correct.
+
+
+Column Name Change?
+
+No, the column name should not be changed.
+
+It is intentionally named Comments because it contains free-text mapping details, not a fixed field.
+
+
+
+---
+
+✔️ BDC-BB Panel Breakers – Clarification Table
+
+Field / Column	Meaning	When It Has Data	When It Is Blank	Should Column Be Renamed?
+
+Comments	Shows mapping details of the breaker to a cabinet/load device	When breaker status = Closed and the breaker is feeding a cabinet or device	When breaker status = Open or no cabinet mapping exists	No, keep the name “Comments”
+
+
+Type of Data Present (example)	Explanation
+
+CAB102 → 11	Cabinet name + breaker position
+PDU-A11 → PANEL-1 → PORT 3	Connector / Port details
+DEVICE: XXX / PORT: Y	Device-level termination details
+AC Connector Name / DC Connector Name	For AC/DC load mapping clarity
+
+
+
+---
+
+▶️ Short Summary to Add in Mail
+
+> The Comments column is used only when a breaker position is assigned to a cabinet or load device. For breakers in Closed status, you will see cabinet name, connector/port name, device name, port numbers, etc.—this helps vendors understand how that breaker is being used.
+For Open breakers, the Comments column will be blank because no device is connected. The column name should remain “Comments” as it is not a fixed schema field in DCTrack but an informational field for clarity.
 
 
 
 
 ---
 
-✔️ PDU Panel – Connection to RPP Clarifications (Tabular Summary)
-
-Field	What It Means	Guidance for Site Survey
-
-No. of Poles	Total number of pole positions in the PDU panel	Default = 6 poles per panel. If actual pole count is known, please provide it.
-First Pole Number	Starting pole position for that panel	Default = 1 for every panel. If actual start numbers differ (e.g., 43, 85), please capture them.
-Why 4 Panels per PDU?	Each PDU requires 4 panel entries for mapping PDU → RPP	This is required to achieve correct one-line diagram connectivity in DCTrack.
-If real panel details not available	—	Leave default values (6 poles, starting pole 1). Different color can be used to indicate missing data.
-
-
-
----
-
-If you want, I can now prepare the next asset section (Rectifiers / PDU Panel Breakers / RPP Panel Breakers) in the same structured format.
+If you want, I can format this exactly like the previous asset sections (UPS, UPS Bank, RPP, PDU Panels etc.) so the entire clarification document is consistent.
