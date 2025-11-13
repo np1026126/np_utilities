@@ -1,151 +1,65 @@
-Below is the clean, accurate, professionally-written explanation + sample table for the missing asset:
-
-PDSA Distribution (AC Power Panel)
-
-I looked at the screenshots you uploaded from DC-Track (Generic PDPSC / AC Distribution Power Panel), and based on how Sunbird DC-Track models AC Distribution Panels, here is the correct explanation:
+Here is the updated email with your new points clearly included, professionally worded, and placed in the right section.
 
 
 ---
 
-✅ PDSA Distribution (AC Power Panel) – Explanation
+📧 Updated Final Email to Jessica
 
-1. “Order (L-R)” – What it means
+Subject: Clarifications on Existing PSC Templates & Updated Files for Wall TWP and Branchburg
 
-Same meaning as other assets:
+Hi Jessica,
 
-It indicates the physical sequence of AC Power Panels from Left → Right inside the electrical room or electrical line-up.
+I have reviewed all the questions raised on the existing PSC templates and prepared detailed clarifications for each tab. These clarifications will help ensure that the upcoming surveys for Wall TWP and Branchburg are completed accurately.
 
-If there are multiple AC Distribution Panels in a lineup, they should be numbered in the order in which they appear physically:
+Along with the clarifications, I am also attaching the updated Wall TWP and Branchburg circuit details that we have already imported into DCTrack.
+Instead of using the older holistic templates, you may now use these updated files since they contain the actual validated asset data that was successfully loaded into DCTrack for both locations.
 
-Example:
+For each location, the following documents are included:
 
-Panel closest to the left wall = Order 1
+AC Flow Analysis (separate file)
 
-Next panel to its right = Order 2
+DC Flow Analysis (separate file)
 
-Next panel = Order 3
-
-
-
-If only one panel is present, you can keep Order = 1.
+Updated circuit details extracted directly from DCTrack
 
 
-
----
-
-✅ 2. Custom Field: Capacity
-
-This field indicates the total power distribution capacity of the AC Power Panel.
-
-Based on your DC-Track screenshot:
-
-Capacity = 50
-
-This value is typically:
-
-kVA, if following electrical conventions
-
-Or kW, depending on region (North America uses kVA more commonly for AC panels)
-
-
-Since DC-Track does NOT specify units in the screenshot, Verizon teams usually keep the numeric value only (50), and the engineering team knows the units from their standard.
-
-Example:
-If the panel can distribute up to 50 kVA across its breakers, then:
-
-Capacity = 50
-
-If the user does not know the exact capacity, they can leave it blank, as it is NOT mandatory.
+These should be used as the baseline reference for how data should be filled during the new surveys.
 
 
 ---
 
-✅ 3. Custom Field: PDSE Amps
+Additional Templates for Upstream Assets
 
-This field indicates the total amperage of the AC Distribution Panel, as per PDSE (Power Distribution System Equipment) specification.
+I have also added sample templates for the following upstream assets:
 
-In your screenshot:
+Utility Feeds
 
-PDSE Amps = 0
+Transformers
 
-However, typically for AC Power Panels, this might be:
+ATS / Main Switchboards
 
-100A
+Load Devices connecting the Switchboards
 
-225A
+Equipment Cabinets (Cabinet Imports)
 
-400A
-
-600A
+Cabinet Assets
 
 
-But since this was filled as 0 in the DC-Track screenshot, the field appears to be optional and not validated.
+These assets were not included in the main PSC template, because they are not available in any of the three source systems (CPNG, IFP, or FUSE).
+The sample data I included for these assets comes from the Lahser site survey (not from Wall TWP or Branchburg). These are strictly reference samples to help the vendors understand the expected structure.
 
-So the users can:
-
-Provide the amperage rating if known
-
-Else leave it as 0 or blank
-
+If the teams are able to capture these upstream and cabinet-related assets during the Wall/Branchburg surveys, that would be ideal.
+If this data is not available at the site, that is still completely fine—we can continue the import and proceed with the AC/DC mapping without it.
 
 
 ---
 
-✅ 4. Custom Field: Quantity
+Please let me know if you would like me to walk through the files or any of the clarification points over a quick call.
 
-This field shows the number of modules or sections inside the AC Distribution Panel.
-
-In your screenshot:
-
-Qty = 0
-
-Typical meaning:
-
-If the panel has multiple sections or breaker modules, Quantity identifies the count.
-
-For example:
-
-A panel with two breaker sections → Qty = 2
-
-A panel with one section → Qty = 1
-
-
-
-Since the screenshot shows 0, again it appears optional.
-
-If they don't know the exact value, they may leave it as 0.
+Thanks,
+Naveen
 
 
 ---
 
-✨ Summary of What Users Should Enter
-
-If they know exact AC panel details → enter actual capacity, PDSE amps, quantity.
-
-If not available → leave the field blank or use a default (0), similar to what is shown in the DC-Track screenshot.
-
-
-
----
-
-📘 Tabular Format – PDSA Distribution (AC Power Panel)
-
-Field Name	Meaning	Example	Notes
-
-Order (L-R)	Physical order of AC Distribution Panels from left to right	1, 2, 3	Use sequential numbering based on lineup.
-Capacity (Custom Field)	Total load capacity of the AC Power Panel (usually in kVA or kW)	50	Optional. If unknown, leave blank.
-PDSE Amps (Custom Field)	Total amperage rating of the panel	400, 600, 200	Optional. 0 is acceptable if unknown.
-Quantity (Custom Field)	Number of internal modules/sections	1, 2	Optional. 0 accepted.
-
-
-
----
-
-👍 If you want, I can also prepare:
-
-✔ A combined PDF-like text for all AC + DC assets
-✔ A final document to send to Jessica (in clean, formatted form)
-✔ A Slack message summary
-✔ A version with screenshots embedded references
-
-Just tell me “Give combined version” and I will prepare everything in one single file.
+If you want, I can also rewrite this as a Slack message version for Jessica.
