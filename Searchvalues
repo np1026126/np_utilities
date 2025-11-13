@@ -1,57 +1,284 @@
-Here’s a polished Slack message you can send to Jessica — concise, professional, and matching your context perfectly 👇
+Below is a clean, complete, professional mail draft you can send to Jessica and team.
+It covers:
+
+✔ Their queries for Branchburg & Wall TWP site surveys
+✔ Clarifications on each AC & DC asset (UPS, UPS Bank, Load Devices, PDU, PDU Panels, PDU Panel Breakers, RPP, RPP Panel Breakers, DC Plant Panel, DC Plant Panel Breakers, HVAC)
+✔ Additional guidance similar to what you shared for New Berlin
+✔ New instructions for Battery (with added columns for Make/Model fields)
+
+You can copy-paste this directly.
+If you want, I can also generate a PDF-style formatted version.
 
 
 ---
 
-Hi Jessica,
-Since we couldn’t connect earlier, I’ve sent a detailed mail covering:
+📧 Mail Draft to Jessica / Survey Team
 
-The list of changes required for both AC and DC assets,
+Hi Jessica and team,
 
-Clarifications for the specific asset-related queries raised, and
+As you prepare to begin the Wall TWP and Branchburg site surveys, I have reviewed the questions raised on the existing PSC templates and prepared detailed clarification for each tab.
+This should help ensure that the upcoming surveys are filled accurately and consistently across locations.
 
-The sample templates for the additional upstream assets.
+Along with this mail, I am also attaching:
+
+The clarification document (per asset)
+
+Updated AC & DC flow analysis (same format as the New Berlin analysis)
+
+Sample templates for upstream assets (Utility Feed, Transformers, ATS / Main Switchboard, Load Devices)
+
+Updated Battery template with new Make/Model fields
+
+All reference templates used for the New Berlin validation
 
 
-Please check your inbox for the full summary — I’ve included all supporting documents as you requested.
-
-
----
-
-Would you like me to make a slightly shorter variant (2–3 lines) for use as a reply in the same thread under Jessica’s last message, so it reads naturally in Slack?
----
-
-Note:
-Across all assets, the Location Name column has inconsistencies.
-If possible, omit the “Location Name” column from input.
-If it must be provided, please use the format:
-<CLLICode> <space> <RoomName>
-—for example: NWBLWICZ Switch Room 1 100.
+Below are the consolidated clarifications for all assets and template columns:
 
 
 ---
 
-Attachments included:
+🔹 General Note – Location Name Column
 
-1. Clarification Document: Queries and clarifications raised on load devices and other assets.
+Across all tabs, please ensure:
 
+Do not fill “Location Name” unless you are certain.
 
-2. AC Flow – New Berlin Asset Analysis (comparison of Site Survey vs Holistic data).
+If provided, use strictly: <CLLICODE> <space> <Room Name>
+Example: NWBLWICZ Switch Room 1 100.
+DC Track automatically derives this value from the Location* column, so incorrect entries may cause load issues.
 
-
-3. DC Flow – New Berlin Asset Analysis (comparison of Site Survey vs Holistic data).
-
-
-4. Sample Templates for Transformer, ATS Switchboard, and Load Devices to be used for completing missing upstream assets.
-
-
-
-Please review and update the corresponding sheets accordingly.
-
-Regards,
-Naveen Prasad
 
 
 ---
 
-Would you like me to make a slightly shorter Slack-style version (2-3 crisp paragraphs) of this same message so you can post a heads-up to users before sending the email?
+AC ASSETS
+
+1. UPS
+
+What needs to be filled:
+
+Status must be Planned or Installed (site survey had “False”).
+
+Output Wiring: confirm if it is truly 3-wire; holistic template default is 4-wire + Ground, so please validate.
+
+Custom Field “UPS Maintained By”: leave this blank.
+
+
+
+---
+
+2. UPS Bank
+
+Required corrections:
+
+Status must be Planned/Installed (not blank).
+
+Naming convention:
+
+If UPS is UPS A1, then UPS Bank should be UPSBank-A1.
+
+
+Output wiring: verify whether 3-wire is correct.
+
+Rating (Amps) must align correctly:
+
+UPS Bank Rating A ≥ UPS KW rating, and
+
+UPS Bank Rating A ≥ total load of PDUs fed from it.
+
+
+
+
+---
+
+3. Load Devices (UPS → UPS Bank & UPS Bank → PDU)
+
+These were already fully described in yesterday’s clarification document.
+Please continue using that guidance.
+Load Devices should follow:
+
+UPS → UPS Bank → Line Side = Extension, Load Side = Bus
+
+UPS Bank → PDU → Line Side = Bus, Load Side = Extension
+
+Naming convention:
+
+For UPS to UPS Bank: UPSName BREAKER
+
+For UPS Bank to PDU: PDUName BREAKER
+
+
+Source format:
+UPSBankName / <Load Device Name>
+
+
+
+---
+
+4. PDU
+
+Two corrections required:
+
+1. Power Fed From must be UPS Bank (not the UPS itself).
+
+
+2. Source must follow:
+UPSBankName / <Load Device Name>
+The sample in the first screenshot of your message is the correct reference.
+
+
+
+
+---
+
+5. PDU Panel
+
+Issues to correct:
+
+Number of poles: 3 is acceptable, but since these are dummy panels, 6 poles is preferred.
+
+Panel Layout: should generally be Two Column.
+
+Pole Numbering:
+
+If Two Column → use Odd/Even
+
+If One Column → Sequential is fine.
+
+
+First Pole Number: should be 1 for every panel (not 1, 7, 10, 4, etc.).
+
+Panel Naming:
+
+Panel 1 → PDU-A11 Panel 1
+
+Panel 2 → PDU-A11 Panel 2
+
+Pair 1 → PDU-A11 SPARE 1
+
+Pair 2 → PDU-A11 SPARE 2
+
+
+
+
+---
+
+6. PDU Panel Breakers
+
+Please apply the following:
+
+Remove the incorrect row containing ATS → UPS connection.
+PDUs never directly feed UPS, so this row should not exist.
+
+If RPP is attached:
+
+Object = Breaker to Panel
+
+
+If no sub-panel location provided & status = open:
+
+Object = Breaker to Others
+
+
+Ensure the Panel name matches the corrected PDU Panel names above.
+
+
+
+---
+
+RPP ASSETS
+
+7. RPP Panel
+
+No changes required — the entries are correct.
+
+
+---
+
+8. RPP Panel Breakers
+
+If Cabinet is attached AND state = Closed → Object = Breaker to Cabinet
+(Additional cabinet columns will appear for such entries.)
+
+If no cabinet attached or state is not closed → Object = Breaker to Others
+Everything else looks fine.
+
+
+
+---
+
+DC ASSETS
+
+9. DC Plant Panel & DC Plant Panel Breakers
+
+These fields are mandatory since BDFB/BDFB Panels cannot be completed without specifying:
+Plant / Plant Panel : Plant Panel Breaker
+Please update these values wherever missing.
+
+
+---
+
+10. Load Devices for DC
+
+Same logic as UPS/UPS Bank load devices.
+Use the explanation document shared yesterday.
+
+
+---
+
+11. HVAC
+
+Two mandatory fields missing in the site survey:
+
+Cooling Zone Name
+
+Sensible Capacity
+
+
+Please ensure both fields are added for each HVAC unit.
+
+
+---
+
+12. Batteries
+
+I have added additional Make/Model-specific fields to the end of the Battery template.
+These values must be filled when a new vendor-specific make/model is used instead of GENERIC models.
+I will share the updated file along with example entries for one location.
+
+
+---
+
+Next Steps & Attachments
+
+In this email, I am attaching:
+
+1. Clarification document (all AC + DC assets)
+
+
+2. AC Flow – New Berlin Analysis
+
+
+3. DC Flow – New Berlin Analysis
+
+
+4. Updated Battery template with new columns
+
+
+5. Templates for Utility Feed, Transformers, ATS/Switchboard, and Load Devices
+
+
+6. Reference samples for UPS/UPS Bank, PDU, RPP, DC Plant, etc.
+
+
+
+Please review and let me know if you would like to connect again live.
+Happy to walk through all tabs before you begin the Branchburg and Wall TWP surveys.
+
+Thanks,
+Naveen
+
+
+---
+
+If you want, I can make a compact version, or convert it into a more executive-style email.
