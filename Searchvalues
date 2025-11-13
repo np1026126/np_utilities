@@ -1,84 +1,162 @@
-Below is a professional, clear description + tabular summary for the
-BDCB / BDCBB Panel Breakers – “Comments” Column Clarification, exactly matching your explanation.
+Below is a clean, professional explanation + tabular view for the Rectifier tab, including:
 
-You can directly paste this in the clarification document or email.
+Order (L-R)
 
+U-Position
 
----
+What “Custom Field – PDSC No” means
 
-✅ BDC-BB / BDCBB Panel Breakers – Comments Column Explanation
+What “Custom Field – Frame No” means
 
-Description
+Whether data is required or optional
 
-The “Comments” column in the BDC-BB / BDCBB Panel Breakers tab is used only when a breaker position is mapped to a cabinet or load device.
+What vendors should fill in
 
-When a breaker is CLOSED, it means that breaker position is actively feeding a cabinet or some equipment.
-
-In such cases, the Comments column is used to record the following details:
-
-Cabinet Name
-
-Connector / Port Name
-
-Device Name (if applicable)
-
-Port Number / Load Device Port (AC or DC)
-
-Any other mapping details that help identify what that breaker is powering.
+Your additional notes from the screenshot
 
 
-
-You mentioned correctly:
-
-✔ DCTrack does not require this data for import.
-✔ This Comments section is only added by Verizon (C&D/VC team) during data preparation, for easy understanding by vendors during site survey or cross-verification.
-✔ These values are pulled from the DB when available.
-
-When Comments Will Be Blank
-
-If a breaker position is OPEN, it means that breaker is not assigned to any cabinet or load device.
-
-Therefore, no cabinet/port details exist.
-
-So in these rows, Comments = blank, which is expected and correct.
-
-
-Column Name Change?
-
-No, the column name should not be changed.
-
-It is intentionally named Comments because it contains free-text mapping details, not a fixed field.
-
+You can paste this directly into your clarification document or email.
 
 
 ---
 
-✔️ BDC-BB Panel Breakers – Clarification Table
+✅ RECTIFIER TAB – CLARIFICATIONS
 
-Field / Column	Meaning	When It Has Data	When It Is Blank	Should Column Be Renamed?
+1. ORDER (L → R)
 
-Comments	Shows mapping details of the breaker to a cabinet/load device	When breaker status = Closed and the breaker is feeding a cabinet or device	When breaker status = Open or no cabinet mapping exists	No, keep the name “Comments”
+Meaning:
+Order (Left-to-Right) represents the physical sequence in which the Rectifiers appear in the battery/rectifier lineup, when viewed from the front.
+
+What to fill:
+
+Assign 1, 2, 3, … in the order the rectifiers are arranged.
+
+If the physical order is unknown during survey, they may leave it blank.
 
 
-Type of Data Present (example)	Explanation
+This is identical to the BDFB Panel, BDCBB Panel, PDU Panel, and DC Panel explanation.
 
-CAB102 → 11	Cabinet name + breaker position
-PDU-A11 → PANEL-1 → PORT 3	Connector / Port details
-DEVICE: XXX / PORT: Y	Device-level termination details
-AC Connector Name / DC Connector Name	For AC/DC load mapping clarity
+
+---
+
+2. U-POSITION
+
+Meaning:
+Indicates whether the rectifier is mounted above or below in the physical vertical stack (the U-height position in the rack or cabinet).
+
+What to fill:
+
+Values typically: Above / Below
+
+If they know the exact U-height (e.g., U12, U13), they may fill it.
+
+If unsure, they may provide Approximate or leave blank.
+
+
+Again, same logic as the BDFB Panel and BDCBB Panel U-Position.
+
+
+---
+
+✅ 3. CUSTOM FIELD – PDSC NUMBER
+
+From your screenshot, the field is:
+
+PDSC No
+
+Meaning:
+
+This is a site-specific custom field used by Verizon for internal asset identification.
+
+“PDSC” most likely expands to:
+
+Power Distribution System Code
+
+or
+
+Power DC System Code
+
+Used internally to identify Rectifier/Power System references in legacy systems.
+
+How to explain to vendors:
+
+This is not a mandatory field for DC-Track.
+
+If they know the PDSC number from internal site documentation, they may fill it.
+
+If they do not know it, they can leave it blank.
+
+
+Example:
+
+In your screenshot:
+PDSC No = 000001
+This shows that it is simply an internal identifier.
+
+
+---
+
+✅ 4. CUSTOM FIELD – FRAME NUMBER
+
+Meaning:
+
+This is also a custom internal tracking field used by Verizon.
+
+The Frame Number generally refers to:
+
+The specific rectifier frame / cabinet frame within the DC power plant
+
+Each rectifier frame holds multiple rectifier modules
+
+The Frame Number helps technicians identify which frame a given module belongs to in large DC power plants
+
+
+Industry Background (your added explanation):
+
+In DC plants:
+
+A Power Plant contains multiple frames / shelves
+
+Each frame has multiple rectifier modules
+
+Frame numbers help technicians identify the physical location of the rectifier assembly (Frame 1, Frame 2, etc.)
+
+
+What to tell vendors:
+
+This is not mandatory.
+
+If they can identify the frame from DC power system stickers/labels, they may provide it.
+
+If they do not know it, they can leave it blank.
 
 
 
 ---
 
-▶️ Short Summary to Add in Mail
+📘 Rectifier Tab – Summary Table
 
-> The Comments column is used only when a breaker position is assigned to a cabinet or load device. For breakers in Closed status, you will see cabinet name, connector/port name, device name, port numbers, etc.—this helps vendors understand how that breaker is being used.
-For Open breakers, the Comments column will be blank because no device is connected. The column name should remain “Comments” as it is not a fixed schema field in DCTrack but an informational field for clarity.
+Field	Meaning	What Should Vendors Fill?	Is it Mandatory?
+
+Order (L → R)	Physical left-to-right arrangement of rectifiers	1, 2, 3… if known	Optional
+U-Position	Vertical position (Above / Below / U-height)	Fill if identifiable during survey	Optional
+PDSC Number (Custom Field)	Internal Verizon power system identifier	Fill only if known	Optional
+Frame Number (Custom Field)	Identifies rectifier frame/shelf in DC power plant	Fill only if known	Optional
+
+
+
+---
+
+📌 Short Description for Email (You can paste this directly)
+
+> Order (L→R) indicates the physical sequence of rectifiers from left to right.
+U-Position represents the mounting height (Above/Below or specific U-height).
+
+PDSC Number and Frame Number are Verizon-specific custom fields used for internal referencing of power system frames and rectifier groups. These fields are not mandatory for DC-Track import. If the values are available from site documentation, they may be filled; otherwise, they can be left blank.
 
 
 
 
 ---
 
-If you want, I can format this exactly like the previous asset sections (UPS, UPS Bank, RPP, PDU Panels etc.) so the entire clarification document is consistent.
+If you want, I can now prepare the same structured descriptions + tables for all remaining assets (Panel Bay, DC Panel, HVAC, etc.) so you can attach the full clarification pack in one consolidated document.
