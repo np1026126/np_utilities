@@ -1,279 +1,45 @@
-Below is a clean, complete, professional mail draft you can send to Jessica and team.
-It covers:
+Here is a clear, formal, polished mail draft exactly matching what you want to tell Jessica:
 
-✔ Their queries for Branchburg & Wall TWP site surveys
-✔ Clarifications on each AC & DC asset (UPS, UPS Bank, Load Devices, PDU, PDU Panels, PDU Panel Breakers, RPP, RPP Panel Breakers, DC Plant Panel, DC Plant Panel Breakers, HVAC)
-✔ Additional guidance similar to what you shared for New Berlin
-✔ New instructions for Battery (with added columns for Make/Model fields)
+✔ You are informing her that you are adding the Make/Model-specific columns to Battery because it is better to capture vendor-specific values
+✔ You are providing the actual DC-Track imported sheet instead of the generic holistic template
+✔ You are telling her that she can use this sheet as the base, modify it, and give it to the vendor
+✔ You are not yet adding the detailed per-asset clarifications — that will follow later (as you requested)
 
-You can copy-paste this directly.
-If you want, I can also generate a PDF-style formatted version.
+This is the mail introduction section only, which you will place before the detailed asset-wise clarifications.
 
 
 ---
 
-📧 Mail Draft to Jessica / Survey Team
+📧 Mail Draft – Intro Section (Formal & Professional)
 
-Hi Jessica and team,
+Hi Jessica,
 
-As you prepare to begin the Wall TWP and Branchburg site surveys, I have reviewed the questions raised on the existing PSC templates and prepared detailed clarification for each tab.
-This should help ensure that the upcoming surveys are filled accurately and consistently across locations.
+As discussed, I have prepared the updated set of templates and reference sheets for the upcoming Wall TWP and Branchburg site surveys. Before providing the detailed clarification for each asset, I wanted to share the following updates:
 
-Along with this mail, I am also attaching:
+1. Battery Template Enhancements
+For the Battery tab, I have added a few additional columns at the end of the sheet.
+These fields are needed whenever a new vendor-specific Make and Model is introduced.
+Capturing these values up front will help ensure that the DC-Track Make/Model library remains accurate and consistent for future imports.
+(For generic models, these can remain blank; for new models, please fill them in.)
 
-The clarification document (per asset)
+2. Updated Reference Template (DC-Track Imported Data)
+Instead of sharing the earlier sample holistic template, I have extracted the actual DC-Track imported sheet for these assets.
+This sheet reflects the final, system-validated format that was successfully imported into DC-Track.
 
-Updated AC & DC flow analysis (same format as the New Berlin analysis)
+You can use this file as a baseline template and provide it to the survey team so that they can directly update or adjust their entries on top of it.
 
-Sample templates for upstream assets (Utility Feed, Transformers, ATS / Main Switchboard, Load Devices)
+This will help ensure:
 
-Updated Battery template with new Make/Model fields
+Correct column structure
 
-All reference templates used for the New Berlin validation
+Correct naming conventions
 
+Accurate example values
 
-Below are the consolidated clarifications for all assets and template columns:
+Fewer corrections during validation and import
 
 
----
-
-🔹 General Note – Location Name Column
-
-Across all tabs, please ensure:
-
-Do not fill “Location Name” unless you are certain.
-
-If provided, use strictly: <CLLICODE> <space> <Room Name>
-Example: NWBLWICZ Switch Room 1 100.
-DC Track automatically derives this value from the Location* column, so incorrect entries may cause load issues.
-
-
-
----
-
-AC ASSETS
-
-1. UPS
-
-What needs to be filled:
-
-Status must be Planned or Installed (site survey had “False”).
-
-Output Wiring: confirm if it is truly 3-wire; holistic template default is 4-wire + Ground, so please validate.
-
-Custom Field “UPS Maintained By”: leave this blank.
-
-
-
----
-
-2. UPS Bank
-
-Required corrections:
-
-Status must be Planned/Installed (not blank).
-
-Naming convention:
-
-If UPS is UPS A1, then UPS Bank should be UPSBank-A1.
-
-
-Output wiring: verify whether 3-wire is correct.
-
-Rating (Amps) must align correctly:
-
-UPS Bank Rating A ≥ UPS KW rating, and
-
-UPS Bank Rating A ≥ total load of PDUs fed from it.
-
-
-
-
----
-
-3. Load Devices (UPS → UPS Bank & UPS Bank → PDU)
-
-These were already fully described in yesterday’s clarification document.
-Please continue using that guidance.
-Load Devices should follow:
-
-UPS → UPS Bank → Line Side = Extension, Load Side = Bus
-
-UPS Bank → PDU → Line Side = Bus, Load Side = Extension
-
-Naming convention:
-
-For UPS to UPS Bank: UPSName BREAKER
-
-For UPS Bank to PDU: PDUName BREAKER
-
-
-Source format:
-UPSBankName / <Load Device Name>
-
-
-
----
-
-4. PDU
-
-Two corrections required:
-
-1. Power Fed From must be UPS Bank (not the UPS itself).
-
-
-2. Source must follow:
-UPSBankName / <Load Device Name>
-The sample in the first screenshot of your message is the correct reference.
-
-
-
-
----
-
-5. PDU Panel
-
-Issues to correct:
-
-Number of poles: 3 is acceptable, but since these are dummy panels, 6 poles is preferred.
-
-Panel Layout: should generally be Two Column.
-
-Pole Numbering:
-
-If Two Column → use Odd/Even
-
-If One Column → Sequential is fine.
-
-
-First Pole Number: should be 1 for every panel (not 1, 7, 10, 4, etc.).
-
-Panel Naming:
-
-Panel 1 → PDU-A11 Panel 1
-
-Panel 2 → PDU-A11 Panel 2
-
-Pair 1 → PDU-A11 SPARE 1
-
-Pair 2 → PDU-A11 SPARE 2
-
-
-
-
----
-
-6. PDU Panel Breakers
-
-Please apply the following:
-
-Remove the incorrect row containing ATS → UPS connection.
-PDUs never directly feed UPS, so this row should not exist.
-
-If RPP is attached:
-
-Object = Breaker to Panel
-
-
-If no sub-panel location provided & status = open:
-
-Object = Breaker to Others
-
-
-Ensure the Panel name matches the corrected PDU Panel names above.
-
-
-
----
-
-RPP ASSETS
-
-7. RPP Panel
-
-No changes required — the entries are correct.
-
-
----
-
-8. RPP Panel Breakers
-
-If Cabinet is attached AND state = Closed → Object = Breaker to Cabinet
-(Additional cabinet columns will appear for such entries.)
-
-If no cabinet attached or state is not closed → Object = Breaker to Others
-Everything else looks fine.
-
-
-
----
-
-DC ASSETS
-
-9. DC Plant Panel & DC Plant Panel Breakers
-
-These fields are mandatory since BDFB/BDFB Panels cannot be completed without specifying:
-Plant / Plant Panel : Plant Panel Breaker
-Please update these values wherever missing.
-
-
----
-
-10. Load Devices for DC
-
-Same logic as UPS/UPS Bank load devices.
-Use the explanation document shared yesterday.
-
-
----
-
-11. HVAC
-
-Two mandatory fields missing in the site survey:
-
-Cooling Zone Name
-
-Sensible Capacity
-
-
-Please ensure both fields are added for each HVAC unit.
-
-
----
-
-12. Batteries
-
-I have added additional Make/Model-specific fields to the end of the Battery template.
-These values must be filled when a new vendor-specific make/model is used instead of GENERIC models.
-I will share the updated file along with example entries for one location.
-
-
----
-
-Next Steps & Attachments
-
-In this email, I am attaching:
-
-1. Clarification document (all AC + DC assets)
-
-
-2. AC Flow – New Berlin Analysis
-
-
-3. DC Flow – New Berlin Analysis
-
-
-4. Updated Battery template with new columns
-
-
-5. Templates for Utility Feed, Transformers, ATS/Switchboard, and Load Devices
-
-
-6. Reference samples for UPS/UPS Bank, PDU, RPP, DC Plant, etc.
-
-
-
-Please review and let me know if you would like to connect again live.
-Happy to walk through all tabs before you begin the Branchburg and Wall TWP surveys.
+I will follow this section with the full set of clarifications for all AC and DC assets based on the questions raised and the gaps we identified yesterday.
 
 Thanks,
 Naveen
@@ -281,4 +47,11 @@ Naveen
 
 ---
 
-If you want, I can make a compact version, or convert it into a more executive-style email.
+If you want, I can immediately generate the full combined mail with:
+✔ This intro section
+✔ AC asset corrections
+✔ DC asset corrections
+✔ Battery section
+✔ Sample template references
+✔ Closing statement
+— all in one polished email.
