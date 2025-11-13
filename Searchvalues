@@ -1,138 +1,140 @@
-Below is a clean, professional, fully-structured explanation + tabular format for the RPP Tabs exactly based on what you explained.
-You can directly paste this into your clarification document for Jessica/NA team.
+Below is a clean, professional explanation + tabular format for the last three assets you mentioned:
+
+✔ Panel Bay (CPG) – Row Label & Position in Row
+✔ DC Plant – No questions yet
+✔ HVAC – Custom Field “Region Name”
+
+This is formatted exactly like your previous asset clarifications so you can directly paste it into the vendor response.
 
 
 ---
 
-✅ RPP (CPNG Tab) – Clarification
+✅ 1. Panel Bay (CPG Tab)
 
-Why two RPP tabs exist (Floor PDU tab vs. RPP CPNG tab)
+Description
 
-In DC-Track, an RPP is considered as a Floor PDU (because this is how the one-line diagram mapping works in IFP).
+The Row Label and Position in Row describe the physical placement of the asset within the site’s layout.
 
-Therefore, the RPP details appear under the “Floor PDU” screen after import.
+Row Label
 
-However, the CPNG source system also supplies RPP data, which is placed in the RPP CPNG tab.
+It indicates which row the asset belongs to, based on site floor layout.
 
+The row label can be numeric (1, 2, 3) or alphanumeric (A1, B3, C-Row, 12A, etc.).
 
-Important: The RPP CPNG tab is NOT the RPP Panel Breakers tab.
+When migrating from IFP, we retained exactly the same row label values provided in IFP.
 
-
----
-
-🎯 What each tab actually means
-
-1. Floor PDU Tab (Source = IFP)
-
-This contains RPP details extracted from the IFP system.
-
-The values here (Object name, Rating, Location etc.) come from IFP.
-
-RPP is treated as a Floor PDU purely for DC-Track one-line diagram alignment.
+This ensures that the physical layout in DC-Track matches the actual location at the site.
 
 
-2. RPP CPNG Tab (Source = CPNG)
+Position in Row
 
-This contains RPP details from CPNG, but the column names and data structure are the same as the Floor PDU tab.
+This indicates the slot number within the selected row.
 
-Users typically fill “ADD” or “Do Not ADD” in this sheet based on whether the CPNG RPP should be imported.
+Positions typically range from 1 to 300, depending on the size of the site.
 
-However, the model, type, and manufacturer values in CPNG are NOT correct (ex: “10 Point”, “Manufactured”, etc.).
-So during import, we converted all RPPs to GENERIC / GENERIC FLOOR PDU.
+Example:
+
+If an asset is in Row A, location Position 5, it means it is the 5th position in Row A.
 
 
-Why everything was imported as GENERIC?
-
-The values from both CPNG and IFP were incomplete or incorrect.
-
-The NA users will later update correct make/model after site-level confirmation.
+This helps DC-Track visualize where each panel is physically located on the floor.
 
 
 
 ---
 
-3. RPP Panel Breakers Tab (This is completely different)
+📘 Tabular Format – Panel Bay (CPG Tab)
 
-This tab represents breaker assignment information, NOT the RPP metadata.
+Field Name	Meaning	Example	Notes
 
-It contains:
-
-Breaker rating (amps)
-
-Breaker state (Open/Closed)
-
-Which cabinet the breaker is connected to
-
-Connector and port names
-
-Load device assignment
-
-Panel name (Panel 1, Panel 2, Spare 1, Spare 2 etc.)
-
-
-This tab is similar to PDU Panel Breakers, but applies to the RPP.
-
-
----
-
-🔍 Key Distinction (Very Important)
-
-Tab Name	What It Represents	Source System	Purpose
-
-Floor PDU Tab	RPP information treated as Floor PDU (IFP view)	IFP	Needed to show RPP on one-line diagram
-RPP CPNG Tab	RPP information directly from CPNG	CPNG	Users decide to ADD/skip; column structure similar to Floor PDU
-RPP Panel Breakers Tab	Breaker-to-Cabinet mapping for each RPP panel	CPNG + Manual	Shows electrical connectivity – actual panel breaker wiring
+Row Label	Identifier of the row where the asset is placed. May be numeric or alphanumeric.	A2, Row-5, 12A	Sourced from IFP values.
+Position in Row	Slot number of the asset within the row.	1, 5, 12, 280	Typically 1–300. Defines physical positioning.
 
 
 
 ---
 
-📌 Additional clarifications to include
+✅ 2. DC Plant Tab
 
-1. Why “Roof” is present in Location
+Description
 
-Some RPPs have “Roof” as location in CPNG because source systems did not have accurate room names.
+No explicit questions were raised for the DC Plant tab.
 
-NA team will correct this after site survey.
+Once users ask for clarifications, we will provide detailed explanations.
 
-
-2. Why RPP make/model is wrong
-
-CPNG/IFP contain non-standard or placeholder values.
-
-Therefore all RPPs were imported as:
-Make = GENERIC, Model = GENERIC FLOOR PDU
-
-
-3. Why users should NOT confuse RPP Panel Breakers tab with the CPNG RPP tab
-
-CPNG RPP = RPP metadata
-
-RPP Panel Breakers = electrical connectivity (breaker to cabinets)
-
-Both tabs serve completely different purposes.
+For now, current values in the sheet are accurate and follow the DC-Track import structure.
 
 
 
 ---
 
-📘 Short “Email-Ready” Description
+📘 Tabular Format – DC Plant Tab (Placeholder)
 
-(You can paste this in your email to Jessica)
+Field Name	Meaning	Example	Notes
 
-> RPPs are treated as Floor PDUs in DC-Track because this aligns with the one-line representation used in IFP.
-
-The Floor PDU tab contains RPP data from IFP, while the RPP CPNG tab contains the same RPP metadata but sourced from CPNG. The two tabs look similar because CPNG follows the same structure.
-
-The RPP Panel Breakers tab is separate and represents actual breaker-to-cabinet assignments for each RPP panel.
-
-Because make/model/manufacturer information from CPNG and IFP (e.g., “10 point”, “Manufactured”) is not accurate, all RPPs were imported as GENERIC / GENERIC FLOOR PDU, and the NA team can later update correct values during site survey.
-
-Any RPPs showing “Roof” as the room will also need to be corrected with accurate room names after the survey.
-
+(Awaiting questions)	Will be provided once received	–	No clarifications requested yet
 
 
 
 ---
 
-If you want, I can now format all asset-wise explanations (UPS, UPS Bank, PDUs, Panels, Breakers, BDFB, Rectifier, HVAC, etc.) into a single consolidated master document for sending to the vendor.
+✅ 3. HVAC Tab – Custom Field “Region Name”
+
+Description
+
+HVAC equipment in DC-Track requires a mandatory field called “Custom Field – HVAC Region Name.”
+
+This field stores the region or zone to which this HVAC unit belongs.
+
+The region name is typically driven by NA Engineering, local HVAC zoning, or facility cooling strategy.
+
+
+Why did we default to “59”?
+
+For the New Berlin site survey, users did not know the HVAC region.
+
+Since this field is mandatory, we used “59” as a placeholder (default value provided by the users).
+
+Once NA identifies the correct region/zoning during review, this value will be replaced.
+
+
+Examples of HVAC Region Names (Potential Inputs)
+
+These depend on site cooling design and may include:
+
+Region 1, Region 2, Region 3 (common in small COs)
+
+Zone A / Zone B / Zone C
+
+Cooling Area 1 / Mechanical Area 2
+
+Return Air Zone / Supply Air Zone
+
+CRAC-Zone-01, CRAC-Zone-02
+
+
+Since we do not have the official design for these locations, we cannot determine the exact region name.
+
+
+---
+
+📘 Tabular Format – HVAC Tab
+
+Field Name	Meaning	Example	Notes
+
+HVAC Region Name (Custom Field)	Cooling region or zone associated with the HVAC unit	59 (default), Region 1, CRAC-Zone-01	Mandatory field. Default used because actual region is unknown.
+Cooling Zone Name	Logical grouping of HVAC units	Zone A	Must be provided if known.
+Sensible Capacity	Cooling capacity delivered	20000 BTU	Mandatory field for HVAC efficiency.
+
+
+
+---
+
+✅ Let me know if you want:
+
+✔ A complete combined master clarification document for all assets from UPS → DC Plant → HVAC
+✔ A polished email version to send to Jessica
+✔ A Slack summary message
+✔ A consolidated Excel-format table for all assets
+
+Just tell me “Give full consolidated version” and I will prepare it in one single structured output.
