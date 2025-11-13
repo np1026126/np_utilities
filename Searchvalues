@@ -1,41 +1,57 @@
-Here is the combined description + single tabular section for BDFB Panel, exactly in the format you requested — short description first, followed by one clean table.
+Below is a clean, professional description + a tabular summary for the PDU Panel – Connection to RPP Tab, based fully on what you explained.
 
-You can copy-paste this directly.
+You can copy-paste this directly into your clarification document or email.
 
 
 ---
 
-✅ BDFB PANEL – Clarification
+✅ PDU Panel – Connection to RPP Tab
 
 Description
 
-For BDFB Panels, there are three fields that define the physical placement of the panel inside the BDFB:
+The “No. of Poles” and “First Pole Number” fields define how the PDU panel is structured before mapping it to the RPP.
+Since the PDU panel is being created only to support the PDU → RPP mapping (because RPP acts like a Floor PDU in the one-line diagram), the poles are being generated as dummy panels only for connectivity.
 
-U-Position (vertical positioning – Above/Below)
+No. of Poles:
 
-Order L to R (horizontal order – panel position from left to right)
+This represents the total number of pole positions available in that panel.
 
-Installation Date
+In real setups, the pole count is typically a multiple of 6 (e.g., 6, 12, 18, 24, 30, 36, 42, etc.).
+
+For this site-survey, we default all PDU panels to 6 poles per panel, because each PDU has 4 sub-panels.
+
+If the team can provide the actual pole count from site, that value can be entered instead.
 
 
-In the current template, all three fields are repeated twice. Only one instance of each should be kept.
+First Pole Number:
 
-U-Position should specify whether the panel is mounted Above or Below.
-Order L to R should contain the panel order number (1, 2, 3, etc.) indicating its position from left to right.
+This indicates the starting pole number for that specific panel.
+
+Example:
+
+If Panel-1 ends at pole 42, then Panel-2 starts at pole 43.
+
+
+In our DCTrack import, all PDU panels were created as independent panels, so each one starts with 1 as the first pole number.
+
+If the real site data indicates different starting positions, those can be entered.
+
+
 
 
 ---
 
-BDFB PANEL – Corrected Fields
+✔️ PDU Panel – Connection to RPP Clarifications (Tabular Summary)
 
-Field	Current Issue in Template	Correct Input / Expectation
+Field	What It Means	Guidance for Site Survey
 
-U-Position	Column is repeated twice	Keep only one. Enter Above or Below based on the panel’s vertical placement.
-Order L to R	Column is repeated twice and values missing	Keep only one. Enter the order number (1, 2, 3, …) showing left-to-right panel position.
-Installation Date	Column is repeated twice	Keep one instance only.
+No. of Poles	Total number of pole positions in the PDU panel	Default = 6 poles per panel. If actual pole count is known, please provide it.
+First Pole Number	Starting pole position for that panel	Default = 1 for every panel. If actual start numbers differ (e.g., 43, 85), please capture them.
+Why 4 Panels per PDU?	Each PDU requires 4 panel entries for mapping PDU → RPP	This is required to achieve correct one-line diagram connectivity in DCTrack.
+If real panel details not available	—	Leave default values (6 poles, starting pole 1). Different color can be used to indicate missing data.
 
 
 
 ---
 
-If you'd like, I can now prepare the BDFB Panel Breakers section in the same style.
+If you want, I can now prepare the next asset section (Rectifiers / PDU Panel Breakers / RPP Panel Breakers) in the same structured format.
