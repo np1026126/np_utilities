@@ -1,90 +1,41 @@
-Absolutely — here is the same consolidated clarification, rewritten in the same professional, structured, tabular format you liked earlier.
-This is ready to copy-paste into your email or Slack message.
+Here is the combined description + single tabular section for BDFB Panel, exactly in the format you requested — short description first, followed by one clean table.
+
+You can copy-paste this directly.
 
 
 ---
 
-✅ Consolidated Clarification (With Tabular Format)
+✅ BDFB PANEL – Clarification
+
+Description
+
+For BDFB Panels, there are three fields that define the physical placement of the panel inside the BDFB:
+
+U-Position (vertical positioning – Above/Below)
+
+Order L to R (horizontal order – panel position from left to right)
+
+Installation Date
+
+
+In the current template, all three fields are repeated twice. Only one instance of each should be kept.
+
+U-Position should specify whether the panel is mounted Above or Below.
+Order L to R should contain the panel order number (1, 2, 3, etc.) indicating its position from left to right.
 
 
 ---
 
-1. OPERATION COLUMN (ADD / EDIT / DELETE)
+BDFB PANEL – Corrected Fields
 
-Description:
-The Operation column indicates what action DC-Track should perform for each row during import.
-Only the three valid values below are accepted. Any other value will make the row ignored.
+Field	Current Issue in Template	Correct Input / Expectation
 
-Operation Value	Meaning	When It Is Used
-
-ADD	Add a new asset record in DC-Track	When the asset does not exist in DC-Track
-EDIT	Update an existing record	When the asset already exists and needs correction
-DELETE	Remove the existing record from DC-Track	When the asset needs to be deleted
-
-
-
----
-
-2. STATUS COLUMN (PLANNED / INSTALLED / ARCHIVED)
-
-Description:
-The Status column denotes the real-world installation state of the asset at the site.
-
-Status Value	Meaning / Interpretation
-
-PLANNED	Asset is expected to be installed; not yet physically placed
-INSTALLED	Asset is already placed physically at the site
-ARCHIVED	Asset was present earlier but is removed/retired
-
-
-Only these three values are expected in the Status field.
-
-
----
-
-3. BDFB CLARIFICATIONS
-
-
----
-
-A) NUMBER OF LOADS
-
-Description:
-Refers to the number of downstream devices/panels fed by the BDFB.
-This field is optional and can remain blank if unknown.
-
-Field	Site Survey Input	Correct Expectation
-
-Number of Loads	Blank / Unknown	✔ Optional — can be left blank if the value is not known. <br>✔ Represents number of downstream loads/panels.
+U-Position	Column is repeated twice	Keep only one. Enter Above or Below based on the panel’s vertical placement.
+Order L to R	Column is repeated twice and values missing	Keep only one. Enter the order number (1, 2, 3, …) showing left-to-right panel position.
+Installation Date	Column is repeated twice	Keep one instance only.
 
 
 
 ---
 
-B) BDFB EQUIPMENT SERVED
-
-Description:
-This is a dropdown field in DC-Track. Only predefined values are permitted.
-
-Field	Allowed Values (Dropdown)	Guidance
-
-BDFB Equipment Served	DSL, FiOS, IOF/ROADM, Inside Hut, Data/Router, Old Toll, New Toll, Colocation	✔ Choose the correct one if known. <br>✔ If unsure, a general/default value like DSL can be used.
-
-
-
----
-
-✔ FINAL ONE-BLOCK SUMMARY (Easy to Share)
-
-Topic	Correct Guidance
-
-Operation	ADD → create new asset; EDIT → update existing; DELETE → remove existing. Any other value → ignored.
-Status	PLANNED → not installed; INSTALLED → physically present; ARCHIVED → retired.
-BDFB – Number of Loads	Optional; leave blank if unknown. Represents number of downstream loads/panels.
-BDFB – Equipment Served	Select from dropdown: DSL / FiOS / IOF/ROADM / Inside Hut / Data/Router / Old Toll / New Toll / Colocation. If unsure → use DSL.
-
-
-
----
-
-If you want, I can now also create a similar tabular clarification section for UPS, UPS Bank, PDU, PDU Panel, RPP, HVAC, so everything becomes a single polished document.
+If you'd like, I can now prepare the BDFB Panel Breakers section in the same style.
