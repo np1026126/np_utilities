@@ -1,45 +1,96 @@
-Here is a clear, formal, polished mail draft exactly matching what you want to tell Jessica:
-
-✔ You are informing her that you are adding the Make/Model-specific columns to Battery because it is better to capture vendor-specific values
-✔ You are providing the actual DC-Track imported sheet instead of the generic holistic template
-✔ You are telling her that she can use this sheet as the base, modify it, and give it to the vendor
-✔ You are not yet adding the detailed per-asset clarifications — that will follow later (as you requested)
-
-This is the mail introduction section only, which you will place before the detailed asset-wise clarifications.
+Here is the revised, complete, professional mail intro, now including the missing-asset part (Utility Feed, Transformer, ATS/Main Switchboard, Load Devices for Switchboard), exactly as you explained:
 
 
 ---
 
-📧 Mail Draft – Intro Section (Formal & Professional)
+📧 Mail Draft – Final Intro Section (with all points you requested)
 
 Hi Jessica,
 
-As discussed, I have prepared the updated set of templates and reference sheets for the upcoming Wall TWP and Branchburg site surveys. Before providing the detailed clarification for each asset, I wanted to share the following updates:
+As discussed, I’ve prepared the updated templates and reference sheets required before beginning the Wall TWP and Branchburg site surveys. Before sending the detailed AC and DC asset clarifications, here is a summary of the updates and additional inputs:
+
+
+---
 
 1. Battery Template Enhancements
-For the Battery tab, I have added a few additional columns at the end of the sheet.
-These fields are needed whenever a new vendor-specific Make and Model is introduced.
-Capturing these values up front will help ensure that the DC-Track Make/Model library remains accurate and consistent for future imports.
-(For generic models, these can remain blank; for new models, please fill them in.)
+
+I have added additional Make/Model–specific fields at the end of the Battery sheet.
+Whenever a new Make and Model is provided (instead of using the generic model), these fields help maintain accurate Make/Model definitions inside DC-Track.
+If the vendor provides a new battery model during the site survey, these additional fields should be filled in.
+
+
+---
 
 2. Updated Reference Template (DC-Track Imported Data)
-Instead of sharing the earlier sample holistic template, I have extracted the actual DC-Track imported sheet for these assets.
-This sheet reflects the final, system-validated format that was successfully imported into DC-Track.
 
-You can use this file as a baseline template and provide it to the survey team so that they can directly update or adjust their entries on top of it.
+Instead of using the older holistic sample template, I have extracted the actual data that was successfully imported into DC-Track.
+This file can now be used as the base template for the vendor.
+They can directly edit/extend the values on top of this sheet, ensuring that the:
 
-This will help ensure:
+Column structure,
 
-Correct column structure
+Naming conventions, and
 
-Correct naming conventions
-
-Accurate example values
-
-Fewer corrections during validation and import
+Accepted formats
+match exactly with DC-Track requirements.
 
 
-I will follow this section with the full set of clarifications for all AC and DC assets based on the questions raised and the gaps we identified yesterday.
+
+---
+
+3. Upstream Assets Missing from Source Systems (Important Note)
+
+For several upstream assets—
+
+Utility Feeds,
+
+Transformers,
+
+ATS / Main Electrical Switchboards, and
+
+Load Devices connecting Switchboard → downstream panels
+
+
+—no data is available in any of the three source systems (CPNG, IFP, or FUSE).
+These were the main reasons these assets were not included in the earlier templates.
+
+However, I noticed that many of these upstream components are actually physically present in MS Elixir.
+Since these assets are important for completing the full AC/DC power-chain mapping in DC-Track, I am now including:
+
+Sample templates for Utility Feed, Transformer, ATS/Main Switchboard, and Load Devices (Switchboard)
+
+These will be attached at the bottom of the DC-Track reference sheet
+
+
+If these upstream assets exist at the Wall TWP or Branchburg sites,
+please include them as part of the site survey, using the sample templates I am providing.
+
+This will help ensure the power-chain formation remains complete from Utility/Generator → Switchboard → UPS/Plant → Panels → Devices.
+
+
+---
+
+4. Additional Attachments
+
+Along with this mail, I am sharing:
+
+Clarification Sheet (answers to all questions raised on asset fields)
+
+AC Flow – New Berlin Asset Analysis
+
+DC Flow – New Berlin Asset Analysis
+
+DC-Track imported reference template, including
+
+UPS, UPS Bank, PDU, RPP, Plant assets
+
+Plus new templates for Utility Feed, Transformer, ATS/Switchboard, and Load Devices for Switchboard
+
+Plus Battery section with added columns
+
+
+
+I will now provide the detailed AC and DC asset clarifications in the next section of the mail thread.
 
 Thanks,
 Naveen
@@ -47,11 +98,6 @@ Naveen
 
 ---
 
-If you want, I can immediately generate the full combined mail with:
-✔ This intro section
-✔ AC asset corrections
-✔ DC asset corrections
-✔ Battery section
-✔ Sample template references
-✔ Closing statement
-— all in one polished email.
+If you want, I can now generate:
+✅ The entire full mail (Intro + AC corrections + DC corrections + HVAC + Batteries + PDU/PDU Panel/RPP etc.)
+in one single final format, ready to send.
