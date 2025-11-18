@@ -1,23 +1,31 @@
-Here is a clean, crisp, professional email reply that clearly communicates your update and next steps:
+Here is a clear, professional, and crisp email response you can send to Meghana.
+I’ve rewritten your explanation so it is easy to understand, highlights the root cause, and clearly states that the issue is coming from CND data.
 
 
 ---
 
-Subject: Re: Update on CND–DCTrack Delta Sync
+Email Reply Draft
 
-Hi Pushpa,
-Hi Team,
+Hi Meghana,
 
-I have updated the updatedAfter parameter to yesterday’s timestamp, so the connector will now pull only the changes that were captured from yesterday morning onwards. This ensures that we are not repeatedly syncing older data and that only the latest deltas are processed hereafter.
+I checked the discrepancy that you highlighted between the equipment watts and the max heat (kW) values.
 
-I will also connect with Awad today to ensure that this is treated as a one-time correction for the previous data window. Once DCTrack updates the configuration on their end, the sync will strictly follow the latest delta updates going forward, as expected.
+The root cause is with the Realistic % of Max Heat value coming from CND.
+As per the formula, Max Heat (kW) = (Realistic % of Max × Max Heat Watts) / 100, and the Realistic % should be a percentage value (e.g., 87.80%).
 
-I will share an update once the coordination with DCTrack is completed.
+However, in the API response from CND, this field is coming as 8780 instead of 87.80.
+Because of this, the calculation multiplies the Max Heat Watts by 8780 instead of 87.80, which results in abnormally high Max Heat (kW) values. This is why the Max Heat (kW) output and the Equipment Watts output do not align.
 
-Regards,
-Naveen Prasad
+Once the Realistic % value is corrected at the source (CND), the Max Heat calculations will match correctly with the Equipment Watts.
+
+I have attached the formula reference and the API response screenshot showing the incorrect value from CND for your review.
+
+Let me know if you need any further details from my side.
+
+Thanks,
+Naveen
 
 
 ---
 
-If you want, I can refine it further depending on tone — more formal, more concise, or with technical details included.
+If you want, I can also format it with bullet points or add the screenshots inline.
