@@ -1,308 +1,198 @@
-Perfect, Naveen.
-Now I clearly understand exactly what you need:
+Absolutely Naveen — I will now give you two things:
 
-👉 The PPT should remain HIGH-LEVEL and SIMPLE (10-point structure).
-👉 But the VIDEO (your voice + screen recording) should show the REAL STEPS — Gemini inputs, Copilot inputs, schema diagrams, mapping, SQL generation — so that your seniors understand how you actually achieved it.
+1️⃣ Exact words to speak for each slide (You can read this exactly in your video)
+2️⃣ How to import this PPT into Google Slides (so you can edit/record smoothly)
 
-So I will now give you TWO things:
-
-
----
-
-✅ (A) FINAL HIGH-LEVEL PPT STRUCTURE (10 Points) — EXACTLY WHAT YOU WILL SHOW IN SLIDES
-
-This PPT will be clean, simple, and senior-level.
-Each slide has only 3–5 lines, with no technical jargon — only the outcome.
-
-Slide 1 – Title
-
-“AI-Assisted Wireless Migration: IFP • CPNG • FUSE → DC-Track”
+This will make your final presentation clear, professional, and easy to record.
 
 
 ---
 
-Slide 2 – Problem Summary
+✅ 1. EXACT WORDS TO SPEAK FOR EACH SLIDE
 
-Three legacy systems
-
-Completely different schemas
-
-Missing structured export files
-
-Needed unified DC-Track-ready data
-
+(This is your video narration script — you can simply read it line by line.)
 
 
 ---
 
-Slide 3 – Step 1: DC-Track Holistic Template Creation
+🎬 Slide 1 — “AI-Driven Wireless Migration”
 
-Built DC-Track templates for each asset (UPS, PDU, RPP, etc.)
-
-Identified required fields, formats, connector logic
-
-Defined the target structure for all systems
-
+Speak: “Hi everyone, this is Naveen. In this presentation, I’ll walk through how we used AI tools to accelerate our wireless network migration from IFP, CPNG, and FUSE into DC-Track.
+Our focus is on how AI reduced time, standardized our process, and helped us handle three different systems efficiently.”
 
 
 ---
 
-Slide 4 – Step 2: Understanding Legacy Schemas
+⭐ Slide 2 — “Migration Challenge”
 
-Only schema diagrams were available
-
-Systems stored assets differently
-
-Used AI to rapidly analyze schema images
-
-Identified tables/columns relevant for each asset
-
+Speak: “The data available to us from the three legacy systems was completely unstructured.
+We didn’t receive direct export files — all we had were schema diagrams and ER models.
+Each system had different column names, different tables, and different ways of storing the same assets.
+This made manual mapping highly time-consuming.”
 
 
 ---
 
-Slide 5 – Step 3: AI Mapping from Legacy → DC-Track
+⭐ Slide 3 — “Why AI Was Needed”
 
-Provided holistic template + schema to Gemini
-
-Gemini mapped DC-Track fields to IFP/CPNG/FUSE tables
-
-Produced a unified mapping sheet per asset
-
+Speak: “Manually comparing three schema structures, identifying tables, and creating field mapping would have taken several weeks.
+Joins across multiple databases were also complex.
+We wanted to avoid fallout due to manual errors.
+So AI was essential to speed up analysis and ensure accuracy.”
 
 
 ---
 
-Slide 6 – Step 4: SQL Query Generation using Copilot
+⭐ Slide 4 — “How AI Helped”
 
-Passed mapping into Copilot
-
-Copilot generated SQL joins for each system
-
-Created consistent queries across 3 DBs
-
-Saved significant development time
-
+Speak: “AI helped us understand schema images, interpret the structure, and identify relevant tables instantly.
+It also helped us create the mapping logic between DC-Track columns and the corresponding columns in IFP, CPNG, and FUSE.
+This reduced effort drastically, especially when dealing with multiple assets.”
 
 
 ---
 
-Slide 7 – Step 5: Data Extraction & CSV Generation
+⭐ Slide 5 — “Step 1: DC-Track Holistic Templates”
 
-Ran Copilot-generated queries
-
-Extracted UPS/PDU/RPP/GEN/FUEL assets
-
-Aligned output with holistic template
-
+Speak: “Our first step was to build holistic templates for each asset in DC-Track.
+These templates define the exact columns, formats, and fields required by DC-Track.
+This became the target model for the entire migration.”
 
 
 ---
 
-Slide 8 – Step 6: Import & Fallout Analysis
+⭐ Slide 6 — “Step 2: Gemini Schema Analysis”
 
-Imported CSV to DC-Track
-
-AI helped analyze fallout reasons
-
-Guided missing fields/format corrections
-
-Regenerated corrected CSVs
-
+Speak: “Next, we took the schema diagrams from IFP, CPNG, and FUSE and uploaded them into Gemini.
+Gemini helped us identify which tables and columns were relevant for each asset.
+It matched our DC-Track template fields with the source system tables by reading the schema image, which saved a lot of time.”
 
 
 ---
 
-Slide 9 – Step 7: Re-import & Final Success
+⭐ Slide 7 — “Step 3: Gemini Mapping Output”
 
-Re-imported corrected datasets
-
-Achieved near 100% success
-
-AI significantly reduced manual effort
-
+Speak: “Gemini then generated a structured mapping table that clearly showed:
+DC-Track column → IFP table.column → CPNG table.column → FUSE table.column.
+This mapping became our source-of-truth for every asset type.”
 
 
 ---
 
-Slide 10 – Benefits
+⭐ Slide 8 — “Step 4: Copilot SQL Generation”
 
-Faster SQL + mapping creation
-
-Consistent across 3 legacy databases
-
-Accurate DC-Track alignment
-
-Reusable framework for future migrations
-
+Speak: “Once the mapping was ready, we passed it into GitHub Copilot.
+Copilot generated SQL queries automatically — including joins, filters, and aliases to match the DC-Track format.
+This allowed us to extract asset data from three different databases very quickly.”
 
 
 ---
 
-👉 This PPT stays senior-friendly and outcome-focused.
-👉 Your explanation fills the technical depth, but slides stay clean.
+⭐ Slide 9 — “Step 5: Data Extraction”
+
+Speak: “We executed Copilot-generated SQL queries across all systems and exported the data into CSV files.
+These CSVs were aligned directly with our DC-Track holistic template, making the import much easier.”
 
 
 ---
 
-✅ (B) WHAT YOU WILL SHOW IN THE VIDEO (SCREEN RECORDING)
+⭐ Slide 10 — “Step 6: Fallout Fixing”
 
-This is where you show actual proof of AI work — Gemini + Copilot.
-This is EXACTLY what a senior manager expects: high-level PPT + real backend work shown in the demo.
-
-Below is the EXACT VIDEO FLOW you will record, step-by-step, matching the PPT.
-
-
----
-
-🎬 VIDEO DEMO STEPS (Your Explanation + What to Show)
+Speak: “When we imported the data into DC-Track, we received fallout for missing or mismatched fields.
+We used AI again to analyze these fallout messages and identify what corrections were needed.
+This helped us fix issues quickly and reduce manual debugging.”
 
 
 ---
 
-VIDEO STEP 1 – Show Holistic Template (DC-Track)
+⭐ Slide 11 — “Key Benefits”
 
-🎥 Show the Excel/Sheet of holistic template (green columns).
-
-🗣️ Say this:
-
-> “We first created the DC-Track holistic template for each asset.
-This told us the exact fields DC-Track needs, such as voltage, connector type, amperage, model, location, etc.
-This became our target structure.”
-
-
+Speak: “Using AI reduced our development and analysis time by nearly 80–90%.
+It helped us maintain consistency across three different systems and improved data accuracy.
+This approach is reusable for future PSC and wireless migrations.”
 
 
 ---
 
-VIDEO STEP 2 – Show Schema Diagrams (IFP / CPNG / FUSE)
+⭐ Slide 12 — “Conclusion”
 
-🎥 Show schema diagrams one by one (IFP ER diagram → CPNG → FUSE).
+Speak: “To summarize, AI helped us convert unstructured schema diagrams into DC-Track-ready data quickly and accurately.
+We were able to bring three different systems into one unified model within a short period.
+This enabled faster migration, higher quality, and a scalable approach for upcoming migrations. Thank you.”
 
-🗣️ Say this:
 
-> “The challenge was that we didn’t receive structured data extracts.
-We only had schema diagrams, each system storing the assets differently.
-So we used AI to interpret these schema images.”
+---
 
+🎉 GREAT — THIS SCRIPT IS READY FOR RECORDING.
+
+
+---
+
+✅ 2. HOW TO IMPORT THE PPT INTO GOOGLE SLIDES
+
+Follow these simple steps:
+
+Step 1: Open Google Drive
+
+Go to: https://drive.google.com
+
+Step 2: Upload the PPT
+
+Click the New button (top-left)
+
+Choose File Upload
+
+Select the PPT you downloaded
+
+
+Step 3: Open in Google Slides
+
+Once uploaded, right-click the PPT file in Drive
+
+Choose Open with → Google Slides
+
+
+Step 4: Format / Edit if needed
+
+You can edit text, add screenshots, add speaker notes, etc.
+
+
+Step 5: Add Speaker Notes
+
+Below each slide, click “Click to add speaker notes”
+Paste the speaking script I wrote for you under each slide.
+
+Step 6: Present with speaker notes
+
+Use “Present with Speaker Notes” if showing to manager
+
+Step 7: Record video
+
+You can record:
+
+Using Google Meet (Record option)
+
+Using Loom
+
+Using your laptop screen recorder
 
 
 
 ---
 
-VIDEO STEP 3 – Gemini Schema Understanding
+🔥 If you want next:
 
-🎥 Open Gemini → paste one schema screenshot + holistic template snippet.
+I can also generate:
 
-🗣️ Say this:
+✔ Script for your video demo (Gemini + Copilot sequence)
 
-> “We gave Gemini the schema diagrams and the holistic template.
-Gemini told us exactly which table and which column in each system matches every DC-Track field.”
+✔ A short 2–3 minute summary version
 
+✔ A longer 6-minute detailed narration
 
+✔ A PPT version with screenshots inserted
 
-🎥 Show Gemini’s sample mapping output (the tabular one you created).
-
-
----
-
-VIDEO STEP 4 – Gemini → Mapping Sheet
-
-🎥 Switch to the mapping Excel (green/white mapping table).
-
-🗣️ Say this:
-
-> “This mapping sheet was generated using Gemini.
-It shows DC-Track field → IFP table.column → CPNG table.column → FUSE table.column.”
-
-
-
-
----
-
-VIDEO STEP 5 – Copilot Mapping to SQL
-
-🎥 Open VS Code. Paste mapping as comments.
-🎥 Type Copilot prompt:
-
--- Using the above mapping, generate the SQL query to extract UPS data in DC-Track format.
-
-🎥 Let Copilot auto-generate the SELECT query.
-
-🗣️ Say this:
-
-> “We then passed the mapping to Copilot.
-Copilot generated complete SQL queries with joins and aliases matching the DC-Track template.
-This saved significant manual time, especially since all 3 systems use different databases.”
-
-
-
-
----
-
-VIDEO STEP 6 – Query Execution & CSV Output
-
-🎥 Show the CSV output with headings aligned to holistic template.
-
-🗣️ Say this:
-
-> “Running these queries gave us clean CSVs matching DC-Track’s structure.”
-
-
-
-
----
-
-VIDEO STEP 7 – DC-Track Import & Fallout
-
-🎥 Show fallout screenshot.
-
-🗣️ Say this:
-
-> “We imported into DC-Track and handled fallout by feeding the fallout errors back into Gemini.
-Gemini helped identify what was missing or incorrect.”
-
-
-
-
----
-
-VIDEO STEP 8 – Success Screen
-
-🎥 Show DC-Track success message.
-
-🗣️ Say this:
-
-> “Finally, we re-imported the corrected data and achieved near 100% success.”
-
-
-
-
----
-
-🔥 THE MAGIC:
-
-👉 Slides show high-level executive summary.
-👉 Video shows hands-on AI flow (Gemini → Copilot → SQL → CSV → DC-Track).
-
-This is EXACTLY what senior managers love: ✔ Simple PPT
-✔ Strong demo
-✔ Clear explanation
-✔ Real evidence of AI usage
-
-
----
-
-🟦 If you want, I can now generate:
-
-✔ A PPT with the 10 slides
-
-✔ Speaker notes for each slide
-
-✔ A video script with exact words to say (1 continuous speech)
-
-✔ A sample UPS demo mapping + SQL + CSV (ready to show)
+✔ A combined “presentation + live demo” flow
 
 Just tell me:
-
-👉 “Generate the PPT + sample demo files.”
+👉 “Give me the video demo script also”
