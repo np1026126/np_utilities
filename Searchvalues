@@ -1,198 +1,307 @@
-Absolutely Naveen — I will now give you two things:
+Absolutely Naveen — I will give you the perfect Gemini prompt that will:
 
-1️⃣ Exact words to speak for each slide (You can read this exactly in your video)
-2️⃣ How to import this PPT into Google Slides (so you can edit/record smoothly)
+✅ Create the full PPT
+✅ Insert your schema images (the ones you uploaded — IFP, CPNG, FUSE, holistic template, mapping sheet)
+✅ Add headings, storyline, AI explanation, and slides for video narration
+✅ Match the high-level manager style
+✅ Match your actual migration story
 
-This will make your final presentation clear, professional, and easy to record.
-
-
----
-
-✅ 1. EXACT WORDS TO SPEAK FOR EACH SLIDE
-
-(This is your video narration script — you can simply read it line by line.)
+This prompt is crafted exactly for Gemini so you can paste it and get your full PPT ready for recording.
 
 
 ---
 
-🎬 Slide 1 — “AI-Driven Wireless Migration”
-
-Speak: “Hi everyone, this is Naveen. In this presentation, I’ll walk through how we used AI tools to accelerate our wireless network migration from IFP, CPNG, and FUSE into DC-Track.
-Our focus is on how AI reduced time, standardized our process, and helped us handle three different systems efficiently.”
+🎯 FINAL GEMINI PROMPT FOR CREATING THE PPT (Copy–Paste This to Gemini)
 
 
 ---
 
-⭐ Slide 2 — “Migration Challenge”
-
-Speak: “The data available to us from the three legacy systems was completely unstructured.
-We didn’t receive direct export files — all we had were schema diagrams and ER models.
-Each system had different column names, different tables, and different ways of storing the same assets.
-This made manual mapping highly time-consuming.”
+👉 Paste the text below into Gemini:
 
 
 ---
 
-⭐ Slide 3 — “Why AI Was Needed”
+Create a professional PowerPoint presentation for a 3–5 minute video explanation about how we migrated Wireless Network Assets from three legacy systems — IFP, CPNG, and FUSE — into DC-Track using AI (Google Gemini + GitHub Copilot).
 
-Speak: “Manually comparing three schema structures, identifying tables, and creating field mapping would have taken several weeks.
-Joins across multiple databases were also complex.
-We wanted to avoid fallout due to manual errors.
-So AI was essential to speed up analysis and ensure accuracy.”
+Important Instructions:
 
+1. I am going to upload around 10–15 images next
 
----
+IFP schema diagrams
 
-⭐ Slide 4 — “How AI Helped”
+CPNG schema diagrams
 
-Speak: “AI helped us understand schema images, interpret the structure, and identify relevant tables instantly.
-It also helped us create the mapping logic between DC-Track columns and the corresponding columns in IFP, CPNG, and FUSE.
-This reduced effort drastically, especially when dealing with multiple assets.”
+FUSE schema diagrams
 
+Holistic templates (DC-Track format)
 
----
+Mapping sheets (IFP/CPNG/FUSE → DCTrack mapping)
 
-⭐ Slide 5 — “Step 1: DC-Track Holistic Templates”
-
-Speak: “Our first step was to build holistic templates for each asset in DC-Track.
-These templates define the exact columns, formats, and fields required by DC-Track.
-This became the target model for the entire migration.”
+Data model diagrams
 
 
----
-
-⭐ Slide 6 — “Step 2: Gemini Schema Analysis”
-
-Speak: “Next, we took the schema diagrams from IFP, CPNG, and FUSE and uploaded them into Gemini.
-Gemini helped us identify which tables and columns were relevant for each asset.
-It matched our DC-Track template fields with the source system tables by reading the schema image, which saved a lot of time.”
+Place each image in the appropriate slide based on the topics below.
 
 
----
+2. Make the PPT senior-leadership friendly
 
-⭐ Slide 7 — “Step 3: Gemini Mapping Output”
+High level
 
-Speak: “Gemini then generated a structured mapping table that clearly showed:
-DC-Track column → IFP table.column → CPNG table.column → FUSE table.column.
-This mapping became our source-of-truth for every asset type.”
+No heavy text
+
+Clear storytelling
+
+Visual first
+
+Bullets only, 3–4 per slide
 
 
----
 
-⭐ Slide 8 — “Step 4: Copilot SQL Generation”
+3. Use a consistent clean theme
 
-Speak: “Once the mapping was ready, we passed it into GitHub Copilot.
-Copilot generated SQL queries automatically — including joins, filters, and aliases to match the DC-Track format.
-This allowed us to extract asset data from three different databases very quickly.”
+White background
+
+Blue & black text
+
+Minimalistic professional style
+
+
+
 
 
 ---
 
-⭐ Slide 9 — “Step 5: Data Extraction”
+Slide-by-Slide Content Structure
 
-Speak: “We executed Copilot-generated SQL queries across all systems and exported the data into CSV files.
-These CSVs were aligned directly with our DC-Track holistic template, making the import much easier.”
+Slide 1 — Title Slide
 
-
----
-
-⭐ Slide 10 — “Step 6: Fallout Fixing”
-
-Speak: “When we imported the data into DC-Track, we received fallout for missing or mismatched fields.
-We used AI again to analyze these fallout messages and identify what corrections were needed.
-This helped us fix issues quickly and reduce manual debugging.”
+Title: AI-Driven Wireless Migration: IFP, CPNG, FUSE → DC-Track
+Subtitle: How AI Accelerated Multi-System Migration
+Add a professional-looking cover layout.
 
 
 ---
 
-⭐ Slide 11 — “Key Benefits”
+Slide 2 — Migration Challenge
 
-Speak: “Using AI reduced our development and analysis time by nearly 80–90%.
-It helped us maintain consistency across three different systems and improved data accuracy.
-This approach is reusable for future PSC and wireless migrations.”
+Title: Migration Challenges
+Bullets:
 
+Three unstructured legacy systems
 
----
+No direct export files
 
-⭐ Slide 12 — “Conclusion”
+Only schema diagrams available
 
-Speak: “To summarize, AI helped us convert unstructured schema diagrams into DC-Track-ready data quickly and accurately.
-We were able to bring three different systems into one unified model within a short period.
-This enabled faster migration, higher quality, and a scalable approach for upcoming migrations. Thank you.”
+Different naming conventions and formats
 
-
----
-
-🎉 GREAT — THIS SCRIPT IS READY FOR RECORDING.
 
 
 ---
 
-✅ 2. HOW TO IMPORT THE PPT INTO GOOGLE SLIDES
+Slide 3 — Show Unstructured Schemas
 
-Follow these simple steps:
+Title: Unstructured Data Inputs
+Add:
 
-Step 1: Open Google Drive
+IFP schema image
 
-Go to: https://drive.google.com
+CPNG schema image
 
-Step 2: Upload the PPT
-
-Click the New button (top-left)
-
-Choose File Upload
-
-Select the PPT you downloaded
+FUSE schema image
+Write: “Schemas were different: formats, table names, relationships, and attributes.”
 
 
-Step 3: Open in Google Slides
 
-Once uploaded, right-click the PPT file in Drive
+---
 
-Choose Open with → Google Slides
+Slide 4 — Why AI Was Needed
+
+Title: Why AI Was Critical
+Bullets:
+
+Manual mapping would take weeks
+
+Multi-DB joins were complex
+
+High risk of data fallout
+
+Need for standardized DC-Track structure
 
 
-Step 4: Format / Edit if needed
 
-You can edit text, add screenshots, add speaker notes, etc.
+---
+
+Slide 5 — Step 1: DC-Track Holistic Template
+
+Title: Step 1: Prepare DC-Track Holistic Templates
+Insert:
+
+Upload the Holistic Template screenshot
+Bullets:
+
+Defined target DC-Track model
+
+Standardized asset fields
+
+Base for mapping across systems
 
 
-Step 5: Add Speaker Notes
 
-Below each slide, click “Click to add speaker notes”
-Paste the speaking script I wrote for you under each slide.
+---
 
-Step 6: Present with speaker notes
+Slide 6 — Step 2: Schema Interpretation Using Gemini
 
-Use “Present with Speaker Notes” if showing to manager
+Title: Step 2: AI Schema Understanding (Gemini)
+Insert:
 
-Step 7: Record video
+Relevant schema diagrams
+Text:
+“Gemini read schema images and identified tables, columns, and relationships.”
 
-You can record:
 
-Using Google Meet (Record option)
 
-Using Loom
+---
 
-Using your laptop screen recorder
+Slide 7 — Step 3: AI Field Mapping
 
+Title: Step 3: AI-Generated Field Mappings
+Insert:
+
+Mapping sheet screenshot
+Bullets:
+
+DC-Track → IFP fields
+
+DC-Track → CPNG fields
+
+DC-Track → FUSE fields
+
+Produced complete mapping tables
+
+
+
+---
+
+Slide 8 — Step 4: SQL Query Generation Using Copilot
+
+Title: Step 4: SQL Query Automation (Copilot)
+Bullets:
+
+Generated SQL joins automatically
+
+Consistent logic across 3 databases
+
+Faster extraction with fewer errors
+Insert:
+
+Any SQL screenshot (or a placeholder)
+
+
+
+---
+
+Slide 9 — Step 5: CSV Extraction
+
+Title: Step 5: Data Extraction
+Bullets:
+
+Executed SQL across all systems
+
+Exported to CSV
+
+Fully aligned with holistic template
+
+
+
+---
+
+Slide 10 — Step 6: Fallout Fixing Using Gemini
+
+Title: Step 6: AI-Assisted Fallout Resolution
+Bullets:
+
+Gemini interpreted fallout messages
+
+Suggested accurate fixes
+
+Faster turnaround
+
+
+
+---
+
+Slide 11 — Outcomes
+
+Title: Outcomes
+Bullets:
+
+80–90% reduction in manual effort
+
+Accurate multi-system mapping
+
+Faster migration execution
+
+Reusable AI-based framework
+
+
+
+---
+
+Slide 12 — Closing Slide
+
+Title: Conclusion
+Text:
+“AI transformed complex, unstructured multi-system data into a clean, DC-Track-ready model, enabling fast, scalable wireless migration.”
+
+
+---
+
+Final Instructions
+
+Insert all the images EXACTLY where they logically fit.
+
+Resize and crop the schema pictures cleanly for readability.
+
+Add speaker notes per slide with a simple narration (I will provide separately if needed).
+
+Export as PPTX.
+
+
+
+---
+
+✔️ PROMPT END
+
+
+---
+
+🎯 WHAT THIS PROMPT WILL DO
+
+When you paste this into Gemini and upload all your schema/mapping screenshots:
+
+Gemini will automatically:
+
+✔ Create the PPT
+✔ Place all your images
+✔ Apply proper slide titles
+✔ Follow your migration story
+✔ Make it ready for your video
 
 
 ---
 
 🔥 If you want next:
 
-I can also generate:
+I can also give you:
 
-✔ Script for your video demo (Gemini + Copilot sequence)
+✅ Gemini prompt to create speaker notes
 
-✔ A short 2–3 minute summary version
+✅ Gemini prompt to create demo videos
 
-✔ A longer 6-minute detailed narration
+✅ Gemini prompt to generate the SQL/mapping examples
 
-✔ A PPT version with screenshots inserted
+✅ A full video narration script for 5 minutes
 
-✔ A combined “presentation + live demo” flow
-
-Just tell me:
-👉 “Give me the video demo script also”
+Just say:
+👉 “Give me the speaker notes prompt too”
