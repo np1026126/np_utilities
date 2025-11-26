@@ -1,107 +1,170 @@
-Perfect — now I clearly understand what you actually did practically:
-
-✔ You uploaded the schema diagrams as images
-
-✔ You also provided the table names + column names (from CPNG/IFP/FUSE)
-
-✔ And you told Gemini to match DC-Track fields to the closest column
-
-✔ And Gemini returned the mapping table.
-
-Now you want the exact same practical prompt that recreates your real workflow:
-
-👉 Schema Image + Table Structure (text) → DC-Track Mapping Table (CSV-like)
-
-I will give you the BEST possible Gemini prompt that works exactly with images + table structures, and outputs a table identical to your Screenshot 1.
-
-This prompt matches the real AI usage you did — not theoretical, but practical.
+Sure!
+I will write a clean, easy-to-read narration script for the first two slides based on your notes in the image.
+You can simply scroll and read during your recording.
 
 
 ---
 
-🎯 THE EXACT PRACTICAL GEMINI PROMPT FOR MAPPING WITH IMAGES
-
-Copy–paste this into Gemini before uploading the images.
+🎤 Narration Script for Slide 1 & Slide 2
 
 
 ---
 
-✅ GEMINI PROMPT (Realistic + Practical)
+👉 Slide 1 — “AI-Driven Wireless Migration”
 
-**“I am going to upload:
+Speak:
 
-1. A screenshot of the DC-Track holistic template for an asset (this is the TARGET format).
+“Hi everyone, this is Naveen.
+In this presentation, I’ll walk through how we used AI tools to accelerate our wireless network migration from IFP, CPNG, and ITUS systems into DC-Track.
 
-
-2. One or more schema diagrams as images from the CPNG system.
-
-
-3. A table containing the raw table names and column names from CPNG.
-
-
-
-From these inputs, produce a mapping table in the EXACT format below:**
-
-DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No)
-
-Instructions for processing:
-
-1. Read the DC-Track template screenshot and extract all field names from it.
-
-
-2. Read the schema diagram images and understand the table relationships and column meanings.
-
-
-3. Read the list of table names and columns that I provide separately.
-
-
-4. For every DC-Track field:
-
-Identify the closest matching table and column in the CPNG schema (using the images + text).
-
-If the field does not exist in CPNG, mark Table = “N/A”, Column = “N/A”, Mapped = “No”.
-
-
-
-5. Only choose a column if the meaning matches — do NOT guess incorrectly.
-
-
-6. The output must be a clean mapping table with 4 columns exactly:
-
-DC-Track Column
-
-CPNG Table Name
-
-CPNG Column Name
-
-Mapped?
-
-
-
-7. Format the output as a spreadsheet-like table that I can paste into Excel.
-
-
-
-Wait for me to upload the images and table structures, and then start the mapping.”
+Basically, I’ll explain how AI reduced manual effort, standardized our process, and helped our team handle three different systems efficiently.”
 
 
 ---
 
-🔥 WHY THIS PROMPT WORKS PERFECTLY
+👉 Slide 2 — “Migration Challenge”
 
-Because it tells Gemini:
+Speak:
 
-✔ You will upload schema diagram images (your photos)
+“The data available to us from the three legacy systems was completely unstructured.
+Due to inconsistency and lack of data standards, each system had different column names, different table structures, and different ways of storing the same assets.
 
-✔ You will upload a DC-Track template screenshot (yellow/orange)
-
-✔ You will upload table name/column lists (text table)
-
-✔ Gemini must combine all three inputs and output the mapping table.
-
-This reflects exactly your real process.
+This made manual mapping highly time-consuming.
+We had difficulties comparing three different schemas, identifying fields, and creating a standard power-chain hierarchy.”
 
 
 ---
 
-🎯 HOW TO USE THIS IN YOUR VIDEO (
+If you want, I can also prepare the narration for Slide 3 and onwards, in the same simple, professional style.
+
+“In IFUPC, all assets are dumped into a single EDU table without clear separation or hierarchy — there are no defined parent-child relationships, no standardized asset types, and no consistent power-chain mapping. That is why we call it unstructured.”
+
+⭐ Point 3 — IFUPC Data Was Unstructured (Short & Crisp)
+
+Speak:
+“In IFUPC, all asset types were stored together in a single EDU table without any hierarchy or classification.
+There were no standard parent–child mappings or defined power-chain relationships.
+This unstructured format made it difficult to extract clean, mapped data — which is exactly where the AI prompt helped us.”
+
+
+---
+
+This version is short, to the point, and directly sets up the next section where you will explain:
+
+what prompt you used,
+
+how AI interpreted the unstructured EDU data,
+
+how it generated structured output for migration.
+
+
+If you want, I can also write the transition sentence that connects this point to your AI prompt explanation.
+1. Creating DC-Track Holistic Templates
+
+Speak:
+
+“Our first step was to create the DC-Track holistic templates for every asset.
+These templates define the exact columns, formats, and fields required by DC-Track.
+This becomes our target model for the migration.
+
+I’ll quickly show the holistic templates we created in Google Sheets for each asset category.
+This defines what DC-Track expects from us.”
+
+
+---
+
+2. Collecting All Source System Schemas
+
+Speak:
+
+“The next step was to extract the table schemas from each source system — IFP, CPNG, and ITUS.
+I collected all the schema diagrams, all the table names, and all the column names from these systems.
+These represent our source models.”
+
+
+---
+
+3. Feeding Templates + Schemas into Gemini
+
+Speak:
+
+“Once I had both the DC-Track templates and the source schemas, I uploaded everything into Google Gemini.
+I gave Gemini:
+
+the holistic template of the target DC-Track asset,
+
+the schema diagrams or table structures from IFP, CPNG, and ITUS,
+
+and then I used a prompt to ask Gemini to map the DC-Track columns to the correct table and column names from each source system.”
+
+
+
+---
+
+4. The Prompt That Generates the Mapping
+
+Speak:
+
+“The prompt I used basically told Gemini:
+
+‘Here is the DC-Track template.
+Here are the IFP, CPNG, and ITUS schemas.
+Based on the template column names and the schema structures, give me the mapping of each DC-Track column to the correct source table and column.’”
+
+
+---
+
+5. Mapping Output Generated by Gemini
+
+Speak:
+
+“This is the output that Gemini produced — a complete mapping sheet.
+For each DC-Track column, it tells me:
+
+which IFP table/column it maps to,
+
+which CPNG table/column it maps to,
+
+and which ITUS table/column it maps to.
+
+
+This mapping is generated automatically by the prompt based on the template and schema that I provided.
+
+I am showing the CSV output here — for example, this column is the DC-Track column name, and these columns show the corresponding field from CPNG, IFP, or ITUS.”
+
+
+---
+
+6. Repeat for Every Asset
+
+Speak:
+
+“We followed this same approach for every asset type — UPS, rectifiers, HVAC, fuse panels, DC panels, BDFBs, and so on.
+For each asset, we:
+
+created a DC-Track holistic template,
+
+collected schema from IFP/CPNG/ITUS,
+
+fed them into Gemini,
+
+and received the complete mapping table.
+
+
+This mapping becomes the foundation for transforming the raw source-system data into the DC-Track format.”
+
+
+---
+
+✔ Very Short Version (if you need a 1-minute summary)
+
+“We first built DC-Track templates for every asset.
+Then we collected schemas from IFP, CPNG, and ITUS.
+We fed both the templates and the schemas into Gemini.
+Using a custom prompt, Gemini generated a complete mapping of DC-Track columns to the correct tables and fields in all three source systems.
+We repeated this process for each asset to get a full mapping library for the migration.”
+
+
+---
+
+If you want, I can also write your next slide narration — where you show the prompt itself and explain it line by line.
