@@ -1,307 +1,107 @@
-Absolutely Naveen — I will give you the perfect Gemini prompt that will:
+Perfect — now I clearly understand what you actually did practically:
 
-✅ Create the full PPT
-✅ Insert your schema images (the ones you uploaded — IFP, CPNG, FUSE, holistic template, mapping sheet)
-✅ Add headings, storyline, AI explanation, and slides for video narration
-✅ Match the high-level manager style
-✅ Match your actual migration story
+✔ You uploaded the schema diagrams as images
 
-This prompt is crafted exactly for Gemini so you can paste it and get your full PPT ready for recording.
+✔ You also provided the table names + column names (from CPNG/IFP/FUSE)
 
+✔ And you told Gemini to match DC-Track fields to the closest column
 
----
+✔ And Gemini returned the mapping table.
 
-🎯 FINAL GEMINI PROMPT FOR CREATING THE PPT (Copy–Paste This to Gemini)
+Now you want the exact same practical prompt that recreates your real workflow:
 
+👉 Schema Image + Table Structure (text) → DC-Track Mapping Table (CSV-like)
 
----
+I will give you the BEST possible Gemini prompt that works exactly with images + table structures, and outputs a table identical to your Screenshot 1.
 
-👉 Paste the text below into Gemini:
+This prompt matches the real AI usage you did — not theoretical, but practical.
 
 
 ---
 
-Create a professional PowerPoint presentation for a 3–5 minute video explanation about how we migrated Wireless Network Assets from three legacy systems — IFP, CPNG, and FUSE — into DC-Track using AI (Google Gemini + GitHub Copilot).
+🎯 THE EXACT PRACTICAL GEMINI PROMPT FOR MAPPING WITH IMAGES
 
-Important Instructions:
-
-1. I am going to upload around 10–15 images next
-
-IFP schema diagrams
-
-CPNG schema diagrams
-
-FUSE schema diagrams
-
-Holistic templates (DC-Track format)
-
-Mapping sheets (IFP/CPNG/FUSE → DCTrack mapping)
-
-Data model diagrams
-
-
-Place each image in the appropriate slide based on the topics below.
-
-
-2. Make the PPT senior-leadership friendly
-
-High level
-
-No heavy text
-
-Clear storytelling
-
-Visual first
-
-Bullets only, 3–4 per slide
-
-
-
-3. Use a consistent clean theme
-
-White background
-
-Blue & black text
-
-Minimalistic professional style
-
-
-
+Copy–paste this into Gemini before uploading the images.
 
 
 ---
 
-Slide-by-Slide Content Structure
+✅ GEMINI PROMPT (Realistic + Practical)
 
-Slide 1 — Title Slide
+**“I am going to upload:
 
-Title: AI-Driven Wireless Migration: IFP, CPNG, FUSE → DC-Track
-Subtitle: How AI Accelerated Multi-System Migration
-Add a professional-looking cover layout.
+1. A screenshot of the DC-Track holistic template for an asset (this is the TARGET format).
 
 
----
+2. One or more schema diagrams as images from the CPNG system.
 
-Slide 2 — Migration Challenge
 
-Title: Migration Challenges
-Bullets:
-
-Three unstructured legacy systems
-
-No direct export files
-
-Only schema diagrams available
-
-Different naming conventions and formats
+3. A table containing the raw table names and column names from CPNG.
 
 
 
----
+From these inputs, produce a mapping table in the EXACT format below:**
 
-Slide 3 — Show Unstructured Schemas
+DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No)
 
-Title: Unstructured Data Inputs
-Add:
+Instructions for processing:
 
-IFP schema image
-
-CPNG schema image
-
-FUSE schema image
-Write: “Schemas were different: formats, table names, relationships, and attributes.”
+1. Read the DC-Track template screenshot and extract all field names from it.
 
 
+2. Read the schema diagram images and understand the table relationships and column meanings.
 
----
 
-Slide 4 — Why AI Was Needed
+3. Read the list of table names and columns that I provide separately.
 
-Title: Why AI Was Critical
-Bullets:
 
-Manual mapping would take weeks
+4. For every DC-Track field:
 
-Multi-DB joins were complex
+Identify the closest matching table and column in the CPNG schema (using the images + text).
 
-High risk of data fallout
-
-Need for standardized DC-Track structure
+If the field does not exist in CPNG, mark Table = “N/A”, Column = “N/A”, Mapped = “No”.
 
 
 
----
+5. Only choose a column if the meaning matches — do NOT guess incorrectly.
 
-Slide 5 — Step 1: DC-Track Holistic Template
 
-Title: Step 1: Prepare DC-Track Holistic Templates
-Insert:
+6. The output must be a clean mapping table with 4 columns exactly:
 
-Upload the Holistic Template screenshot
-Bullets:
+DC-Track Column
 
-Defined target DC-Track model
+CPNG Table Name
 
-Standardized asset fields
+CPNG Column Name
 
-Base for mapping across systems
+Mapped?
 
+
+
+7. Format the output as a spreadsheet-like table that I can paste into Excel.
+
+
+
+Wait for me to upload the images and table structures, and then start the mapping.”
 
 
 ---
 
-Slide 6 — Step 2: Schema Interpretation Using Gemini
+🔥 WHY THIS PROMPT WORKS PERFECTLY
 
-Title: Step 2: AI Schema Understanding (Gemini)
-Insert:
+Because it tells Gemini:
 
-Relevant schema diagrams
-Text:
-“Gemini read schema images and identified tables, columns, and relationships.”
+✔ You will upload schema diagram images (your photos)
 
+✔ You will upload a DC-Track template screenshot (yellow/orange)
 
+✔ You will upload table name/column lists (text table)
 
----
+✔ Gemini must combine all three inputs and output the mapping table.
 
-Slide 7 — Step 3: AI Field Mapping
-
-Title: Step 3: AI-Generated Field Mappings
-Insert:
-
-Mapping sheet screenshot
-Bullets:
-
-DC-Track → IFP fields
-
-DC-Track → CPNG fields
-
-DC-Track → FUSE fields
-
-Produced complete mapping tables
-
+This reflects exactly your real process.
 
 
 ---
 
-Slide 8 — Step 4: SQL Query Generation Using Copilot
-
-Title: Step 4: SQL Query Automation (Copilot)
-Bullets:
-
-Generated SQL joins automatically
-
-Consistent logic across 3 databases
-
-Faster extraction with fewer errors
-Insert:
-
-Any SQL screenshot (or a placeholder)
-
-
-
----
-
-Slide 9 — Step 5: CSV Extraction
-
-Title: Step 5: Data Extraction
-Bullets:
-
-Executed SQL across all systems
-
-Exported to CSV
-
-Fully aligned with holistic template
-
-
-
----
-
-Slide 10 — Step 6: Fallout Fixing Using Gemini
-
-Title: Step 6: AI-Assisted Fallout Resolution
-Bullets:
-
-Gemini interpreted fallout messages
-
-Suggested accurate fixes
-
-Faster turnaround
-
-
-
----
-
-Slide 11 — Outcomes
-
-Title: Outcomes
-Bullets:
-
-80–90% reduction in manual effort
-
-Accurate multi-system mapping
-
-Faster migration execution
-
-Reusable AI-based framework
-
-
-
----
-
-Slide 12 — Closing Slide
-
-Title: Conclusion
-Text:
-“AI transformed complex, unstructured multi-system data into a clean, DC-Track-ready model, enabling fast, scalable wireless migration.”
-
-
----
-
-Final Instructions
-
-Insert all the images EXACTLY where they logically fit.
-
-Resize and crop the schema pictures cleanly for readability.
-
-Add speaker notes per slide with a simple narration (I will provide separately if needed).
-
-Export as PPTX.
-
-
-
----
-
-✔️ PROMPT END
-
-
----
-
-🎯 WHAT THIS PROMPT WILL DO
-
-When you paste this into Gemini and upload all your schema/mapping screenshots:
-
-Gemini will automatically:
-
-✔ Create the PPT
-✔ Place all your images
-✔ Apply proper slide titles
-✔ Follow your migration story
-✔ Make it ready for your video
-
-
----
-
-🔥 If you want next:
-
-I can also give you:
-
-✅ Gemini prompt to create speaker notes
-
-✅ Gemini prompt to create demo videos
-
-✅ Gemini prompt to generate the SQL/mapping examples
-
-✅ A full video narration script for 5 minutes
-
-Just say:
-👉 “Give me the speaker notes prompt too”
+🎯 HOW TO USE THIS IN YOUR VIDEO (
