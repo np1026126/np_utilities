@@ -1,170 +1,177 @@
-Sure!
-I will write a clean, easy-to-read narration script for the first two slides based on your notes in the image.
-You can simply scroll and read during your recording.
+Below is a clean, structured, professional explanation you can directly copy-paste to the users as a response.
+I have rewritten your points clearly, corrected the technical wording, and formatted them asset-wise so it’s easy for them to understand.
 
 
 ---
 
-🎤 Narration Script for Slide 1 & Slide 2
+✅ Response to Questions on Asset-Specific Fields
+
+Below are the clarifications for each asset type based on your questions:
 
 
 ---
 
-👉 Slide 1 — “AI-Driven Wireless Migration”
+1️⃣ Floor PDU – What should be filled in the “Source” field?
 
-Speak:
+For Floor PDU, the Source field should be populated as:
 
-“Hi everyone, this is Naveen.
-In this presentation, I’ll walk through how we used AI tools to accelerate our wireless network migration from IFP, CPNG, and ITUS systems into DC-Track.
+UPS Bank Name / Load Device Name
 
-Basically, I’ll explain how AI reduced manual effort, standardized our process, and helped our team handle three different systems efficiently.”
+This means:
+
+The UPS Bank feeding the PDU
+
+The specific load device (for example, RPP or Panel) through which the PDU is electrically connected
 
 
----
-
-👉 Slide 2 — “Migration Challenge”
-
-Speak:
-
-“The data available to us from the three legacy systems was completely unstructured.
-Due to inconsistency and lack of data standards, each system had different column names, different table structures, and different ways of storing the same assets.
-
-This made manual mapping highly time-consuming.
-We had difficulties comparing three different schemas, identifying fields, and creating a standard power-chain hierarchy.”
+✔ This gives the correct hierarchical power-chain path: Generator → UPS → UPS Bank → Load Device → Floor PDU
 
 
 ---
 
-If you want, I can also prepare the narration for Slide 3 and onwards, in the same simple, professional style.
+2️⃣ Generators – Custom Field “Max Load” & “LoadDT”
 
-“In IFUPC, all assets are dumped into a single EDU table without clear separation or hierarchy — there are no defined parent-child relationships, no standardized asset types, and no consistent power-chain mapping. That is why we call it unstructured.”
+Custom Field – Max Load
 
-⭐ Point 3 — IFUPC Data Was Unstructured (Short & Crisp)
+This represents the maximum power load (capacity) that the generator can support.
 
-Speak:
-“In IFUPC, all asset types were stored together in a single EDU table without any hierarchy or classification.
-There were no standard parent–child mappings or defined power-chain relationships.
-This unstructured format made it difficult to extract clean, mapped data — which is exactly where the AI prompt helped us.”
+This field was introduced by wireline teams.
 
+If you know the generator's rated capacity, please enter it.
 
----
-
-This version is short, to the point, and directly sets up the next section where you will explain:
-
-what prompt you used,
-
-how AI interpreted the unstructured EDU data,
-
-how it generated structured output for migration.
+If not available, you may leave it blank.
 
 
-If you want, I can also write the transition sentence that connects this point to your AI prompt explanation.
-1. Creating DC-Track Holistic Templates
+Custom Field – LoadDT (mm/dd/yyyy)
 
-Speak:
+This is a custom date field used by wireline.
 
-“Our first step was to create the DC-Track holistic templates for every asset.
-These templates define the exact columns, formats, and fields required by DC-Track.
-This becomes our target model for the migration.
+If the date is not known, leave it empty.
 
-I’ll quickly show the holistic templates we created in Google Sheets for each asset category.
-This defines what DC-Track expects from us.”
+It is not mandatory.
+
+
+✔ It is completely fine if both fields remain blank.
 
 
 ---
 
-2. Collecting All Source System Schemas
+3️⃣ Fuel Tank – Custom Fields “Fuel Level (Gals)” & “Owner”
 
-Speak:
+These custom fields were added by wireline, not wireless.
 
-“The next step was to extract the table schemas from each source system — IFP, CPNG, and ITUS.
-I collected all the schema diagrams, all the table names, and all the column names from these systems.
-These represent our source models.”
+Fuel Level (Gals)
+
+Represents the stored fuel volume.
+
+This may be a dropdown field.
+
+I will verify the allowed values and confirm.
 
 
----
+Fuel Tank Owner
 
-3. Feeding Templates + Schemas into Gemini
+Represents who owns the fuel tank (Wireless / Wireline / Facility).
 
-Speak:
+I will confirm the exact options available.
 
-“Once I had both the DC-Track templates and the source schemas, I uploaded everything into Google Gemini.
-I gave Gemini:
 
-the holistic template of the target DC-Track asset,
-
-the schema diagrams or table structures from IFP, CPNG, and ITUS,
-
-and then I used a prompt to ask Gemini to map the DC-Track columns to the correct table and column names from each source system.”
-
+✔ For now, if not sure, you may leave both fields blank.
 
 
 ---
 
-4. The Prompt That Generates the Mapping
+4️⃣ BDFB – Table Version, Weight Capacity, Custom Fields
 
-Speak:
+Fields Not Required
 
-“The prompt I used basically told Gemini:
+The following fields are not required and can be left empty:
 
-‘Here is the DC-Track template.
-Here are the IFP, CPNG, and ITUS schemas.
-Based on the template column names and the schema structures, give me the mapping of each DC-Track column to the correct source table and column.’”
+Table Version
 
+Weight Capacity
 
----
+Custom Field – Number of Loads
 
-5. Mapping Output Generated by Gemini
+Custom Field – Equipment Served
 
-Speak:
+Custom Field – Project ID
 
-“This is the output that Gemini produced — a complete mapping sheet.
-For each DC-Track column, it tells me:
+Custom Field – BDFB Panel ID
 
-which IFP table/column it maps to,
+Rails Used
 
-which CPNG table/column it maps to,
+Orientation
 
-and which ITUS table/column it maps to.
+Order
 
 
-This mapping is generated automatically by the prompt based on the template and schema that I provided.
+Fields Required
 
-I am showing the CSV output here — for example, this column is the DC-Track column name, and these columns show the corresponding field from CPNG, IFP, or ITUS.”
+Only Installed Position / U-Position must be filled.
 
+The BDFB U-position indicates:
 
----
+Whether the BDFB is mounted above or below in the rack/cabinet
 
-6. Repeat for Every Asset
+The relative vertical placement
 
-Speak:
+Typically:
 
-“We followed this same approach for every asset type — UPS, rectifiers, HVAC, fuse panels, DC panels, BDFBs, and so on.
-For each asset, we:
+Above (Top)
 
-created a DC-Track holistic template,
-
-collected schema from IFP/CPNG/ITUS,
-
-fed them into Gemini,
-
-and received the complete mapping table.
+Below (Bottom)
 
 
-This mapping becomes the foundation for transforming the raw source-system data into the DC-Track format.”
+
+If unsure:
+✔ Use the rack diagram or facility drawings to confirm
+✔ Orientation / rails / order are not mandatory for migration
 
 
 ---
 
-✔ Very Short Version (if you need a 1-minute summary)
+5️⃣ Batteries – Model, Make, Installation Date
 
-“We first built DC-Track templates for every asset.
-Then we collected schemas from IFP, CPNG, and ITUS.
-We fed both the templates and the schemas into Gemini.
-Using a custom prompt, Gemini generated a complete mapping of DC-Track columns to the correct tables and fields in all three source systems.
-We repeated this process for each asset to get a full mapping library for the migration.”
+Battery Model / Make
+
+Use the standard model name listed in our DC-Track inventory.
+
+If the make/model you have is not in our list, share it with us.
+
+We will request DC-Track Support to add it.
+
+
+
+Installation Date
+
+Not mandatory
+
+If you do not know the exact date: ✔ You may leave it blank
+✔ Or provide a reasonable placeholder date
+
+
+No validation will fail because of missing installation dates.
 
 
 ---
 
-If you want, I can also write your next slide narration — where you show the prompt itself and explain it line by line.
+✅ Summary (Short Version for Quick Reference)
+
+Floor PDU Source: UPS Bank / Load Device
+
+Generator fields: Both custom fields are optional
+
+Fuel Tank: Both fields optional; I will confirm dropdown values
+
+BDFB: Only U-position is needed; all other fields optional
+
+Battery Model: Use correct make/model; add missing ones via support
+
+Battery Installation Date: Optional
+
+
+
+---
+
+If you want, I can also prepare this in email format, bullet format, or a version you can speak in a meeting.
