@@ -1,177 +1,201 @@
-Below is a clean, structured, professional explanation you can directly copy-paste to the users as a response.
-I have rewritten your points clearly, corrected the technical wording, and formatted them asset-wise so it’s easy for them to understand.
+Perfect. I understand exactly what you need now:
+
+✔ You want a professional-grade prompt, written like a Prompt Engineer,
+
+✔ With proper structure, headings, clarity, and authority,
+
+✔ That explains exactly what Gemini must do using the two inputs:
+
+DC-Track Plant Holistic Template (CSV)
+
+CPNG Schema Diagrams (Images)
+
+
+✔ And Gemini must output a perfect mapping sheet (as shown in your screenshot).
+
+You want this prompt to appear impressive in the video, so when you scroll it on the screen, your managers feel it is written with real expertise.
 
 
 ---
 
-✅ Response to Questions on Asset-Specific Fields
+✅ FINAL – PROFESSIONAL PROMPT ENGINEER VERSION (Use This in Your Video)
 
-Below are the clarifications for each asset type based on your questions:
-
-
----
-
-1️⃣ Floor PDU – What should be filled in the “Source” field?
-
-For Floor PDU, the Source field should be populated as:
-
-UPS Bank Name / Load Device Name
-
-This means:
-
-The UPS Bank feeding the PDU
-
-The specific load device (for example, RPP or Panel) through which the PDU is electrically connected
-
-
-✔ This gives the correct hierarchical power-chain path: Generator → UPS → UPS Bank → Load Device → Floor PDU
+Copy–paste this EXACT prompt into Gemini.
+I am giving you a world-class engineered version, clean, structured, and impressive.
 
 
 ---
 
-2️⃣ Generators – Custom Field “Max Load” & “LoadDT”
+⭐ “DC-Track ↔ CPNG Schema Intelligent Mapping Prompt” ⭐
 
-Custom Field – Max Load
-
-This represents the maximum power load (capacity) that the generator can support.
-
-This field was introduced by wireline teams.
-
-If you know the generator's rated capacity, please enter it.
-
-If not available, you may leave it blank.
-
-
-Custom Field – LoadDT (mm/dd/yyyy)
-
-This is a custom date field used by wireline.
-
-If the date is not known, leave it empty.
-
-It is not mandatory.
-
-
-✔ It is completely fine if both fields remain blank.
+(Use this heading in your video — it will look very professional.)
 
 
 ---
 
-3️⃣ Fuel Tank – Custom Fields “Fuel Level (Gals)” & “Owner”
+📌 Objective
 
-These custom fields were added by wireline, not wireless.
-
-Fuel Level (Gals)
-
-Represents the stored fuel volume.
-
-This may be a dropdown field.
-
-I will verify the allowed values and confirm.
-
-
-Fuel Tank Owner
-
-Represents who owns the fuel tank (Wireless / Wireline / Facility).
-
-I will confirm the exact options available.
-
-
-✔ For now, if not sure, you may leave both fields blank.
+Generate a field-to-field mapping between the DC-Track PLANT Holistic Template and the CPNG database schema, using both the uploaded schema diagrams (images) and the holistic template CSV.
+The final output must be accurate, traceable, and formatted as a spreadsheet-ready table.
 
 
 ---
 
-4️⃣ BDFB – Table Version, Weight Capacity, Custom Fields
+📌 Input Files Provided
 
-Fields Not Required
-
-The following fields are not required and can be left empty:
-
-Table Version
-
-Weight Capacity
-
-Custom Field – Number of Loads
-
-Custom Field – Equipment Served
-
-Custom Field – Project ID
-
-Custom Field – BDFB Panel ID
-
-Rails Used
-
-Orientation
-
-Order
+1. DC_Plant_holistic_template.csv
+– This is the target DC-Track schema containing all DC-Track column names.
 
 
-Fields Required
+2. CPNG Schema Diagrams (Images)
+– These diagrams show table structures, relationships, and column definitions.
+– Tables include examples such as: TBL_DC_PLANT, TBL_DC_DAILY, TBL_MSC_INFO, TBL_MANU, etc.
 
-Only Installed Position / U-Position must be filled.
-
-The BDFB U-position indicates:
-
-Whether the BDFB is mounted above or below in the rack/cabinet
-
-The relative vertical placement
-
-Typically:
-
-Above (Top)
-
-Below (Bottom)
-
-
-
-If unsure:
-✔ Use the rack diagram or facility drawings to confirm
-✔ Orientation / rails / order are not mandatory for migration
-
-
----
-
-5️⃣ Batteries – Model, Make, Installation Date
-
-Battery Model / Make
-
-Use the standard model name listed in our DC-Track inventory.
-
-If the make/model you have is not in our list, share it with us.
-
-We will request DC-Track Support to add it.
-
-
-
-Installation Date
-
-Not mandatory
-
-If you do not know the exact date: ✔ You may leave it blank
-✔ Or provide a reasonable placeholder date
-
-
-No validation will fail because of missing installation dates.
-
-
----
-
-✅ Summary (Short Version for Quick Reference)
-
-Floor PDU Source: UPS Bank / Load Device
-
-Generator fields: Both custom fields are optional
-
-Fuel Tank: Both fields optional; I will confirm dropdown values
-
-BDFB: Only U-position is needed; all other fields optional
-
-Battery Model: Use correct make/model; add missing ones via support
-
-Battery Installation Date: Optional
 
 
 
 ---
 
-If you want, I can also prepare this in email format, bullet format, or a version you can speak in a meeting.
+📌 Task
+
+Using BOTH the CSV and schema diagrams, intelligently map each DC-Track field to its closest corresponding table and column in the CPNG schema.
+
+
+---
+
+📌 Output Format (Strictly Required)
+
+Produce a clean table with exactly these four columns:
+
+DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No)
+
+Ensure the output is Excel-ready, properly structured, no extra commentary.
+
+
+---
+
+📌 Mapping Rules
+
+1. Field Matching Logic
+
+For every DC-Track column:
+
+Find the closest matching CPNG field based on:
+
+semantic meaning
+
+data type
+
+domain context (plant, equipment, electrical parameters, etc.)
+
+schema diagram relationships
+
+
+Only map if the meaning is logically correct.
+
+
+2. When No Match Exists
+
+If you cannot confidently find a match:
+
+Set CPNG Table Name = “N/A”
+
+Set CPNG Column Name = “N/A”
+
+Set Mapped? = No
+
+
+3. When a Match Exists
+
+Set Mapped? = Yes
+
+Use the exact table name and column name from the schema.
+
+
+
+---
+
+📌 Processing Instructions
+
+1. Read and extract all DC-Track field names from the holistic template CSV.
+
+
+2. Interpret table structures and relationships from the uploaded CPNG schema images.
+
+
+3. Cross-reference each DC-Track field with the schema:
+
+Identify the correct CPNG table and column
+
+Use naming conventions, key references, and functional purpose
+
+
+
+4. Generate a complete mapping table, covering all DC-Track fields.
+
+
+
+
+---
+
+📌 Final Expected Deliverable
+
+A fully completed mapping sheet, similar to:
+
+Name                 | TBL_DC_PLANT | PLANT_NO         | Yes
+Make                 | TBL_MANU     | MANUFACTURER      | Yes
+Model                | TBL_DC_PLANT | MODEL             | Yes
+Status               | TBL_MSC_INFO | ISACTIVE          | Yes
+Discharge VPC        | N/A          | N/A               | No
+...
+
+This table should match the format shown in my reference screenshots.
+
+
+---
+
+📌 Begin After Upload
+
+Wait until I upload:
+
+The DC-Track holistic template CSV
+
+All CPNG schema diagram images
+
+
+Then generate the mapping.
+
+
+---
+
+⭐ END OF PROMPT ⭐
+
+
+---
+
+✅ This Prompt Is PERFECT for Showing in a Video Because:
+
+✔ It reads like a high-level engineering specification
+
+✔ It matches the real work you did
+
+✔ It uses strong headings: Objective, Inputs, Output Format, Rules, Instructions
+
+✔ It makes you look like a senior-level AI prompt engineer
+
+✔ Your manager & senior manager will be extremely impressed
+
+
+---
+
+If you want, I can also prepare:
+
+➤ A narrated script explaining the prompt
+
+➤ A separate Copilot prompt for generating SQL queries
+
+➤ A Gemini + Copilot combined workflow diagram (for your PPT/video)
+
+➤ A short 3–5 min voice-over text you can use while recording video
+
+Just tell me what you want next.
