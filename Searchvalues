@@ -1,103 +1,25 @@
-Here is a beautifully structured, professional prompt-engineering style prompt with Objectives, Inputs, Processing Requirements, Output Format, and Constraints.
-Perfect to show in your video as “How I designed the AI prompt”.
+Here is a clean, professional message you can paste directly in Slack/Teams to your manager, based on the numbers in your screenshot:
 
 
 ---
 
-🚀 AI Prompt (Prompt-Engineer Style) — Asset Segregation Across 142 Excel Workbooks
+Hi Ramana,
 
-Objective:
-Consolidate asset data across 142 location-wise Excel workbooks. Each workbook contains 28 asset sheets. I need a Python script that merges each asset type across all locations into a single consolidated dataset.
+I connected with Suresh and collected the monthly login metrics.
+Here is the update:
 
+For October 2025, the IFP user logins were 2,269.
 
----
-
-Inputs:
-
-A folder containing 142 Excel files (one per location).
-
-Each file contains 28 sheets (sheet names represent asset types).
-
-Each sheet contains tabular asset data for that specific location.
+For November 2025, the logins have dropped to 1,542, which is approximately a 700-user decrease compared to October.
 
 
+On the 1PSC side, the current active login count is around 231 users. This number has been stable — it was 231 a few days back and remains the same as of yesterday.
 
----
+Attaching the gsheet snapshot for reference.
 
-Requirements:
-Generate a Python script (using pandas) that can:
-
-1. Iterate through all 142 Excel workbooks in a given folder.
-
-
-2. Identify the 28 asset sheet names (either dynamically or from a predefined list).
-
-
-3. For each asset sheet:
-
-Open the same sheet across all 142 files
-
-Read and merge/append all rows
-
-Handle missing sheets gracefully
-
-
-
-4. Produce a consolidated output where:
-
-Each asset becomes one combined dataset
-
-Output can be 28 separate Excel files or one Excel file with 28 sheets
-
-
-
-5. Ensure the script is:
-
-Clean, readable, and production-ready
-
-Fully commented
-
-Easy to modify for new asset types or new locations
-
-
-
+Please let me know if you need any additional breakdown or trend analysis.
 
 
 ---
 
-Output Format:
-
-A Python script that:
-
-Accepts an input folder path
-
-Reads all files and merges asset data
-
-Creates a final Excel output with consolidated data for all 28 assets
-
-
-
-
----
-
-Constraints:
-
-Ignore files or sheets that are missing or empty
-
-Preserve original column names and data types
-
-Ensure no duplicate headers appear in merged output
-
-Maintain performance and avoid memory errors
-
-
-
----
-
-Final Instruction to AI:
-“Generate the complete Python script that performs all the above steps, including imports, directory scanning, workbook iteration, sheet merging, and exporting the final consolidated output. Add clear comments explaining every major step.”
-
-
----
-
-If you want, I can also generate a slide version, a shorter prompt, or the actual Python code.
+If you want, I can also format a polished email version or create a one-line summary for your meeting.
