@@ -1,196 +1,103 @@
-Perfect — I fully understand what you need.
-
-✔ You already showed how Gemini generated the mapping sheet.
-
-✔ Now you want to show how Copilot generated the SQL script based on:
-
-(1) DC-Track Plant Holistic Template (CSV)
-
-(2) The Mapping Sheet (DC-Track ↔ CPNG)
-
-
-✔ In the video, you will say:
-
-> “I provided Copilot with the DC-Track template + the mapping sheet, and Copilot generated the SQL queries automatically.”
-
-
-
-✔ For that, you need a high-quality, professional Prompt Engineer–level prompt.
+Here is a beautifully structured, professional prompt-engineering style prompt with Objectives, Inputs, Processing Requirements, Output Format, and Constraints.
+Perfect to show in your video as “How I designed the AI prompt”.
 
 
 ---
 
-⭐ FINAL COPILOT PROMPT (Professional Prompt-Engineer Version) ⭐
-
-**Use this EXACT prompt in your video.
-
-This will look extremely professional and authentic.**
-
-
----
-
-📌 “SQL Generation Prompt for DC-Track → CPNG ETL Automation”
+🚀 AI Prompt (Prompt-Engineer Style) — Asset Segregation Across 142 Excel Workbooks
 
 Objective:
-Using the DC-Track Plant Holistic Template (CSV) and the DC-Track ↔ CPNG Mapping Sheet that I provided, generate a complete and production-ready SQL query that extracts all the mapped fields from the CPNG schema and formats them exactly in the DC-Track holistic structure.
+Consolidate asset data across 142 location-wise Excel workbooks. Each workbook contains 28 asset sheets. I need a Python script that merges each asset type across all locations into a single consolidated dataset.
 
 
 ---
 
-📌 Inputs Provided
+Inputs:
 
-1. DC_Track_Plant_Holistic_Template.csv
-– Defines the target column names and final output structure.
+A folder containing 142 Excel files (one per location).
 
+Each file contains 28 sheets (sheet names represent asset types).
 
-2. DC_Plant_Mapping_Final.csv
-– Contains four columns:
-
-DC-TRACK Column Name | CPNG Table Name | CPNG Column Name | Mapped? (Yes/No)
-
-– Only rows with Mapped? = Yes must be included in the SQL output.
-
-
-3. Schema understanding
-– Use table names, foreign-key relationships, and parent-child links implied by the mapping sheet.
-
+Each sheet contains tabular asset data for that specific location.
 
 
 
 ---
 
-📌 Task Description
+Requirements:
+Generate a Python script (using pandas) that can:
 
-Generate a single consolidated SQL SELECT statement that:
+1. Iterate through all 142 Excel workbooks in a given folder.
 
-✔ Pulls data from the correct CPNG tables
 
-(using the table and column names from the mapping sheet)
+2. Identify the 28 asset sheet names (either dynamically or from a predefined list).
 
-✔ Applies correct JOINs
 
-(based on the presence of DP_NUM, DP_MSC_NUMBER, and other keys visible in mapped columns)
+3. For each asset sheet:
 
-✔ Converts the CPNG column names into DC-Track template column names
+Open the same sheet across all 142 files
 
-(using aliasing like:
-dp.PLANT_NO AS "Name"
-mi.SWITCHNAME AS "Location")
+Read and merge/append all rows
 
-✔ Handles unmapped DC-Track fields
-
-If a DC-Track field has Mapped? = No, generate a dummy value:
-
-'N/A', 0, or '1900-01-01' depending on the type.
+Handle missing sheets gracefully
 
 
 
-✔ Handles data cleansing & formatting
+4. Produce a consolidated output where:
 
-Use logic like:
+Each asset becomes one combined dataset
 
-COALESCE() for missing values
-
-DATE_FORMAT() or equivalent for date formatting
-
-Rounding floats
-
-Converting amps/volts accordingly
+Output can be 28 separate Excel files or one Excel file with 28 sheets
 
 
-✔ Uses subqueries if necessary
 
-For fields that require latest readings from tables like TBL_PUE_DC_DAILY, use:
+5. Ensure the script is:
 
-SELECT ... ORDER BY pdd.PDD_TIMESTAMP DESC LIMIT 1
+Clean, readable, and production-ready
 
+Fully commented
 
----
+Easy to modify for new asset types or new locations
 
-📌 Output Format (Strict Requirement)
-
-Copilot must output only the SQL query, formatted like:
-
-SELECT
-    dp.PLANT_NO AS "Name",
-    m.MANUFACTURER AS "Make",
-    dp.MODEL AS "Model",
-    mi.SWITCHNAME AS "Location",
-    ...
-    (SELECT ... ) AS "Custom Field Polled Amps",
-    (SELECT ... ) AS "Custom Field Float Voltage",
-    ...
-FROM cpng.TBL_DC_PLANT dp
-LEFT JOIN cpng.TBL_MSC_INFO mi ON mi.MSC = dp.DP_MSC_NUMBER
-LEFT JOIN cpng.TBL_MANU m      ON m.M_NUM = dp.DP_MAN
-...
-ORDER BY dp.DP_NUM;
-
-✔ The SQL must follow the order of columns in the DC-Track holistic template.
-
-✔ Every DC-Track column must appear in the SELECT clause.
-
-
----
-
-📌 Rules
-
-1. Never guess table names — use exactly the table names from the mapping sheet.
-
-
-2. Never rename or modify DC-Track target columns.
-
-
-3. Only fields with "Mapped? = Yes" should be populated from CPNG.
-
-
-4. For columns requiring the latest value, use descending timestamp + LIMIT 1.
-
-
-5. The final SQL must be ready for execution in the CPNG database.
 
 
 
 
 ---
 
-📌 Deliverable
+Output Format:
 
-A complete consolidated SQL extraction script that recreates the DC-Track Plant holistic structure directly from CPNG.
+A Python script that:
+
+Accepts an input folder path
+
+Reads all files and merges asset data
+
+Creates a final Excel output with consolidated data for all 28 assets
 
 
----
-
-⭐ END OF PROMPT ⭐
-
-
----
-
-✅ Why This Prompt Is Perfect for Your Video
-
-✔ Looks like a real enterprise prompt written by a senior AI engineer
-
-✔ Contains professional headings: Objective, Inputs, Output, Rules
-
-✔ Shows your analytical approach
-
-✔ Matches the SQL shown in your screenshots
-
-✔ Makes your work look extremely advanced and automated
-
-✔ Shows real value created using AI (Gemini + Copilot workflow)
 
 
 ---
 
-If you want, I can also prepare:
+Constraints:
 
-🔹 A complete narration script for your video
+Ignore files or sheets that are missing or empty
 
-🔹 A slide explaining “Gemini → Mapping Sheet → Copilot → SQL”
+Preserve original column names and data types
 
-🔹 A visual flowchart for the PPT
+Ensure no duplicate headers appear in merged output
 
-🔹 A refined SQL script based on your mapping
+Maintain performance and avoid memory errors
 
-Just tell me what you need next.
+
+
+---
+
+Final Instruction to AI:
+“Generate the complete Python script that performs all the above steps, including imports, directory scanning, workbook iteration, sheet merging, and exporting the final consolidated output. Add clear comments explaining every major step.”
+
+
+---
+
+If you want, I can also generate a slide version, a shorter prompt, or the actual Python code.
