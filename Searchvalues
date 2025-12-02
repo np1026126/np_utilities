@@ -1,25 +1,28 @@
-Here is a clean, professional message you can paste directly in Slack/Teams to your manager, based on the numbers in your screenshot:
+Here is a polished, professional message including your additional point about MSE-specific data and the ticket raised to Joey:
 
 
 ---
 
 Hi Ramana,
 
-I connected with Suresh and collected the monthly login metrics.
+I connected with Suresh and collected the overall monthly login metrics.
 Here is the update:
 
-For October 2025, the IFP user logins were 2,269.
+October 2025: 2,269 IFP user logins
 
-For November 2025, the logins have dropped to 1,542, which is approximately a 700-user decrease compared to October.
+November 2025: 1,542 IFP user logins
+→ This shows a drop of ~700 users compared to October.
 
 
-On the 1PSC side, the current active login count is around 231 users. This number has been stable — it was 231 a few days back and remains the same as of yesterday.
+On the 1PSC side, the current active login count is around 231 users, which has remained consistent over the past few days.
+
+Since the data received was for overall users, I requested them to extract the login metrics specific to MSE sites.
+A ticket has been created to Joey from the IFP team, and he will provide the MSE-only user login data separately.
 
 Attaching the gsheet snapshot for reference.
-
-Please let me know if you need any additional breakdown or trend analysis.
+Please let me know if you need any additional split or trend analysis.
 
 
 ---
 
-If you want, I can also format a polished email version or create a one-line summary for your meeting.
+If you want, I can also help you prepare a one-slide summary for your meeting.
