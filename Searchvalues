@@ -1,51 +1,153 @@
-Below is a polished, complete, Workday-ready “Operational Excellence” content, created by combining:
-
-✔ Whatever you already wrote in the comment box
-✔ New points you told me verbally
-✔ The expectations shown in the Description (SLA, SRE, MTTR, Tier-1/2/3, AYS reduction, security, access, clearance, production support, etc.)
-✔ Your actual contributions in migration + production + AWS ticket reduction + defects + collaboration
-
-I am giving this in a clean, professional, copy-paste-ready format, exactly suitable for Workday.
+Got it.
+I will give you both versions:
 
 
 ---
 
-⭐ Operational Excellence – Employee Comment
+✅ (A) THE FINAL PROFESSIONAL PROMPT-ENGINEER VERSION
 
-(Full, Final Version)
+(This is the one you should directly show in your video. High-quality, crisp, professional, exactly how a prompt engineer writes.)
 
-Consistently drove operational excellence by adhering to SLA expectations across Tier-1, Tier-2, and Tier-3 teams, actively engaging with them to ensure stability, timely deployments, and production readiness. I worked very closely with Meghna’s Tier-2 and Tier-3 teams on a regular cadence (every alternate day) to triage data-related issues, prioritize them correctly, provide clarifications, and ensure fixes were delivered with minimal turnaround time. This significantly reduced rework, improved MTTR, and ensured minimal disruption to users.
+📌 “Master Prompt for Generating the Multi-DB Asset Extraction Script”
 
-Enabled smoother production support cycles by validating code changes, coordinating with deployment teams, and ensuring all configuration changes were correctly implemented before deployment. Actively supported data corrections, validations, and pre-checks for every major and minor release, resulting in more predictable and safer production deployments.
+> Objective:
+Generate a fully automated Python engine that connects to three different source systems (IFP – SQL Server, CPNG – MySQL, FUZE – Oracle), executes asset-wise SQL extraction for each location, and produces DC-Track compatible Excel outputs for all 28 assets.
 
-Worked cross-functionally with SRE teams to ensure reliability standards were met and followed across services, especially during the AC-flow release and the migration activities. Ensured adherence to SR policies, including correct tagging, improved visibility, and following observability practices across modules.
+Available Inputs:
 
-Addressed multiple Backlog/Vulnerability items by partnering with SRE & Security teams, ensuring that required security fixes were completed within expected timelines and stayed well within the organizational risk appetite (GREEN Zone). Supported AWS ticket reduction by closely collaborating with Meghna and her team, analyzing repeating issues, validating root causes, and helping reduce recurring AYS tickets significantly over the last six months.
+master_site_list.xlsx containing per-location IDs:
+• ELS_FUZE_ID (Oracle)
+• CPG_MODULE_ID (MySQL)
+• SITEID (SQL Server/IFP)
+• NAME_1 (location name used for output file naming)
 
-Proactively validated AYS tickets for multiple services, ensured correct ownership assignment (MTZ/TLS/Product teams), and supported Tier-2/Tier-3 teams with real-time clarifications to avoid unnecessary ticket escalations. This helped ensure fixes were implemented in a timely manner with zero dependency bottlenecks.
+A folder of SQL templates for each of the 28 assets per source system (IFP/CPNG/FUZE).
 
-Enabled operational continuity for business-critical users by handling production queries raised by user groups, providing clarifications on system behavior, helping them understand the impact, and enabling them to proceed with minimal delays. This ensured high user satisfaction and improved stability across modules.
+A config.json file containing DB connection settings for all 3 systems.
 
-As part of migration and AC/HVAC calculation enhancements, ensured stability by performing early integration testing, maintaining quality of delivered stories, and fixing issues before they impacted production. Tracked progress across modules, monitored defect patterns, and collaborated with the right teams to reduce recurring defects and ensure compliance.
+A predefined list of 28 asset sheet names.
 
-These combined efforts strengthened platform reliability, reduced recurring issues, enhanced cross-team efficiency, and supported business continuity with a strong focus on SLA adherence, defect reduction, MTTR improvement, and zero major production disruptions.
+A color-coding dictionary:
+• IFP → Pastel Purple
+• FUZE → Pastel Blue
+• CPNG → Pastel Green
+
+
+Required Output:
+A complete Python script that:
+
+1. Loads the master Excel file and extracts IDs per location.
+
+
+2. Iterates through all locations.
+
+
+3. Iterates through all 28 assets for each location.
+
+
+4. Loads the correct SQL file for each asset–database combination.
+
+
+5. Executes the SQL using the appropriate ID (IFP/FUZE/CPNG).
+
+
+6. Consolidates results into a single Excel workbook with 28 sheets.
+
+
+7. Applies source-system color-coding for every row.
+
+
+8. Handles missing data, connection failures, and empty result sets gracefully.
+
+
+9. Saves one Excel output per location.
+
+
+
+Expectations:
+
+Use pandas, openpyxl, mysql.connector, oracledb, and pyodbc.
+
+Keep the code modular (separate helpers for DB connection, SQL loading, Excel writing).
+
+Follow production-level coding standards with clear comments.
+
+Ensure the script can scale for 140+ locations and 28 assets with minimal manual effort.
+
+
+Deliverables:
+
+A complete ready-to-run Python script.
+
+Clean structure, readable blocks, and reusable functions.
+
+Comments explaining each major step of the logic.
+
+
+
 
 
 ---
-Here is the exact Description section from your screenshot (cleaned, formatted, and ready to paste exactly as it appears).
+
+This is the HIGH-QUALITY prompt your video must show.
+
+It demonstrates your capability and the depth of automation behind the migration.
 
 
 ---
 
-⭐ Description (Lead My Team)
+✅ (B) THE EXACT MESSAGE YOU SHOULD ASK COPILOT TO REGENERATE THE ORIGINAL SCRIPT
 
-Industry Research & Recommendations – PSC & AN Agentic AI, TMF, CX
-Vendor Engagement – Assignment, Monitoring and Support
-Stakeholder Engagement – Proactive Engagement with Team Leadership, Business, Solution Architecture, Interface System Teams and E2E
-Bring additional value to business deliverables leveraging the acquired domain and technical expertise
+(This is what you can type inside VS Code Copilot Chat to make it recreate the script.)
+
+📌 “Prompt to Ask Copilot Inside VS Code”
+
+> “Copilot, review the Python files and SQL templates in my workspace.
+Based on the available master_site_list.xlsx, the SQL template files for 28 assets, and the DB connection details in config.json, generate a complete Python automation script that:
+
+Reads IDs (FUZE_ID, CPNG_ID, IFP_ID) from master_site_list.xlsx
+
+Connects to all 3 databases (Oracle, MySQL, SQL Server)
+
+Loads SQL templates dynamically based on asset name
+
+Executes asset-wise extraction for each location
+
+Creates an output Excel file per location with all 28 asset sheets
+
+Applies source-system color codes (purple for IFP, blue for FUZE, green for CPNG)
+
+Handles missing data and DB errors gracefully
+
+
+Use pandas, mysql.connector, oracledb, pyodbc, and openpyxl.
+Structure the code cleanly with helper functions and comments.
+Make sure the script runs end-to-end for 140+ locations without manual intervention.”
+
+
 
 
 ---
 
-If you want, I can also format it exactly in a single line, multi-line, or bullet point style to match the Workday box.
-If you want, I can also shorten this, convert to bullet points, or rewrite it in a stronger leadership tone.
+🎯 Summary of What You Now Have
+
+You now have TWO deliverables:
+
+✔ 1. The professional “Prompt Engineer Style” prompt
+
+Use this in your video to show management how intelligently the script was generated using AI.
+
+✔ 2. The “Ask Copilot directly in VS Code” prompt
+
+Use this inside VS Code to regenerate or refine the script using Copilot.
+
+
+---
+
+If you want, I can also:
+
+✅ Format this into a slide layout for your presentation
+✅ Create a short narration script to speak during the demo
+✅ Create a flowchart image showing the end-to-end process
+
+Just tell me!
