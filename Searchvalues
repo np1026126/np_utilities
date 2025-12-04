@@ -1,196 +1,84 @@
-Below is a clean, professional, structured answer you can directly copy-paste to your team as your reply.
-I have rewritten your explanation into a clear, migration-friendly format exactly matching what you intended.
+Below is a clean set of one-line explanations for every field you mentioned.
+You can directly paste these as clarifications to your teams.
 
 
 ---
 
-Draft Reply – Equipment Sheet Clarifications
+✅ One-Line Explanations for Each Field
 
-Hi Team,
+Fuel Tank – Fuel Level Gauge
 
-Please find below the detailed clarifications for each equipment type, based on our migration rules and the fields available in DC-Track. These can be used while filling in the templates.
-
-
----
-
-1. Floor PDU / RPP (considered as Floor PDUs)
-
-Floor PDU – Source Field
-
-The source must be entered as:
-<UPS Bank Name> / <Load Device Name>
-
-Example: UPS-Bank-A / PDU-01
-
-This indicates the UPS bank feeding the PDU and the load device that PDU is serving.
+Fuel Level Gauge: Indicates how much fuel is currently available in the tank (example: 25%, 50%, 75%).
 
 
-RPP (Rack Power Panel) – Source Field
+Fuel Tank – Owner
 
-RPP is also treated as a Floor PDU.
-
-The source must be provided in the form:
-<Floor PDU Name> / <Floor PDU Power Panel Name> / <Breaker Position>
-
-Breaker position should be the exact breaker slot where the Floor PDU panel is connected inside the RPP.
-
-This breaker position must be filled, as it determines the hierarchical flow.
+Owner of Fuel Tank: The team responsible for the tank (e.g., Wireline, Wireless, Facilities); if unknown, leave blank.
 
 
 
 ---
 
-2. Generator
+BDFB – Key Fields
 
-Custom Field – Maximum Load:
+Weight Capacity (lbs)
 
-Not mandatory.
-
-If known, enter the maximum load capacity of the generator.
+Weight Capacity: The maximum weight the BDFB unit or frame can safely support, measured in pounds; optional if unknown.
 
 
-Custom Field – Load Date/Time:
+Equipment Served
 
-Also not mandatory.
-
-This refers to the date/time when the above maximum load was measured.
-
-If unavailable, leave it blank.
+Equipment Served: Identifies which network/service the BDFB powers (e.g., DSL, FIOS, Insider, Data Router, Old Tall, New Tall, Co-Location).
 
 
+Financial Project ID
 
-Wireline teams requested these fields earlier, but for wireless migration they are optional.
-
-
----
-
-3. Fuel Tank
-
-Custom Field – Fuel Level / Fuel Gauge Light:
-
-Not mandatory.
-
-If the team knows the latest accurate reading from the site, they may fill it.
-
-Otherwise, leave it blank.
-
-
-Custom Field – Owner of Fuel Tank:
-
-Can be filled as Wireline / Wireless / Any team owner.
-
-Optional — if the owner is unknown, leave it empty.
-
+Financial Project ID: Internal project or cost-allocation identifier; fill only if the site team tracks it.
 
 
 
 ---
 
-4. BDFB (Battery Distribution Fuse Board)
+BDFB Panel – Field Explanations
 
-Mandatory Information
+U-Position
 
-Weight
-
-Capacity
+U-Position: The vertical mounting position of the panel inside the rack (e.g., above or below).
 
 
-Custom Fields (Optional – Added by Wireline)
+Rails Used
 
-Number of Ports:
-
-Represents the number of power panels attached to this BDFB.
+Rails Used: Refers to the mounting rails (left/right or both) that support the panel inside the rack.
 
 
-Equipment Served:
+Orientation
 
-This is a dropdown.
-
-I will share the approved dropdown values separately.
+Orientation: The direction the panel faces when installed (typically front-facing).
 
 
-Financial Project ID:
+Order (L → R)
 
-Optional; fill only if the site team has this data.
-
-
-
-If the site does not track these custom wireline fields, they may be left empty.
-
-
----
-
-5. BDFB Panel
-
-Fields Requiring Input
-
-U-Position:
-
-Mandatory.
-
-Specify whether the panel is positioned above or below inside the BDFB cabinet.
-
-
-Rails Used / Orientation:
-
-Provide if known.
-
-Orientation typically refers to front-facing placement.
-
-
-Order (L → R):
-
-Represents the physical left-to-right arrangement of BDFB panels inside the rack/cabinet.
-
+Order (Left to Right): The physical left-to-right sequence of panels inside the BDFB or rack.
 
 
 Custom Field – BDFB Panel ID
 
-This is a wireline custom field.
-
-Not mandatory for us.
-
-If the site already uses panel IDs, they may provide it; else leave it blank.
+BDFB Panel ID: A wireline-specific identifier for the panel; optional if not used by the site.
 
 
 
 ---
 
-6. Battery
+Battery Fields
 
-Make & Model:
+Make & Model
 
-DC-Track has a standard library of supported battery models.
+already clarified earlier — but if you want a one-liner:
 
-If the team provides a valid commercial make & model, we can import it directly.
-
-If the given model is new, we can add it to DC-Track and complete the import.
-
-
-Installation Date:
-
-Not a required field for migration.
-
-If the exact date is unknown, it may be left blank — a default value will be used.
-
+Make & Model: The manufacturer and model number of the battery; DC-Track can import or create the model based on given details.
 
 
 
 ---
 
-Summary
-
-Most wireline-specific custom fields are optional for our wireless migration.
-
-Only a few key fields such as PDU/RPP source, BDFB panel U-position, and mandatory capacity/weight fields are required.
-
-For all optional fields, teams may fill the data only if they already know it; else they can leave it blank.
-
-
-
----
-
-Please let me know if you need clarification for any specific equipment or field.
-
-Regards,
-Naveen
+If you'd like, I can combine all these into one final professional email-style reply, the way you usually send to your onshore team.
