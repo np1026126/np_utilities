@@ -1,153 +1,196 @@
-Got it.
-I will give you both versions:
+Below is a clean, professional, structured answer you can directly copy-paste to your team as your reply.
+I have rewritten your explanation into a clear, migration-friendly format exactly matching what you intended.
 
 
 ---
 
-✅ (A) THE FINAL PROFESSIONAL PROMPT-ENGINEER VERSION
+Draft Reply – Equipment Sheet Clarifications
 
-(This is the one you should directly show in your video. High-quality, crisp, professional, exactly how a prompt engineer writes.)
+Hi Team,
 
-📌 “Master Prompt for Generating the Multi-DB Asset Extraction Script”
-
-> Objective:
-Generate a fully automated Python engine that connects to three different source systems (IFP – SQL Server, CPNG – MySQL, FUZE – Oracle), executes asset-wise SQL extraction for each location, and produces DC-Track compatible Excel outputs for all 28 assets.
-
-Available Inputs:
-
-master_site_list.xlsx containing per-location IDs:
-• ELS_FUZE_ID (Oracle)
-• CPG_MODULE_ID (MySQL)
-• SITEID (SQL Server/IFP)
-• NAME_1 (location name used for output file naming)
-
-A folder of SQL templates for each of the 28 assets per source system (IFP/CPNG/FUZE).
-
-A config.json file containing DB connection settings for all 3 systems.
-
-A predefined list of 28 asset sheet names.
-
-A color-coding dictionary:
-• IFP → Pastel Purple
-• FUZE → Pastel Blue
-• CPNG → Pastel Green
+Please find below the detailed clarifications for each equipment type, based on our migration rules and the fields available in DC-Track. These can be used while filling in the templates.
 
 
-Required Output:
-A complete Python script that:
+---
 
-1. Loads the master Excel file and extracts IDs per location.
+1. Floor PDU / RPP (considered as Floor PDUs)
 
+Floor PDU – Source Field
 
-2. Iterates through all locations.
+The source must be entered as:
+<UPS Bank Name> / <Load Device Name>
 
+Example: UPS-Bank-A / PDU-01
 
-3. Iterates through all 28 assets for each location.
-
-
-4. Loads the correct SQL file for each asset–database combination.
-
-
-5. Executes the SQL using the appropriate ID (IFP/FUZE/CPNG).
+This indicates the UPS bank feeding the PDU and the load device that PDU is serving.
 
 
-6. Consolidates results into a single Excel workbook with 28 sheets.
+RPP (Rack Power Panel) – Source Field
 
+RPP is also treated as a Floor PDU.
 
-7. Applies source-system color-coding for every row.
+The source must be provided in the form:
+<Floor PDU Name> / <Floor PDU Power Panel Name> / <Breaker Position>
 
+Breaker position should be the exact breaker slot where the Floor PDU panel is connected inside the RPP.
 
-8. Handles missing data, connection failures, and empty result sets gracefully.
-
-
-9. Saves one Excel output per location.
+This breaker position must be filled, as it determines the hierarchical flow.
 
 
 
-Expectations:
+---
 
-Use pandas, openpyxl, mysql.connector, oracledb, and pyodbc.
+2. Generator
 
-Keep the code modular (separate helpers for DB connection, SQL loading, Excel writing).
+Custom Field – Maximum Load:
 
-Follow production-level coding standards with clear comments.
+Not mandatory.
 
-Ensure the script can scale for 140+ locations and 28 assets with minimal manual effort.
+If known, enter the maximum load capacity of the generator.
 
 
-Deliverables:
+Custom Field – Load Date/Time:
 
-A complete ready-to-run Python script.
+Also not mandatory.
 
-Clean structure, readable blocks, and reusable functions.
+This refers to the date/time when the above maximum load was measured.
 
-Comments explaining each major step of the logic.
+If unavailable, leave it blank.
 
+
+
+Wireline teams requested these fields earlier, but for wireless migration they are optional.
+
+
+---
+
+3. Fuel Tank
+
+Custom Field – Fuel Level / Fuel Gauge Light:
+
+Not mandatory.
+
+If the team knows the latest accurate reading from the site, they may fill it.
+
+Otherwise, leave it blank.
+
+
+Custom Field – Owner of Fuel Tank:
+
+Can be filled as Wireline / Wireless / Any team owner.
+
+Optional — if the owner is unknown, leave it empty.
 
 
 
 
 ---
 
-This is the HIGH-QUALITY prompt your video must show.
+4. BDFB (Battery Distribution Fuse Board)
 
-It demonstrates your capability and the depth of automation behind the migration.
+Mandatory Information
 
+Weight
 
----
-
-✅ (B) THE EXACT MESSAGE YOU SHOULD ASK COPILOT TO REGENERATE THE ORIGINAL SCRIPT
-
-(This is what you can type inside VS Code Copilot Chat to make it recreate the script.)
-
-📌 “Prompt to Ask Copilot Inside VS Code”
-
-> “Copilot, review the Python files and SQL templates in my workspace.
-Based on the available master_site_list.xlsx, the SQL template files for 28 assets, and the DB connection details in config.json, generate a complete Python automation script that:
-
-Reads IDs (FUZE_ID, CPNG_ID, IFP_ID) from master_site_list.xlsx
-
-Connects to all 3 databases (Oracle, MySQL, SQL Server)
-
-Loads SQL templates dynamically based on asset name
-
-Executes asset-wise extraction for each location
-
-Creates an output Excel file per location with all 28 asset sheets
-
-Applies source-system color codes (purple for IFP, blue for FUZE, green for CPNG)
-
-Handles missing data and DB errors gracefully
+Capacity
 
 
-Use pandas, mysql.connector, oracledb, pyodbc, and openpyxl.
-Structure the code cleanly with helper functions and comments.
-Make sure the script runs end-to-end for 140+ locations without manual intervention.”
+Custom Fields (Optional – Added by Wireline)
+
+Number of Ports:
+
+Represents the number of power panels attached to this BDFB.
 
 
+Equipment Served:
+
+This is a dropdown.
+
+I will share the approved dropdown values separately.
+
+
+Financial Project ID:
+
+Optional; fill only if the site team has this data.
+
+
+
+If the site does not track these custom wireline fields, they may be left empty.
 
 
 ---
 
-🎯 Summary of What You Now Have
+5. BDFB Panel
 
-You now have TWO deliverables:
+Fields Requiring Input
 
-✔ 1. The professional “Prompt Engineer Style” prompt
+U-Position:
 
-Use this in your video to show management how intelligently the script was generated using AI.
+Mandatory.
 
-✔ 2. The “Ask Copilot directly in VS Code” prompt
+Specify whether the panel is positioned above or below inside the BDFB cabinet.
 
-Use this inside VS Code to regenerate or refine the script using Copilot.
+
+Rails Used / Orientation:
+
+Provide if known.
+
+Orientation typically refers to front-facing placement.
+
+
+Order (L → R):
+
+Represents the physical left-to-right arrangement of BDFB panels inside the rack/cabinet.
+
+
+
+Custom Field – BDFB Panel ID
+
+This is a wireline custom field.
+
+Not mandatory for us.
+
+If the site already uses panel IDs, they may provide it; else leave it blank.
+
 
 
 ---
 
-If you want, I can also:
+6. Battery
 
-✅ Format this into a slide layout for your presentation
-✅ Create a short narration script to speak during the demo
-✅ Create a flowchart image showing the end-to-end process
+Make & Model:
 
-Just tell me!
+DC-Track has a standard library of supported battery models.
+
+If the team provides a valid commercial make & model, we can import it directly.
+
+If the given model is new, we can add it to DC-Track and complete the import.
+
+
+Installation Date:
+
+Not a required field for migration.
+
+If the exact date is unknown, it may be left blank — a default value will be used.
+
+
+
+
+---
+
+Summary
+
+Most wireline-specific custom fields are optional for our wireless migration.
+
+Only a few key fields such as PDU/RPP source, BDFB panel U-position, and mandatory capacity/weight fields are required.
+
+For all optional fields, teams may fill the data only if they already know it; else they can leave it blank.
+
+
+
+---
+
+Please let me know if you need clarification for any specific equipment or field.
+
+Regards,
+Naveen
