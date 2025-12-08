@@ -1,105 +1,123 @@
-Perfect question 👍
-You don’t need code here — you need a strong, unambiguous Gemini prompt so it does the comparison correctly and gives you a clean output you can trust.
+Got it ✅
+You now need a clear, logical, executive-style summary that explains:
 
-Below is a ready-to-copy prompt you should use in Google Gemini after uploading both files (the Excel + CSV).
+• Why Steve’s sheet shows 79
+• Why your query shows 60
+• Why the correct number is 62
+• What exactly was missed and why
+• That you validated this bi-directionally
 
-
----
-
-✅ Recommended Google Gemini Prompt (Copy–Paste)
-
-> You are a data analyst.
-
-I have uploaded two files:
-
-1. Excel file – contains all PSC / PSE jobs created after migration (around 79 records).
-
-
-2. CSV file – contains PSC job data fetched using a database query (around 59 records).
-
-
-
-What I need you to do:
-
-1. Treat “PSC Job Number” as the primary key in both files.
-
-
-2. Compare the two files and identify PSC Job Numbers that exist in the Excel file but are missing in the CSV file.
-
-
-3. For every missing PSC Job Number, extract the following details from the Excel file:
-
-PSC Job Number
-
-Status
-
-Created Date
-
-Created By
-
-Base Location
-
-
-
-4. Clearly state:
-
-Total record count in Excel
-
-Total record count in CSV
-
-Count of missing PSC Job Numbers
-
-
-
-5. Present the results in a clean tabular format.
-
-
-
-Output format:
-
-First section: Summary (counts and differences)
-
-Second section: Table showing missing PSC Job Numbers with their status and details
-
-
-Do not assume any data. Only use the uploaded files for comparison.
-
-
+Below is a clean, professional summary you can paste in Slack, email, or a ticket update. It is factual, neutral, and defensible.
 
 
 ---
 
-✅ If you want an even stricter / safer prompt (recommended)
+✅ Final Summary – PSE Count Reconciliation
 
-Use this if you want zero hallucination:
+> PSE Count Reconciliation Summary
 
-> IMPORTANT:
+We performed a detailed cross-verification between Steve’s Excel sheet (79 PSEs) and the query-based CSV output (60 PSEs). Below is the breakdown and final conclusion.
 
-Do not infer missing data.
+1️⃣ Comparison Outcome
 
-Do not auto-correct job numbers.
+Total PSEs in Steve’s sheet: 79
 
-Only report PSC Job Numbers that appear exactly in the Excel file and are completely absent in the CSV file.
+PSEs present in our sheet (query output): 60
 
+PSEs missing in our sheet: 26
+
+
+2️⃣ Analysis of Missing 26 PSEs
+
+24 PSEs are older records (2024 / early-created) and were created before the Wireless migration, hence correctly excluded from our post-migration dataset.
+
+2 PSEs were created in Dec-2025 and are in “Send Back to Requester” status.
+
+These were created after migration
+
+They were missed due to status filtering in our query logic.
+
+
+
+3️⃣ Corrected & Final Count
+
+Valid post-migration PSEs = 62
+
+(60 existing + 2 “Send Back to Requester” PSEs)
+
+
+
+4️⃣ Reverse Validation (Important Finding)
+
+We also reverse-checked from our base dataset.
+
+7 PSEs present in our sheet are missing from Steve’s sheet.
+
+This indicates that the 79 count is incomplete and does not fully align with the system data.
+
+
+✅ Final Conclusion
+
+✅ The accurate post-migration PSE count is 62.
+
+✅ The discrepancy was caused by:
+
+Inclusion of pre-migration / legacy PSEs in Steve’s sheet
+
+Exclusion of “Send Back to Requester” status in our query
+
+Missing records in Steve’s dataset during reverse validation
+
+
+
+We will update the query to include Send Back to Requester status going forward.
 
 
 
 
 ---
 
-✅ What Gemini should give you (Expected Output)
+✅ If you want a short Slack-friendly version
 
-Summary
+> PSE reconciliation done:
 
-Excel records: 79
+Steve sheet: 79 PSEs
 
-CSV records: 59
-
-Missing PSC jobs: 20
+Our query: 60 PSEs
 
 
-Missing PSC Jobs Table
+Of the 26 missing:
 
-PSC Job Number	Status	Created Date	Created By	Base Location
+24 are pre-migration (2024 / older)
 
-21892	Complete	12/3/		
+2 are Dec-2025 PSEs in Send Back to Requester (missed due to status filter)
+
+
+✅ Correct post-migration count = 62
+
+Reverse check also showed 7 PSEs missing in Steve’s sheet, so 79 isn’t complete either.
+
+Query will be updated to include this status.
+
+
+
+
+---
+
+👍 You’re in a strong position here
+
+You: ✅ validated both directions
+✅ explained why counts differ
+✅ identified a query gap (status filter)
+✅ provided the correct number with evidence
+
+If you want, I can:
+
+Help write the SQL fix
+
+Convert this into a slide for leadership
+
+Draft a closing statement to avoid further back-and-forth
+
+
+Just say the word 👌
