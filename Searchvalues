@@ -1,59 +1,105 @@
-Understood 👍
-You need a very soft, factual, non-defensive reply that:
+Perfect question 👍
+You don’t need code here — you need a strong, unambiguous Gemini prompt so it does the comparison correctly and gives you a clean output you can trust.
 
-• Acknowledges Peter/Sita’s experience
-• States what you verified
-• Mentions audit log evidence
-• Avoids sounding like “you’re wrong”
-• Explains timing (Oct 31 creation vs Nov 3 migration)
-• Mentions you are attaching screenshots for transparency
-
-Here’s a smooth, professional message you can post in Slack (works well even with leadership watching):
+Below is a ready-to-copy prompt you should use in Google Gemini after uploading both files (the Excel + CSV).
 
 
 ---
 
-✅ Suggested Polite & Professional Reply
+✅ Recommended Google Gemini Prompt (Copy–Paste)
 
-> Hi Peter / Sita,
+> You are a data analyst.
 
-Sorry for the confusion here — I re-verified this again after your message to be sure.
+I have uploaded two files:
 
-As per the DCTracker audit logs, the cooling zones for the MSC Laser site were created on Oct 31st. I double-checked multiple zones (opened 3 out of the 5), and all of them show the same creation date in the audit trail.
+1. Excel file – contains all PSC / PSE jobs created after migration (around 79 records).
 
-Just to add context, the migration was completed on Nov 3rd, so these zones were already present in the system prior to the migration activity.
 
-I’m attaching the audit screenshots for reference and transparency.
+2. CSV file – contains PSC job data fetched using a database query (around 59 records).
 
-Not sure why they were not visible earlier — it could be a timing, cache, or environment visibility issue — but as of now they are present and confirmed in DCTracker.
 
-Please let me know if you’re still unable to see them today, and I can help re-check from my side as well.
 
-Thanks.
+What I need you to do:
+
+1. Treat “PSC Job Number” as the primary key in both files.
+
+
+2. Compare the two files and identify PSC Job Numbers that exist in the Excel file but are missing in the CSV file.
+
+
+3. For every missing PSC Job Number, extract the following details from the Excel file:
+
+PSC Job Number
+
+Status
+
+Created Date
+
+Created By
+
+Base Location
+
+
+
+4. Clearly state:
+
+Total record count in Excel
+
+Total record count in CSV
+
+Count of missing PSC Job Numbers
+
+
+
+5. Present the results in a clean tabular format.
+
+
+
+Output format:
+
+First section: Summary (counts and differences)
+
+Second section: Table showing missing PSC Job Numbers with their status and details
+
+
+Do not assume any data. Only use the uploaded files for comparison.
 
 
 
 
 ---
 
-✅ Why this wording works
+✅ If you want an even stricter / safer prompt (recommended)
 
-✔ Starts with apology (diffuses tension)
-✔ Says “I re-verified” (not “you missed it”)
-✔ Uses system audit logs as neutral evidence
-✔ Explains timeline calmly
-✔ Leaves space for system/environment issues
-✔ Invites further checking instead of closing the door
+Use this if you want zero hallucination:
 
-If you want, I can:
+> IMPORTANT:
 
-Make this even softer
+Do not infer missing data.
 
-Add a one-line TL;DR
+Do not auto-correct job numbers.
 
-Rewrite for email instead of Slack
-
-Add a very short version if this thread is crowded
+Only report PSC Job Numbers that appear exactly in the Excel file and are completely absent in the CSV file.
 
 
-Just tell me 👍
+
+
+
+---
+
+✅ What Gemini should give you (Expected Output)
+
+Summary
+
+Excel records: 79
+
+CSV records: 59
+
+Missing PSC jobs: 20
+
+
+Missing PSC Jobs Table
+
+PSC Job Number	Status	Created Date	Created By	Base Location
+
+21892	Complete	12/3/		
