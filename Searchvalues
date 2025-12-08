@@ -1,83 +1,140 @@
-Here is a clean, professional message you can send to your manager, summarizing the user activity trend, post-migration drop, and the latest query findings, along with how to refer to the screenshots you have.
+Perfect — this is exactly a prompt-engineering use case 👍
+Below is a ready-to-copy Google Gemini prompt you should use after uploading the CSV.
 
-I’ll write it exactly in the tone expected in Verizon leadership communication:
+This prompt is written so that Gemini:
 
+understands this is for Slack / management update
 
----
+aggregates the data cleanly
 
-✅ Message to Manager (Copy–Paste-Friendly)
+produces counts + segregation
 
-Hi Jay,
-
-As requested, I have pulled the latest user activity metrics for the last few weeks.
-
-1. PSC Engineers – Wireless (WLS) User Activity
-
-November (2025-11): 129 active users
-
-December (till date): 18 active users
-
-
-I have attached the screenshot showing the monthly WLS trend, where the post-launch activity clearly peaks at 129 users in November, followed by the expected reduction in December due to partial-month usage.
-
-2. IFP to PSC Migration – MSC User Trend (Post Migration Impact)
-
-From the IFP activity snapshot (MRC only):
-
-Before migration: User count consistently around 412–441
-
-After migration: Reduced to 286
-
-
-This shows a significant dip in MSC active users post-migration.
-
-I have attached the chart highlighting this exact drop for quick reference.
-
-3. Latest Query Results
-
-The numbers provided above are based on the latest updated query executed today. These counts reflect the most accurate trend of user activity post PSC launch.
-
-Please let me know if you need:
-
-A weekly breakdown
-
-A comparative chart (IFP vs PSC)
-
-Segregation by site group or time window
-
-
-I can get that pulled as well.
-
-Thanks,
-Naveen
-
-
----
-
-✅ If You Want to Add Screenshot Captions
-
-You can use these small captions below each screenshot:
-
-Caption 1 – WLS Monthly Activity
-
-> “Wireless PSC user activity trend – 129 users in Nov, 18 users in Dec (till date).”
-
-
-
-Caption 2 – IFP MSC Activity (MRC Only)
-
-> “IFP MSC user activity dropped from 441 → 286 after migration.”
-
+formats output in a presentable, copy-paste-friendly way
 
 
 
 ---
 
-⭐ If you want, I can also prepare:
+✅ Google Gemini Prompt (Use This Exactly)
 
-✔ A clean combined summary chart
-✔ A PPT slide with these numbers
-✔ A text block for your WhatsApp / Slack message
-✔ A table comparing old vs new values
+> I am uploading a CSV file that contains PSC-related data.
 
-Just tell me what format your manager prefers.
+Please analyze the CSV and present the data in a clean, management-ready summary format suitable for posting directly in Slack.
+
+Requirements:
+
+1. First, provide a high-level summary with the following metrics:
+
+Total PSCs
+
+Completed PSCs
+
+In-Progress PSCs
+
+Pending / Not Started PSCs (if applicable)
+
+
+
+2. Next, for the 52 PSCs, provide a segregation by geography, clearly grouped as:
+
+Area
+
+Market
+
+Sub-Market
+
+
+
+3. For each Area → Market → Sub-Market combination, provide:
+
+Number of PSCs
+
+Breakdown by status (Completed / In-Progress / Pending)
+
+
+
+4. Present the output in two sections:
+
+Section 1: Executive summary (bullet points or compact table)
+
+Section 2: Area / Market / Sub-Market breakdown in a structured table
+
+
+
+5. Ensure:
+
+No raw data dumps
+
+Clear labels and counts
+
+Clean formatting that can be pasted directly into Slack or PPT
+
+
+
+
+If any required fields (Area / Market / Sub-Market / Status) are missing or inconsistent in the CSV, clearly call that out and proceed with the available data.
+
+
+
+
+---
+
+✅ What Gemini Will Give You (Expected Output)
+
+Section 1 – Summary (Slack Ready)
+
+PSC Summary:
+• Total PSCs: 52
+• Completed: XX
+• In Progress: XX
+• Pending: XX
+
+Section 2 – Area / Market / Sub-Market Breakdown
+
+Area: South
+  Market: TN
+    Sub-Market: Chennai
+      - Total PSCs: 12 (Completed: 8 | In Progress: 4)
+
+  Market: AP
+    Sub-Market: Vizag
+      - Total PSCs: 6 (Completed: 3 | In Progress: 3)
+
+✅ Easy to paste
+✅ Easy for leadership to read
+✅ No Excel needed
+
+
+---
+
+✅ Optional Add-On (If You Want Even Cleaner Output)
+
+Add this line at the end of the prompt if you want Slack emojis & emphasis:
+
+> Highlight key numbers using bold formatting and keep the content concise for executive consumption.
+
+
+
+
+---
+
+⭐ Pro Tip (From Experience)
+
+If Gemini gives a table-heavy response, just follow up with:
+
+> “Please rewrite the above in Slack-friendly bullet format.”
+
+
+
+It works extremely well.
+
+
+---
+
+If you want, next I can:
+
+Tune this prompt specifically for your CSV columns
+
+Convert the output into manager-ready Slack text
+
+Give you a fallback SQL query if Gemini flags missing fields
