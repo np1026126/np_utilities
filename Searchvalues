@@ -1,8 +1,61 @@
-Got it 👍
-You’re basically asking for a clean, authoritative “what to fill / what to ignore” explanation, with one-line definitions that you can send to the site survey team so they don’t overthink or overfill fields.
+Perfect, I understand exactly what you want now 👍
+You want ONE consolidated, single-sheet / single-document that combines all three earlier asks, starting from Rails Used & U-Position, and covering DC Plant (battery, discharge, runtime, load amps, etc.), Generator, ATS, UPS, PDU, RPP, Busway, Rectifier, Plant Panel, BDFB, Battery — with only what needs to be filled, and everything else clearly marked as not required.
 
-Below is a structured, copy-paste-ready guide, exactly aligned to what you described.
-Anything not explicitly mentioned = NOT REQUIRED / can be left blank.
+Below is a clean, upload-ready “Single Source of Truth” document.
+You can paste this into Google Docs / Word / Confluence / SharePoint as-is.
+
+
+---
+
+📘 SITE SURVEY DATA – REQUIRED FIELDS ONLY (CONSOLIDATED GUIDE)
+
+> Rule of Thumb:
+👉 Only fill fields explicitly listed below.
+👉 All other fields shown in templates/screenshots are NOT mandatory and may be left blank.
+
+
+
+
+---
+
+🔩 RAILS USED & U-POSITION (APPLICABLE ACROSS MULTIPLE ASSETS)
+
+U-Position
+
+Represents the vertical mounting position of equipment within a bay/rack.
+
+Example: U1, U2, Top, Bottom, Front, Rear
+
+
+Rails Used
+
+Indicates whether the equipment is mounted on standard bay rails.
+
+Typical values: Yes, No, or Integrated
+
+
+📌 Used for: Rectifiers, Plant Panels, BDFB Panels, Batteries
+📌 If unknown → leave blank
+
+
+---
+
+🔋 DC PLANT (Billington / Wilmington)
+
+Required / Optional (if available):
+
+Field	What to Provide
+
+Custom Field – Load Amps	Current DC load drawn from the plant
+Float Voltage	Nominal DC voltage (e.g., –48V)
+Anticipated Load (A)	Expected future load (can match Load Amps)
+Engineered Capacity	Maximum designed DC capacity
+Discharge VPC	Voltage per cell during discharge (1.75 or 1.85)
+Target Run Time (Hours)	Backup duration (e.g., 3 or 5 hours)
+
+
+📌 Not Mandatory:
+PDSC Distribution, Plant Bay, Financials, Audit fields, Planning fields
 
 
 ---
@@ -11,35 +64,30 @@ Anything not explicitly mentioned = NOT REQUIRED / can be left blank.
 
 Generator – Plymouth Meeting
 
-Only field to fill (optional):
+Only field (optional):
 
 Custom Field – Maximum Load
-👉 Maximum electrical load (in kW) that the generator is expected to support during peak operation.
+Maximum electrical load (kW) the generator is expected to support.
 
 
-📌 All other generator fields listed in the document are NOT required.
+📌 All other generator fields → Not required
 
 
 ---
 
 Generator – Wilmington
 
-(Optional, if available)
+(Optional, if known)
 
-Custom Field – kW
-👉 Rated real power output of the generator in kilowatts (kW).
+Field	Meaning
 
-Custom Field – Rating / Capacity
-👉 Total nameplate capacity of the generator.
-
-Custom Field – Maximum Load
-👉 Maximum load the generator is designed to carry.
-
-Custom Field – Power Rating (kW)
-👉 Manufacturer-rated power output.
+Custom Field – kW	Rated real power output
+Rating / Capacity	Nameplate generator capacity
+Maximum Load	Peak expected load
+Power Rating (kW)	Manufacturer rating
 
 
-📌 These are NOT mandatory. If unknown, leave blank.
+📌 If unknown → leave blank
 
 
 ---
@@ -48,19 +96,18 @@ Custom Field – Power Rating (kW)
 
 ATS Switch (General)
 
-Only field needed:
+Field	Meaning
 
-Output Wiring
-👉 Electrical wiring type, e.g., “4-Wire + Ground”.
+Output Wiring	Wiring type (e.g., 4-Wire + Ground)
 
 
-📌 Location Name and all other fields will be auto-populated once generators are mapped.
+📌 Location Name & others → auto-populated
 
-ATS Relationship Rule
+Relationship Rule
 
-👉 All generators must be mapped to the ATS switch.
+All generators must be mapped to ATS
 
-👉 ATS switch only models generator-to-ATS relationships.
+ATS only models Generator → ATS relationships
 
 
 
@@ -68,33 +115,13 @@ ATS Relationship Rule
 
 ATS Switch – Wilmington
 
-Only two fields required:
+Field	Meaning
 
-Rating (Vac)
-👉 Voltage rating of the ATS (e.g., 480V).
-
-Rating (A)
-👉 Current (ampere) rating the ATS can handle.
+Rating (Vac)	Voltage rating (e.g., 480V)
+Rating (A)	Current capacity
 
 
-📌 Nothing else required.
-
-
----
-
-🔀 LOAD DEVICE – SWITCHBOARD
-
-Only required fields:
-
-Line Side
-👉 Name of the upstream extension or feed.
-
-Source Location
-👉 Location where the upstream source/extension is installed.
-
-
-📌 You will provide a sample LASER site for reference.
-📌 All other fields are NOT required.
+📌 Nothing else required
 
 
 ---
@@ -106,23 +133,23 @@ UPS
 (Optional)
 
 Custom Field – Total LD kW
-👉 Total connected load on the UPS in kilowatts.
+Total connected UPS load in kilowatts.
 
-
-📌 If not available, leave blank.
 
 UPS – Wilmington
 
-📌 All listed fields are NOT required.
+❌ No fields required
+
 
 UPS Bank
 
-📌 All fields are NOT required.
+❌ No fields required
+
 
 
 ---
 
-🔌 LOAD DEVICE – UPS → UPS BANK → PDU
+🔀 LOAD DEVICE (UPS → UPS BANK → PDU)
 
 UPS → UPS Bank
 
@@ -131,15 +158,14 @@ Power Fed From = UPS Name
 
 UPS Bank → PDU
 
-Power Fed From = Can be left blank
-
 Source = UPS Bank
 
 Source Location = UPS Bank location
 
+Power Fed From = (Can be blank)
 
 
-📌 Purchase Price is NOT required.
+📌 Purchase Price → Not required
 
 
 ---
@@ -151,11 +177,9 @@ PDU
 Custom Field – PDU Type = Floor PDU
 
 
-📌 Item Parent / Parent Location not required.
+PDU Panel (Defaults)
 
-PDU Panels
-
-Number of Panels = 12 (default)
+Number of Panels = 12
 
 Mirrored = No
 
@@ -164,11 +188,10 @@ Neutral Switched Breakers = No
 
 PDU Panel Breakers
 
-Power Outlet Location
-👉 RPP location (format: Site > Room).
+Field	Meaning
 
-Power Outlet Connector
-👉 RPP name.
+Power Outlet Location	Site > Room of RPP
+Power Outlet Connector	RPP Name
 
 
 
@@ -176,23 +199,20 @@ Power Outlet Connector
 
 🔋 RPP
 
-RPP
+Field	Meaning
 
-Only required field:
-
-Rating (kVA)
-👉 Apparent power capacity of the RPP in kilovolt-amps (kVA).
+Rating (kVA)	Apparent power capacity
 
 
-📌 Example: 173, 175, etc.
-📌 All other RPP fields can be ignored.
+📌 Example: 173, 175
+📌 All others → Not required
 
 
 ---
 
 🚌 BUSWAY
 
-Busway is modeled as a panel under Floor PDU.
+Modeled as a panel under Floor PDU
 
 Each Busway = Busway Panel
 
@@ -201,66 +221,22 @@ Each Tap-off = Busway Outlet
 Each Breaker = Breaker Connection
 
 
-📌 You will provide a sample Excel with:
-
-1. Busway Panel
-
-
-2. Busway Outlet (Tap box)
-
-
-3. Breaker Connection
-
-
-
-📌 Only fields in that sample need to be filled.
-
-
----
-
-🔋 DC PLANT (Billington)
-
-Optional but useful fields:
-
-Custom Field – Load Amps
-👉 Current load drawn from the DC plant.
-
-Float Voltage
-👉 Nominal DC float voltage (e.g., –48V).
-
-Anticipated Load (A)
-👉 Expected future load; can match Load Amps initially.
-
-Engineered Capacity
-👉 Designed maximum current capacity.
-
-Discharge VPC
-👉 Voltage per cell during discharge (1.75 or 1.85).
-
-Target Run Time (Hours)
-👉 Expected backup duration (e.g., 3 or 5 hours).
-
-
-📌 PDSC Distribution and Plant Bay fields are NOT mandatory.
+📌 Survey team will follow provided sample Excel
+📌 Only fields in that Excel are required
 
 
 ---
 
 🔌 RECTIFIER
 
-Only required fields:
+Field	Meaning
 
-U Position
-👉 Vertical slot or position inside the DC bay.
-
-Rails Used
-👉 Integrated bay rails (or N/A).
-
-Index
-👉 Logical rectifier position number.
+U-Position	Mounting position
+Rails Used	Bay rail usage
+Index	Logical rectifier number
 
 
-📌 All power-fed-from, source, and custom fields are NOT required.
+📌 Power-fed-from, source, custom fields → Not required
 
 
 ---
@@ -269,11 +245,10 @@ Index
 
 (Optional)
 
-Rating (A)
-👉 Maximum current rating of the plant panel.
+Field	Meaning
 
-U Position / Rails Used
-👉 If known; otherwise leave blank.
+Rating (A)	Maximum current rating
+U-Position / Rails Used	If known
 
 
 
@@ -281,22 +256,24 @@ U Position / Rails Used
 
 ⚡ BDFB / BDFB PANEL
 
-📌 You will provide details separately.
-📌 Survey team does not need to fill these now.
+Details will be provided separately
+
+No action required from survey team
+
 
 
 ---
 
 🔋 BATTERY
 
-Only required:
+Required
 
 Plant Name
 
 
-(Optional if known)
+Optional (if known)
 
-U Position
+U-Position
 
 Rails Used
 
@@ -305,29 +282,29 @@ Orientation
 Rating
 
 
-📌 All other battery fields can be ignored.
+📌 All other battery fields → Not required
 
 
 ---
 
-✅ FINAL MESSAGE YOU CAN TELL THEM
+✅ FINAL INSTRUCTION TO SITE SURVEY TEAM
 
-> Please fill only the fields explicitly mentioned above.
-All other fields listed in the document are not mandatory and can be left blank if the data is not readily available.
-Where examples are provided (LASER site / sample Excel), please follow the same pattern.
+> Please fill only the fields listed in this document.
+Any field not explicitly mentioned is not mandatory and may be left blank.
+Sample LASER site and Busway Excel should be used as reference where provided.
 
 
 
 
 ---
 
-If you want, next I can:
+If you want next, I can:
 
-Convert this into a 1-page “Survey Fill Guide” PDF
+Convert this into a single Excel sheet (Object | Field | Required | Description | Example)
 
-Create a checklist table (Object | Field | Required | Example)
+Create a formal PDF handout
 
-Draft a short email / Slack message to send to Jamie & team
+Draft a short mail / Slack message pointing to this document
 
 
-Just tell me 👍
+Just tell me what format you want 👍
