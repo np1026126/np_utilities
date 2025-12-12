@@ -1,497 +1,333 @@
 Got it 👍
-This is a classic site-survey clarification scenario, and the vendors’ questions are actually reasonable. What you need now is a clear, authoritative “what to fill / what is optional / what is not applicable” guidance that you can send back.
+You’re basically asking for a clean, authoritative “what to fill / what to ignore” explanation, with one-line definitions that you can send to the site survey team so they don’t overthink or overfill fields.
 
-Below I’ve structured this in vendor-friendly language, aligned to DCTrack / network standards, and practical from a site-survey point of view.
-
-You can copy-paste sections directly into email or a clarification document.
-
-
----
-
-1️⃣ Rails Used – What should they provide?
-
-Vendor confusion:
-
-> Rails are not numbered / not standard → marked as N/A
-
-
-
-✅ Correct guidance to give them:
-
-Rails Used is OPTIONAL and informational only.
-
-Tell them:
-
-> If the equipment is rack-mounted and rails are present, please specify Standard / Vendor Rails / Adjustable Rails.
-
-If rails are not applicable, unknown, or equipment is floor-mounted / free-standing, you can mark this as N/A.
-
-
-
-Examples they can use:
-
-Standard 19-inch rack rails
-
-Vendor supplied rails
-
-Adjustable rails
-
-N/A (floor-mounted / free-standing)
-
-
-➡️ This field is NOT blocking ingestion or migration
+Below is a structured, copy-paste-ready guide, exactly aligned to what you described.
+Anything not explicitly mentioned = NOT REQUIRED / can be left blank.
 
 
 ---
 
-2️⃣ U-Position – What should they enter?
+🔌 GENERATOR
 
-Vendor confusion:
+Generator – Plymouth Meeting
 
-> Should it be above/below, 1, 2, etc.?
+Only field to fill (optional):
 
-
-
-✅ Correct guidance:
-
-U-Position is required ONLY for rack-mounted equipment.
-
-Tell them:
-
-> If rack-mounted → provide starting U position (numeric value, e.g., 1, 2, 20)
-
-If the equipment spans multiple U’s → provide starting U
-
-If floor-mounted / free-standing → mark N/A
+Custom Field – Maximum Load
+👉 Maximum electrical load (in kW) that the generator is expected to support during peak operation.
 
 
-
-
-Examples:
-
-U Position: 10
-
-U Position: 1
-
-N/A (floor-mounted)
-
-
-➡️ Above/below is NOT required
-➡️ Exact height precision is NOT mandatory
+📌 All other generator fields listed in the document are NOT required.
 
 
 ---
 
-3️⃣ Generator → ATS relationship (they asked this correctly)
+Generator – Wilmington
 
-They are right here.
+(Optional, if available)
 
-Correct confirmation to give them:
+Custom Field – kW
+👉 Rated real power output of the generator in kilowatts (kW).
 
-> The relationship between Generator and ATS is defined via the Object Parent Relationship table on the ATS Switch.
+Custom Field – Rating / Capacity
+👉 Total nameplate capacity of the generator.
 
-No separate relationship entry is required from the Generator side.
+Custom Field – Maximum Load
+👉 Maximum load the generator is designed to carry.
+
+Custom Field – Power Rating (kW)
+👉 Manufacturer-rated power output.
 
 
+📌 These are NOT mandatory. If unknown, leave blank.
 
-✅ They should:
 
-Capture Generator details
+---
 
-Capture ATS details
+🔁 ATS SWITCH
 
-Relationship will be inferred via ATS mapping
+ATS Switch (General)
+
+Only field needed:
+
+Output Wiring
+👉 Electrical wiring type, e.g., “4-Wire + Ground”.
+
+
+📌 Location Name and all other fields will be auto-populated once generators are mapped.
+
+ATS Relationship Rule
+
+👉 All generators must be mapped to the ATS switch.
+
+👉 ATS switch only models generator-to-ATS relationships.
 
 
 
 ---
 
-4️⃣ Busway vs RPP – Important clarification (VERY IMPORTANT)
+ATS Switch – Wilmington
 
-You are 100% correct.
+Only two fields required:
 
-Clear instruction to vendors:
+Rating (Vac)
+👉 Voltage rating of the ATS (e.g., 480V).
 
-> Busway should NOT be modeled as an RPP.
-
-
-
-Correct modeling approach:
-
-Busway:
-
-Object Type: Panel
-
-Panel Type: Busway
-
-Location: Floor PDU / IT room
+Rating (A)
+👉 Current (ampere) rating the ATS can handle.
 
 
-Busway Outlet (Tap Box):
-
-Each 3-pole breaker = 1 Busway Outlet
-
-One outlet per breaker position
-
-Outlet represents a tap box
-
-Each tap box contains only one breaker
+📌 Nothing else required.
 
 
-What they should NOT do:
+---
 
-❌ Do not create multiple breakers under one outlet
-❌ Do not model busway as RPP
+🔀 LOAD DEVICE – SWITCHBOARD
 
-✔️ Your sample sheet is correct — attach it and say:
+Only required fields:
 
-> “Please follow the attached Busway sample for modeling.”
+Line Side
+👉 Name of the upstream extension or feed.
 
+Source Location
+👉 Location where the upstream source/extension is installed.
+
+
+📌 You will provide a sample LASER site for reference.
+📌 All other fields are NOT required.
+
+
+---
+
+⚡ UPS
+
+UPS
+
+(Optional)
+
+Custom Field – Total LD kW
+👉 Total connected load on the UPS in kilowatts.
+
+
+📌 If not available, leave blank.
+
+UPS – Wilmington
+
+📌 All listed fields are NOT required.
+
+UPS Bank
+
+📌 All fields are NOT required.
+
+
+---
+
+🔌 LOAD DEVICE – UPS → UPS BANK → PDU
+
+UPS → UPS Bank
+
+Power Fed From = UPS Name
+
+
+UPS Bank → PDU
+
+Power Fed From = Can be left blank
+
+Source = UPS Bank
+
+Source Location = UPS Bank location
+
+
+
+📌 Purchase Price is NOT required.
+
+
+---
+
+🧱 PDU
+
+PDU
+
+Custom Field – PDU Type = Floor PDU
+
+
+📌 Item Parent / Parent Location not required.
+
+PDU Panels
+
+Number of Panels = 12 (default)
+
+Mirrored = No
+
+Neutral Switched Breakers = No
+
+
+PDU Panel Breakers
+
+Power Outlet Location
+👉 RPP location (format: Site > Room).
+
+Power Outlet Connector
+👉 RPP name.
 
 
 
 ---
 
-5️⃣ Battery Bay vs Battery Plant
+🔋 RPP
 
-Correct answer (simple & firm):
+RPP
 
-> Battery Bay is NOT required.
-Battery Plant IS required.
+Only required field:
+
+Rating (kVA)
+👉 Apparent power capacity of the RPP in kilovolt-amps (kVA).
+
+
+📌 Example: 173, 175, etc.
+📌 All other RPP fields can be ignored.
+
+
+---
+
+🚌 BUSWAY
+
+Busway is modeled as a panel under Floor PDU.
+
+Each Busway = Busway Panel
+
+Each Tap-off = Busway Outlet
+
+Each Breaker = Breaker Connection
+
+
+📌 You will provide a sample Excel with:
+
+1. Busway Panel
+
+
+2. Busway Outlet (Tap box)
+
+
+3. Breaker Connection
 
 
 
-They should:
+📌 Only fields in that sample need to be filled.
 
-Capture Battery Plant
 
-Skip Battery Bay entirely
+---
+
+🔋 DC PLANT (Billington)
+
+Optional but useful fields:
+
+Custom Field – Load Amps
+👉 Current load drawn from the DC plant.
+
+Float Voltage
+👉 Nominal DC float voltage (e.g., –48V).
+
+Anticipated Load (A)
+👉 Expected future load; can match Load Amps initially.
+
+Engineered Capacity
+👉 Designed maximum current capacity.
+
+Discharge VPC
+👉 Voltage per cell during discharge (1.75 or 1.85).
+
+Target Run Time (Hours)
+👉 Expected backup duration (e.g., 3 or 5 hours).
+
+
+📌 PDSC Distribution and Plant Bay fields are NOT mandatory.
+
+
+---
+
+🔌 RECTIFIER
+
+Only required fields:
+
+U Position
+👉 Vertical slot or position inside the DC bay.
+
+Rails Used
+👉 Integrated bay rails (or N/A).
+
+Index
+👉 Logical rectifier position number.
+
+
+📌 All power-fed-from, source, and custom fields are NOT required.
+
+
+---
+
+🧱 PLANT PANEL
+
+(Optional)
+
+Rating (A)
+👉 Maximum current rating of the plant panel.
+
+U Position / Rails Used
+👉 If known; otherwise leave blank.
 
 
 
 ---
 
-6️⃣ Orientation – What should they fill?
+⚡ BDFB / BDFB PANEL
 
-Vendor confusion:
-
-> Orientation column not filled
-
-
-
-Correct guidance:
-
-Orientation refers to equipment facing, not rack layout.
-
-They can use:
-
-Front-facing
-
-Rear-facing
-
-Side-facing
-
-N/A
-
-
-➡️ If unknown, Front-facing is acceptable
-➡️ Orientation is NOT mandatory
+📌 You will provide details separately.
+📌 Survey team does not need to fill these now.
 
 
 ---
 
-7️⃣ DC Plant – Load & Capacity fields (Plymouth)
+🔋 BATTERY
 
-This is an important one.
+Only required:
 
-What they CAN realistically provide:
-
-Field	What to provide
-
-Total Load (Current Load)	From plant meter / monitoring
-Polled Load (Amps / kW)	If plant is metered (most are)
-Anticipated Load	Optional (if known)
-Engineered Capacity	Nameplate / design capacity
+Plant Name
 
 
-Clarification you should give them:
+(Optional if known)
 
-> Current Load / Polled Load can be taken from plant meters
+U Position
 
-Engineered Capacity is the design / rated capacity of the DC plant
+Rails Used
 
-If anticipated load is not available, it can be left blank
+Orientation
+
+Rating
 
 
-
-
-Engineer Capacity example:
-
-Rectifier plant rated at 2000A, 4000A, etc.
-
+📌 All other battery fields can be ignored.
 
 
 ---
 
-8️⃣ Battery Discharge VPC – What value to use?
+✅ FINAL MESSAGE YOU CAN TELL THEM
 
-Industry-accepted values:
+> Please fill only the fields explicitly mentioned above.
+All other fields listed in the document are not mandatory and can be left blank if the data is not readily available.
+Where examples are provided (LASER site / sample Excel), please follow the same pattern.
 
-1.75 VPC → conservative
 
-1.85 VPC → common telecom standard
-
-
-What to tell them:
-
-> Use 1.75 or 1.85 VPC based on site standard.
-If unknown, 1.75 VPC is acceptable.
-
-
-
-
----
-
-9️⃣ Target Run Time (Hours)
-
-Acceptable values:
-
-3 hours
-
-5 hours
-
-
-Tell them:
-
-> Please provide the target runtime as per site standard.
-If unknown, default to 3 hours.
-
-
-
-
----
-
-🔟 Utility Feed / Transformer – What is mandatory?
-
-These ARE REQUIRED and should be obtainable:
-
-Field	What they must provide
-
-Rating (kVA)	Nameplate
-Rating (kW)	Nameplate
-Source	Utility / Generator / Substation
-Source Location	Where transformer is physically located
-
-
-Tell them:
-
-> Transformer ratings and source details should be available on the nameplate or site documentation and must be provided.
-
-
-
-
----
-
-✅ Suggested FINAL Vendor Guidance Summary (Short)
-
-You can paste this as a closing paragraph:
-
-> To summarize:
-
-Rails Used / Orientation / Anticipated Load are optional
-
-U-Position is required only for rack-mounted equipment
-
-Busway must be modeled as Panel → Busway, not RPP
-
-One Busway Outlet per 3-pole breaker
-
-Battery Plant is required; Battery Bay is not
-
-Generator → ATS relationship is handled via ATS
-
-DC Plant loads can be sourced from meters; engineered capacity from nameplate
-
-Utility / Transformer ratings and source details are required
-
-
-
-
-
----
-
-If you want, next I can:
-
-Convert this into a clean PDF / 1-pager for vendors
-
-Draft a polite but firm email using this content
-
-Create a “What to Fill / What to Skip” table only
-Perfect, this screenshot actually helps a lot 👍
-I’ll answer this in three clear parts, exactly mapping to what the site survey vendors are confused about, and what you should tell them to fill.
-
-
----
-
-1️⃣ Utility Feed → Transformer (Source & Source Location)
-
-You are absolutely correct, and your modeling is right.
-
-✅ What you should tell them (very clearly):
-
-Utility Feed is the source
-
-Transformer source must reference the Utility Feed name
-
-Transformer source location must be the location of the Utility Feed
-
-
-How to fill it (example):
-
-Object	Field	Value
-
-Utility Feed	Name	MAIN-USD
-Utility Feed	Location	Outside / Yard / Electrical Room
-Transformer	Source	MAIN-USD – Utility Feed
-Transformer	Source Location	Same as Utility Feed location
-
-
-📌 Rule
-
-> Transformer source must always point to the Utility Feed object that feeds it.
-
-
-
-You can say this line verbatim:
-
-> “Transformer source should always reference the Utility Feed name, and the Utility Feed location should be used as the source location.”
-
-
-
-
----
-
-2️⃣ Rails Used & U-Position (Rectifiers / DC Equipment)
-
-This is where the diagram they shared matters, and your answer should be firm but simple.
-
-What the diagram shows
-
-Rectifiers / power bays
-
-Equipment mounted inside a power bay
-
-Slots / positions exist, but not standard 19-inch rack U numbering
-
-
-✅ Correct guidance for DCTrack / Network systems
-
-🔹 Rails Used
-
-For rectifiers / power bays:
-
-✔ Use:
-
-N/A
-
-OR Integrated bay rails
-
-
-❌ Do NOT try to invent rail numbers
-❌ Do NOT map them like IT racks
-
-📌 Why:
-
-> DC power bays have integrated mounting, not removable rack rails.
-
-
-
-
----
-
-🔹 U-Position
-
-For rectifiers / DC plant equipment:
-
-✔ Use:
-
-N/A
-
-
-📌 Why:
-
-U-position applies to standard IT racks
-
-DC bays use panel/slot positions, not rack U’s
-
-
-What you should explicitly tell them:
-
-> “For rectifiers and DC power bays, Rails Used and U-Position are not applicable. These are integrated bays, not standard rack-mounted equipment.”
-
-
-
-
----
-
-3️⃣ What if they want to provide something (optional guidance)
-
-If the vendor insists on filling something (some tools force it):
-
-Field	Allowed value
-
-Rails Used	Integrated bay rails
-U-Position	N/A
-
-
-This will not block ingestion and is accepted practice.
-
-
----
-
-4️⃣ How to explain the diagram they referenced
-
-You can address their diagram question directly:
-
-> “The diagram shows panel positions within a DC power bay, not rack U-positions. These panel positions are internal to the bay and are not captured as U-positions in DCTrack.”
-
-
-
-This sentence alone clears 90% of the confusion.
-
-
----
-
-5️⃣ One clean paragraph you can send to vendors (recommended)
-
-You can copy-paste this as-is:
-
-> For Utility and Transformer modeling, the Transformer source should always reference the Utility Feed name (e.g., MAIN-USD), and the Utility Feed location should be used as the source location.
-
-For Rectifiers and DC power bays, Rails Used and U-Position are not applicable. These are integrated power bays and do not follow standard IT rack rail or U-numbering conventions. The panel/slot positions shown in the diagrams are internal to the bay and are not captured as U-positions in DCTrack. If required by the form, Rails Used may be entered as “Integrated bay rails” and U-Position as “N/A”.
-
-
-
-
----
-
-6️⃣ Short confirmation (for your own confidence)
-
-✔ Your utility → transformer chaining is correct
-✔ Your decision to mark rails/U-position as N/A is correct
-✔ The vendors’ confusion is understandable, but they should not invent values
 
 
 ---
 
 If you want, next I can:
 
-Convert this into a 1-page vendor clarification PDF
+Convert this into a 1-page “Survey Fill Guide” PDF
 
-Draft a very short “final instruction” email
+Create a checklist table (Object | Field | Required | Example)
 
-Review any other column they’re questioning and mark it Mandatory / Optional / N/A
+Draft a short email / Slack message to send to Jamie & team
 
 
 Just tell me 👍
-
