@@ -1,310 +1,78 @@
-Perfect, I understand exactly what you want now 👍
-You want ONE consolidated, single-sheet / single-document that combines all three earlier asks, starting from Rails Used & U-Position, and covering DC Plant (battery, discharge, runtime, load amps, etc.), Generator, ATS, UPS, PDU, RPP, Busway, Rectifier, Plant Panel, BDFB, Battery — with only what needs to be filled, and everything else clearly marked as not required.
+Got it 👍
+You don’t need analysis now — you need a clean, professional reply mail that:
 
-Below is a clean, upload-ready “Single Source of Truth” document.
-You can paste this into Google Docs / Word / Confluence / SharePoint as-is.
+Acknowledges their request
 
+States that you’ve reviewed and provided analysis
 
----
+Clarifies what should go to Sunbird
 
-📘 SITE SURVEY DATA – REQUIRED FIELDS ONLY (CONSOLIDATED GUIDE)
+Mentions attachments clearly (Laser sheet + Busway free Excel)
 
-> Rule of Thumb:
-👉 Only fill fields explicitly listed below.
-👉 All other fields shown in templates/screenshots are NOT mandatory and may be left blank.
+Points them to the Google Doc answers (auto-select responses)
 
 
-
-
----
-
-🔩 RAILS USED & U-POSITION (APPLICABLE ACROSS MULTIPLE ASSETS)
-
-U-Position
-
-Represents the vertical mounting position of equipment within a bay/rack.
-
-Example: U1, U2, Top, Bottom, Front, Rear
-
-
-Rails Used
-
-Indicates whether the equipment is mounted on standard bay rails.
-
-Typical values: Yes, No, or Integrated
-
-
-📌 Used for: Rectifiers, Plant Panels, BDFB Panels, Batteries
-📌 If unknown → leave blank
+Below is a ready-to-send reply. You can copy-paste this as is.
 
 
 ---
 
-🔋 DC PLANT (Billington / Wilmington)
+Subject: RE: TPI Data Review – Plymouth & Wilmington Sites
 
-Required / Optional (if available):
+Hi Jessica,
 
-Field	What to Provide
+Thanks for sharing this.
 
-Custom Field – Load Amps	Current DC load drawn from the plant
-Float Voltage	Nominal DC voltage (e.g., –48V)
-Anticipated Load (A)	Expected future load (can match Load Amps)
-Engineered Capacity	Maximum designed DC capacity
-Discharge VPC	Voltage per cell during discharge (1.75 or 1.85)
-Target Run Time (Hours)	Backup duration (e.g., 3 or 5 hours)
+I’ve reviewed the vendor-provided data along with the questions raised, and I’ve documented our responses and clarifications in the attached Google Doc (auto-select answers provided for their questions).
 
+Summary of our review and next steps:
 
-📌 Not Mandatory:
-PDSC Distribution, Plant Bay, Financials, Audit fields, Planning fields
+For items where no devices are present, those can be reviewed and validated directly with Sunbird.
 
+I’ve attached the Laser site survey sheet as a reference for:
 
----
+Load devices
 
-🔌 GENERATOR
+Transformers
 
-Generator – Plymouth Meeting
-
-Only field (optional):
-
-Custom Field – Maximum Load
-Maximum electrical load (kW) the generator is expected to support.
+Utility feed relationships and source references
 
 
-📌 All other generator fields → Not required
+For Busway-related questions, I’m attaching a separate reference Excel sheet that outlines the expected structure and fields for Busway, which should help clarify what needs to be provided.
+
+The screenshots included in the Google Doc reflect our analysis and directly address the questions raised by the vendor.
 
 
----
+Please let me know if you’d like us to walk through any of these items live or if there are specific areas where further clarification is needed.
 
-Generator – Wilmington
-
-(Optional, if known)
-
-Field	Meaning
-
-Custom Field – kW	Rated real power output
-Rating / Capacity	Nameplate generator capacity
-Maximum Load	Peak expected load
-Power Rating (kW)	Manufacturer rating
-
-
-📌 If unknown → leave blank
+Thanks,
+Naveen
 
 
 ---
 
-🔁 ATS SWITCH
+📎 Attachments you should include
 
-ATS Switch (General)
+1. Laser Site Survey Sheet (Load devices, transformers, utility feed references)
 
-Field	Meaning
 
-Output Wiring	Wiring type (e.g., 4-Wire + Ground)
+2. Busway Reference – Free Excel Sheet
 
 
-📌 Location Name & others → auto-populated
-
-Relationship Rule
-
-All generators must be mapped to ATS
-
-ATS only models Generator → ATS relationships
-
-
-
----
-
-ATS Switch – Wilmington
-
-Field	Meaning
-
-Rating (Vac)	Voltage rating (e.g., 480V)
-Rating (A)	Current capacity
-
-
-📌 Nothing else required
-
-
----
-
-⚡ UPS
-
-UPS
-
-(Optional)
-
-Custom Field – Total LD kW
-Total connected UPS load in kilowatts.
-
-
-UPS – Wilmington
-
-❌ No fields required
-
-
-UPS Bank
-
-❌ No fields required
-
-
-
----
-
-🔀 LOAD DEVICE (UPS → UPS BANK → PDU)
-
-UPS → UPS Bank
-
-Power Fed From = UPS Name
-
-
-UPS Bank → PDU
-
-Source = UPS Bank
-
-Source Location = UPS Bank location
-
-Power Fed From = (Can be blank)
-
-
-📌 Purchase Price → Not required
-
-
----
-
-🧱 PDU
-
-PDU
-
-Custom Field – PDU Type = Floor PDU
-
-
-PDU Panel (Defaults)
-
-Number of Panels = 12
-
-Mirrored = No
-
-Neutral Switched Breakers = No
-
-
-PDU Panel Breakers
-
-Field	Meaning
-
-Power Outlet Location	Site > Room of RPP
-Power Outlet Connector	RPP Name
-
-
-
----
-
-🔋 RPP
-
-Field	Meaning
-
-Rating (kVA)	Apparent power capacity
-
-
-📌 Example: 173, 175
-📌 All others → Not required
-
-
----
-
-🚌 BUSWAY
-
-Modeled as a panel under Floor PDU
-
-Each Busway = Busway Panel
-
-Each Tap-off = Busway Outlet
-
-Each Breaker = Breaker Connection
-
-
-📌 Survey team will follow provided sample Excel
-📌 Only fields in that Excel are required
-
-
----
-
-🔌 RECTIFIER
-
-Field	Meaning
-
-U-Position	Mounting position
-Rails Used	Bay rail usage
-Index	Logical rectifier number
-
-
-📌 Power-fed-from, source, custom fields → Not required
-
-
----
-
-🧱 PLANT PANEL
-
-(Optional)
-
-Field	Meaning
-
-Rating (A)	Maximum current rating
-U-Position / Rails Used	If known
-
-
-
----
-
-⚡ BDFB / BDFB PANEL
-
-Details will be provided separately
-
-No action required from survey team
-
-
-
----
-
-🔋 BATTERY
-
-Required
-
-Plant Name
-
-
-Optional (if known)
-
-U-Position
-
-Rails Used
-
-Orientation
-
-Rating
-
-
-📌 All other battery fields → Not required
-
-
----
-
-✅ FINAL INSTRUCTION TO SITE SURVEY TEAM
-
-> Please fill only the fields listed in this document.
-Any field not explicitly mentioned is not mandatory and may be left blank.
-Sample LASER site and Busway Excel should be used as reference where provided.
+3. Google Doc – TPI Answers (already shared)
 
 
 
 
 ---
 
-If you want next, I can:
+If you want, I can also:
 
-Convert this into a single Excel sheet (Object | Field | Required | Description | Example)
+Tighten this further for a director-level response
 
-Create a formal PDF handout
+Add a 1-line TL;DR at the top
 
-Draft a short mail / Slack message pointing to this document
+Convert this into a Sunbird-specific follow-up mail
 
 
-Just tell me what format you want 👍
+Just tell me 👍
