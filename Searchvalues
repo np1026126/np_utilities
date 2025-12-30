@@ -1,160 +1,23 @@
-Yes 👍 — every database provides a way to list all indexes, but the query depends on which database you are using.
-
-Since in your work you mostly use PostgreSQL (Verizon projects, DC-Track, migrations), I’ll start with that clearly, and then also give MySQL, Oracle, and SQL Server for completeness.
-
-
----
-
-✅ PostgreSQL – List ALL Indexes in the Database
-
-🔹 1. List all indexes (simple & most-used)
-
-SELECT
-    schemaname,
-    tablename,
-    indexname,
-    indexdef
-FROM pg_indexes
-ORDER BY schemaname, tablename;
-
-✔ Gives:
-
-Schema name
-
-Table name
-
-Index name
-
-Full index definition (very useful for audits / performance review)
-
-
-
----
-
-🔹 2. List indexes with index type (BTREE, GIN, etc.)
-
-SELECT
-    ns.nspname AS schema_name,
-    tbl.relname AS table_name,
-    idx.relname AS index_name,
-    am.amname AS index_type
-FROM pg_class idx
-JOIN pg_index i ON i.indexrelid = idx.oid
-JOIN pg_class tbl ON tbl.oid = i.indrelid
-JOIN pg_namespace ns ON ns.oid = tbl.relnamespace
-JOIN pg_am am ON idx.relam = am.oid
-ORDER BY schema_name, table_name;
-
-✔ Helpful when checking:
-
-BTREE vs GIN vs GiST
-
-Index strategy issues
-
-
-
----
-
-🔹 3. Indexes for a specific table
-
-SELECT
-    indexname,
-    indexdef
-FROM pg_indexes
-WHERE tablename = 'your_table_name';
-
-
----
-
-🔹 4. Index size (important for large DBs)
-
-SELECT
-    schemaname,
-    tablename,
-    indexname,
-    pg_size_pretty(pg_relation_size(indexname::regclass)) AS index_size
-FROM pg_indexes
-ORDER BY pg_relation_size(indexname::regclass) DESC;
-
-✔ Very useful for:
-
-Identifying bloated indexes
-
-Cleanup during migration
-
-
-
----
-
-✅ MySQL – List Indexes
-
-🔹 All indexes in all tables
-
-SELECT
-    TABLE_SCHEMA,
-    TABLE_NAME,
-    INDEX_NAME,
-    COLUMN_NAME,
-    INDEX_TYPE
-FROM information_schema.STATISTICS
-ORDER BY TABLE_SCHEMA, TABLE_NAME;
-
-
----
-
-✅ Oracle – List Indexes
-
-SELECT
-    OWNER,
-    TABLE_NAME,
-    INDEX_NAME,
-    INDEX_TYPE
-FROM ALL_INDEXES
-ORDER BY OWNER, TABLE_NAME;
-
-
----
-
-✅ SQL Server – List Indexes
-
-SELECT
-    s.name AS schema_name,
-    t.name AS table_name,
-    i.name AS index_name,
-    i.type_desc AS index_type
-FROM sys.indexes i
-JOIN sys.tables t ON i.object_id = t.object_id
-JOIN sys.schemas s ON t.schema_id = s.schema_id
-WHERE i.name IS NOT NULL
-ORDER BY schema_name, table_name;
-
-
----
-
-📌 Best Recommendation (for your use case)
-
-Since you often:
-
-Share data with managers
-
-Do migrations
-
-Review performance issues
-
-
-👉 Use PostgreSQL Query #1, export it to CSV/Excel, and share it.
-
-If you want, I can also:
-
-📄 Give you a COPY TO CSV version
-
-📊 Create an Excel-friendly query
-
-⚡ Help identify unused or duplicate indexes
-
-🧠 Explain which indexes are actually used (pg_stat_user_indexes)
-
-
-Just tell me:
-
-> Which DB exactly (Postgres / MySQL / Oracle / SQL Server)?
+Prompt to paste in Gemini:
+I have a Google Sheet with PAC request data.
+Columns are:
+Created Date (column D)
+Closed Date (column E)
+Days Taken (column F, already calculated as Closed Date – Created Date)
+Please do the following in this same Google Sheet:
+Create a new column called Turnaround Bucket and classify each row based on Days Taken as:
+Within 5 days (≤5)
+5–10 days
+10–20 days
+More than 20 days
+Create a Pivot Table that shows:
+Rows → Turnaround Bucket
+Values → COUNT of PAC ID (or row count)
+Create a chart (column or donut) from the pivot table showing the count of PACs in each bucket.
+Apply colors:
+Green → Within 5 days
+Yellow → 5–10 days
+Orange → 10–20 days
+Red → More than 20 days
+Place the pivot table and chart in a new sheet named PAC Turnaround Summary.
+Do not change existing data. Use formulas where required.
