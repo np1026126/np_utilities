@@ -1,23 +1,64 @@
-Prompt to paste in Gemini:
-I have a Google Sheet with PAC request data.
-Columns are:
-Created Date (column D)
-Closed Date (column E)
-Days Taken (column F, already calculated as Closed Date – Created Date)
-Please do the following in this same Google Sheet:
-Create a new column called Turnaround Bucket and classify each row based on Days Taken as:
-Within 5 days (≤5)
+Got it 👍
+You already have the Excel with full PSE job history, and now you want to ask Google Gemini (GME) to analyze it and produce the exact metrics:
+Creation date of each PSE
+Last status change date (latest log entry per PSE)
+Days in progress from creation → last change
+Days still in progress from last change → current date (31 Dec)
+For 12 PSEs, all summarized cleanly
+Below is the exact prompt you should paste into Google Gemini, along with how to structure the ask so Gemini gives you a correct, usable output.
+✅ Recommended Google Gemini Prompt (Copy–Paste)
+I am uploading an Excel sheet that contains PSE job history logs.
+Each row represents a status change event for a PSE job.
+The sheet contains at least the following columns:
+pse_job_id
+log_time (timestamp when the status changed)
+status / log_entry / description (text showing the workflow step)
+Objective: For each unique pse_job_id, calculate:
+Creation Date – earliest log_time for that PSE
+Last Updated Date – latest log_time for that PSE
+Days from Creation to Last Update
+Days In Progress Since Last Update, assuming current date = 31-Dec-2024
+Current Status – status corresponding to the latest log_time
+These PSEs are not completed and are still In Progress.
+Output format required:
+One row per pse_job_id
+A clean summary table with these columns:
+PSE Job ID
+Created Date
+Last Updated Date
+Days Between Creation and Last Update
+Days In Progress (Last Update → 31-Dec-2024)
+Latest Status
+Also:
+Ignore duplicate status entries on the same day
+Use date difference in calendar days
+Clearly explain the logic used to derive the dates
+✅ Optional (If you want Buckets like your earlier report)
+Add this extra line at the end of the prompt:
+Additionally, bucket the Days In Progress into:
+< 5 days
 5–10 days
 10–20 days
-More than 20 days
-Create a Pivot Table that shows:
-Rows → Turnaround Bucket
-Values → COUNT of PAC ID (or row count)
-Create a chart (column or donut) from the pivot table showing the count of PACs in each bucket.
-Apply colors:
-Green → Within 5 days
-Yellow → 5–10 days
-Orange → 10–20 days
-Red → More than 20 days
-Place the pivot table and chart in a new sheet named PAC Turnaround Summary.
-Do not change existing data. Use formulas where required.
+> 20 days
+✅ If You Want Gemini to Generate Excel Formulas Too
+Add this line:
+Also provide Excel formulas that can be used to calculate:
+Earliest date per PSE
+Latest date per PSE
+Date difference metrics
+🧠 Why this prompt works
+Clearly defines what each row means
+Explicitly explains what “last day” means (latest log entry)
+Fixes the current date (31-Dec) so Gemini doesn’t assume today
+Forces one-row-per-PSE aggregation
+Prevents Gemini from just summarizing text instead of calculating
+📌 Pro Tip (Very Important)
+Before uploading:
+Ensure log_time is a real date column, not text
+Ensure pse_job_id has no blanks
+Sort order does not matter (Gemini will handle min/max)
+If you want, next I can:
+Give you pure Excel formulas (no Gemini needed)
+Or help you create a pivot + helper columns
+Or write a SQL query to compute this directly from DB
+Just tell me 👍
