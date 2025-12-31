@@ -1,64 +1,80 @@
-Got it 👍
-You already have the Excel with full PSE job history, and now you want to ask Google Gemini (GME) to analyze it and produce the exact metrics:
-Creation date of each PSE
-Last status change date (latest log entry per PSE)
-Days in progress from creation → last change
-Days still in progress from last change → current date (31 Dec)
-For 12 PSEs, all summarized cleanly
-Below is the exact prompt you should paste into Google Gemini, along with how to structure the ask so Gemini gives you a correct, usable output.
-✅ Recommended Google Gemini Prompt (Copy–Paste)
-I am uploading an Excel sheet that contains PSE job history logs.
-Each row represents a status change event for a PSE job.
-The sheet contains at least the following columns:
+Perfect, now I fully understand what you want 👍
+You already have a good reference output for Cancelled PSEs (your colleague’s categorization + insights + recommendations).
+Now you want to do the same style of analysis for “In-Progress” PSEs using Excel log data and Google Gemini.
+Below is a ready-to-use, well-structured Gemini prompt that will force Gemini to:
+Read your Excel log data
+Understand workflow/status text
+Group In-Progress PSEs into meaningful categories
+Provide counts, percentages
+Provide actionable recommendations, just like the cancelled analysis
+✅ FINAL GOOGLE GEMINI PROMPT (Copy–Paste as is)
+I am uploading an Excel sheet that contains PSE job workflow logs for In-Progress PSEs only.
+Each row represents a status change log for a PSE job.
+The sheet contains at least these columns:
 pse_job_id
-log_time (timestamp when the status changed)
-status / log_entry / description (text showing the workflow step)
-Objective: For each unique pse_job_id, calculate:
-Creation Date – earliest log_time for that PSE
-Last Updated Date – latest log_time for that PSE
-Days from Creation to Last Update
-Days In Progress Since Last Update, assuming current date = 31-Dec-2024
-Current Status – status corresponding to the latest log_time
-These PSEs are not completed and are still In Progress.
-Output format required:
-One row per pse_job_id
-A clean summary table with these columns:
-PSE Job ID
-Created Date
-Last Updated Date
-Days Between Creation and Last Update
-Days In Progress (Last Update → 31-Dec-2024)
-Latest Status
-Also:
-Ignore duplicate status entries on the same day
-Use date difference in calendar days
-Clearly explain the logic used to derive the dates
-✅ Optional (If you want Buckets like your earlier report)
-Add this extra line at the end of the prompt:
-Additionally, bucket the Days In Progress into:
-< 5 days
-5–10 days
-10–20 days
-> 20 days
-✅ If You Want Gemini to Generate Excel Formulas Too
-Add this line:
-Also provide Excel formulas that can be used to calculate:
-Earliest date per PSE
-Latest date per PSE
-Date difference metrics
-🧠 Why this prompt works
-Clearly defines what each row means
-Explicitly explains what “last day” means (latest log entry)
-Fixes the current date (31-Dec) so Gemini doesn’t assume today
-Forces one-row-per-PSE aggregation
-Prevents Gemini from just summarizing text instead of calculating
-📌 Pro Tip (Very Important)
-Before uploading:
-Ensure log_time is a real date column, not text
-Ensure pse_job_id has no blanks
-Sort order does not matter (Gemini will handle min/max)
+log_time
+log_entry or status_description (free-text workflow/status message)
+These PSEs are not completed and are currently in In-Progress state.
+Objective
+Analyze the log history and categorize the In-Progress PSEs based on the latest workflow/status in a way similar to how cancelled PSEs were categorized.
+Categorization Logic (Important)
+For each pse_job_id:
+Identify the latest log entry (max log_time)
+Use the meaning of the latest status text to group the PSE into a logical category
+Examples of expected categories (you may refine or rename if needed):
+Sent Back to Requestor
+Waiting for Planner Input
+On Hold / Pending External Dependency
+Waiting for Review / Approval
+Reopened / Rework Required
+Assignment Pending
+Other In-Progress Workflow
+Output Required
+Provide the analysis in the following structure:
+1. In-Progress PSE Categorization Summary
+A table with:
+Category
+Number of PSEs
+Percentage of total In-Progress PSEs
+2. Category-wise Details
+For each category:
+List of pse_job_ids
+Typical status/log patterns that led to this categorization
+3. Key Insights
+Highlight:
+Top reasons why PSEs remain in progress
+Workflow stages where PSEs get stuck the longest
+Patterns such as repeated “Send Back” or “Reopen” cycles
+4. Recommendations / Action Items
+Provide practical, process-improvement recommendations, such as:
+Intake form improvements
+Validation or auto-checks
+Ownership clarity
+SLA monitoring suggestions
+Training or documentation gaps
+Additional Rules
+Use only the latest status per PSE for categorization
+Do not assume completion unless explicitly stated
+Keep explanations concise and business-friendly
+Present results similar in quality and clarity to a management review slide
+If required, you may also suggest better category names based on observed patterns.
+✅ OPTIONAL (If you want turnaround insight also)
+Add this at the end if you want aging insight included:
+Also highlight which categories have the highest average days in progress and call out high-risk PSEs.
+🧠 Why this prompt will work
+Forces Gemini to:
+Use latest log only (critical)
+Do semantic grouping (not just keywords)
+Produce counts + insights + recommendations
+Mirrors exactly what your colleague did for Cancelled PSEs
+Output will be presentation-ready
+📌 Pro Tip (Before Uploading Excel)
+Ensure log_time is proper date/time
+Ensure log_entry contains readable workflow text
+Sorting does NOT matter (Gemini will compute max date)
 If you want, next I can:
-Give you pure Excel formulas (no Gemini needed)
-Or help you create a pivot + helper columns
-Or write a SQL query to compute this directly from DB
+Help you align category names between Cancelled vs In-Progress (for PPT)
+Create a single executive slide summary
+Convert Gemini output into Excel formulas / pivot logic
+Draft a Slack / email explanation to leadership
 Just tell me 👍
