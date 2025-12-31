@@ -1,80 +1,98 @@
-Perfect, now I fully understand what you want 👍
-You already have a good reference output for Cancelled PSEs (your colleague’s categorization + insights + recommendations).
-Now you want to do the same style of analysis for “In-Progress” PSEs using Excel log data and Google Gemini.
-Below is a ready-to-use, well-structured Gemini prompt that will force Gemini to:
-Read your Excel log data
-Understand workflow/status text
-Group In-Progress PSEs into meaningful categories
-Provide counts, percentages
-Provide actionable recommendations, just like the cancelled analysis
-✅ FINAL GOOGLE GEMINI PROMPT (Copy–Paste as is)
-I am uploading an Excel sheet that contains PSE job workflow logs for In-Progress PSEs only.
-Each row represents a status change log for a PSE job.
-The sheet contains at least these columns:
+Got it 👍
+Now this is very clear and mature analysis work. You are not asking Copilot/Gemini to just group by status — you want reason-driven, insight-driven categorization, similar to Cancelled PSE analysis, but for In-Progress PSEs, using two inputs:
+Log CSV → detailed workflow + reasoning text
+Status CSV → current in-progress status snapshot
+And the output should answer:
+👉 “Why are these PSEs still in progress, what is blocking them, and what can be improved?”
+Below is a strong, production-quality Copilot prompt you can directly paste into Copilot Chat (VS Code / Excel Copilot / Web Copilot).
+✅ FINAL COPILOT PROMPT (Use This As-Is)
+I am sharing two CSV files:
+File 1 – PSE_Log_History.csv
+Contains workflow logs for PSE jobs
+Columns include:
 pse_job_id
 log_time
-log_entry or status_description (free-text workflow/status message)
-These PSEs are not completed and are currently in In-Progress state.
+log_entry / status_description (free-text reasoning, comments, workflow steps)
+File 2 – PSE_InProgress_Status.csv
+Contains the current snapshot of PSEs that are In Progress
+Columns include:
+pse_job_id
+current_status (examples: PS Planner Input, Send Back to Requestor, Waiting for Reviews, PSE On Hold, etc.)
+Metadata like created date, location, owner (if present)
 Objective
-Analyze the log history and categorize the In-Progress PSEs based on the latest workflow/status in a way similar to how cancelled PSEs were categorized.
-Categorization Logic (Important)
+Perform a reason-based categorization of In-Progress PSEs, similar in depth and quality to a Cancelled PSE root-cause analysis.
+These PSEs are not completed or cancelled, but are stuck or progressing slowly at different workflow stages.
+Key Requirement (Very Important)
+Do NOT categorize purely based on current_status.
+Instead:
+Use current_status only as a signal
+Use the log history and reasoning text from File 1 to determine:
+Why the PSE is still in progress
+What is blocking movement to the next step
+Analysis Logic
 For each pse_job_id:
-Identify the latest log entry (max log_time)
-Use the meaning of the latest status text to group the PSE into a logical category
-Examples of expected categories (you may refine or rename if needed):
-Sent Back to Requestor
-Waiting for Planner Input
-On Hold / Pending External Dependency
-Waiting for Review / Approval
-Reopened / Rework Required
-Assignment Pending
-Other In-Progress Workflow
+Identify the latest log entry
+Review recent historical logs to understand:
+Send-back reasons
+Hold reasons
+Review delays
+Planner input gaps
+Rework cycles
+Infer the primary blocker / improvement area
+Expected Categorization (You may refine names)
+Categorize In-Progress PSEs into reason-based buckets, such as:
+Incomplete / Incorrect Initial Request
+Missing Planner / Engineering Input
+Repeated Send-Back / Rework Cycle
+Waiting on Review / Approval Bandwidth
+External Dependency / On-Hold Constraints
+Data Quality or Template Gaps
+Ownership or Hand-off Delays
+Process Ambiguity (Unclear Next Step)
 Output Required
-Provide the analysis in the following structure:
 1. In-Progress PSE Categorization Summary
-A table with:
+Provide a table with:
 Category
 Number of PSEs
 Percentage of total In-Progress PSEs
 2. Category-wise Details
 For each category:
 List of pse_job_ids
-Typical status/log patterns that led to this categorization
+Typical log/reason patterns observed
+Example log snippets (summarized, not raw)
 3. Key Insights
 Highlight:
-Top reasons why PSEs remain in progress
-Workflow stages where PSEs get stuck the longest
-Patterns such as repeated “Send Back” or “Reopen” cycles
-4. Recommendations / Action Items
-Provide practical, process-improvement recommendations, such as:
-Intake form improvements
-Validation or auto-checks
-Ownership clarity
-SLA monitoring suggestions
+Top reasons PSEs remain in progress
+Common workflow stages causing delays
+Patterns like repeated send-back or long planner input waits
+4. Improvement Recommendations
+For each category, suggest actionable improvements, such as:
+Intake form or validation enhancements
+Mandatory fields or auto-checks
+Clear ownership or SLA definition
 Training or documentation gaps
-Additional Rules
-Use only the latest status per PSE for categorization
-Do not assume completion unless explicitly stated
-Keep explanations concise and business-friendly
-Present results similar in quality and clarity to a management review slide
-If required, you may also suggest better category names based on observed patterns.
-✅ OPTIONAL (If you want turnaround insight also)
-Add this at the end if you want aging insight included:
-Also highlight which categories have the highest average days in progress and call out high-risk PSEs.
-🧠 Why this prompt will work
-Forces Gemini to:
-Use latest log only (critical)
-Do semantic grouping (not just keywords)
-Produce counts + insights + recommendations
-Mirrors exactly what your colleague did for Cancelled PSEs
-Output will be presentation-ready
-📌 Pro Tip (Before Uploading Excel)
-Ensure log_time is proper date/time
-Ensure log_entry contains readable workflow text
-Sorting does NOT matter (Gemini will compute max date)
-If you want, next I can:
-Help you align category names between Cancelled vs In-Progress (for PPT)
-Create a single executive slide summary
-Convert Gemini output into Excel formulas / pivot logic
-Draft a Slack / email explanation to leadership
+Workflow automation opportunities
+Guidelines
+Use only evidence from logs, not assumptions
+Treat these insights as process improvement opportunities, not individual performance issues
+Present output in a business-review friendly format, suitable for leadership or governance forums
+If helpful, suggest standardized category names that can be reused across Cancelled and In-Progress PSE reporting.
+✅ Why This Prompt Will Work (Important for You)
+Forces Copilot to:
+Correlate two datasets
+Do semantic reasoning, not keyword grouping
+Produce cancelled-style insights, not raw status reports
+Prevents shallow output like:
+“5 PSEs are in Planner Input”
+Drives output like:
+“Planner input delays are primarily due to missing HVAC load clarity and repeated send-back cycles.”
+✅ Pro Tip (Before Uploading Files)
+Ensure pse_job_id matches exactly in both CSVs
+Log file should include reason text, not just status codes
+No need to pre-sort — Copilot can infer latest timestamps
+If you want next, I can:
+Align Cancelled vs In-Progress categories into one unified framework
+Help you turn this into 1 executive slide
+Convert Copilot output into metrics + charts
+Draft a strong narrative for leadership review
 Just tell me 👍
