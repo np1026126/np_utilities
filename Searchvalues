@@ -1,3 +1,12 @@
-“This feature transforms DECOM activities into clear, location-level business insights by showing current power savings, future optimization potential, and available capacity — enabling informed, data-driven decisions.”
-If you want a slightly more user-focused version
-“When users look at a location, they immediately know how many devices are being decommissioned, how much power is already saved, and how much more can be saved — helping them plan better and reduce operational costs.”
+Hi Team,
+
+For this site, a total of three cooling zones were reviewed. Currently, two zones have been successfully imported into DCTrack.
+
+The remaining zone was not imported because its Sensitive Capacity is set to 0. In DCTrack, a cooling zone must have a non-zero capacity to be created or updated; zones with zero capacity are not supported.
+
+Once the Sensitive Capacity is corrected and provided with a valid value, the remaining zone can also be imported without any issue.
+
+Please confirm after updating the capacity so we can proceed.
+
+Thanks,
+Naveen
