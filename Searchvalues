@@ -1,12 +1,26 @@
-Hi Team,
-
-For this site, a total of three cooling zones were reviewed. Currently, two zones have been successfully imported into DCTrack.
-
-The remaining zone was not imported because its Sensitive Capacity is set to 0. In DCTrack, a cooling zone must have a non-zero capacity to be created or updated; zones with zero capacity are not supported.
-
-Once the Sensitive Capacity is corrected and provided with a valid value, the remaining zone can also be imported without any issue.
-
-Please confirm after updating the capacity so we can proceed.
-
-Thanks,
-Naveen
+WITH msc_sitegroups AS (
+    SELECT sg.SiteGroupId
+    FROM app.SiteGroups sg
+    WHERE sg.Name LIKE 'MSC-%'
+       OR sg.Name LIKE '%-MSC-%'
+       OR sg.Name LIKE '%-MSC'
+       OR sg.Name LIKE '%Region%MSC%'
+)
+SELECT DISTINCT
+    u.UserId,
+    u.LoginName,
+    u.FullName,
+    u.Email
+FROM app.Users u
+WHERE EXISTS (
+    SELECT 1
+    FROM app.UserSiteGroups usg
+    JOIN msc_sitegroups m ON m.SiteGroupId = usg.SiteGroupId
+    WHERE usg.UserId = u.UserId
+)
+AND NOT EXISTS (
+    SELECT 1
+    FROM app.UserSiteGroups usg
+    WHERE usg.UserId = u.UserId
+      AND usg.SiteGroupId NOT IN (SELECT SiteGroupId FROM msc_sitegroups)
+);
