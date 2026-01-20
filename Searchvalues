@@ -1,55 +1,13 @@
-UserSiteGroups for MSC site groups
-This tells you how many user–sitegroup mappings exist.
-Copy code
-Sql
-SELECT COUNT(*) AS total_msc_user_sitegroup_records
-FROM app.UserSiteGroups usg
-WHERE usg.SiteGroupId IN (
-    3, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23,
-    25, 26, 27, 28, 29, 30, 31,
-    32, 33, 34
-);
-2️⃣ Number of unique users mapped to MSC site groups
-This tells you how many users are involved (important metric).
-Copy code
-Sql
-SELECT COUNT(DISTINCT usg.UserId) AS total_msc_users
-FROM app.UserSiteGroups usg
-WHERE usg.SiteGroupId IN (
-    3, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23,
-    25, 26, 27, 28, 29, 30, 31,
-    32, 33, 34
-);
-3️⃣ View the actual records (sanity check)
-Use this to see the raw data.
-Copy code
-Sql
-SELECT
-    usg.UserId,
-    usg.SiteGroupId
-FROM app.UserSiteGroups usg
-WHERE usg.SiteGroupId IN (
-    3, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23,
-    25, 26, 27, 28, 29, 30, 31,
-    32, 33, 34
-)
-ORDER BY usg.SiteGroupId, usg.UserId;
-⭐ Bonus (very useful)
-If you want users mapped to multiple MSC site groups, this helps:
-Copy code
-Sql
-SELECT
-    usg.UserId,
-    COUNT(*) AS msc_sitegroup_count
-FROM app.UserSiteGroups usg
-WHERE usg.SiteGroupId IN (
-    3, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23,
-    25, 26, 27, 28, 29, 30, 31,
-    32, 33, 34
-)
-GROUP BY usg.UserId
-ORDER BY msc_sitegroup_count DESC;
+Hi <Manager Name>,
+
+For Bug NTSWSQ-202255, related to credit not getting applied for remote equipment, the required changes have been completed.
+
+The fix has been tested in SIT and is working as expected. We would like to proceed with deploying this change to UAT.
+
+Requesting your approval for the UAT deployment.
+I will share the supporting screenshots/images for reference along with this mail.
+
+Please let me know if you need any additional details.
+
+Thanks,
+Naveen
