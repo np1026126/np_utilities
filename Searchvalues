@@ -1,13 +1,76 @@
-Hi <Manager Name>,
-
-For Bug NTSWSQ-202255, related to credit not getting applied for remote equipment, the required changes have been completed.
-
-The fix has been tested in SIT and is working as expected. We would like to proceed with deploying this change to UAT.
-
-Requesting your approval for the UAT deployment.
-I will share the supporting screenshots/images for reference along with this mail.
-
-Please let me know if you need any additional details.
-
-Thanks,
+Below is a clear, structured, and detailed mail you can send to the users.
+Tone is professional, explanatory, and solution-oriented, without blaming them, but clearly calling out what needs correction/confirmation.
+Email
+Subject
+Clarifications & Required Corrections for NEC Site Asset Data Migration to DCPAC
+Hi Team,
+As part of the upcoming migration of NEC sites from IFP to DCPAC, we have reviewed the asset data provided and compared it against the structures already migrated for MSC sites and the reference data available in ISP.
+During this validation, we identified a few structural and naming inconsistencies that need to be addressed before we can proceed further with the NEC migration. I’ve detailed them below for clarity.
+1. Silicode Conflict Between MSC and NEC Sites
+Migration in DCPAC is driven primarily by Silicode (location name).
+We have already migrated MSC sites, and for three locations, the Silicode used for MSC matches the Silicode provided for NEC sites.
+Since the MSC locations already exist in DCPAC, we cannot reuse the same Silicode for NEC locations.
+Action required: Please confirm how we should differentiate NEC locations from MSC for these three cases.
+Options could include:
+Updating NEC Silicode values (preferred), or
+Providing an alternate location naming strategy for NEC sites.
+2. RPP A / B Redundancy and Panel Naming Mismatch
+In DCPAC, RPP A and RPP B are modeled as a redundant pair.
+For redundancy to function correctly:
+Panels under RPPA and RPPB must be identical in name and structure
+This ensures that any change in RPPA panels is automatically reflected in RPPB panels.
+Current issue:
+In the NEC data:
+RPPA panels are named like RPPA1A
+RPPB panels are named like RPP-B1
+This breaks the redundancy logic, as panel names between A and B sides do not match.
+Expected structure (as followed in ISP & MSC migration):
+Panel names should be generic and identical, such as:
+Panel A / Panel B, or
+Panel 1 / Panel 2
+Panel names should not embed the RPP name.
+Action required: Please revise the panel naming so that RPPA and RPPB have matching panel names.
+3. Incorrect Asset Hierarchy – RPP Treated as Panel
+In some NEC cases, the data shows:
+Floor PDU = RPP
+RPP = Panel
+This is not aligned with the structure used in MSC migration.
+Standard structure used in MSC (and expected for NEC):
+Each RPP is treated as a Floor PDU
+To connect Floor PDU → RPP, we use:
+Floor PDU Panels
+Floor PDU Panel Breakers (created as part of migration)
+To connect UPS → UPS Bank → Floor PDU, we create Load Devices
+RPP panels under RPPA and RPPB remain identical to support redundancy
+Action required: Please confirm and realign the hierarchy so that:
+RPP is not modeled as a panel
+RPP follows the same Floor PDU structure as MSC sites
+4. Unmapped RPP Panels and Breakers (ISP Comparison)
+While validating breaker assignments:
+Several RPPs and RPP panels provided in NEC data could not be mapped to ISP
+Root causes observed:
+RPP names provided as panel names
+Panel names differing from ISP standard
+Structural mismatches between user data and ISP
+Action required: Please review and align RPP and panel definitions with ISP naming and hierarchy.
+5. Room Name Mismatch Between NEC Data and ISP
+In a few cases, the room names provided in NEC data differ from what exists in ISP.
+Since location matching is strict, this results in mapping failures.
+Action required: Please confirm the correct room names and ensure consistency with ISP.
+6. Naming Convention Differences (Underscore / Formatting)
+We observed inconsistencies such as:
+Underscore (_) usage differences
+Minor formatting variations in RPP and panel names
+These variations prevent direct matching with ISP.
+Action required: Please confirm whether the NEC data naming should be treated as final, or if it can be normalized to match ISP conventions.
+Summary
+To proceed with the NEC migration smoothly, we request your confirmation or updates on:
+Resolution for Silicode conflicts with existing MSC sites
+Standardized panel naming for RPPA / RPPB redundancy
+Correct asset hierarchy (RPP as Floor PDU, not panel)
+Alignment of RPP, panel, breaker, and room names with ISP
+Confirmation on naming convention normalization
+Once these points are clarified or corrected, we can continue with the NEC migration without impacting existing MSC data or redundancy behavior in DCPAC.
+Please let us know if you’d like to walk through any of these items together.
+Thanks & Regards,
 Naveen
