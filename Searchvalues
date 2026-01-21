@@ -1,39 +1,148 @@
-Good point 👍 — this should be added as a separate, explicit reference section so users clearly know where to look and what exactly you have highlighted.
-Where to add this in the mail
-Add it after the issue list (or just before the “Summary” section).
-That’s the best place because:
-By then, the user already understands the problems
-This section tells them exactly where the evidence/examples are
-📌 Recommended New Section to Add
-You can add a new section like this:
-7. Reference Google Sheet – Highlighted Issue Examples
-To make the above points clearer, we have created a Google Sheet where:
-Specific rows with Silicode conflicts
-RPP / Panel naming mismatches
-Hierarchy and ISP comparison issues are clearly copied and highlighted.
-This sheet contains only the impacted data, extracted from the user-provided files and compared against ISP, for easier review.
-Action required:
-Please review the Google Sheet using the link below and confirm:
-Whether the highlighted data can be corrected as suggested, or
-If an alternate approach should be followed for NEC sites.
-🔗 Google Sheet URL: <paste your Google Sheet link here>
-🔧 How it fits into your existing mail
-Your flow will become:
-Silicode conflict
-RPP A/B panel naming issue
-Incorrect hierarchy (RPP as panel)
-Unmapped RPP panels & breakers
-Room name mismatch
-Naming convention differences
-👉 7. Reference Google Sheet (new section)
-➡️ Summary / Next steps
-This makes the mail:
-Clear
-Defensible (you’ve shared evidence)
-Easy for business/users to respond
-✨ Optional stronger line (if you want)
-If you want to be a bit firmer, you can add this sentence:
-“The migration blockers listed above directly correspond to the highlighted rows in the attached Google Sheet.”
+Perfect 👍 — this is the right MVP breakdown.
+I’ll give you a clean, leadership-ready structure with:
+3 MVP Features (clear scope boundaries)
+What goes into each feature (in-scope / out-of-scope)
+Stories under each feature (ready for Jira)
+Acceptance criteria (Definition of Done)
+Who typically owns each story (assignment guidance)
+You can directly paste this into Jira / Rally / Azure Boards.
+🎯 NEC MIGRATION – MVP FEATURE BREAKDOWN
+🟦 FEATURE 1: Create Missing Power Chain Components for NEC Sites (Data Completion)
+Feature Objective
+Ensure all NEC sites have a complete and valid power chain by creating missing logical components required for mapping, without changing user-provided asset data.
+Why this feature is needed
+User-provided NEC data does not include:
+Load devices for UPS → UPS Bank → Floor PDU
+Floor PDU Panels
+Floor PDU Panel Breakers
+These are mandatory in DCPAC to form a valid power chain.
+📌 Scope (IN)
+Create Load Devices to map:
+UPS → UPS Bank
+UPS Bank → Floor PDU
+Create:
+Floor PDU Panels
+Floor PDU Panel Breakers
+Ensure consistency with MSC migration model
+No dependency on user data correction
+🚫 Scope (OUT)
+No renaming of user assets
+No breaker reassignment using corrected data
+No production import
+🧩 Stories under Feature 1
+Story 1.1: Create Load Devices for NEC Power Chain
+Owner: Backend / Migration Engineer
+Story:
+As a migration engineer,
+I want to create load devices between UPS, UPS Bank, and Floor PDU,
+So that NEC sites have a complete upstream power chain.
+Acceptance Criteria:
+Load devices exist for all NEC UPS → UPS Bank → Floor PDU
+Power chain validation passes
+No orphaned Floor PDUs
+Story 1.2: Create Floor PDU Panels
+Owner: Backend / Data Engineer
+Acceptance Criteria:
+Each Floor PDU has required panels
+Panel naming follows MSC standard
+Panels are created only where missing
+Story 1.3: Create Floor PDU Panel Breakers
+Owner: Backend / Data Engineer
+Acceptance Criteria:
+Breakers created under Floor PDU panels
+Breakers enable downstream RPP connection
+Breaker structure matches MSC reference
+✅ Feature 1 – Definition of Done
+End-to-end power chain exists up to Floor PDU
+No validation errors related to missing components
+Data ready for corrected breaker assignment
+🟦 FEATURE 2: Correct NEC Asset Data and Load Breaker Mapping (PLD)
+Feature Objective
+Correct NEC asset data issues (naming, hierarchy, redundancy) and load validated breaker assignments into PLD, aligned with ISP and DCPAC standards.
+📌 Scope (IN)
+Correct:
+Silicode conflicts
+RPP / panel naming mismatches
+Redundancy alignment (RPPA / RPPB)
+Room name mismatches
+Naming convention issues
+Load corrected breaker assignments into PLD
+Validate mapping against ISP
+🚫 Scope (OUT)
+No production import
+No structural power chain creation (handled in Feature 1)
+🧩 Stories under Feature 2
+Story 2.1: Correct NEC Location & Asset Naming Issues
+Owner: Data Analyst / Business + Tech
+Acceptance Criteria:
+NEC Silicodes are unique
+Room names match ISP
+Naming conventions normalized
+Story 2.2: Align RPP A/B Panels for Redundancy
+Owner: Backend / DCPAC SME
+Acceptance Criteria:
+RPPA and RPPB have identical panel names
+Redundancy pack works correctly
+Panel changes sync across A/B sides
+Story 2.3: Load Corrected Breaker Assignments into PLD
+Owner: Data Engineer
+Acceptance Criteria:
+All breakers map successfully
+No unmapped RPP / panel breakers
+PLD validation passes
+✅ Feature 2 – Definition of Done
+PLD contains only corrected NEC data
+100% breaker mapping success
+No ISP comparison errors
+🟦 FEATURE 3: Import NEC MVP Data into Production
+Feature Objective
+Safely deploy NEC MVP data into Production DCPAC without impacting existing MSC data.
+📌 Scope (IN)
+Import NEC MVP data from PLD to PROD
+Validate:
+Power chain integrity
+Redundancy behavior
+No MSC data regression
+Post-deployment verification
+🚫 Scope (OUT)
+No further data corrections
+No structural changes post-import
+🧩 Stories under Feature 3
+Story 3.1: Prepare NEC MVP Production Import
+Owner: Migration Lead
+Acceptance Criteria:
+PLD sign-off received
+Import checklist approved
+Rollback plan documented
+Story 3.2: Execute NEC Production Import
+Owner: DevOps / Migration Engineer
+Acceptance Criteria:
+NEC assets visible in PROD
+No MSC overwrite
+Import completes without errors
+Story 3.3: Post-Import Validation
+Owner: QA / Business
+Acceptance Criteria:
+Power chain verified
+Redundancy verified
+Business sign-off received
+✅ Feature 3 – Definition of Done
+NEC MVP live in PROD
+Business validation complete
+Migration closed for NEC MVP
+🔁 Suggested Assignment Model
+Role
+Feature
+Migration Lead
+Feature 3
+Backend / Data Engineers
+Feature 1 & 2
+DCPAC SME
+Feature 2
+QA / Business
+Feature 2 & 3
 If you want, next I can:
-Merge this section cleanly into the full mail and resend the final version, or
-Help you write a short WhatsApp / Slack message to accompany the mail saying “details are in the Google Sheet”.
+Convert this into Jira Epics + Stories JSON
+Create sprint-wise breakup
+Write exec-level MVP scope slide
+Create a RACI table for assignments
