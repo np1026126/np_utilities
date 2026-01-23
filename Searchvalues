@@ -1,6 +1,56 @@
-Gotcha 👍 You want one smooth paragraph, not bullet headings — something that reads naturally as user benefits. Here you go:
-User Benefits (Single flowing description)
-This feature removes reliance on planned HVAC values and presents only real, usable cooling capacity, allowing users to clearly understand how much cooling is actually available. By automatically accounting for anticipated heat load from equipment, it eliminates manual calculations and reduces the risk of overloading HVAC zones. With clear zone-level visibility into total cooling tons, available equipment, and remaining capacity, users can make faster, more accurate decisions when planning and placing new equipment.
-Slightly shorter version (if space is tight)
-This feature provides clear visibility into actual HVAC cooling availability by adjusting total capacity against anticipated heat load, enabling faster, safer equipment planning while eliminating manual calculations and guesswork.
-If you want it even simpler, more technical, or more executive-friendly, tell me the target audience (end user / architect / manager) and I’ll tune the language exactly for that.
+Got it — this reply needs to be firm, factual, and reference-backed, without sounding confrontational.
+The key is to separate “why DCTrack works this way” from “why the current data won’t work”, and politely close the loop on the screenshot they shared.
+Below is a professional response mail you can send back.
+Email
+Subject
+Clarification on RPP Panel Naming and DCTrack Mirroring Requirement
+Hi Andrji,
+Thanks for sharing the screenshot and the context on why the panel names were provided with the RPP name embedded.
+I want to clarify the behavior from a DCTrack implementation and system-rule perspective, so we are aligned on why the current naming will not support mirroring and redundancy as expected.
+How DCTrack Handles Redundancy and Panel Mirroring
+As per DCTrack design and the official Power Panel Mirroring documentation:
+Only Floor PDUs can be configured as a redundant pair
+In our migration model, RPPs are treated as Floor PDUs
+Once two Floor PDUs (RPPA and RPPB) are set as a redundant pair, DCTrack allows the Local Power Panels inside them to be mirrored
+For panel mirroring to work:
+The Local Power Panels under both sides must have the exact same panel name
+DCTrack uses the panel name as the matching key when performing mirroring
+Any difference in the panel name (including prefixing with RPP name) will prevent mirroring
+This is explicitly stated in the DCTrack documentation:
+“Local Power Panels to be mirrored must have the same name.”
+Why Unique Panel Names Per RPP Will Not Work
+I understand the intent behind making panel names unique by adding the RPP name (for example, RPPA1A, RPPB1A) to indicate association.
+However, in DCTrack:
+Panel uniqueness is already maintained by hierarchy (Floor PDU → Panel), not by name alone
+Mirroring logic does not rely on hierarchy, it relies strictly on panel name equality
+As a result, having different names across RPPA and RPPB:
+Breaks mirroring
+Prevents synchronized updates between A and B sides
+Defeats the redundancy behavior expected in DCPAC
+This is why, even though the naming improves readability, it is not compatible with DCTrack mirroring mechanics.
+Required Approach for NEC Migration
+To enable proper redundancy and mirroring for NEC sites (consistent with MSC migration and ISP):
+RPPs will be modeled as Floor PDUs
+RPPA and RPPB will be configured as a redundant pair
+Local Power Panels under both RPPA and RPPB must:
+Have identical names (for example, Panel A, Panel B, or Panel 1)
+Not embed the RPP name in the panel name
+DCTrack will then automatically mirror:
+Breakers
+Assignments
+Panel changes between A and B sides
+Summary
+The current NEC panel naming was likely provided with good intent for clarity
+However, due to DCTrack system rules, this naming prevents mirroring
+To support redundancy correctly, panel names must match exactly across RPPA and RPPB
+We are aligning NEC migration with:
+DCTrack implementation rules
+Official DCTrack documentation
+The same model successfully used for MSC sites
+Please let us know if you’d like to review this together or if you prefer we share a concrete before/after example from MSC to demonstrate the behavior.
+Thanks,
+Naveen
+If you want, I can also:
+Shorten this into a crisp executive reply
+Add direct DCTrack doc quotes/screenshots inline
+Create a one-slide visual explaining why names must match
