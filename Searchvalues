@@ -1,148 +1,31 @@
-Perfect 👍 — this is the right MVP breakdown.
-I’ll give you a clean, leadership-ready structure with:
-3 MVP Features (clear scope boundaries)
-What goes into each feature (in-scope / out-of-scope)
-Stories under each feature (ready for Jira)
-Acceptance criteria (Definition of Done)
-Who typically owns each story (assignment guidance)
-You can directly paste this into Jira / Rally / Azure Boards.
-🎯 NEC MIGRATION – MVP FEATURE BREAKDOWN
-🟦 FEATURE 1: Create Missing Power Chain Components for NEC Sites (Data Completion)
-Feature Objective
-Ensure all NEC sites have a complete and valid power chain by creating missing logical components required for mapping, without changing user-provided asset data.
-Why this feature is needed
-User-provided NEC data does not include:
-Load devices for UPS → UPS Bank → Floor PDU
-Floor PDU Panels
-Floor PDU Panel Breakers
-These are mandatory in DCPAC to form a valid power chain.
-📌 Scope (IN)
-Create Load Devices to map:
-UPS → UPS Bank
-UPS Bank → Floor PDU
-Create:
-Floor PDU Panels
-Floor PDU Panel Breakers
-Ensure consistency with MSC migration model
-No dependency on user data correction
-🚫 Scope (OUT)
-No renaming of user assets
-No breaker reassignment using corrected data
-No production import
-🧩 Stories under Feature 1
-Story 1.1: Create Load Devices for NEC Power Chain
-Owner: Backend / Migration Engineer
-Story:
-As a migration engineer,
-I want to create load devices between UPS, UPS Bank, and Floor PDU,
-So that NEC sites have a complete upstream power chain.
-Acceptance Criteria:
-Load devices exist for all NEC UPS → UPS Bank → Floor PDU
-Power chain validation passes
-No orphaned Floor PDUs
-Story 1.2: Create Floor PDU Panels
-Owner: Backend / Data Engineer
-Acceptance Criteria:
-Each Floor PDU has required panels
-Panel naming follows MSC standard
-Panels are created only where missing
-Story 1.3: Create Floor PDU Panel Breakers
-Owner: Backend / Data Engineer
-Acceptance Criteria:
-Breakers created under Floor PDU panels
-Breakers enable downstream RPP connection
-Breaker structure matches MSC reference
-✅ Feature 1 – Definition of Done
-End-to-end power chain exists up to Floor PDU
-No validation errors related to missing components
-Data ready for corrected breaker assignment
-🟦 FEATURE 2: Correct NEC Asset Data and Load Breaker Mapping (PLD)
-Feature Objective
-Correct NEC asset data issues (naming, hierarchy, redundancy) and load validated breaker assignments into PLD, aligned with ISP and DCPAC standards.
-📌 Scope (IN)
-Correct:
-Silicode conflicts
-RPP / panel naming mismatches
-Redundancy alignment (RPPA / RPPB)
-Room name mismatches
-Naming convention issues
-Load corrected breaker assignments into PLD
-Validate mapping against ISP
-🚫 Scope (OUT)
-No production import
-No structural power chain creation (handled in Feature 1)
-🧩 Stories under Feature 2
-Story 2.1: Correct NEC Location & Asset Naming Issues
-Owner: Data Analyst / Business + Tech
-Acceptance Criteria:
-NEC Silicodes are unique
-Room names match ISP
-Naming conventions normalized
-Story 2.2: Align RPP A/B Panels for Redundancy
-Owner: Backend / DCPAC SME
-Acceptance Criteria:
-RPPA and RPPB have identical panel names
-Redundancy pack works correctly
-Panel changes sync across A/B sides
-Story 2.3: Load Corrected Breaker Assignments into PLD
-Owner: Data Engineer
-Acceptance Criteria:
-All breakers map successfully
-No unmapped RPP / panel breakers
-PLD validation passes
-✅ Feature 2 – Definition of Done
-PLD contains only corrected NEC data
-100% breaker mapping success
-No ISP comparison errors
-🟦 FEATURE 3: Import NEC MVP Data into Production
-Feature Objective
-Safely deploy NEC MVP data into Production DCPAC without impacting existing MSC data.
-📌 Scope (IN)
-Import NEC MVP data from PLD to PROD
-Validate:
-Power chain integrity
-Redundancy behavior
-No MSC data regression
-Post-deployment verification
-🚫 Scope (OUT)
-No further data corrections
-No structural changes post-import
-🧩 Stories under Feature 3
-Story 3.1: Prepare NEC MVP Production Import
-Owner: Migration Lead
-Acceptance Criteria:
-PLD sign-off received
-Import checklist approved
-Rollback plan documented
-Story 3.2: Execute NEC Production Import
-Owner: DevOps / Migration Engineer
-Acceptance Criteria:
-NEC assets visible in PROD
-No MSC overwrite
-Import completes without errors
-Story 3.3: Post-Import Validation
-Owner: QA / Business
-Acceptance Criteria:
-Power chain verified
-Redundancy verified
-Business sign-off received
-✅ Feature 3 – Definition of Done
-NEC MVP live in PROD
-Business validation complete
-Migration closed for NEC MVP
-🔁 Suggested Assignment Model
-Role
-Feature
-Migration Lead
-Feature 3
-Backend / Data Engineers
-Feature 1 & 2
-DCPAC SME
-Feature 2
-QA / Business
-Feature 2 & 3
-If you want, next I can:
-Convert this into Jira Epics + Stories JSON
-Create sprint-wise breakup
-Write exec-level MVP scope slide
-Create a RACI table for assignments
+Got it 👍 You’re basically simplifying HVAC planning data and showing real, usable cooling capacity instead of confusing planned numbers. Let me translate this into clear, user-friendly feature text and benefits.
+🔹 Feature Description (2 concise lines – user facing)
+Option 1 (Simple & clear):
+This feature displays real-time HVAC cooling capacity by excluding planned values and calculating available tons after accounting for anticipated heat load. It helps users quickly understand usable cooling capacity at the zone level for better equipment planning.
+Option 2 (Slightly more functional):
+The HVAC summary shows total cooling tons, available equipment, zones, and remaining cooling capacity after subtracting anticipated heat load. This enables accurate assessment of cooling availability for new equipment placement.
+Option 3 (Very crisp – product style):
+Provides a consolidated HVAC view showing actual cooling availability by adjusting total capacity against anticipated heat load at the zone level.
+🔹 What exactly is shown (you can add as a tooltip or sub-text)
+The HVAC section displays:
+Total Cooling Tons
+Total Available Equipment
+Total Zones
+Remaining Cooling Capacity (after new heat load)
+(Calculated by subtracting anticipated heat generated by equipment from total HVAC capacity.)
+🔹 User Benefits (this is the key part 👍)
+🧑‍💼 Why this is useful for the user
+Removes confusion – Eliminates planned HVAC values and shows only actionable cooling data.
+Accurate capacity planning – Users can clearly see how much cooling is actually available after new heat loads.
+Faster decision-making – No manual calculations needed to check if a zone can support new equipment.
+Zone-level visibility – Helps users identify which zones have sufficient cooling capacity.
+Prevents overloading – Reduces risk of adding equipment beyond available cooling limits.
+🔹 Ultra-short benefit line (if you need just one line)
+Helps users quickly assess real cooling availability and safely plan new equipment based on actual heat capacity.
+🔹 If you want it more “executive-level”
+This enhancement improves HVAC capacity visibility by replacing planned values with calculated cooling availability, enabling safer and more accurate equipment placement decisions.
+If you want, I can:
+Rewrite this for Jira Feature / Story format
+Convert it into Release Notes language
+Make it more technical or more business-friendly
+Just tell me where this text will be used 👌
