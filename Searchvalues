@@ -1,17 +1,17 @@
-Got it 👍 — you want this very crisp, short, and factual, without long explanations, and with a clear close saying “if needed, we can discuss”.
-Here is a clean, professional, concise reply you can send.
-Email
-Subject
-Clarification on Panel Naming for Mirroring
-Hi Andrji,
-Thanks for sharing the screenshot.
-As per the DCTrack Power Panel Mirroring guidelines, panel mirroring works only when the Local Power Panels under the redundant RPPs have the exact same panel name. This is how DCTrack identifies and mirrors panels between the A and B sides.
-Only when panels are named identically:
-Mirroring can be enabled
-Any change done on one side is automatically reflected on the other side
-If the panel names are different (for example, embedding the RPP name in the panel), DCTrack will not be able to perform mirroring, and the redundancy behavior will not work as expected.
-For the current NEC migration, we will need the panel names to follow this rule to proceed.
-If a different naming approach is required, we can discuss it further as a team to evaluate possible alternatives.
-Thanks,
-Naveen
-If you want an even shorter Slack-style version, tell me — I can shrink this to 3–4 lines.
+Thanks for the questions — let me clarify point by point so we are aligned.
+Sunbird / RPPSM changes
+There has been no functional change made to RPPSM or DCTrack behavior. Any reference to transformer removal or diagram updates is documentation-level only and does not change how redundancy or mirroring works in the system.
+Local vs Remote Power Panels (naming behavior)
+As per DCTrack design:
+Local Power Panels (used under redundant Floor PDUs / RPPs) must have the exact same panel name on both sides for mirroring to work.
+If panel names are different, mirroring will not be enabled, and redundancy behavior will not function as expected.
+It is true that Remote Power Panels can be created with different names, as long as the names are unique within the given location.
+However, for the current NEC migration, panels under RPPs are intentionally modeled as Local Power Panels, as recommended by Sunbird and aligned with the MSC migration approach. Because of this, local-panel mirroring rules apply.
+Impact of future diagram or documentation revisions
+Even if diagrams or documentation are updated in future revisions, the DCTrack functionality remains unchanged. Local Power Panel mirroring will still require identical panel names.
+Panel differentiation during export / reporting
+Although panels may share the same name (e.g., “Panel A”), they are created under a specific Floor PDU (RPP).
+During export, DCTrack includes the Floor PDU (RPP) name as a parent column, which clearly identifies which RPP each panel belongs to. This is also visible in the DCTrack UI and one-line diagrams.
+So panel names do not need to be globally unique — uniqueness and traceability are maintained through the RPP (Floor PDU) association.
+For the current NEC migration, we will need to follow this approach to enable mirroring and redundancy.
+If a different approach is desired (for example, using Remote Panels instead of Local Panels), we can discuss it further with Sunbird as a separate design decision.
