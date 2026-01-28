@@ -1,17 +1,195 @@
-Thanks for the questions — let me clarify point by point so we are aligned.
-Sunbird / RPPSM changes
-There has been no functional change made to RPPSM or DCTrack behavior. Any reference to transformer removal or diagram updates is documentation-level only and does not change how redundancy or mirroring works in the system.
-Local vs Remote Power Panels (naming behavior)
-As per DCTrack design:
-Local Power Panels (used under redundant Floor PDUs / RPPs) must have the exact same panel name on both sides for mirroring to work.
-If panel names are different, mirroring will not be enabled, and redundancy behavior will not function as expected.
-It is true that Remote Power Panels can be created with different names, as long as the names are unique within the given location.
-However, for the current NEC migration, panels under RPPs are intentionally modeled as Local Power Panels, as recommended by Sunbird and aligned with the MSC migration approach. Because of this, local-panel mirroring rules apply.
-Impact of future diagram or documentation revisions
-Even if diagrams or documentation are updated in future revisions, the DCTrack functionality remains unchanged. Local Power Panel mirroring will still require identical panel names.
-Panel differentiation during export / reporting
-Although panels may share the same name (e.g., “Panel A”), they are created under a specific Floor PDU (RPP).
-During export, DCTrack includes the Floor PDU (RPP) name as a parent column, which clearly identifies which RPP each panel belongs to. This is also visible in the DCTrack UI and one-line diagrams.
-So panel names do not need to be globally unique — uniqueness and traceability are maintained through the RPP (Floor PDU) association.
-For the current NEC migration, we will need to follow this approach to enable mirroring and redundancy.
-If a different approach is desired (for example, using Remote Panels instead of Local Panels), we can discuss it further with Sunbird as a separate design decision.
+Got it 👍 — this is actually a very clean analytics problem, and what you want is 100% doable in Grafana with the data you already have. I’ll break this step-by-step, mapping your business logic → SQL → Grafana panels, so you can reproduce it (and even feed it to Copilot/Gemini confidently).
+1️⃣ First: Clearly define your STATUS BUCKETS (this is key)
+From what you explained (and from image #4), your raw PSC statuses map like this:
+🔴 Cancelled
+Cancelled
+🟢 Completed (ONLY these two)
+Complete - P/S/C Not Available, Alternate Site Req
+Complete - No P/S/HVAC work needed
+Note:
+PSC Not Available → Alternate Site Required = Power Needed
+No PSC / HVAC work needed = No issue
+🟡 In Progress (ALL others)
+P/S Planner Input
+PSC On Hold
+Send back to Requestor
+Waiting for Reviews
+So logically:
+Copy code
+Text
+TOTAL PSCs
+ ├── Completed (2 statuses)
+ ├── Cancelled (1 status)
+ └── In Progress (remaining 4 statuses)
+This classification must happen in SQL, not in Grafana UI.
+2️⃣ Base SQL: Create a derived STATUS_BUCKET
+You already have a good base query. We’ll wrap it and add a status_bucket.
+✅ Core query (foundation for all panels)
+Copy code
+Sql
+SELECT
+  pr.psc_job_id                             AS psc_id,
+  pr.created_time,
+  pr.close_time,
+  ps.status_name                           AS raw_status,
+
+  CASE
+    WHEN ps.status_name = 'Cancelled'
+      THEN 'Cancelled'
+
+    WHEN ps.status_name IN (
+      'Complete - P/S/C Not Available, Alternate Site Req',
+      'Complete - No P/S/HVAC work needed'
+    )
+      THEN 'Completed'
+
+    ELSE 'In Progress'
+  END AS status_bucket
+
+FROM psc_vetting_psc_requests pr
+JOIN psc_status ps
+  ON ps.status_id = pr.status_id
+WHERE pr.system_name = 'FUZE';
+👉 Save this — every Grafana panel will reuse this logic.
+3️⃣ Panel 1: TOTAL Requests + Overall Breakdown (Completed / In Progress / Cancelled)
+SQL (Count by bucket)
+Copy code
+Sql
+SELECT
+  status_bucket,
+  COUNT(*) AS total
+FROM (
+  -- base query here
+) t
+GROUP BY status_bucket;
+Grafana Panel
+Panel Type: Pie chart or Bar chart
+Legend: status_bucket
+Value: total
+Percentage: Enable “Show Percent”
+This gives:
+Total = 129
+Completed = 72 (56%)
+In Progress = 29 (22%)
+Cancelled = 28 (22%)
+✔ Matches your slide exactly.
+4️⃣ Panel 2: Completed Turnaround Buckets (5 / 10 / 20 / >20 days)
+Define turnaround bucket in SQL
+Copy code
+Sql
+SELECT
+  CASE
+    WHEN DATE(pr.close_time) - DATE(pr.created_time) <= 5
+      THEN 'Within 5 Days'
+    WHEN DATE(pr.close_time) - DATE(pr.created_time) BETWEEN 6 AND 10
+      THEN '5-10 Days'
+    WHEN DATE(pr.close_time) - DATE(pr.created_time) BETWEEN 11 AND 20
+      THEN '10-20 Days'
+    ELSE '>20 Days'
+  END AS turnaround_bucket,
+  COUNT(*) AS total
+FROM psc_vetting_psc_requests pr
+JOIN psc_status ps ON ps.status_id = pr.status_id
+WHERE ps.status_name IN (
+  'Complete - P/S/C Not Available, Alternate Site Req',
+  'Complete - No P/S/HVAC work needed'
+)
+GROUP BY turnaround_bucket;
+Grafana Panel
+Panel Type: Pie / Bar
+Legend: turnaround_bucket
+Unit: Percent
+Calculation: Percent of total
+✔ This builds the Aging bar in your first diagram.
+5️⃣ Panel 3: In-Progress Status Breakdown (Planner Input, On Hold, etc.)
+SQL
+Copy code
+Sql
+SELECT
+  ps.status_name,
+  COUNT(*) AS total
+FROM psc_vetting_psc_requests pr
+JOIN psc_status ps ON ps.status_id = pr.status_id
+WHERE ps.status_name NOT IN (
+  'Cancelled',
+  'Complete - P/S/C Not Available, Alternate Site Req',
+  'Complete - No P/S/HVAC work needed'
+)
+GROUP BY ps.status_name;
+Grafana Panel
+Panel Type: Horizontal Bar
+Sort: Descending
+Show Percent: Yes
+This matches:
+Waiting for Planner Input – 72%
+Sent Back to Requestor – 18%
+On Hold – 7%
+Waiting for Review – 3%
+6️⃣ Panel 4: Power / Space / HVAC (Optional Deep-Dive)
+If Power/Space/HVAC are coming from PSC Equipment / Attribute tables, you can split:
+Copy code
+Sql
+SELECT
+  issue_type,
+  COUNT(*) AS total
+FROM psc_equipment_details
+WHERE psc_job_id IN (
+  SELECT psc_job_id
+  FROM psc_vetting_psc_requests pr
+  JOIN psc_status ps ON ps.status_id = pr.status_id
+  WHERE ps.status_name = 'Complete - P/S/C Not Available, Alternate Site Req'
+)
+GROUP BY issue_type;
+Then visualize as donut charts (like your slide).
+7️⃣ Time-Series Panel: Requests Trend (your last screenshot)
+SQL
+Copy code
+Sql
+SELECT
+  DATE(pr.created_time) AS day,
+  COUNT(*) AS total_requests
+FROM psc_vetting_psc_requests pr
+WHERE pr.system_name = 'FUZE'
+GROUP BY DATE(pr.created_time)
+ORDER BY day;
+Grafana Panel
+Panel Type: Time Series
+X-Axis: Time
+Y-Axis: Total Requests
+✔ This is exactly what you already have running.
+8️⃣ Dashboard Structure (Recommended)
+Copy code
+
+Row 1: KPIs
+  - Total Requests
+  - % Completed
+  - % In Progress
+  - % Cancelled
+
+Row 2: Status Breakdown
+  - Pie: Completed / In Progress / Cancelled
+  - Bar: In-Progress Statuses
+
+Row 3: Completed Aging
+  - Bar / Pie: 5 / 10 / 20 / >20 days
+
+Row 4: Trend
+  - Time Series: Requests over time
+9️⃣ Why this works well in Grafana
+✔ Business logic handled in SQL
+✔ Grafana only visualizes
+✔ Easy to reuse queries
+✔ Easy to explain to leadership
+✔ Easy to hand over to Copilot / Gemini
+10️⃣ What you can paste into Copilot / Gemini
+You can literally paste this prompt:
+“Create Grafana SQL queries and dashboard panels for PSC requests.
+Status rules: Cancelled = Cancelled, Completed = 2 specific statuses, remaining = In Progress.
+Create turnaround buckets based on created_date vs closed_date.
+Output: total counts, percentages, aging, and in-progress breakdown.”
+It will give you almost identical SQL.
+If you want, next we can:
+Convert this into one reusable CTE
+Build Grafana variables (Market, Region, Date)
+Or help you replicate your exact PowerPoint slide 1:1 in Grafana
+Just tell me 👍
