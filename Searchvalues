@@ -1,195 +1,81 @@
-Got it 👍 — this is actually a very clean analytics problem, and what you want is 100% doable in Grafana with the data you already have. I’ll break this step-by-step, mapping your business logic → SQL → Grafana panels, so you can reproduce it (and even feed it to Copilot/Gemini confidently).
-1️⃣ First: Clearly define your STATUS BUCKETS (this is key)
-From what you explained (and from image #4), your raw PSC statuses map like this:
-🔴 Cancelled
-Cancelled
-🟢 Completed (ONLY these two)
-Complete - P/S/C Not Available, Alternate Site Req
-Complete - No P/S/HVAC work needed
-Note:
-PSC Not Available → Alternate Site Required = Power Needed
-No PSC / HVAC work needed = No issue
-🟡 In Progress (ALL others)
-P/S Planner Input
-PSC On Hold
-Send back to Requestor
-Waiting for Reviews
-So logically:
+Here’s a copy-paste prompt you can give to Google Gemini / Copilot (attach all your screenshots along with it). I’m writing it in a way that forces the tool to (1) respect your exact status mapping, (2) generate Postgres-safe SQL, and (3) tell you exactly which Grafana panels + settings to use.
+✅ Prompt to paste in Google Gemini / Copilot (with screenshots)
 Copy code
 Text
-TOTAL PSCs
- ├── Completed (2 statuses)
- ├── Cancelled (1 status)
- └── In Progress (remaining 4 statuses)
-This classification must happen in SQL, not in Grafana UI.
-2️⃣ Base SQL: Create a derived STATUS_BUCKET
-You already have a good base query. We’ll wrap it and add a status_bucket.
-✅ Core query (foundation for all panels)
+You are helping me build a Grafana dashboard for “1PSC Wireless Requests Summary” after migration.
+
+CONTEXT:
+- Data is in PostgreSQL.
+- I already have a working base query (see screenshot of SQL Query tab in Google Sheet / Grafana).
+- I want the same metrics shown in my “Wireless Requests Summary” PowerPoint slide.
+- I will attach screenshots:
+  1) Slide screenshot showing Total Requests, Completed/In Progress/Cancelled, Aging breakdown, In-progress breakdown.
+  2) Google Sheet screenshot showing the raw statuses and their counts.
+  3) The SQL query screenshot I’m currently using.
+  4) Pivot screenshot that confirms the counts per raw status.
+
+IMPORTANT BUSINESS RULES (MUST FOLLOW EXACTLY):
+1) Total Requests (Total PSC Jobs) = count of PSC jobs returned by the base dataset for system_name='FUZE' (and any other filters shown in my query).
+2) Cancelled bucket:
+   - raw_status = 'Cancelled'  → bucket = 'Cancelled'
+3) Completed bucket (ONLY these two raw statuses are considered completed):
+   - 'Complete - P/S/C Not Available, Alternate Site Req'
+   - 'Complete - No P/S/HVAC work needed'
+   Everything else is NOT completed.
+4) In Progress bucket (ALL remaining raw statuses):
+   - 'P/S Planner Input'
+   - 'PSC On Hold'
+   - 'Send back to Requestor'
+   - 'Waiting for Reviews'
+   (If any other raw status exists in data, include it in In Progress unless it is one of the Completed or Cancelled statuses above.)
+5) “Power Needed” metric inside Completed:
+   - Among COMPLETED records, if raw_status = 'Complete - P/S/C Not Available, Alternate Site Req' → Power Needed = YES
+   - If raw_status = 'Complete - No P/S/HVAC work needed' → Power Needed = NO
+6) Completed Aging buckets (only for Completed records):
+   - Calculate days_taken = (close_date - created_date) in DAYS
+   - Bucket rules:
+       a) <= 5 days → 'Within 5 Days'
+       b) 6 to 10 → '5-10 Days'
+       c) 11 to 20 → '10-20 Days'
+       d) > 20 → '>20 Days'
+   - Return both COUNT and PERCENTAGE of total Completed in each bucket.
+7) In Progress breakdown (only for In Progress records):
+   - Return count and percentage for each of the 4 in-progress raw statuses listed above (and include any extra in-progress raw status if present).
+8) Cancelled percentage:
+   - Cancelled count / Total count.
+
+WHAT I NEED AS OUTPUT (VERY IMPORTANT):
+A) First, show me how to structure the SQL in Postgres using a WITH clause (CTE) named base, where base returns:
+   - psc_job_id (or unique job id)
+   - created_time
+   - close_time
+   - raw_status (status_name)
+   - any other key columns needed for filters
+B) Then write 5 separate FINAL SQL queries (Postgres compatible) that I can paste into Grafana panels:
+   1) Total Requests count
+   2) Completed / In Progress / Cancelled counts + percentages (single query)
+   3) Completed Aging buckets counts + percentages
+   4) Completed Power Needed vs Not Needed counts + percentages
+   5) In Progress status breakdown counts + percentages
+C) Each query must be Grafana-friendly:
+   - Return columns with clear names like label, count, pct.
+   - Do not use database-specific functions that won’t work in Postgres.
+   - Use DATE or EXTRACT(EPOCH) where needed to compute day difference correctly.
+D) Finally, tell me exactly how to configure each Grafana panel:
+   - Recommended panel type (Pie/Bar/Stat/Table)
+   - Which field to use as legend/category
+   - Which field to use as value
+   - How to show percentage (Grafana transformation/calculation if needed)
+
+CONSTRAINTS:
+- Assume duplicates may exist unless psc_job_id is unique; if duplicates can occur, use COUNT(DISTINCT psc_job_id).
+- Use the same filters as my base query screenshot (system_name, date range, joins).
+- If you need assumptions about table names/joins, infer them from my screenshots and clearly state the assumption.
+
+Now generate the SQL + Grafana steps.
+Tiny tip while pasting screenshots
+If Copilot/Gemini misses the exact status strings, add this line at the end:
 Copy code
-Sql
-SELECT
-  pr.psc_job_id                             AS psc_id,
-  pr.created_time,
-  pr.close_time,
-  ps.status_name                           AS raw_status,
-
-  CASE
-    WHEN ps.status_name = 'Cancelled'
-      THEN 'Cancelled'
-
-    WHEN ps.status_name IN (
-      'Complete - P/S/C Not Available, Alternate Site Req',
-      'Complete - No P/S/HVAC work needed'
-    )
-      THEN 'Completed'
-
-    ELSE 'In Progress'
-  END AS status_bucket
-
-FROM psc_vetting_psc_requests pr
-JOIN psc_status ps
-  ON ps.status_id = pr.status_id
-WHERE pr.system_name = 'FUZE';
-👉 Save this — every Grafana panel will reuse this logic.
-3️⃣ Panel 1: TOTAL Requests + Overall Breakdown (Completed / In Progress / Cancelled)
-SQL (Count by bucket)
-Copy code
-Sql
-SELECT
-  status_bucket,
-  COUNT(*) AS total
-FROM (
-  -- base query here
-) t
-GROUP BY status_bucket;
-Grafana Panel
-Panel Type: Pie chart or Bar chart
-Legend: status_bucket
-Value: total
-Percentage: Enable “Show Percent”
-This gives:
-Total = 129
-Completed = 72 (56%)
-In Progress = 29 (22%)
-Cancelled = 28 (22%)
-✔ Matches your slide exactly.
-4️⃣ Panel 2: Completed Turnaround Buckets (5 / 10 / 20 / >20 days)
-Define turnaround bucket in SQL
-Copy code
-Sql
-SELECT
-  CASE
-    WHEN DATE(pr.close_time) - DATE(pr.created_time) <= 5
-      THEN 'Within 5 Days'
-    WHEN DATE(pr.close_time) - DATE(pr.created_time) BETWEEN 6 AND 10
-      THEN '5-10 Days'
-    WHEN DATE(pr.close_time) - DATE(pr.created_time) BETWEEN 11 AND 20
-      THEN '10-20 Days'
-    ELSE '>20 Days'
-  END AS turnaround_bucket,
-  COUNT(*) AS total
-FROM psc_vetting_psc_requests pr
-JOIN psc_status ps ON ps.status_id = pr.status_id
-WHERE ps.status_name IN (
-  'Complete - P/S/C Not Available, Alternate Site Req',
-  'Complete - No P/S/HVAC work needed'
-)
-GROUP BY turnaround_bucket;
-Grafana Panel
-Panel Type: Pie / Bar
-Legend: turnaround_bucket
-Unit: Percent
-Calculation: Percent of total
-✔ This builds the Aging bar in your first diagram.
-5️⃣ Panel 3: In-Progress Status Breakdown (Planner Input, On Hold, etc.)
-SQL
-Copy code
-Sql
-SELECT
-  ps.status_name,
-  COUNT(*) AS total
-FROM psc_vetting_psc_requests pr
-JOIN psc_status ps ON ps.status_id = pr.status_id
-WHERE ps.status_name NOT IN (
-  'Cancelled',
-  'Complete - P/S/C Not Available, Alternate Site Req',
-  'Complete - No P/S/HVAC work needed'
-)
-GROUP BY ps.status_name;
-Grafana Panel
-Panel Type: Horizontal Bar
-Sort: Descending
-Show Percent: Yes
-This matches:
-Waiting for Planner Input – 72%
-Sent Back to Requestor – 18%
-On Hold – 7%
-Waiting for Review – 3%
-6️⃣ Panel 4: Power / Space / HVAC (Optional Deep-Dive)
-If Power/Space/HVAC are coming from PSC Equipment / Attribute tables, you can split:
-Copy code
-Sql
-SELECT
-  issue_type,
-  COUNT(*) AS total
-FROM psc_equipment_details
-WHERE psc_job_id IN (
-  SELECT psc_job_id
-  FROM psc_vetting_psc_requests pr
-  JOIN psc_status ps ON ps.status_id = pr.status_id
-  WHERE ps.status_name = 'Complete - P/S/C Not Available, Alternate Site Req'
-)
-GROUP BY issue_type;
-Then visualize as donut charts (like your slide).
-7️⃣ Time-Series Panel: Requests Trend (your last screenshot)
-SQL
-Copy code
-Sql
-SELECT
-  DATE(pr.created_time) AS day,
-  COUNT(*) AS total_requests
-FROM psc_vetting_psc_requests pr
-WHERE pr.system_name = 'FUZE'
-GROUP BY DATE(pr.created_time)
-ORDER BY day;
-Grafana Panel
-Panel Type: Time Series
-X-Axis: Time
-Y-Axis: Total Requests
-✔ This is exactly what you already have running.
-8️⃣ Dashboard Structure (Recommended)
-Copy code
-
-Row 1: KPIs
-  - Total Requests
-  - % Completed
-  - % In Progress
-  - % Cancelled
-
-Row 2: Status Breakdown
-  - Pie: Completed / In Progress / Cancelled
-  - Bar: In-Progress Statuses
-
-Row 3: Completed Aging
-  - Bar / Pie: 5 / 10 / 20 / >20 days
-
-Row 4: Trend
-  - Time Series: Requests over time
-9️⃣ Why this works well in Grafana
-✔ Business logic handled in SQL
-✔ Grafana only visualizes
-✔ Easy to reuse queries
-✔ Easy to explain to leadership
-✔ Easy to hand over to Copilot / Gemini
-10️⃣ What you can paste into Copilot / Gemini
-You can literally paste this prompt:
-“Create Grafana SQL queries and dashboard panels for PSC requests.
-Status rules: Cancelled = Cancelled, Completed = 2 specific statuses, remaining = In Progress.
-Create turnaround buckets based on created_date vs closed_date.
-Output: total counts, percentages, aging, and in-progress breakdown.”
-It will give you almost identical SQL.
-If you want, next we can:
-Convert this into one reusable CTE
-Build Grafana variables (Market, Region, Date)
-Or help you replicate your exact PowerPoint slide 1:1 in Grafana
-Just tell me 👍
+Text
+Use EXACT status text from my screenshot. Do not rename statuses.
+If you want, paste here the exact SQL from your screenshot (text form). I’ll rewrite it into the correct CTE + 5 Grafana queries in one shot, matching your tables/joins exactly.
