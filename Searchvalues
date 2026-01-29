@@ -1,81 +1,114 @@
-Here’s a copy-paste prompt you can give to Google Gemini / Copilot (attach all your screenshots along with it). I’m writing it in a way that forces the tool to (1) respect your exact status mapping, (2) generate Postgres-safe SQL, and (3) tell you exactly which Grafana panels + settings to use.
-✅ Prompt to paste in Google Gemini / Copilot (with screenshots)
+Got it. You want one Postgres query that, given a base location location_code (ex: 'AANAGA'), returns the full hierarchy under it (floors → rooms → cages → …) using:
+location_uuid = unique id for each node
+parent_loc_uuid = points to the parent’s location_uuid
+element_type = tells whether it’s BaseLocation / Floor / Room / Cage / etc.
+Below is a ready-to-paste prompt for Gemini/Copilot, and it already includes the exact recursive CTE query pattern.
+Prompt to paste in Gemini / Copilot (with your screenshot)
+Copy-paste this exactly (and attach the screenshot):
 Copy code
-Text
-You are helping me build a Grafana dashboard for “1PSC Wireless Requests Summary” after migration.
 
-CONTEXT:
-- Data is in PostgreSQL.
-- I already have a working base query (see screenshot of SQL Query tab in Google Sheet / Grafana).
-- I want the same metrics shown in my “Wireless Requests Summary” PowerPoint slide.
-- I will attach screenshots:
-  1) Slide screenshot showing Total Requests, Completed/In Progress/Cancelled, Aging breakdown, In-progress breakdown.
-  2) Google Sheet screenshot showing the raw statuses and their counts.
-  3) The SQL query screenshot I’m currently using.
-  4) Pivot screenshot that confirms the counts per raw status.
+You are a PostgreSQL expert.
 
-IMPORTANT BUSINESS RULES (MUST FOLLOW EXACTLY):
-1) Total Requests (Total PSC Jobs) = count of PSC jobs returned by the base dataset for system_name='FUZE' (and any other filters shown in my query).
-2) Cancelled bucket:
-   - raw_status = 'Cancelled'  → bucket = 'Cancelled'
-3) Completed bucket (ONLY these two raw statuses are considered completed):
-   - 'Complete - P/S/C Not Available, Alternate Site Req'
-   - 'Complete - No P/S/HVAC work needed'
-   Everything else is NOT completed.
-4) In Progress bucket (ALL remaining raw statuses):
-   - 'P/S Planner Input'
-   - 'PSC On Hold'
-   - 'Send back to Requestor'
-   - 'Waiting for Reviews'
-   (If any other raw status exists in data, include it in In Progress unless it is one of the Completed or Cancelled statuses above.)
-5) “Power Needed” metric inside Completed:
-   - Among COMPLETED records, if raw_status = 'Complete - P/S/C Not Available, Alternate Site Req' → Power Needed = YES
-   - If raw_status = 'Complete - No P/S/HVAC work needed' → Power Needed = NO
-6) Completed Aging buckets (only for Completed records):
-   - Calculate days_taken = (close_date - created_date) in DAYS
-   - Bucket rules:
-       a) <= 5 days → 'Within 5 Days'
-       b) 6 to 10 → '5-10 Days'
-       c) 11 to 20 → '10-20 Days'
-       d) > 20 → '>20 Days'
-   - Return both COUNT and PERCENTAGE of total Completed in each bucket.
-7) In Progress breakdown (only for In Progress records):
-   - Return count and percentage for each of the 4 in-progress raw statuses listed above (and include any extra in-progress raw status if present).
-8) Cancelled percentage:
-   - Cancelled count / Total count.
+I have a table named psc_site_code_info that stores a location hierarchy (Base Location -> Floor -> Room -> Cage -> etc).
+Columns (names exactly):
+- location_uuid (uuid): unique id for every node (base/floor/room/etc)
+- parent_loc_uuid (uuid): parent pointer. For a child node, parent_loc_uuid = parent's location_uuid. Base location has parent_loc_uuid = NULL.
+- location_code (text): location identifier (example base location code: 'AANAGA')
+- element_type (text): type of node (examples: BaseLocation, Floor, Room, Cage, ...)
 
-WHAT I NEED AS OUTPUT (VERY IMPORTANT):
-A) First, show me how to structure the SQL in Postgres using a WITH clause (CTE) named base, where base returns:
-   - psc_job_id (or unique job id)
-   - created_time
-   - close_time
-   - raw_status (status_name)
-   - any other key columns needed for filters
-B) Then write 5 separate FINAL SQL queries (Postgres compatible) that I can paste into Grafana panels:
-   1) Total Requests count
-   2) Completed / In Progress / Cancelled counts + percentages (single query)
-   3) Completed Aging buckets counts + percentages
-   4) Completed Power Needed vs Not Needed counts + percentages
-   5) In Progress status breakdown counts + percentages
-C) Each query must be Grafana-friendly:
-   - Return columns with clear names like label, count, pct.
-   - Do not use database-specific functions that won’t work in Postgres.
-   - Use DATE or EXTRACT(EPOCH) where needed to compute day difference correctly.
-D) Finally, tell me exactly how to configure each Grafana panel:
-   - Recommended panel type (Pie/Bar/Stat/Table)
-   - Which field to use as legend/category
-   - Which field to use as value
-   - How to show percentage (Grafana transformation/calculation if needed)
+Goal:
+Given a base location's location_code (example: 'AANAGA'), write a PostgreSQL query that returns the entire subtree under that base location:
+- include the base location row and all descendants at any depth
+- show level/depth (0 for base, 1 for its children, etc)
+- show a readable path (like Base -> Floor -> Room -> ...)
+- order results by path so hierarchy is readable
 
-CONSTRAINTS:
-- Assume duplicates may exist unless psc_job_id is unique; if duplicates can occur, use COUNT(DISTINCT psc_job_id).
-- Use the same filters as my base query screenshot (system_name, date range, joins).
-- If you need assumptions about table names/joins, infer them from my screenshots and clearly state the assumption.
+Use a recursive CTE (WITH RECURSIVE).
 
-Now generate the SQL + Grafana steps.
-Tiny tip while pasting screenshots
-If Copilot/Gemini misses the exact status strings, add this line at the end:
+Also provide:
+1) a second query that only returns descendants (excluding base)
+2) index suggestions to make this fast (especially on parent_loc_uuid and location_code)
+
+IMPORTANT: The base record must be identified using location_code='AANAGA' AND element_type='BaseLocation' (or element_type='BaseLocation' if needed).
+Return columns: depth, location_uuid, parent_loc_uuid, location_code, element_type, path.
+The actual Postgres query you want (so you can use immediately)
+1) Full hierarchy including base (best default)
 Copy code
-Text
-Use EXACT status text from my screenshot. Do not rename statuses.
-If you want, paste here the exact SQL from your screenshot (text form). I’ll rewrite it into the correct CTE + 5 Grafana queries in one shot, matching your tables/joins exactly.
+Sql
+WITH RECURSIVE loc_tree AS (
+  -- Anchor: base location
+  SELECT
+      0 AS depth,
+      t.location_uuid,
+      t.parent_loc_uuid,
+      t.location_code,
+      t.element_type,
+      (t.location_code || ' [' || t.element_type || ']')::text AS path
+  FROM psc_site_code_info t
+  WHERE t.location_code = 'AANAGA'
+    AND t.element_type = 'BaseLocation'
+
+  UNION ALL
+
+  -- Children
+  SELECT
+      lt.depth + 1 AS depth,
+      c.location_uuid,
+      c.parent_loc_uuid,
+      c.location_code,
+      c.element_type,
+      (lt.path || ' -> ' || c.location_code || ' [' || c.element_type || ']') AS path
+  FROM psc_site_code_info c
+  JOIN loc_tree lt
+    ON c.parent_loc_uuid = lt.location_uuid
+)
+SELECT
+    depth, location_uuid, parent_loc_uuid, location_code, element_type, path
+FROM loc_tree
+ORDER BY path;
+2) Descendants only (exclude base)
+Copy code
+Sql
+WITH RECURSIVE loc_tree AS (
+  SELECT
+      0 AS depth,
+      t.location_uuid,
+      t.parent_loc_uuid,
+      t.location_code,
+      t.element_type,
+      (t.location_code || ' [' || t.element_type || ']')::text AS path
+  FROM psc_site_code_info t
+  WHERE t.location_code = 'AANAGA'
+    AND t.element_type = 'BaseLocation'
+
+  UNION ALL
+
+  SELECT
+      lt.depth + 1 AS depth,
+      c.location_uuid,
+      c.parent_loc_uuid,
+      c.location_code,
+      c.element_type,
+      (lt.path || ' -> ' || c.location_code || ' [' || c.element_type || ']') AS path
+  FROM psc_site_code_info c
+  JOIN loc_tree lt
+    ON c.parent_loc_uuid = lt.location_uuid
+)
+SELECT
+    depth, location_uuid, parent_loc_uuid, location_code, element_type, path
+FROM loc_tree
+WHERE depth > 0
+ORDER BY path;
+3) Indexes (important for performance)
+Copy code
+Sql
+CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_parent
+  ON psc_site_code_info(parent_loc_uuid);
+
+CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_location_code
+  ON psc_site_code_info(location_code);
+
+-- Optional if you always filter base by both:
+CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_code_type
+  ON psc_site_code_info(location_code, element_type);
+If your location_code for floors/rooms is something like AANAGA > FLOOR 1 etc, and only base has exact AANAGA, then the anchor filter I used is perfect. If instead multiple rows share the same location_code='AANAGA', tell me what distinguishes the base row (sometimes parent_loc_uuid IS NULL), and I’ll adjust the anchor condition.
