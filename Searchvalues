@@ -1,114 +1,77 @@
-Got it. You want one Postgres query that, given a base location location_code (ex: 'AANAGA'), returns the full hierarchy under it (floors → rooms → cages → …) using:
-location_uuid = unique id for each node
-parent_loc_uuid = points to the parent’s location_uuid
-element_type = tells whether it’s BaseLocation / Floor / Room / Cage / etc.
-Below is a ready-to-paste prompt for Gemini/Copilot, and it already includes the exact recursive CTE query pattern.
-Prompt to paste in Gemini / Copilot (with your screenshot)
-Copy-paste this exactly (and attach the screenshot):
+You can ask Copilot in a way that forces it to do root-cause analysis + exact code diff, not just generic advice. Below are copy-paste prompts you can use (pick one). I’m writing them assuming Spring Boot + JPA/Hibernate and your column is is_active in DB.
+Prompt (best) — “Debug why DB has N but API gets null”
+Paste this first, then paste your code + entity + DTO mapping + repository query.
 Copy code
+Text
+Act as a senior Spring Boot + JPA/Hibernate engineer.
 
-You are a PostgreSQL expert.
+Problem:
+We have a location hierarchy table (base -> floor -> room...). We introduced “virtual floors”. Virtual floors must stay in DB but must NOT appear in GetSiteDetails API response.
+Virtual floors are identified by is_active = 'N'. Base location rows have is_active='Y'. Other sub-locations usually have is_active NULL.
 
-I have a table named psc_site_code_info that stores a location hierarchy (Base Location -> Floor -> Room -> Cage -> etc).
-Columns (names exactly):
-- location_uuid (uuid): unique id for every node (base/floor/room/etc)
-- parent_loc_uuid (uuid): parent pointer. For a child node, parent_loc_uuid = parent's location_uuid. Base location has parent_loc_uuid = NULL.
-- location_code (text): location identifier (example base location code: 'AANAGA')
-- element_type (text): type of node (examples: BaseLocation, Floor, Room, Cage, ...)
+Issue:
+Even though DB has is_active='N' for virtual floors, in the API response and in Java objects the isActive flag always comes as NULL, so our filter (if isActive == 'N' then skip) never triggers and virtual floors still appear.
 
-Goal:
-Given a base location's location_code (example: 'AANAGA'), write a PostgreSQL query that returns the entire subtree under that base location:
-- include the base location row and all descendants at any depth
-- show level/depth (0 for base, 1 for its children, etc)
-- show a readable path (like Base -> Floor -> Room -> ...)
-- order results by path so hierarchy is readable
+Implementation details:
+- We query only the base location row from DB.
+- Because of JPA one-to-many relationship (subLocations collection), Hibernate automatically pulls all children too.
+- After fetching, we loop through children and filter out where isActive == 'N', but we always see null.
 
-Use a recursive CTE (WITH RECURSIVE).
+Your tasks:
+1) Inspect the code I paste and identify the exact reason why is_active='N' in DB becomes null in the entity/response.
+2) Provide the precise code changes (diff-style) to fix it.
+3) Ensure virtual floors are excluded but normal floors/rooms with NULL is_active still appear.
+4) Mention if @Column mapping, getter/setter, Lombok, JSON mapping, DTO conversion, fetch type, or custom query/projection is causing the null.
+5) Provide a safe approach: filtering at query level OR at serialization level, and recommend which is best.
 
-Also provide:
-1) a second query that only returns descendants (excluding base)
-2) index suggestions to make this fast (especially on parent_loc_uuid and location_code)
-
-IMPORTANT: The base record must be identified using location_code='AANAGA' AND element_type='BaseLocation' (or element_type='BaseLocation' if needed).
-Return columns: depth, location_uuid, parent_loc_uuid, location_code, element_type, path.
-The actual Postgres query you want (so you can use immediately)
-1) Full hierarchy including base (best default)
+Here is the code (Entity + Repository + Service + Mapper/DTO + Controller). Please analyze carefully:
+<PASTE CODE HERE>
+Prompt (short) — “Give me the minimal fix”
 Copy code
-Sql
-WITH RECURSIVE loc_tree AS (
-  -- Anchor: base location
-  SELECT
-      0 AS depth,
-      t.location_uuid,
-      t.parent_loc_uuid,
-      t.location_code,
-      t.element_type,
-      (t.location_code || ' [' || t.element_type || ']')::text AS path
-  FROM psc_site_code_info t
-  WHERE t.location_code = 'AANAGA'
-    AND t.element_type = 'BaseLocation'
+Text
+Read my Spring Boot/JPA code below. DB has is_active='N' for virtual floors, but in Java entity it is always null. Find the bug and give me the exact fix. Also ensure only virtual floors are hidden; other children with null is_active should remain.
 
-  UNION ALL
-
-  -- Children
-  SELECT
-      lt.depth + 1 AS depth,
-      c.location_uuid,
-      c.parent_loc_uuid,
-      c.location_code,
-      c.element_type,
-      (lt.path || ' -> ' || c.location_code || ' [' || c.element_type || ']') AS path
-  FROM psc_site_code_info c
-  JOIN loc_tree lt
-    ON c.parent_loc_uuid = lt.location_uuid
-)
-SELECT
-    depth, location_uuid, parent_loc_uuid, location_code, element_type, path
-FROM loc_tree
-ORDER BY path;
-2) Descendants only (exclude base)
+<PASTE ENTITY + MAPPING + REPO QUERY + DTO MAPPER HERE>
+Prompt (query-level fix) — “Exclude virtual floors in JPA fetch”
+If you want Copilot to propose a query-only fix (best long term), use this:
 Copy code
-Sql
-WITH RECURSIVE loc_tree AS (
-  SELECT
-      0 AS depth,
-      t.location_uuid,
-      t.parent_loc_uuid,
-      t.location_code,
-      t.element_type,
-      (t.location_code || ' [' || t.element_type || ']')::text AS path
-  FROM psc_site_code_info t
-  WHERE t.location_code = 'AANAGA'
-    AND t.element_type = 'BaseLocation'
+Text
+I want to exclude “virtual floors” (is_active='N') from the hierarchy returned in GetSiteDetails, but keep them in DB.
 
-  UNION ALL
+We load base location entity and its children via @OneToMany. Suggest the best JPA/Hibernate approach to avoid bringing virtual floors at all:
+- Option A: modify repository query using JOIN FETCH with condition
+- Option B: @Where clause on child collection
+- Option C: entity graph + custom query
+- Option D: DTO projection query
 
-  SELECT
-      lt.depth + 1 AS depth,
-      c.location_uuid,
-      c.parent_loc_uuid,
-      c.location_code,
-      c.element_type,
-      (lt.path || ' -> ' || c.location_code || ' [' || c.element_type || ']') AS path
-  FROM psc_site_code_info c
-  JOIN loc_tree lt
-    ON c.parent_loc_uuid = lt.location_uuid
-)
-SELECT
-    depth, location_uuid, parent_loc_uuid, location_code, element_type, path
-FROM loc_tree
-WHERE depth > 0
-ORDER BY path;
-3) Indexes (important for performance)
-Copy code
-Sql
-CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_parent
-  ON psc_site_code_info(parent_loc_uuid);
-
-CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_location_code
-  ON psc_site_code_info(location_code);
-
--- Optional if you always filter base by both:
-CREATE INDEX IF NOT EXISTS idx_psc_site_code_info_code_type
-  ON psc_site_code_info(location_code, element_type);
-If your location_code for floors/rooms is something like AANAGA > FLOOR 1 etc, and only base has exact AANAGA, then the anchor filter I used is perfect. If instead multiple rows share the same location_code='AANAGA', tell me what distinguishes the base row (sometimes parent_loc_uuid IS NULL), and I’ll adjust the anchor condition.
+Give final code for the best option + explain why.
+Constraints:
+- Only virtual floors are N. Other sub-locations have is_active NULL and must still be returned.
+- Base location must be is_active='Y'.
+<PASTE ENTITY/REPO HERE>
+What to paste along with the prompt (important)
+To get a correct fix, paste these pieces (in this order):
+Entity for psc_site_code_info (show the field mapping for isActive / is_active)
+The @OneToMany / @ManyToOne mapping (where children are loaded)
+Repository method used by GetSiteDetails (JPQL/native query)
+Service logic: loop/filter logic that checks isActive == 'N'
+DTO + mapper code (MapStruct/manual) and JSON annotations if any
+Likely root causes (so you know what Copilot should look for)
+Based on your description, the common reasons DB value 'N' becomes null in Java are:
+Wrong @Column name: entity maps isActive to isActiveFlag but DB is is_active (or vice versa)
+Field type mismatch: DB char(1) but entity is Boolean / boolean (so 'N' doesn’t map and becomes null)
+Setter/getter issue / Lombok: custom getter returns something else or no setter so Hibernate can’t populate
+DTO mapping overwriting it to null (mapper not mapping isActive, or setting null deliberately)
+Jackson annotation like @JsonInclude(NON_NULL) only hides it in JSON (but you said it’s null even in loop, so earlier)
+Children are loaded via different query/projection that doesn’t include is_active column, so Hibernate sets it null
+insertable=false, updatable=false on the column without the real column mapped elsewhere (rare but happens)
+One more very practical tip
+Tell Copilot exactly what you want filter logic to be:
+✅ You want to hide only virtual floors:
+Skip when isActive == 'N'
+Keep when isActive is NULL (normal floors/rooms)
+Base must be isActive == 'Y'
+So your check should be like:
+if ("N".equalsIgnoreCase(child.getIsActive())) skip;
+(not child.getIsActive().equals("N") because null)
+If you paste your entity field mapping for is_active and your repository query, I can also tell you the most probable exact fix in one shot (it’s usually a @Column(name="is_active") + correct data type or the query not selecting that column for children).
