@@ -1,77 +1,58 @@
-You can ask Copilot in a way that forces it to do root-cause analysis + exact code diff, not just generic advice. Below are copy-paste prompts you can use (pick one). I’m writing them assuming Spring Boot + JPA/Hibernate and your column is is_active in DB.
-Prompt (best) — “Debug why DB has N but API gets null”
-Paste this first, then paste your code + entity + DTO mapping + repository query.
+Here’s a ready-to-paste Copilot prompt that matches exactly what you described (full module, API request/response, and the bug around inactive flag = 'N' still showing virtual floors).
+Copy this prompt into Copilot, then paste your request/response + code after it.
 Copy code
 Text
-Act as a senior Spring Boot + JPA/Hibernate engineer.
+Act as a senior Java Spring Boot + JPA/Hibernate engineer and debug my code end-to-end.
+
+Context:
+We have an API: POST /getSiteDetails
+The response contains a “hierarchyType” section which holds the full sub-location hierarchy (Base Location -> Floors -> Rooms -> Cages -> etc).
+We introduced “virtual floors”. Virtual floors must stay in DB, but they must NOT be returned in the API response.
+Virtual floors are identified by inactive flag = 'N' (in DB column like is_active / inactive_flag). Normal sub-locations usually have NULL in this field. Base location is 'Y'.
 
 Problem:
-We have a location hierarchy table (base -> floor -> room...). We introduced “virtual floors”. Virtual floors must stay in DB but must NOT appear in GetSiteDetails API response.
-Virtual floors are identified by is_active = 'N'. Base location rows have is_active='Y'. Other sub-locations usually have is_active NULL.
+Even after adding a check to exclude virtual floors, they are still coming in the response.
+In SiteLocationSiteController.java (or similar controller/service), we added logic like:
+“If inactive flag == 'N', skip that floor”
+But during runtime, the inactive flag value is always coming as NULL in Java (even though DB has 'N'), so the condition never triggers and virtual floors appear in the hierarchyType response.
 
-Issue:
-Even though DB has is_active='N' for virtual floors, in the API response and in Java objects the isActive flag always comes as NULL, so our filter (if isActive == 'N' then skip) never triggers and virtual floors still appear.
-
-Implementation details:
-- We query only the base location row from DB.
-- Because of JPA one-to-many relationship (subLocations collection), Hibernate automatically pulls all children too.
-- After fetching, we loop through children and filter out where isActive == 'N', but we always see null.
+What I will provide:
+1) POST /getSiteDetails request JSON
+2) POST /getSiteDetails response JSON (showing virtual floors still present)
+3) Full relevant module code (controller, service, repository, entity mappings, DTOs/mappers)
 
 Your tasks:
-1) Inspect the code I paste and identify the exact reason why is_active='N' in DB becomes null in the entity/response.
-2) Provide the precise code changes (diff-style) to fix it.
-3) Ensure virtual floors are excluded but normal floors/rooms with NULL is_active still appear.
-4) Mention if @Column mapping, getter/setter, Lombok, JSON mapping, DTO conversion, fetch type, or custom query/projection is causing the null.
-5) Provide a safe approach: filtering at query level OR at serialization level, and recommend which is best.
+1) Trace the data flow from DB -> JPA entity -> DTO mapping -> response JSON and identify exactly where the inactive flag value is becoming NULL.
+2) Point out the precise file + class + method + line(s) that need change.
+3) Provide the exact code changes (diff-style) to fix it so that:
+   - Floors with inactive flag = 'N' are excluded from response
+   - Sub-locations with inactive flag NULL should still be included (do NOT hide them)
+   - Base location must still be returned only when active (Y or not N, based on current logic)
+4) If this should be fixed at query level, show the correct JPQL/native query or Hibernate annotation approach (e.g., JOIN FETCH with condition, @Where on child collection, entity graph, DTO projection) and recommend the best option.
+5) Ensure the fix does NOT break existing hierarchy loading (one-to-many pcSiteCodeInfoId relationship) and does not cause N+1 issues.
 
-Here is the code (Entity + Repository + Service + Mapper/DTO + Controller). Please analyze carefully:
+Start by checking:
+- Entity @Column mapping for inactive flag (column name mismatch like is_active vs isActive vs inactive_flag)
+- Field type mismatch (char/varchar mapped to Boolean/boolean)
+- DTO/Mapper not mapping the flag or overwriting it to null
+- Repository query/projection not selecting the column for children
+- JSON serialization annotations hiding/changing the field
+
+Now analyze the code I paste below and tell me the exact fix.
+<PASTE REQUEST JSON>
+<PASTE RESPONSE JSON>
 <PASTE CODE HERE>
-Prompt (short) — “Give me the minimal fix”
+Tips for what to paste (so Copilot answers correctly)
+Paste in this order:
+Entity for psc_site_code_info (especially the inactive flag field + @Column)
+Relationship mapping (@OneToMany, @ManyToOne, join columns, pcSiteCodeInfoId mapping)
+Repository method used by getSiteDetails
+Service logic where you filter “inactive flag == 'N'”
+DTO + mapper (MapStruct/manual) and final response builder
+Controller method (where you said you changed one line)
+One extra line you can add (to force better answer)
+Add this near the top of the prompt if you want:
 Copy code
 Text
-Read my Spring Boot/JPA code below. DB has is_active='N' for virtual floors, but in Java entity it is always null. Find the bug and give me the exact fix. Also ensure only virtual floors are hidden; other children with null is_active should remain.
-
-<PASTE ENTITY + MAPPING + REPO QUERY + DTO MAPPER HERE>
-Prompt (query-level fix) — “Exclude virtual floors in JPA fetch”
-If you want Copilot to propose a query-only fix (best long term), use this:
-Copy code
-Text
-I want to exclude “virtual floors” (is_active='N') from the hierarchy returned in GetSiteDetails, but keep them in DB.
-
-We load base location entity and its children via @OneToMany. Suggest the best JPA/Hibernate approach to avoid bringing virtual floors at all:
-- Option A: modify repository query using JOIN FETCH with condition
-- Option B: @Where clause on child collection
-- Option C: entity graph + custom query
-- Option D: DTO projection query
-
-Give final code for the best option + explain why.
-Constraints:
-- Only virtual floors are N. Other sub-locations have is_active NULL and must still be returned.
-- Base location must be is_active='Y'.
-<PASTE ENTITY/REPO HERE>
-What to paste along with the prompt (important)
-To get a correct fix, paste these pieces (in this order):
-Entity for psc_site_code_info (show the field mapping for isActive / is_active)
-The @OneToMany / @ManyToOne mapping (where children are loaded)
-Repository method used by GetSiteDetails (JPQL/native query)
-Service logic: loop/filter logic that checks isActive == 'N'
-DTO + mapper code (MapStruct/manual) and JSON annotations if any
-Likely root causes (so you know what Copilot should look for)
-Based on your description, the common reasons DB value 'N' becomes null in Java are:
-Wrong @Column name: entity maps isActive to isActiveFlag but DB is is_active (or vice versa)
-Field type mismatch: DB char(1) but entity is Boolean / boolean (so 'N' doesn’t map and becomes null)
-Setter/getter issue / Lombok: custom getter returns something else or no setter so Hibernate can’t populate
-DTO mapping overwriting it to null (mapper not mapping isActive, or setting null deliberately)
-Jackson annotation like @JsonInclude(NON_NULL) only hides it in JSON (but you said it’s null even in loop, so earlier)
-Children are loaded via different query/projection that doesn’t include is_active column, so Hibernate sets it null
-insertable=false, updatable=false on the column without the real column mapped elsewhere (rare but happens)
-One more very practical tip
-Tell Copilot exactly what you want filter logic to be:
-✅ You want to hide only virtual floors:
-Skip when isActive == 'N'
-Keep when isActive is NULL (normal floors/rooms)
-Base must be isActive == 'Y'
-So your check should be like:
-if ("N".equalsIgnoreCase(child.getIsActive())) skip;
-(not child.getIsActive().equals("N") because null)
-If you paste your entity field mapping for is_active and your repository query, I can also tell you the most probable exact fix in one shot (it’s usually a @Column(name="is_active") + correct data type or the query not selecting that column for children).
+IMPORTANT: I want you to return the fix as a git-style patch or “before/after” code blocks, not just explanation.
+If you paste the code after using this prompt, and Copilot still gives a vague answer, tell me what it replied—I’ll rewrite the prompt to force it to produce file-level exact diffs.
