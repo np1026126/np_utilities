@@ -27,7 +27,7 @@ Are there known limitations or trade-offs when using Remote Panels in this scena
 From an application and reporting perspective:
 Today, panel differentiation is achieved via Floor PDU (RPP) association, especially in exports and UI.
 Is this the recommended approach, or is Sunbird planning/envisioning an enhancement where:
-Panels can have unique names
+Panels can have unique name
 Mirroring is driven by an identifier other than panel name?
 Roadmap / Enhancement Consideration
 Is there any planned or proposed enhancement in DCTrack to support:
