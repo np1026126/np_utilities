@@ -1,58 +1,35 @@
-Here’s a ready-to-paste Copilot prompt that matches exactly what you described (full module, API request/response, and the bug around inactive flag = 'N' still showing virtual floors).
-Copy this prompt into Copilot, then paste your request/response + code after it.
-Copy code
-Text
-Act as a senior Java Spring Boot + JPA/Hibernate engineer and debug my code end-to-end.
-
-Context:
-We have an API: POST /getSiteDetails
-The response contains a “hierarchyType” section which holds the full sub-location hierarchy (Base Location -> Floors -> Rooms -> Cages -> etc).
-We introduced “virtual floors”. Virtual floors must stay in DB, but they must NOT be returned in the API response.
-Virtual floors are identified by inactive flag = 'N' (in DB column like is_active / inactive_flag). Normal sub-locations usually have NULL in this field. Base location is 'Y'.
-
-Problem:
-Even after adding a check to exclude virtual floors, they are still coming in the response.
-In SiteLocationSiteController.java (or similar controller/service), we added logic like:
-“If inactive flag == 'N', skip that floor”
-But during runtime, the inactive flag value is always coming as NULL in Java (even though DB has 'N'), so the condition never triggers and virtual floors appear in the hierarchyType response.
-
-What I will provide:
-1) POST /getSiteDetails request JSON
-2) POST /getSiteDetails response JSON (showing virtual floors still present)
-3) Full relevant module code (controller, service, repository, entity mappings, DTOs/mappers)
-
-Your tasks:
-1) Trace the data flow from DB -> JPA entity -> DTO mapping -> response JSON and identify exactly where the inactive flag value is becoming NULL.
-2) Point out the precise file + class + method + line(s) that need change.
-3) Provide the exact code changes (diff-style) to fix it so that:
-   - Floors with inactive flag = 'N' are excluded from response
-   - Sub-locations with inactive flag NULL should still be included (do NOT hide them)
-   - Base location must still be returned only when active (Y or not N, based on current logic)
-4) If this should be fixed at query level, show the correct JPQL/native query or Hibernate annotation approach (e.g., JOIN FETCH with condition, @Where on child collection, entity graph, DTO projection) and recommend the best option.
-5) Ensure the fix does NOT break existing hierarchy loading (one-to-many pcSiteCodeInfoId relationship) and does not cause N+1 issues.
-
-Start by checking:
-- Entity @Column mapping for inactive flag (column name mismatch like is_active vs isActive vs inactive_flag)
-- Field type mismatch (char/varchar mapped to Boolean/boolean)
-- DTO/Mapper not mapping the flag or overwriting it to null
-- Repository query/projection not selecting the column for children
-- JSON serialization annotations hiding/changing the field
-
-Now analyze the code I paste below and tell me the exact fix.
-<PASTE REQUEST JSON>
-<PASTE RESPONSE JSON>
-<PASTE CODE HERE>
-Tips for what to paste (so Copilot answers correctly)
-Paste in this order:
-Entity for psc_site_code_info (especially the inactive flag field + @Column)
-Relationship mapping (@OneToMany, @ManyToOne, join columns, pcSiteCodeInfoId mapping)
-Repository method used by getSiteDetails
-Service logic where you filter “inactive flag == 'N'”
-DTO + mapper (MapStruct/manual) and final response builder
-Controller method (where you said you changed one line)
-One extra line you can add (to force better answer)
-Add this near the top of the prompt if you want:
-Copy code
-Text
-IMPORTANT: I want you to return the fix as a git-style patch or “before/after” code blocks, not just explanation.
-If you paste the code after using this prompt, and Copilot still gives a vague answer, tell me what it replied—I’ll rewrite the prompt to force it to produce file-level exact diffs.
+We need clarification on a design limitation we are encountering during the NEC site migration, specifically around Power Panel naming, mirroring, and one-line diagram behavior in DCTrack.
+Background
+In our migration model, RPPs are treated as Floor PDUs.
+RPPA and RPPB are configured as a redundant pair.
+Power Panels created under RPPs are modeled as Local Power Panels, following the guidance used in previous MSC migrations.
+As per DCTrack documentation and current behavior, Local Power Panels must have identical names across redundant Floor PDUs for mirroring to work.
+Current Challenge
+Users expect:
+Panels under different RPPs to have distinct panel names (for readability and differentiation), while still supporting mirroring between RPPA and RPPB.
+However:
+When panels are created as Local Power Panels, DCTrack enforces identical naming for mirroring.
+Creating panels as Remote Power Panels allows different names, but:
+This does not align with the expected one-line diagram representation
+It diverges from how RPP-based panels are modeled in our current design and prior migrations
+Questions for Clarification
+Is it possible in DCTrack to enable panel mirroring when panel names are different?
+Specifically for panels under redundant Floor PDUs (RPPs)?
+If yes, is this supported via configuration, metadata, or a different relationship type?
+Is the identical naming requirement strictly enforced only for Local Power Panels?
+Or is there an alternative modeling approach that still preserves:
+Mirroring behavior
+Correct redundancy
+One-line diagram consistency
+If Remote Power Panels are used instead:
+Is there a recommended way to represent them so the one-line diagram remains functionally and visually correct?
+Are there known limitations or trade-offs when using Remote Panels in this scenario?
+From an application and reporting perspective:
+Today, panel differentiation is achieved via Floor PDU (RPP) association, especially in exports and UI.
+Is this the recommended approach, or is Sunbird planning/envisioning an enhancement where:
+Panels can have unique names
+Mirroring is driven by an identifier other than panel name?
+Roadmap / Enhancement Consideration
+Is there any planned or proposed enhancement in DCTrack to support:
+Different panel names
+While still allowing mirroring under redundant Floor PDUs?
