@@ -1,45 +1,77 @@
-Got it 👍
-Below is a single, clean, professional mail you can send to users. It:
-Clearly reflects Sunbird’s final recommendation (Remote Panels + mirroring works)
-Explains the breaker assignment impact from IFP (Panel A / Panel B mapping)
-Asks for explicit confirmation
-Politely reminds them about the other open questions, respecting their time
-Mentions that work is currently in PLE
-Email
-Subject
-Confirmation Needed: Remote Power Panel Approach & Breaker Mapping for NEC Migration
-Hi Team,
-Following up on the discussion and the ticket raised with Sunbird, we have received clarification from their architects and wanted to align with you on the next steps.
-Sunbird’s Recommendation
-Instead of Local Power Panels, Sunbird recommends using Remote Power Panels under the RPPs.
-With Remote Power Panels:
-Panels can have different / unique names
-Mirroring is still supported
-There is no functional change in behavior
-The only difference is in the one-line diagram, where Remote Panels will appear slightly below / outside the RPP (Floor PDU) boundary. Sunbird confirmed this is a visual placement difference only.
-Impact on Breaker Assignment (IFP → DCPAC)
-One important point we want to confirm with you:
-In IFP, breaker assignments currently reference panels generically as Panel A / Panel B
-If we proceed with Remote Panels using the user-provided panel names:
-We will need to map IFP Panel A / Panel B to the corresponding named panels
-This mapping will need to be consistently maintained for:
-Initial migration
-Any future updates or changes
-Please confirm if this approach is acceptable from your side.
-Confirmation Requested
-Could you please confirm if we can proceed with:
-Using Remote Power Panels under RPPs
-Retaining user-provided panel names
-Accepting the minor one-line diagram placement difference
-Mapping IFP Panel A / Panel B to the corresponding named panels for breaker assignments and future updates
-Once confirmed, we’ll proceed accordingly.
-Other Open Items
-We had also shared a few additional questions earlier (six in total). We understand you may be tied up with other priorities, but whenever you get time, your inputs on the remaining points would really help us move forward smoothly.
-If the required data or clarification is available, it will allow us to address those items in parallel.
-For now, the work is progressing in PLE, and your confirmation on the above will help us plan the next steps for the migration.
-Thanks,
-Naveen
-If you want:
-A shorter executive version
-Or a separate follow-up mail only for the pending questions
-tell me and I’ll draft it.
+Got it. You’re 100% right to push back on this, and your reasoning is technically, contractually, and operationally sound. Let me help you frame this clearly—both in logic and in words you can send back to Sunbird.
+Core reality (very important)
+This is NOT an application feature
+This is NOT a customer customization
+This is NOT an API misuse
+👉 This is a vendor-introduced schema change in DC Track.
+Sunbird:
+Introduced a new standard field: Float Voltage
+Renamed an existing customer-used custom field to PICustomField-19
+Did not migrate existing data automatically
+Broke downstream consumers (your APIs & calculations)
+That makes this a product migration responsibility, not a customer task.
+Why this is NOT your responsibility (clear bullets)
+1. Vendor changed the data model
+You did not rename the field
+You did not introduce the conflict
+You did not deprecate the custom field
+➡️ Sunbird did.
+Any data migration caused by vendor schema evolution must be handled by the vendor.
+2. Asking customers to write schedules is unacceptable
+What they’re asking you to do:
+Write a scheduler
+Read deprecated custom fields
+Populate new standard fields
+Maintain it across releases
+This is:
+❌ Custom development
+❌ Billable contractor effort
+❌ Reimplementation of core DC Track logic
+A platform upgrade must not require customer-side data repair jobs.
+3. Excel export/import is risky and not enterprise-grade
+Their fallback suggestion is even worse:
+Manual export
+Manual import
+Risk of:
+Partial failures
+Data type mismatches
+Referential integrity issues
+Audit & compliance gaps
+This is not acceptable for production DCIM systems, especially for voltage values used in calculations.
+4. Data already exists → migration is deterministic
+Key point you should emphasize:
+The values already exist in DC Track.
+This is a 1:1 field migration, not a transformation.
+So:
+No business logic required
+No user input required
+No customer validation required
+Which makes this ideal for a vendor-side migration script.
+The strongest position you can take
+Here’s the principle statement you should stand on:
+Any backward-incompatible schema change introduced by Sunbird must include an automated migration of existing customer data as part of the release or patch.
+This is industry standard (Salesforce, ServiceNow, SAP, Oracle — all do this).
+What I would say to Sunbird (you can copy-paste & tweak)
+Firm but professional response
+The introduction of a new standard Float Voltage field and the renaming of our existing custom field was a platform-level change introduced by DC Track.
+Since the data already exists within DC Track and this change originated from the product side, the responsibility to migrate existing values from the deprecated custom field to the new standard field should be handled by Sunbird as part of the release or a patch.
+Asking customers to:
+build custom schedulers, or
+perform manual export/import activities
+introduces operational risk, additional cost, and potential data integrity issues, especially for values actively used in calculations.
+This is a deterministic, one-time migration with no business logic dependency and is best handled within the DC Track platform to ensure consistency across customers.
+We would request Sunbird to provide an automated migration as part of the product upgrade rather than pushing this responsibility to individual customers.
+If they still resist (escalation angle)
+If needed, escalate with this line:
+If this migration is left to customers, it effectively turns a mandatory platform upgrade into a paid customization effort, which is not acceptable for a standard product evolution.
+That sentence usually gets attention.
+Bottom line (for you internally)
+You are not being unreasonable
+You are protecting your project, cost, and risk
+This is a Sunbird product gap, not a Verizon issue
+You should not assign this to contractors
+If you want, I can:
+Rewrite this as a short executive escalation
+Make a one-page risk assessment
+Help you phrase this for a call with Sunbird leadership
+Just tell me 👍
