@@ -1,27 +1,53 @@
-Perfect — this is exactly the right move 👍
-I’ll give you a clean, professional, calm-but-firm version that works both as:
-a Slack ping to the Sunbird employee, and
-a ticket comment (you can reuse most of it verbatim).
-I’ll keep it non-accusatory, aligned with what your manager and ADs are saying, and clearly place ownership on Sunbird without sounding aggressive.
-Polished Slack / Ticket Message (Recommended)
-Hi <Name>,
-I wanted to follow up on the Float Voltage migration discussion and update you based on inputs from my senior management and ADs.
-Since the new standard Float Voltage field was introduced as part of a DC Track product change, and the existing values already reside within DC Track (previously under a custom field), the expectation is that the migration of existing data from the deprecated custom field to the new standard field should be handled by Sunbird as part of the release or a patch.
-This is a deterministic, one-time data migration with no customer-specific business logic involved. Asking customers to build schedulers or perform manual export/import activities introduces operational risk, additional cost, and potential data integrity issues—especially since these values are actively used in calculations.
-From our side, we’d prefer this to be addressed at the platform level to ensure consistency and avoid customer-side workarounds. Could you please check internally if there is an existing or planned mechanism to migrate values from the old custom field into the new standard Float Voltage field?
-Thanks for checking on this, and happy to discuss further if needed.
-If you want a shorter Slack-only version
-(Useful if Slack etiquette prefers brevity)
-Hi <Name>, quick follow-up on Float Voltage migration. Based on inputs from our senior management, since the standard field was introduced by DC Track and the data already exists in the platform, the expectation is that Sunbird handles the migration from the deprecated custom field as part of the release/patch.
-Customer-side schedulers or manual export/imports add risk and cost, especially for values used in calculations. Could you please check if there’s an internal or planned migration for this?
-Why this wording works
-✔ Mentions senior management & ADs (signals escalation without threatening)
-✔ Frames it as a platform responsibility, not blame
-✔ Avoids emotional or contractual language
-✔ Leaves room for Sunbird to respond constructively
-✔ Safe to paste directly into the ticket comments
-If you want, next I can:
-Make this even more executive-level
-Rewrite it as a formal escalation note
-Help you prepare talking points for a call with Sunbird
-Just tell me how hard you want to push 🚀
+Here are two MVP features you can create (clear title + scope + acceptance criteria). I’m splitting them so the first “feature” covers the re-run automation across SIT/UAT/PLE, and the second covers floor-name changes in ELS and sync to DC Track.
+Feature 1: Re-run Site View Script Generation & Execution (SIT/UAT/PLE)
+Goal
+After floor changes are completed, re-generate the Site View migration scripts and execute them in SIT, UAT, and PLE to refresh Site View data consistently.
+Scope / What it includes
+Trigger/option to re-generate scripts for a given site (or list of sites).
+Execute Site View scripts in SIT → UAT → PLE (sequence can be manual or controlled).
+Logging + evidence: execution status, output counts, errors, and timestamps per environment.
+Ability to re-run safely without duplicating/creating conflicts (idempotency or cleanup strategy).
+Out of scope (for MVP, if you want to keep it small)
+Fully automated rollback across environments.
+Full scheduling / Airflow orchestration (unless already existing).
+Auto-detection of “floor changes done” (you can keep it user-triggered).
+Acceptance Criteria
+User can provide Site ID / CLLI / Site code (whatever your key is) and select envs (default all 3).
+System regenerates scripts successfully and stores them with a run identifier.
+System executes scripts in each selected environment and shows:
+SUCCESS / FAILED
+execution start/end time
+error snippet if failed
+summary counts (e.g., floors/rooms/relationships updated)
+Re-running for the same site does not create duplicate site view structures (or it first cleans up previous run data based on a defined strategy).
+Deliverables
+Re-run endpoint/CLI/job with parameters: site key, target envs, “regen only” vs “regen + execute”.
+Run report (table/log) per environment.
+Feature 2: Floor Name Change Support in ELS + Sync to DC Track (Site View Migration)
+Goal
+When floor names are updated in ELS, the updated floor naming must be synced to DC Track so Site View migration remains consistent and accurate.
+Scope / What it includes
+Ability to update floor names in ELS (source of truth) with validation rules.
+Mapping rules to identify the correct floor record (avoid wrong matches).
+Sync mechanism to DC Track:
+Push updated floor name(s)
+Ensure Site View representation reflects the new name
+Auditability:
+Track old name → new name
+Who changed it, when, and status of DC Track sync.
+Key Behaviors
+If a floor name is changed in ELS, DC Track should reflect it without breaking relationships/site view hierarchy.
+Handle collisions (two floors ending up with same name) with a clear error.
+Handle “floor not found in DC Track” with a clear status and remediation note.
+Acceptance Criteria
+Given a floor in ELS, user can change its name (via UI/API/DB update path you already use).
+Sync job/API updates DC Track floor name for the same floor entity.
+After sync:
+DC Track shows the updated name in Site View
+No duplicate floor entities are created in DC Track
+A sync report is generated: UPDATED / SKIPPED / FAILED with reason.
+Deliverables
+ELS floor rename flow (API/service + validation).
+DC Track sync component (API integration) with retry and failure logging.
+Audit log table/record or log output that can be attached to tickets.
+If you want, I can also format these into Jira-ready stories (Summary, Description, AC, Dependencies, Risks) with a crisp MVP definition and a “done” checklist.
