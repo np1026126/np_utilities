@@ -1,23 +1,38 @@
-Got it 👍 You want a clean, professional approval message to send to your manager, clearly stating that this must go to Production (Unity) because the dependent team needs it.
-Here are two polished versions—pick the tone you like.
-✅ Professional & Clear (recommended for email / Jira / Slack)
-Hi [Manager Name],
-I’ve reviewed the changes related to NTSWSF-13136 (UUID floor name feature / DC-Track sync updates) and they look good to proceed.
-These updates are required in Production (Unity) as the downstream teams depend on this functionality for their ongoing work and site view syncs.
-Kindly approve the deployment to Unity at your convenience.
-Thanks,
-Naveen
-✅ Slightly Direct & Time-Sensitive
-Hi [Manager Name],
-I’ve reviewed and approved the changes for NTSWSF-13136.
-This needs to be deployed to Production (Unity) since the dependent teams require these updates for floor/location sync with DC-Track.
-Requesting your approval to proceed with the production deployment.
-Thanks,
-Naveen
-✅ Very Short (Slack-friendly)
-Hi [Manager Name],
-I’ve reviewed and approved NTSWSF-13136. This needs to go to Production (Unity) as dependent teams require these changes. Please approve the prod deployment. Thanks!
-If you want, tell me:
-Is this for email, Jira comment, or Slack?
-Do you want it more assertive (since teams are blocked) or neutral?
-I’ll fine-tune it exactly to match your manager’s style.
+WITH RECURSIVE loc_tree AS (
+    -- Anchor: all base locations (roots)
+    SELECT
+        t.location_uuid,
+        t.parent_loc_uuid,
+        t.location_code,
+        t.element_type,
+        t.location_code::text AS base_code
+    FROM psc_site_code_info t
+    WHERE t.element_type = 'BaseLocation'
+       OR t.parent_loc_uuid IS NULL
+
+    UNION ALL
+
+    -- Children: walk down the hierarchy
+    SELECT
+        c.location_uuid,
+        c.parent_loc_uuid,
+        c.location_code,
+        c.element_type,
+        p.base_code
+    FROM psc_site_code_info c
+    JOIN loc_tree p
+      ON c.parent_loc_uuid = p.location_uuid
+)
+SELECT
+    location_uuid,
+    parent_loc_uuid,
+    location_code,
+    element_type,
+    CASE
+        WHEN element_type = 'BaseLocation'
+             OR parent_loc_uuid IS NULL
+        THEN base_code
+        ELSE base_code || ' > ' || location_code
+    END AS path
+FROM loc_tree
+ORDER BY base_code, path;
