@@ -1,5 +1,4 @@
 WITH RECURSIVE loc_tree AS (
-    -- Roots (Base locations)
     SELECT
         t.location_uuid,
         t.parent_loc_uuid,
@@ -7,12 +6,11 @@ WITH RECURSIVE loc_tree AS (
         t.element_type,
         t.location_code::text AS base_code
     FROM psc_site_code_info t
-    WHERE t.element_type = 'BaseLocation'
+    WHERE t.element_type = 'BaseLocat'
        OR t.parent_loc_uuid IS NULL
 
     UNION ALL
 
-    -- Children: propagate base_code to all descendants
     SELECT
         c.location_uuid,
         c.parent_loc_uuid,
@@ -24,35 +22,14 @@ WITH RECURSIVE loc_tree AS (
       ON c.parent_loc_uuid = p.location_uuid
 )
 SELECT
-    p.id,
-    p.site_code_syny,
-    p.site_code,
-    p.site_code_vzb_6_char,
-    p.site_name,
-    p.site_code_vz_cmpny,
-    p.is_active,
-    p.site_group,
-    p.location_uuid,
-    p.location_code,
-    p.location_code_type,
-    p.element_type,
-    p.parent_loc_uuid,
-    p.dctrack_location_id,
-    p.sensitive_location,
-    p.managing_org,
-    p.psc_workflow,
-
     CASE
-        WHEN p.element_type = 'BaseLocation'
-             OR p.parent_loc_uuid IS NULL
-        THEN lt.base_code
-        ELSE lt.base_code || ' > ' || p.location_code
-    END AS path
-
-FROM psc_site_code_info p
-JOIN loc_tree lt
-  ON lt.location_uuid = p.location_uuid
-
-WHERE p.element_type IN ('BaseLocation', 'Floor')   -- only Base + Floor
-
-ORDER BY lt.base_code, path;
+        WHEN element_type = 'BaseLocat' THEN 'BaseLocat'
+        WHEN lower(element_type) LIKE '%floor%' THEN 'Floor'
+        ELSE 'Other'
+    END AS type_bucket,
+    COUNT(*) AS cnt
+FROM loc_tree
+WHERE element_type = 'BaseLocat'
+   OR lower(element_type) LIKE '%floor%'
+GROUP BY 1
+ORDER BY 1;
