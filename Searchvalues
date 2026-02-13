@@ -1,5 +1,5 @@
 WITH RECURSIVE loc_tree AS (
-    -- Anchor: all base locations (roots)
+    -- Roots (Base locations)
     SELECT
         t.location_uuid,
         t.parent_loc_uuid,
@@ -12,7 +12,7 @@ WITH RECURSIVE loc_tree AS (
 
     UNION ALL
 
-    -- Children: walk down the hierarchy
+    -- Children: propagate base_code to all descendants
     SELECT
         c.location_uuid,
         c.parent_loc_uuid,
@@ -24,15 +24,35 @@ WITH RECURSIVE loc_tree AS (
       ON c.parent_loc_uuid = p.location_uuid
 )
 SELECT
-    location_uuid,
-    parent_loc_uuid,
-    location_code,
-    element_type,
+    p.id,
+    p.site_code_syny,
+    p.site_code,
+    p.site_code_vzb_6_char,
+    p.site_name,
+    p.site_code_vz_cmpny,
+    p.is_active,
+    p.site_group,
+    p.location_uuid,
+    p.location_code,
+    p.location_code_type,
+    p.element_type,
+    p.parent_loc_uuid,
+    p.dctrack_location_id,
+    p.sensitive_location,
+    p.managing_org,
+    p.psc_workflow,
+
     CASE
-        WHEN element_type = 'BaseLocation'
-             OR parent_loc_uuid IS NULL
-        THEN base_code
-        ELSE base_code || ' > ' || location_code
+        WHEN p.element_type = 'BaseLocation'
+             OR p.parent_loc_uuid IS NULL
+        THEN lt.base_code
+        ELSE lt.base_code || ' > ' || p.location_code
     END AS path
-FROM loc_tree
-ORDER BY base_code, path;
+
+FROM psc_site_code_info p
+JOIN loc_tree lt
+  ON lt.location_uuid = p.location_uuid
+
+WHERE p.element_type IN ('BaseLocation', 'Floor')   -- only Base + Floor
+
+ORDER BY lt.base_code, path;
