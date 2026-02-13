@@ -1,103 +1,100 @@
-You can do this safely in Postgres in two parts:
-Take a backup (snapshot) of the table without changing the original
-Export an Excel-friendly file, update dctrack_location_id, then bulk update back into Postgres.
-I’ll give you the exact SQL + the easiest workflow.
-1) Backup the table (no changes to original)
-Option A — Backup table structure + data (fast + simple)
+Here are the shortest / cleanest ways to update one column for many rows in PostgreSQL when you have an Excel file that contains ID + the new value (and maybe a few other columns), but not all DB columns.
+Option 1 (Fastest, simplest): Excel → CSV → COPY into a staging table → UPDATE ... FROM
+This is the standard “bulk update” approach.
+Step A — Save Excel as CSV
+In Excel: File → Save As → CSV (UTF-8)
+Make sure your CSV has headers like:
+id
+new_value  (the column you want to update)
+Example CSV:
+Csv
+Copy code
+id,new_value
+101,ACTIVE
+102,INACTIVE
+Step B — Create a staging table (only the columns you have)
 Sql
 Copy code
-CREATE TABLE psc_site_code_info_bkp_20260213 AS
-SELECT *
-FROM psc_site_code_info;
-✅ This creates a full copy of the current data.
-Option B — Backup including indexes/constraints (more complete)
-Sql
-Copy code
-CREATE TABLE psc_site_code_info_bkp_20260213
-(LIKE psc_site_code_info INCLUDING ALL);
-
-INSERT INTO psc_site_code_info_bkp_20260213
-SELECT * FROM psc_site_code_info;
-✅ This preserves schema details (defaults, constraints, indexes if supported by INCLUDING ALL).
-Best practice: Use a date suffix like _bkp_YYYYMMDD.
-2) Export ID + location_code + dctrack_location_id to Excel
-You want columns like:
-id (or psc_site_code_info_id if that is the PK)
-location_code (your floor name / location)
-dctrack_location_id (to fill/update)
-Query for export (Base + Floor only)
-Sql
-Copy code
-SELECT
-  id,
-  location_code,
-  element_type,
-  parent_loc_uuid,
-  location_uuid,
-  dctrack_location_id
-FROM psc_site_code_info
-WHERE element_type = 'BaseLocat'
-   OR lower(element_type) LIKE '%floor%'
-ORDER BY id;
-In DBeaver:
-Run query → Results grid → Export Data → CSV (or XLSX)
-3) Update dctrack_location_id from Excel back into PostgreSQL (easiest safe way)
-Recommended approach: Stage table + UPDATE JOIN
-This is the cleanest and safest.
-Step A — Create a staging table for the Excel upload
-(Only needs the columns you are updating)
-Sql
-Copy code
-CREATE TABLE psc_site_code_info_dctrack_stage (
-  id BIGINT PRIMARY KEY,
-  dctrack_location_id INT
+CREATE TEMP TABLE stg_update (
+  id bigint,
+  new_value text
 );
-Step B — Load your Excel file into this staging table
-Convert Excel → CSV (recommended), then load:
-If you can use server-side COPY (psql):
+(Use correct types: uuid, int, numeric, etc.)
+Step C — Load CSV into staging table
+If you’re using psql (command line):
 Sql
 Copy code
-COPY psc_site_code_info_dctrack_stage (id, dctrack_location_id)
-FROM '/path/to/file.csv'
+\copy stg_update(id, new_value)
+FROM '/path/updates.csv'
 WITH (FORMAT csv, HEADER true);
-If you are using DBeaver:
-Right click stage table → Import Data → choose CSV → map columns.
-Step C — Update the main table using the staging table
+Step D — Update your real table using join on ID
 Sql
 Copy code
-UPDATE psc_site_code_info p
-SET dctrack_location_id = s.dctrack_location_id
-FROM psc_site_code_info_dctrack_stage s
-WHERE p.id = s.id;
-✅ This updates only matching IDs.
-4) Extra safety checks (before/after update)
-How many rows will be updated?
+UPDATE main_table t
+SET target_column = s.new_value
+FROM stg_update s
+WHERE t.id = s.id;
+✅ This updates only target_column for matched IDs.
+✅ You don’t need other columns at all.
+✅ Very fast for large data.
+Option 2 (No temp table): Excel → CSV → INSERT ... ON CONFLICT DO UPDATE (Upsert)
+Use this if your table’s id is a PRIMARY KEY/UNIQUE and the CSV has exactly the columns you want to insert/update.
 Sql
 Copy code
-SELECT COUNT(*)
-FROM psc_site_code_info p
-JOIN psc_site_code_info_dctrack_stage s ON s.id = p.id;
-Check rows where stage has NULL (avoid wiping values accidentally)
-If you want to update only where stage has a value:
+CREATE TEMP TABLE stg_update (id bigint, new_value text);
+
+\copy stg_update(id, new_value) FROM '/path/updates.csv' WITH (FORMAT csv, HEADER true);
+
+INSERT INTO main_table (id, target_column)
+SELECT id, new_value
+FROM stg_update
+ON CONFLICT (id)
+DO UPDATE SET target_column = EXCLUDED.target_column;
+✅ Useful if some IDs might not exist yet (depends on your need).
+Option 3 (GUI easiest): DBeaver / pgAdmin import into staging table, then run UPDATE
+If you don’t want CLI:
+In DBeaver/pgAdmin: Create staging table with only id + new_value
+Right click staging table → Import Data → select CSV/Excel
+Run:
 Sql
 Copy code
-UPDATE psc_site_code_info p
-SET dctrack_location_id = s.dctrack_location_id
-FROM psc_site_code_info_dctrack_stage s
-WHERE p.id = s.id
-  AND s.dctrack_location_id IS NOT NULL;
-Validate mismatches (IDs in Excel but not in DB)
-Sql
+UPDATE main_table t
+SET target_column = s.new_value
+FROM stg_update s
+WHERE t.id = s.id;
+Option 4 (Python short script): pandas + execute_values + UPDATE FROM (VALUES...)
+This is handy if you already use Python in your workflow.
+Python
 Copy code
-SELECT s.id
-FROM psc_site_code_info_dctrack_stage s
-LEFT JOIN psc_site_code_info p ON p.id = s.id
-WHERE p.id IS NULL;
-Best “easy” workflow summary
-Backup: CREATE TABLE ... AS SELECT * ...
-Export: SELECT id, location_code, dctrack_location_id ... → Export CSV/XLSX
-Update in Excel
-Import into psc_site_code_info_dctrack_stage
-Run UPDATE ... FROM stage ...
-Verify counts
-If you tell me which tool you’ll use to load the Excel back (DBeaver import vs psql COPY), I’ll give the exact step-by-step clicks/commands for that method.
+import pandas as pd
+import psycopg2
+from psycopg2.extras import execute_values
+
+df = pd.read_excel("updates.xlsx")   # columns: id, new_value
+
+conn = psycopg2.connect(
+    host="HOST", dbname="DB", user="USER", password="PWD", port=5432
+)
+cur = conn.cursor()
+
+rows = list(df[["id", "new_value"]].itertuples(index=False, name=None))
+
+sql = """
+UPDATE main_table AS t
+SET target_column = v.new_value
+FROM (VALUES %s) AS v(id, new_value)
+WHERE t.id = v.id
+"""
+execute_values(cur, sql, rows)
+
+conn.commit()
+cur.close()
+conn.close()
+✅ No staging table, but for very large files, COPY is usually faster.
+What I recommend (shortest + safest)
+If you want the most reliable and fastest way:
+✅ Option 1: CSV + staging + UPDATE FROM
+If you tell me these 3 things, I can paste the exact SQL with correct datatypes:
+Your table name
+The ID column type (int, bigint, uuid?)
+The column you want to update + its datatype (text, numeric, timestamp, etc.)
