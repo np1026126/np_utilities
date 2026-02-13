@@ -1,60 +1,103 @@
-WITH RECURSIVE loc_tree AS (
-    -- Anchor: Base locations (roots)
-    SELECT
-        t.location_uuid,
-        t.parent_loc_uuid,
-        t.location_code,
-        t.element_type,
-        t.location_code::text AS base_code
-    FROM psc_site_code_info t
-    WHERE t.element_type = 'BaseLocat'
-       OR t.parent_loc_uuid IS NULL
+You can do this safely in Postgres in two parts:
+Take a backup (snapshot) of the table without changing the original
+Export an Excel-friendly file, update dctrack_location_id, then bulk update back into Postgres.
+I’ll give you the exact SQL + the easiest workflow.
+1) Backup the table (no changes to original)
+Option A — Backup table structure + data (fast + simple)
+Sql
+Copy code
+CREATE TABLE psc_site_code_info_bkp_20260213 AS
+SELECT *
+FROM psc_site_code_info;
+✅ This creates a full copy of the current data.
+Option B — Backup including indexes/constraints (more complete)
+Sql
+Copy code
+CREATE TABLE psc_site_code_info_bkp_20260213
+(LIKE psc_site_code_info INCLUDING ALL);
 
-    UNION ALL
-
-    -- Walk down: propagate base_code to all descendants
-    SELECT
-        c.location_uuid,
-        c.parent_loc_uuid,
-        c.location_code,
-        c.element_type,
-        p.base_code
-    FROM psc_site_code_info c
-    JOIN loc_tree p
-      ON c.parent_loc_uuid = p.location_uuid
-)
+INSERT INTO psc_site_code_info_bkp_20260213
+SELECT * FROM psc_site_code_info;
+✅ This preserves schema details (defaults, constraints, indexes if supported by INCLUDING ALL).
+Best practice: Use a date suffix like _bkp_YYYYMMDD.
+2) Export ID + location_code + dctrack_location_id to Excel
+You want columns like:
+id (or psc_site_code_info_id if that is the PK)
+location_code (your floor name / location)
+dctrack_location_id (to fill/update)
+Query for export (Base + Floor only)
+Sql
+Copy code
 SELECT
-    p.id,
-    p.site_code_syny,
-    p.site_code,
-    p.site_code_vzb_6_char,
-    p.site_name,
-    p.site_code_vz_cmpny,
-    p.is_active,
-    p.site_group,
-    p.location_uuid,
-    p.location_code,
-    p.location_code_type,
-    p.element_type,
-    p.parent_loc_uuid,
-    p.dctrack_location_id,
-    p.sensitive_location,
-    p.managing_org,
-    p.psc_workflow,
-
-    CASE
-        WHEN p.element_type = 'BaseLocat' OR p.parent_loc_uuid IS NULL
-        THEN lt.base_code
-        ELSE lt.base_code || ' > ' || p.location_code
-    END AS path
-
+  id,
+  location_code,
+  element_type,
+  parent_loc_uuid,
+  location_uuid,
+  dctrack_location_id
+FROM psc_site_code_info
+WHERE element_type = 'BaseLocat'
+   OR lower(element_type) LIKE '%floor%'
+ORDER BY id;
+In DBeaver:
+Run query → Results grid → Export Data → CSV (or XLSX)
+3) Update dctrack_location_id from Excel back into PostgreSQL (easiest safe way)
+Recommended approach: Stage table + UPDATE JOIN
+This is the cleanest and safest.
+Step A — Create a staging table for the Excel upload
+(Only needs the columns you are updating)
+Sql
+Copy code
+CREATE TABLE psc_site_code_info_dctrack_stage (
+  id BIGINT PRIMARY KEY,
+  dctrack_location_id INT
+);
+Step B — Load your Excel file into this staging table
+Convert Excel → CSV (recommended), then load:
+If you can use server-side COPY (psql):
+Sql
+Copy code
+COPY psc_site_code_info_dctrack_stage (id, dctrack_location_id)
+FROM '/path/to/file.csv'
+WITH (FORMAT csv, HEADER true);
+If you are using DBeaver:
+Right click stage table → Import Data → choose CSV → map columns.
+Step C — Update the main table using the staging table
+Sql
+Copy code
+UPDATE psc_site_code_info p
+SET dctrack_location_id = s.dctrack_location_id
+FROM psc_site_code_info_dctrack_stage s
+WHERE p.id = s.id;
+✅ This updates only matching IDs.
+4) Extra safety checks (before/after update)
+How many rows will be updated?
+Sql
+Copy code
+SELECT COUNT(*)
 FROM psc_site_code_info p
-JOIN loc_tree lt
-  ON lt.location_uuid = p.location_uuid
-
--- ✅ only Base + Floor in the final output
-WHERE
-    p.element_type = 'BaseLocat'
-    OR lower(p.element_type) LIKE '%floor%'
-
-ORDER BY lt.base_code, path;
+JOIN psc_site_code_info_dctrack_stage s ON s.id = p.id;
+Check rows where stage has NULL (avoid wiping values accidentally)
+If you want to update only where stage has a value:
+Sql
+Copy code
+UPDATE psc_site_code_info p
+SET dctrack_location_id = s.dctrack_location_id
+FROM psc_site_code_info_dctrack_stage s
+WHERE p.id = s.id
+  AND s.dctrack_location_id IS NOT NULL;
+Validate mismatches (IDs in Excel but not in DB)
+Sql
+Copy code
+SELECT s.id
+FROM psc_site_code_info_dctrack_stage s
+LEFT JOIN psc_site_code_info p ON p.id = s.id
+WHERE p.id IS NULL;
+Best “easy” workflow summary
+Backup: CREATE TABLE ... AS SELECT * ...
+Export: SELECT id, location_code, dctrack_location_id ... → Export CSV/XLSX
+Update in Excel
+Import into psc_site_code_info_dctrack_stage
+Run UPDATE ... FROM stage ...
+Verify counts
+If you tell me which tool you’ll use to load the Excel back (DBeaver import vs psql COPY), I’ll give the exact step-by-step clicks/commands for that method.
